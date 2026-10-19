@@ -32,7 +32,7 @@ function formatINR(num: number): string {
 }
 
 const specs: { key: keyof Phone; label: string; compare?: 'lower' | 'higher' }[] = [
-  { key: 'price', label: 'Price', compare: 'lower' },
+  { key: 'price', label: 'Price (incl. exchange)', compare: 'lower' },
   { key: 'display', label: 'Display' },
   { key: 'displaySize', label: 'Screen Size' },
   { key: 'processor', label: 'Processor' },
@@ -94,6 +94,7 @@ const schema = {
       </nav>
       <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{p1.name} vs {p2.name}</h1>
       <p class="text-gray-500 text-lg">Detailed specification comparison between {p1.name} ({formatINR(p1.price)}) and {p2.name} ({formatINR(p2.price)}).</p>
+      <p class="text-xs text-gray-400 mt-2">Prices sourced from 91mobiles.com and may include exchange offers. Actual prices may vary by retailer.</p>
     </div>
 
     <!-- Quick Verdict -->

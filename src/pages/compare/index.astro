@@ -36,7 +36,7 @@ for (const phone of phones) {
       </nav>
       <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Compare Phones</h1>
       <p class="text-gray-500 text-lg">Select brand and model for each phone to compare specs side by side.</p>
-      <p class="text-xs text-gray-400 mt-2">Prices sourced from 91mobiles.com. Actual prices may vary by retailer and offers.</p>
+      <p class="text-xs text-gray-400 mt-2">Prices sourced from 91mobiles.com and may include exchange offers. Actual prices may vary by retailer.</p>
     </div>
 
     <!-- Phone Selectors - Brand then Model -->
@@ -112,7 +112,10 @@ for (const phone of phones) {
                 <p class="text-xs text-gray-400 font-medium">{p.brand}</p>
                 <h3 class="font-semibold text-gray-900">{p.name}</h3>
               </div>
-              <span class="text-blue-600 font-bold">&#8377;{p.price.toLocaleString('en-IN')}</span>
+              <div class="text-right">
+                <span class="text-blue-600 font-bold">&#8377;{p.price.toLocaleString('en-IN')}</span>
+                <p class="text-[10px] text-gray-400">incl. exchange</p>
+              </div>
             </div>
             <div class="grid grid-cols-2 gap-x-4 gap-y-1 mt-3 text-xs text-gray-500">
               {p.processor && <p><span class="text-gray-400">CPU:</span> {p.processor}</p>}
@@ -213,7 +216,7 @@ for (const phone of phones) {
     function formatINR(num) { return '₹' + num.toLocaleString('en-IN'); }
 
     const specs = [
-      { key: 'price', label: 'Price', format: v => formatINR(v), compare: 'lower' },
+      { key: 'price', label: 'Price (incl. exchange)', format: v => formatINR(v), compare: 'lower' },
       { key: 'display', label: 'Display', format: v => v },
       { key: 'displaySize', label: 'Screen Size', format: v => v },
       { key: 'processor', label: 'Processor', format: v => v },
