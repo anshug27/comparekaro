@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import AdUnit from '../../components/AdUnit.astro';
-import { phones } from '../../data/phones';
+import { phones, brands } from '../../data/phones';
 import comparisons from '../../data/comparisons.json';
 
 const schema = {
@@ -13,11 +13,18 @@ const schema = {
   operatingSystem: 'Any',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
 };
+
+// Group phones by brand for the listing section
+const phonesByBrand: Record<string, typeof phones> = {};
+for (const phone of phones) {
+  if (!phonesByBrand[phone.brand]) phonesByBrand[phone.brand] = [];
+  phonesByBrand[phone.brand].push(phone);
+}
 ---
 
 <Layout
   title="Compare Phones Side by Side - Specs, Price & Features"
-  description="Compare phones side by side. iPhone vs Samsung vs OnePlus vs Pixel - specs, price, camera, battery, performance. Find the best phone for your budget."
+  description="Compare phones side by side. Samsung vs Apple vs OnePlus vs Xiaomi vs Motorola - specs, price, camera, battery. Select brand, then model."
   schema={schema}
 >
   <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -28,27 +35,96 @@ const schema = {
         <span class="text-gray-900">Compare Phones</span>
       </nav>
       <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Compare Phones</h1>
-      <p class="text-gray-500 text-lg">Select two phones to compare specs, price, and features side by side.</p>
+      <p class="text-gray-500 text-lg">Select brand and model for each phone to compare specs side by side.</p>
     </div>
 
-    <!-- Phone Selectors -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-      <div>
-        <label for="phone1" class="block text-sm font-medium text-gray-700 mb-2">Phone 1</label>
-        <select id="phone1" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:ring-2 focus:ring-blue-500">
-          {phones.map((p, i) => <option value={p.id} selected={i === 0}>{p.name} - &#8377;{p.price.toLocaleString('en-IN')}</option>)}
-        </select>
+    <!-- Phone Selectors - Brand then Model -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+      <!-- Phone 1 -->
+      <div class="bg-white rounded-xl border border-gray-200 p-5">
+        <h3 class="font-semibold text-gray-900 mb-3 text-blue-600">Phone 1</h3>
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-medium text-gray-500 mb-1">Brand</label>
+            <select id="brand1" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+              <option value="">Select Brand</option>
+              {brands.map(b => <option value={b}>{b}</option>)}
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-500 mb-1">Model</label>
+            <select id="phone1" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+              <option value="">Select Model</option>
+              {phones.map(p => <option value={p.id} data-brand={p.brand}>{p.name} - &#8377;{p.price.toLocaleString('en-IN')}</option>)}
+            </select>
+          </div>
+        </div>
       </div>
-      <div>
-        <label for="phone2" class="block text-sm font-medium text-gray-700 mb-2">Phone 2</label>
-        <select id="phone2" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:ring-2 focus:ring-blue-500">
-          {phones.map((p, i) => <option value={p.id} selected={i === 2}>{p.name} - &#8377;{p.price.toLocaleString('en-IN')}</option>)}
-        </select>
+      <!-- Phone 2 -->
+      <div class="bg-white rounded-xl border border-gray-200 p-5">
+        <h3 class="font-semibold text-gray-900 mb-3 text-green-600">Phone 2</h3>
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-medium text-gray-500 mb-1">Brand</label>
+            <select id="brand2" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+              <option value="">Select Brand</option>
+              {brands.map(b => <option value={b}>{b}</option>)}
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-500 mb-1">Model</label>
+            <select id="phone2" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+              <option value="">Select Model</option>
+              {phones.map(p => <option value={p.id} data-brand={p.brand}>{p.name} - &#8377;{p.price.toLocaleString('en-IN')}</option>)}
+            </select>
+          </div>
+        </div>
       </div>
     </div>
+
+    <button id="compareBtn" class="w-full sm:w-auto px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors mb-8">
+      Compare Now
+    </button>
 
     <!-- Comparison Table -->
-    <div id="comparison" class="bg-white rounded-xl border border-gray-200 overflow-hidden"></div>
+    <div id="comparison" class="bg-white rounded-xl border border-gray-200 overflow-hidden hidden"></div>
+
+    <AdUnit />
+
+    <!-- Browse by Brand -->
+    <div class="mt-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Browse by Brand</h2>
+      <div class="flex flex-wrap gap-2 mb-6">
+        <button class="brand-tab px-4 py-2 rounded-full text-sm font-medium bg-blue-600 text-white" data-brand="all">All ({phones.length})</button>
+        {brands.map(b => (
+          <button class="brand-tab px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200" data-brand={b}>
+            {b} ({phonesByBrand[b].length})
+          </button>
+        ))}
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="phoneGrid">
+        {phones.sort((a, b) => a.price - b.price).map(p => (
+          <div class="phone-card bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow" data-brand={p.brand}>
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <p class="text-xs text-gray-400 font-medium">{p.brand}</p>
+                <h3 class="font-semibold text-gray-900">{p.name}</h3>
+              </div>
+              <span class="text-blue-600 font-bold">&#8377;{p.price.toLocaleString('en-IN')}</span>
+            </div>
+            <div class="grid grid-cols-2 gap-x-4 gap-y-1 mt-3 text-xs text-gray-500">
+              {p.processor && <p><span class="text-gray-400">CPU:</span> {p.processor}</p>}
+              {p.ram && <p><span class="text-gray-400">RAM:</span> {p.ram}</p>}
+              {p.mainCamera && <p><span class="text-gray-400">Camera:</span> {p.mainCamera}</p>}
+              {p.battery && <p><span class="text-gray-400">Battery:</span> {p.battery}</p>}
+              {p.display && <p><span class="text-gray-400">Display:</span> {p.displaySize}</p>}
+              {p.has5G && <span class="inline-block px-1.5 py-0.5 bg-green-100 text-green-700 rounded text-xs">5G</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
 
     <AdUnit />
 
@@ -56,7 +132,7 @@ const schema = {
     <div class="mt-12">
       <h2 class="text-2xl font-bold text-gray-900 mb-6">Popular Comparisons</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {comparisons.slice(0, 12).map(c => {
+        {comparisons.slice(0, 15).map(c => {
           const cp1 = phones.find(p => p.id === c.phone1Id);
           const cp2 = phones.find(p => p.id === c.phone2Id);
           if (!cp1 || !cp2) return null;
@@ -74,22 +150,66 @@ const schema = {
 
     <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
       <h2>How to Choose the Right Phone</h2>
-      <p>Selecting the right smartphone depends on your priorities. Use the comparison tool above to compare any two phones side by side, or browse the popular comparisons below.</p>
+      <p>Select a brand above to browse models, or use the comparison tool to compare any two phones side by side.</p>
       <ul>
-        <li><strong>Camera:</strong> Look for phones with higher MP count, multiple lenses, and OIS for better photos.</li>
-        <li><strong>Performance:</strong> Flagship processors like Snapdragon 8 series or Apple A-series deliver the best performance.</li>
-        <li><strong>Battery:</strong> 5000+ mAh batteries with fast charging (65W+) give you all-day usage with quick top-ups.</li>
-        <li><strong>Display:</strong> AMOLED/OLED screens with 120Hz refresh rate offer the best viewing experience.</li>
-        <li><strong>Value:</strong> Sort by price and compare specs to find the best phone for your budget.</li>
+        <li><strong>Camera:</strong> Higher MP count, multiple lenses, and OIS for better photos.</li>
+        <li><strong>Performance:</strong> Snapdragon 8 series or Apple A-series for flagship performance.</li>
+        <li><strong>Battery:</strong> 5000+ mAh with fast charging (65W+) for all-day usage.</li>
+        <li><strong>Display:</strong> AMOLED/OLED with 120Hz for the best viewing experience.</li>
+        <li><strong>Value:</strong> Compare specs at similar prices to find the best deal.</li>
       </ul>
-      <p><em>Phone data is automatically updated from public sources. Prices may vary by retailer and configuration.</em></p>
+      <p><em>Phone data auto-updated from 91mobiles. Prices may vary by retailer.</em></p>
     </div>
   </section>
 
   <script define:vars={{ phones }}>
-    function formatINR(num) {
-      return '₹' + num.toLocaleString('en-IN');
+    // Brand filter for model dropdowns
+    function filterModels(brandSelect, modelSelect) {
+      const brand = brandSelect.value;
+      const options = modelSelect.querySelectorAll('option[data-brand]');
+      options.forEach(opt => {
+        opt.style.display = (!brand || opt.dataset.brand === brand) ? '' : 'none';
+      });
     }
+
+    document.getElementById('brand1').addEventListener('change', function() {
+      filterModels(this, document.getElementById('phone1'));
+      document.getElementById('phone1').value = '';
+    });
+    document.getElementById('brand2').addEventListener('change', function() {
+      filterModels(this, document.getElementById('phone2'));
+      document.getElementById('phone2').value = '';
+    });
+
+    // Also auto-set brand when model is picked directly
+    document.getElementById('phone1').addEventListener('change', function() {
+      const opt = this.selectedOptions[0];
+      if (opt && opt.dataset.brand) document.getElementById('brand1').value = opt.dataset.brand;
+    });
+    document.getElementById('phone2').addEventListener('change', function() {
+      const opt = this.selectedOptions[0];
+      if (opt && opt.dataset.brand) document.getElementById('brand2').value = opt.dataset.brand;
+    });
+
+    // Brand tabs for phone grid
+    document.querySelectorAll('.brand-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.brand-tab').forEach(t => {
+          t.classList.remove('bg-blue-600', 'text-white');
+          t.classList.add('bg-gray-100', 'text-gray-700');
+        });
+        tab.classList.add('bg-blue-600', 'text-white');
+        tab.classList.remove('bg-gray-100', 'text-gray-700');
+
+        const brand = tab.dataset.brand;
+        document.querySelectorAll('.phone-card').forEach(card => {
+          card.style.display = (brand === 'all' || card.dataset.brand === brand) ? '' : 'none';
+        });
+      });
+    });
+
+    // Comparison
+    function formatINR(num) { return '₹' + num.toLocaleString('en-IN'); }
 
     const specs = [
       { key: 'price', label: 'Price', format: v => formatINR(v), compare: 'lower' },
@@ -105,15 +225,16 @@ const schema = {
       { key: 'os', label: 'Operating System', format: v => v },
       { key: 'has5G', label: '5G Support', format: v => v ? 'Yes' : 'No' },
       { key: 'weight', label: 'Weight', format: v => v },
-      { key: 'rating', label: 'Rating', format: v => v + ' / 5', compare: 'higher' },
     ];
 
-    function render() {
+    document.getElementById('compareBtn').addEventListener('click', () => {
       const p1 = phones.find(p => p.id === document.getElementById('phone1').value);
       const p2 = phones.find(p => p.id === document.getElementById('phone2').value);
-      if (!p1 || !p2) return;
+      if (!p1 || !p2) { alert('Please select both phones'); return; }
 
       const container = document.getElementById('comparison');
+      container.classList.remove('hidden');
+
       let html = `
         <div class="grid grid-cols-3 bg-gray-50 border-b border-gray-200">
           <div class="p-4 font-semibold text-gray-600 text-sm">Specification</div>
@@ -125,32 +246,27 @@ const schema = {
       specs.forEach(spec => {
         const v1 = p1[spec.key];
         const v2 = p2[spec.key];
-
-        let class1 = '', class2 = '';
+        let c1 = '', c2 = '';
         if (spec.compare && typeof v1 === 'number' && typeof v2 === 'number') {
           if (spec.compare === 'lower') {
-            if (v1 < v2) class1 = 'text-green-600 font-semibold';
-            else if (v2 < v1) class2 = 'text-green-600 font-semibold';
+            if (v1 < v2) c1 = 'text-green-600 font-semibold';
+            else if (v2 < v1) c2 = 'text-green-600 font-semibold';
           } else {
-            if (v1 > v2) class1 = 'text-green-600 font-semibold';
-            else if (v2 > v1) class2 = 'text-green-600 font-semibold';
+            if (v1 > v2) c1 = 'text-green-600 font-semibold';
+            else if (v2 > v1) c2 = 'text-green-600 font-semibold';
           }
         }
-
         html += `
           <div class="grid grid-cols-3 border-b border-gray-100 hover:bg-gray-50">
             <div class="p-4 text-sm font-medium text-gray-600">${spec.label}</div>
-            <div class="p-4 text-sm text-center ${class1}">${spec.format(v1)}</div>
-            <div class="p-4 text-sm text-center ${class2}">${spec.format(v2)}</div>
+            <div class="p-4 text-sm text-center ${c1}">${spec.format(v1)}</div>
+            <div class="p-4 text-sm text-center ${c2}">${spec.format(v2)}</div>
           </div>
         `;
       });
 
       container.innerHTML = html;
-    }
-
-    document.getElementById('phone1').addEventListener('change', render);
-    document.getElementById('phone2').addEventListener('change', render);
-    render();
+      container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   </script>
 </Layout>

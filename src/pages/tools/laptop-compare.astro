@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import AdUnit from '../../components/AdUnit.astro';
-import { laptops } from '../../data/laptops';
+import { laptops, laptopBrands, categories } from '../../data/laptops';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -15,12 +15,27 @@ const schema = {
 
 const laptopList = laptops.filter(l => l.type === 'Laptop');
 const tabletList = laptops.filter(l => l.type === 'Tablet');
-const brands = [...new Set(laptops.map(l => l.brand))];
+
+// Group by brand
+const laptopsByBrand: Record<string, typeof laptops> = {};
+for (const l of laptopList) {
+  if (!laptopsByBrand[l.brand]) laptopsByBrand[l.brand] = [];
+  laptopsByBrand[l.brand].push(l);
+}
+
+const categoryLabels: Record<string, string> = {
+  budget: 'Budget',
+  midrange: 'Mid-Range',
+  premium: 'Premium',
+  gaming: 'Gaming',
+  ultrabook: 'Ultrabook',
+  tablet: 'Tablet',
+};
 ---
 
 <Layout
-  title="Laptop & Tablet Comparison India - MacBook vs Dell vs HP vs Lenovo"
-  description="Compare laptops and tablets side by side. MacBook Air, Dell XPS, HP Pavilion, Lenovo IdeaPad, iPad, Samsung Tab - specs, price, performance compared."
+  title="Laptop & Tablet Comparison India - MacBook vs Dell vs HP vs Lenovo vs ASUS"
+  description="Compare 30+ laptops and tablets side by side. Browse by brand, get configuration suggestions based on budget and use-case. MacBook, Dell, HP, Lenovo, ASUS, Acer, MSI."
   schema={schema}
 >
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -33,101 +48,193 @@ const brands = [...new Set(laptops.map(l => l.brand))];
         <span class="text-gray-900">Laptop & Tablet Comparison</span>
       </nav>
       <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Laptop & Tablet Comparison</h1>
-      <p class="text-gray-500 text-lg">Select two devices to compare specs, price, and performance side by side.</p>
+      <p class="text-gray-500 text-lg">Browse by brand, compare side by side, or get a recommendation based on your budget and needs.</p>
     </div>
 
-    <!-- Device Selectors -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-      <div>
-        <label for="device1" class="block text-sm font-medium text-gray-700 mb-2">Device 1</label>
-        <select id="device1" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base">
-          {laptops.map((l, i) => <option value={l.id} selected={i === 0}>{l.name} - ₹{l.price.toLocaleString('en-IN')} ({l.type})</option>)}
-        </select>
+    <!-- Configuration Suggester -->
+    <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200 p-6 mb-10">
+      <h2 class="text-xl font-bold text-gray-900 mb-4">Find Your Perfect Laptop</h2>
+      <p class="text-sm text-gray-500 mb-5">Tell us your budget and use-case, and we'll recommend the best options.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+        <div>
+          <label class="block text-xs font-medium text-gray-600 mb-1">Budget (₹)</label>
+          <select id="sugBudget" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm">
+            <option value="40000">Under ₹40,000</option>
+            <option value="60000">Under ₹60,000</option>
+            <option value="80000" selected>Under ₹80,000</option>
+            <option value="100000">Under ₹1,00,000</option>
+            <option value="150000">Under ₹1,50,000</option>
+            <option value="999999">No limit</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-600 mb-1">Use Case</label>
+          <select id="sugUse" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm">
+            <option value="student">Student / Basic Use</option>
+            <option value="office">Office / Productivity</option>
+            <option value="coding">Coding / Development</option>
+            <option value="creative">Video Editing / Creative</option>
+            <option value="gaming">Gaming</option>
+            <option value="portable">Ultraportable / Travel</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-600 mb-1">Preferred OS</label>
+          <select id="sugOS" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm">
+            <option value="any">Any</option>
+            <option value="windows">Windows</option>
+            <option value="macos">macOS</option>
+          </select>
+        </div>
       </div>
-      <div>
-        <label for="device2" class="block text-sm font-medium text-gray-700 mb-2">Device 2</label>
-        <select id="device2" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base">
-          {laptops.map((l, i) => <option value={l.id} selected={i === 2}>{l.name} - ₹{l.price.toLocaleString('en-IN')} ({l.type})</option>)}
-        </select>
+
+      <button id="suggestBtn" class="px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 text-sm transition-colors">
+        Get Recommendations
+      </button>
+
+      <div id="sugResults" class="mt-5 hidden">
+        <h3 class="font-semibold text-gray-900 mb-3">Recommended for you:</h3>
+        <div id="sugCards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </div>
     </div>
-
-    <!-- Comparison Table -->
-    <div id="comparison" class="bg-white rounded-xl border border-gray-200 overflow-hidden"></div>
 
     <AdUnit />
 
-    <!-- All Laptops -->
-    <div class="mt-12">
-      <h2 class="text-2xl font-bold text-gray-900 mb-6">All Laptops</h2>
-      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full">
-            <thead>
-              <tr class="text-left text-sm text-gray-500 bg-gray-50 border-b border-gray-200">
-                <th class="p-4 font-medium">Name</th>
-                <th class="p-4 font-medium">Processor</th>
-                <th class="p-4 font-medium">RAM</th>
-                <th class="p-4 font-medium">Storage</th>
-                <th class="p-4 font-medium">GPU</th>
-                <th class="p-4 font-medium">Display</th>
-                <th class="p-4 font-medium">Battery</th>
-                <th class="p-4 font-medium">Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {laptopList.sort((a, b) => a.price - b.price).map(l => (
-                <tr class="border-b border-gray-50 hover:bg-gray-50">
-                  <td class="p-4 text-sm font-medium text-gray-900">{l.name}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.processor}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.ram}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.storage}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.gpu}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.displaySize}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.battery}</td>
-                  <td class="p-4 text-sm font-bold text-blue-600">₹{l.price.toLocaleString('en-IN')}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <!-- Compare Side by Side -->
+    <div class="mt-10 mb-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-5">Compare Side by Side</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+        <!-- Device 1 -->
+        <div class="bg-white rounded-xl border border-gray-200 p-5">
+          <h3 class="font-semibold text-blue-600 mb-3">Device 1</h3>
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Brand</label>
+              <select id="lBrand1" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm">
+                <option value="">All Brands</option>
+                {laptopBrands.map(b => <option value={b}>{b}</option>)}
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Model</label>
+              <select id="device1" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm">
+                <option value="">Select Model</option>
+                {laptops.map(l => (
+                  <option value={l.id} data-brand={l.brand}>
+                    {l.name} - &#8377;{l.price.toLocaleString('en-IN')} ({l.type})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
+        <!-- Device 2 -->
+        <div class="bg-white rounded-xl border border-gray-200 p-5">
+          <h3 class="font-semibold text-green-600 mb-3">Device 2</h3>
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Brand</label>
+              <select id="lBrand2" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm">
+                <option value="">All Brands</option>
+                {laptopBrands.map(b => <option value={b}>{b}</option>)}
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Model</label>
+              <select id="device2" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm">
+                <option value="">Select Model</option>
+                {laptops.map(l => (
+                  <option value={l.id} data-brand={l.brand}>
+                    {l.name} - &#8377;{l.price.toLocaleString('en-IN')} ({l.type})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="compareBtn" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+        Compare Now
+      </button>
+
+      <div id="comparison" class="mt-6 bg-white rounded-xl border border-gray-200 overflow-hidden hidden"></div>
+    </div>
+
+    <AdUnit />
+
+    <!-- Browse by Brand -->
+    <div class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-5">Browse Laptops by Brand</h2>
+      <div class="flex flex-wrap gap-2 mb-6">
+        <button class="lbrand-tab px-4 py-2 rounded-full text-sm font-medium bg-blue-600 text-white" data-brand="all">All ({laptopList.length})</button>
+        {Object.entries(laptopsByBrand).map(([brand, items]) => (
+          <button class="lbrand-tab px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200" data-brand={brand}>
+            {brand} ({items.length})
+          </button>
+        ))}
+      </div>
+
+      <!-- Category filter -->
+      <div class="flex flex-wrap gap-2 mb-6">
+        <button class="lcat-tab px-3 py-1.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700" data-cat="all">All</button>
+        {['budget', 'midrange', 'ultrabook', 'gaming', 'premium'].map(cat => (
+          <button class="lcat-tab px-3 py-1.5 rounded-full text-xs font-medium bg-gray-50 text-gray-600 hover:bg-gray-100" data-cat={cat}>
+            {categoryLabels[cat]}
+          </button>
+        ))}
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="laptopGrid">
+        {laptopList.sort((a, b) => a.price - b.price).map(l => (
+          <div class="laptop-card bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow" data-brand={l.brand} data-cat={l.category}>
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs text-gray-400 font-medium">{l.brand}</span>
+                  <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">{categoryLabels[l.category]}</span>
+                </div>
+                <h3 class="font-semibold text-gray-900 mt-1">{l.name}</h3>
+              </div>
+              <span class="text-blue-600 font-bold text-sm">&#8377;{l.price.toLocaleString('en-IN')}</span>
+            </div>
+            <div class="grid grid-cols-2 gap-x-4 gap-y-1 mt-3 text-xs text-gray-500">
+              <p><span class="text-gray-400">CPU:</span> {l.processor}</p>
+              <p><span class="text-gray-400">RAM:</span> {l.ram}</p>
+              <p><span class="text-gray-400">GPU:</span> {l.gpu}</p>
+              <p><span class="text-gray-400">Storage:</span> {l.storage}</p>
+              <p><span class="text-gray-400">Display:</span> {l.displaySize}</p>
+              <p><span class="text-gray-400">Battery:</span> {l.battery}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
 
-    <!-- All Tablets -->
+    <!-- Tablets -->
     <div class="mt-12">
-      <h2 class="text-2xl font-bold text-gray-900 mb-6">All Tablets</h2>
-      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full">
-            <thead>
-              <tr class="text-left text-sm text-gray-500 bg-gray-50 border-b border-gray-200">
-                <th class="p-4 font-medium">Name</th>
-                <th class="p-4 font-medium">Processor</th>
-                <th class="p-4 font-medium">RAM</th>
-                <th class="p-4 font-medium">Storage</th>
-                <th class="p-4 font-medium">Display</th>
-                <th class="p-4 font-medium">Battery</th>
-                <th class="p-4 font-medium">Weight</th>
-                <th class="p-4 font-medium">Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tabletList.sort((a, b) => a.price - b.price).map(l => (
-                <tr class="border-b border-gray-50 hover:bg-gray-50">
-                  <td class="p-4 text-sm font-medium text-gray-900">{l.name}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.processor}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.ram}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.storage}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.displaySize}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.battery}</td>
-                  <td class="p-4 text-sm text-gray-700">{l.weight}</td>
-                  <td class="p-4 text-sm font-bold text-blue-600">₹{l.price.toLocaleString('en-IN')}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      <h2 class="text-2xl font-bold text-gray-900 mb-5">Tablets</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {tabletList.sort((a, b) => a.price - b.price).map(l => (
+          <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span class="text-xs text-gray-400 font-medium">{l.brand}</span>
+                <h3 class="font-semibold text-gray-900 mt-1">{l.name}</h3>
+              </div>
+              <span class="text-blue-600 font-bold text-sm">&#8377;{l.price.toLocaleString('en-IN')}</span>
+            </div>
+            <div class="grid grid-cols-2 gap-x-4 gap-y-1 mt-3 text-xs text-gray-500">
+              <p><span class="text-gray-400">CPU:</span> {l.processor}</p>
+              <p><span class="text-gray-400">RAM:</span> {l.ram}</p>
+              <p><span class="text-gray-400">Display:</span> {l.displaySize}</p>
+              <p><span class="text-gray-400">Battery:</span> {l.battery}</p>
+              <p><span class="text-gray-400">Storage:</span> {l.storage}</p>
+              <p><span class="text-gray-400">Weight:</span> {l.weight}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
 
@@ -135,22 +242,91 @@ const brands = [...new Set(laptops.map(l => l.brand))];
 
     <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
       <h2>How to Choose the Right Laptop or Tablet</h2>
+      <p>Use the "Find Your Perfect Laptop" tool above to get personalized recommendations, or browse by brand and category.</p>
       <ul>
-        <li><strong>Students & basic use:</strong> ASUS Vivobook or Lenovo IdeaPad — affordable, reliable, good battery life</li>
-        <li><strong>Professionals:</strong> MacBook Air M3 or Dell XPS — premium build, excellent display, all-day battery</li>
-        <li><strong>Gaming:</strong> Acer Nitro V or HP Victus — dedicated GPU (RTX 4050), 144Hz display</li>
-        <li><strong>Creative work:</strong> MacBook Pro M3 Pro — best display, powerful GPU, pro performance</li>
-        <li><strong>Media consumption:</strong> iPad Air M2 or OnePlus Pad 2 — portable, great display</li>
-        <li><strong>Budget tablet:</strong> iPad 10th Gen or Samsung Tab S9 FE — S Pen included with Samsung</li>
+        <li><strong>Students (under ₹50K):</strong> Lenovo IdeaPad 3, ASUS Vivobook 15, Acer Aspire Go — reliable, good battery</li>
+        <li><strong>Office/Coding (₹50K-80K):</strong> Lenovo IdeaPad Slim 5, ThinkPad E14, HP Pavilion 15 — solid performance</li>
+        <li><strong>Ultraportable:</strong> MacBook Air M3, ASUS Zenbook 14, Acer Swift Go 14 — under 1.3kg, OLED displays</li>
+        <li><strong>Gaming (₹80K-1.2L):</strong> ASUS TUF A15, Acer Nitro V, HP Victus — RTX 4050, 144Hz</li>
+        <li><strong>Gaming (₹1.2L+):</strong> HP OMEN 16, ASUS ROG Strix G16, Dell G15 — RTX 4060/4070</li>
+        <li><strong>Premium:</strong> MacBook Pro M3 Pro/Max, Dell XPS 14 — best displays, top performance</li>
+        <li><strong>Budget Tablet:</strong> Xiaomi Pad 7, iPad 10th Gen — great value under ₹40K</li>
+        <li><strong>Pro Tablet:</strong> iPad Pro M4, Samsung Tab S10+ — creative work, S Pen</li>
       </ul>
-      <p><em>Prices are indicative. Check retailer websites for current pricing and offers.</em></p>
+      <p><em>Prices are indicative MRP. Check Amazon, Flipkart, or brand stores for latest offers.</em></p>
     </div>
   </section>
 
   <script define:vars={{ laptops }}>
+    // Brand filter for model dropdowns
+    function filterModels(brandSel, modelSel) {
+      const brand = brandSel.value;
+      modelSel.querySelectorAll('option[data-brand]').forEach(opt => {
+        opt.style.display = (!brand || opt.dataset.brand === brand) ? '' : 'none';
+      });
+    }
+
+    document.getElementById('lBrand1').addEventListener('change', function() {
+      filterModels(this, document.getElementById('device1'));
+      document.getElementById('device1').value = '';
+    });
+    document.getElementById('lBrand2').addEventListener('change', function() {
+      filterModels(this, document.getElementById('device2'));
+      document.getElementById('device2').value = '';
+    });
+
+    document.getElementById('device1').addEventListener('change', function() {
+      const opt = this.selectedOptions[0];
+      if (opt && opt.dataset.brand) document.getElementById('lBrand1').value = opt.dataset.brand;
+    });
+    document.getElementById('device2').addEventListener('change', function() {
+      const opt = this.selectedOptions[0];
+      if (opt && opt.dataset.brand) document.getElementById('lBrand2').value = opt.dataset.brand;
+    });
+
+    // Brand tabs
+    let activeBrand = 'all';
+    let activeCat = 'all';
+
+    function applyFilters() {
+      document.querySelectorAll('.laptop-card').forEach(card => {
+        const brandMatch = activeBrand === 'all' || card.dataset.brand === activeBrand;
+        const catMatch = activeCat === 'all' || card.dataset.cat === activeCat;
+        card.style.display = (brandMatch && catMatch) ? '' : 'none';
+      });
+    }
+
+    document.querySelectorAll('.lbrand-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.lbrand-tab').forEach(t => {
+          t.classList.remove('bg-blue-600', 'text-white');
+          t.classList.add('bg-gray-100', 'text-gray-700');
+        });
+        tab.classList.add('bg-blue-600', 'text-white');
+        tab.classList.remove('bg-gray-100', 'text-gray-700');
+        activeBrand = tab.dataset.brand;
+        applyFilters();
+      });
+    });
+
+    document.querySelectorAll('.lcat-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.lcat-tab').forEach(t => {
+          t.classList.remove('bg-blue-100', 'text-blue-700');
+          t.classList.add('bg-gray-50', 'text-gray-600');
+        });
+        tab.classList.add('bg-blue-100', 'text-blue-700');
+        tab.classList.remove('bg-gray-50', 'text-gray-600');
+        activeCat = tab.dataset.cat;
+        applyFilters();
+      });
+    });
+
+    // Comparison
     const specs = [
       { key: 'price', label: 'Price', format: v => '₹' + v.toLocaleString('en-IN'), compare: 'lower' },
       { key: 'type', label: 'Type', format: v => v },
+      { key: 'category', label: 'Category', format: v => v.charAt(0).toUpperCase() + v.slice(1) },
       { key: 'display', label: 'Display', format: v => v },
       { key: 'displaySize', label: 'Screen Size', format: v => v },
       { key: 'processor', label: 'Processor', format: v => v },
@@ -164,10 +340,13 @@ const brands = [...new Set(laptops.map(l => l.brand))];
       { key: 'rating', label: 'Rating', format: v => v + ' / 5', compare: 'higher' },
     ];
 
-    function render() {
+    document.getElementById('compareBtn').addEventListener('click', () => {
       const d1 = laptops.find(l => l.id === document.getElementById('device1').value);
       const d2 = laptops.find(l => l.id === document.getElementById('device2').value);
-      if (!d1 || !d2) return;
+      if (!d1 || !d2) { alert('Please select both devices'); return; }
+
+      const container = document.getElementById('comparison');
+      container.classList.remove('hidden');
 
       let html = `
         <div class="grid grid-cols-3 bg-gray-50 border-b border-gray-200">
@@ -199,11 +378,102 @@ const brands = [...new Set(laptops.map(l => l.brand))];
         `;
       });
 
-      document.getElementById('comparison').innerHTML = html;
-    }
+      container.innerHTML = html;
+      container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
 
-    document.getElementById('device1').addEventListener('change', render);
-    document.getElementById('device2').addEventListener('change', render);
-    render();
+    // Configuration Suggester
+    document.getElementById('suggestBtn').addEventListener('click', () => {
+      const budget = parseInt(document.getElementById('sugBudget').value);
+      const useCase = document.getElementById('sugUse').value;
+      const os = document.getElementById('sugOS').value;
+
+      let candidates = laptops.filter(l => l.type === 'Laptop' && l.price <= budget);
+
+      // Filter by OS
+      if (os === 'windows') candidates = candidates.filter(l => l.os.toLowerCase().includes('windows'));
+      if (os === 'macos') candidates = candidates.filter(l => l.os.toLowerCase().includes('macos'));
+
+      // Score based on use case
+      const scored = candidates.map(l => {
+        let score = l.rating * 10;
+
+        if (useCase === 'student') {
+          // Prefer: low price, good battery, lightweight
+          score += (budget - l.price) / 5000; // cheaper = better
+          const battHrs = parseFloat(l.battery) || 0;
+          score += battHrs * 2;
+        } else if (useCase === 'office') {
+          // Prefer: good display, 16GB RAM, SSD
+          if (l.ram.includes('16')) score += 10;
+          const battHrs = parseFloat(l.battery) || 0;
+          score += battHrs;
+          if (l.display.toLowerCase().includes('ips') || l.display.toLowerCase().includes('oled')) score += 5;
+        } else if (useCase === 'coding') {
+          // Prefer: 16GB+ RAM, good keyboard (ThinkPad), Linux-friendly
+          if (l.ram.includes('16') || l.ram.includes('18') || l.ram.includes('32') || l.ram.includes('36')) score += 15;
+          if (l.name.toLowerCase().includes('thinkpad')) score += 10;
+          if (l.storage.includes('512') || l.storage.includes('1 TB')) score += 5;
+          const battHrs = parseFloat(l.battery) || 0;
+          score += battHrs;
+        } else if (useCase === 'creative') {
+          // Prefer: powerful GPU, high-res display, lots of RAM
+          if (l.display.toLowerCase().includes('oled') || l.display.toLowerCase().includes('retina')) score += 15;
+          if (l.ram.includes('16') || l.ram.includes('18') || l.ram.includes('32') || l.ram.includes('36')) score += 10;
+          if (l.gpu.toLowerCase().includes('rtx') || l.gpu.toLowerCase().includes('m3 pro') || l.gpu.toLowerCase().includes('m3 max')) score += 15;
+        } else if (useCase === 'gaming') {
+          // Prefer: dedicated GPU, high refresh display
+          if (l.gpu.toLowerCase().includes('rtx 4070')) score += 25;
+          else if (l.gpu.toLowerCase().includes('rtx 4060')) score += 20;
+          else if (l.gpu.toLowerCase().includes('rtx 4050')) score += 15;
+          if (l.display.includes('144Hz') || l.display.includes('165Hz') || l.display.includes('240Hz')) score += 10;
+          if (l.ram.includes('16')) score += 5;
+        } else if (useCase === 'portable') {
+          // Prefer: light weight, long battery, small size
+          const wt = parseFloat(l.weight) || 2;
+          score += (2.5 - wt) * 15; // lighter = much better
+          const battHrs = parseFloat(l.battery) || 0;
+          score += battHrs * 2;
+        }
+
+        return { ...l, score };
+      });
+
+      scored.sort((a, b) => b.score - a.score);
+      const results = scored.slice(0, 3);
+
+      const container = document.getElementById('sugCards');
+      const resultsDiv = document.getElementById('sugResults');
+
+      if (results.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 col-span-3">No laptops found matching your criteria. Try increasing your budget.</p>';
+        resultsDiv.classList.remove('hidden');
+        return;
+      }
+
+      const medals = ['Best Pick', 'Runner-up', 'Also Great'];
+      const colors = ['border-yellow-400 bg-yellow-50', 'border-gray-300 bg-white', 'border-gray-200 bg-white'];
+
+      container.innerHTML = results.map((l, i) => `
+        <div class="rounded-xl border-2 ${colors[i]} p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full ${i === 0 ? 'bg-yellow-200 text-yellow-800' : 'bg-gray-200 text-gray-600'}">${medals[i]}</span>
+          </div>
+          <h4 class="font-bold text-gray-900">${l.name}</h4>
+          <p class="text-blue-600 font-bold mt-1">₹${l.price.toLocaleString('en-IN')}</p>
+          <div class="mt-3 space-y-1 text-xs text-gray-600">
+            <p><strong>CPU:</strong> ${l.processor}</p>
+            <p><strong>RAM:</strong> ${l.ram} | <strong>Storage:</strong> ${l.storage}</p>
+            <p><strong>GPU:</strong> ${l.gpu}</p>
+            <p><strong>Display:</strong> ${l.displaySize} ${l.display}</p>
+            <p><strong>Battery:</strong> ${l.battery} | <strong>Weight:</strong> ${l.weight}</p>
+          </div>
+          <p class="mt-3 text-xs text-gray-400">Rating: ${l.rating}/5</p>
+        </div>
+      `).join('');
+
+      resultsDiv.classList.remove('hidden');
+      resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   </script>
 </Layout>
