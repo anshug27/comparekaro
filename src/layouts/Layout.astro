@@ -30,6 +30,9 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="author" content="CompareKaro" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={fullTitle} />
@@ -37,6 +40,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="CompareKaro" />
+    <meta property="og:locale" content="en_IN" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -121,7 +125,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
           </div>
         </div>
         <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
-          <p>&copy; {new Date().getFullYear()} CompareKaro.in - All rights reserved. Made in India.</p>
+          <p>&copy; {new Date().getFullYear()} CompareKaro - All rights reserved. Made in India.</p>
         </div>
       </div>
     </footer>
