@@ -122,9 +122,19 @@ const schema = {
     <!-- Comparison Table -->
     <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
       <div class="grid grid-cols-3 bg-gray-50 border-b border-gray-200">
-        <div class="p-4 font-semibold text-gray-600 text-sm">Specification</div>
-        <div class="p-4 text-center font-bold text-blue-700">{p1.name}</div>
-        <div class="p-4 text-center font-bold text-green-700">{p2.name}</div>
+        <div class="p-4 font-semibold text-gray-600 text-sm flex items-center">Specification</div>
+        <div class="p-4 text-center">
+          <div class="font-bold text-blue-700 mb-2">{p1.name}</div>
+          <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p1.name)}&tag=YOUR_AMAZON_TAG`} target="_blank" rel="nofollow sponsored" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+            Check on Amazon
+          </a>
+        </div>
+        <div class="p-4 text-center">
+          <div class="font-bold text-green-700 mb-2">{p2.name}</div>
+          <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p2.name)}&tag=YOUR_AMAZON_TAG`} target="_blank" rel="nofollow sponsored" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+            Check on Amazon
+          </a>
+        </div>
       </div>
       {specs.map(spec => {
         const v1 = p1[spec.key];
