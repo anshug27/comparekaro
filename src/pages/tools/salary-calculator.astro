@@ -1,0 +1,358 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Salary Tax Calculator India',
+  url: 'https://comparekaro.download/tools/salary-calculator',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+  description: 'Calculate take-home salary after income tax. Compare old vs new tax regime for FY 2025-26.',
+};
+---
+
+<Layout
+  title="Salary & Tax Calculator India - Old vs New Regime FY 2025-26"
+  description="Free salary calculator for India. Calculate in-hand salary after income tax, PF, HRA exemption. Compare old vs new tax regime for FY 2025-26."
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-blue-600">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">Salary & Tax Calculator</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Salary & Tax Calculator</h1>
+      <p class="text-gray-500 text-lg">Calculate your take-home salary and compare old vs new tax regime for FY 2025-26.</p>
+    </div>
+
+    <!-- Input Section -->
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Annual CTC (₹)</label>
+          <input type="number" id="ctc" value="1200000" min="0" step="10000" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Basic Salary (% of CTC)</label>
+          <input type="number" id="basicPct" value="40" min="0" max="100" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">HRA Received (annual ₹)</label>
+          <input type="number" id="hra" value="240000" min="0" step="1000" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Rent Paid (₹)</label>
+          <input type="number" id="rent" value="15000" min="0" step="1000" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Metro City?</label>
+          <select id="metro" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg">
+            <option value="yes">Yes (Delhi, Mumbai, Kolkata, Chennai)</option>
+            <option value="no">No (Other cities)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Employer PF Contribution</label>
+          <select id="epf" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg">
+            <option value="yes">Yes (12% of Basic)</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Deductions (Old Regime) -->
+      <div class="mt-6 pt-6 border-t border-gray-100">
+        <h3 class="font-semibold text-gray-700 mb-4">Deductions (for Old Regime)</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">80C (PF, ELSS, LIC, PPF)</label>
+            <input type="number" id="d80c" value="150000" min="0" max="150000" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">80D (Health Insurance)</label>
+            <input type="number" id="d80d" value="25000" min="0" max="100000" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">Home Loan Interest (24b)</label>
+            <input type="number" id="d24b" value="0" min="0" max="200000" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">NPS 80CCD(1B)</label>
+            <input type="number" id="d80ccd" value="0" min="0" max="50000" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">Education Loan Interest (80E)</label>
+            <input type="number" id="d80e" value="0" min="0" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">Other Deductions</label>
+            <input type="number" id="dOther" value="0" min="0" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+          </div>
+        </div>
+      </div>
+
+      <button id="calcBtn" class="mt-6 px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors w-full sm:w-auto">
+        Calculate Take-Home Salary
+      </button>
+    </div>
+
+    <AdUnit />
+
+    <!-- Results -->
+    <div id="results" class="hidden mt-8">
+      <!-- Regime Comparison -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div id="oldRegime" class="bg-white rounded-xl border-2 border-orange-200 p-6">
+          <h3 class="text-lg font-bold text-orange-600 mb-4">Old Tax Regime</h3>
+          <div class="space-y-3" id="oldDetails"></div>
+        </div>
+        <div id="newRegime" class="bg-white rounded-xl border-2 border-blue-200 p-6">
+          <h3 class="text-lg font-bold text-blue-600 mb-4">New Tax Regime (Default)</h3>
+          <div class="space-y-3" id="newDetails"></div>
+        </div>
+      </div>
+
+      <!-- Recommendation -->
+      <div id="recommendation" class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl border border-green-200 p-6 mb-8"></div>
+
+      <!-- Tax Slab Breakdown -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <h3 class="font-semibold text-gray-700 mb-4">Old Regime Tax Slabs</h3>
+          <div id="oldSlabs" class="space-y-2"></div>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <h3 class="font-semibold text-gray-700 mb-4">New Regime Tax Slabs</h3>
+          <div id="newSlabs" class="space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- Monthly Breakdown -->
+      <div class="bg-white rounded-xl border border-gray-200 p-6">
+        <h3 class="font-semibold text-gray-700 mb-4">Monthly Salary Breakdown (Best Regime)</h3>
+        <div id="monthlyBreakdown" class="space-y-3"></div>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+      <h2>Income Tax Slabs FY 2025-26</h2>
+      <h3>New Regime (Default)</h3>
+      <table>
+        <thead><tr><th>Income</th><th>Tax Rate</th></tr></thead>
+        <tbody>
+          <tr><td>Up to ₹4,00,000</td><td>Nil</td></tr>
+          <tr><td>₹4,00,001 – ₹8,00,000</td><td>5%</td></tr>
+          <tr><td>₹8,00,001 – ₹12,00,000</td><td>10%</td></tr>
+          <tr><td>₹12,00,001 – ₹16,00,000</td><td>15%</td></tr>
+          <tr><td>₹16,00,001 – ₹20,00,000</td><td>20%</td></tr>
+          <tr><td>₹20,00,001 – ₹24,00,000</td><td>25%</td></tr>
+          <tr><td>Above ₹24,00,000</td><td>30%</td></tr>
+        </tbody>
+      </table>
+      <p>New regime offers ₹75,000 standard deduction. Rebate under 87A for income up to ₹12,00,000 (effectively zero tax up to ₹12,75,000).</p>
+      <h3>Old Regime</h3>
+      <table>
+        <thead><tr><th>Income</th><th>Tax Rate</th></tr></thead>
+        <tbody>
+          <tr><td>Up to ₹2,50,000</td><td>Nil</td></tr>
+          <tr><td>₹2,50,001 – ₹5,00,000</td><td>5%</td></tr>
+          <tr><td>₹5,00,001 – ₹10,00,000</td><td>20%</td></tr>
+          <tr><td>Above ₹10,00,000</td><td>30%</td></tr>
+        </tbody>
+      </table>
+      <p>Old regime allows HRA exemption, 80C (₹1.5L), 80D, home loan interest, NPS, and other deductions.</p>
+      <p><em>This calculator provides estimates for educational purposes. Consult a CA for exact tax liability.</em></p>
+    </div>
+  </section>
+
+  <script>
+    const f = id => document.getElementById(id);
+    const inr = n => '₹' + Math.round(n).toLocaleString('en-IN');
+
+    // New Regime FY 2025-26 slabs
+    const newSlabs = [
+      { upto: 400000, rate: 0 },
+      { upto: 800000, rate: 0.05 },
+      { upto: 1200000, rate: 0.10 },
+      { upto: 1600000, rate: 0.15 },
+      { upto: 2000000, rate: 0.20 },
+      { upto: 2400000, rate: 0.25 },
+      { upto: Infinity, rate: 0.30 },
+    ];
+
+    // Old Regime slabs
+    const oldSlabs = [
+      { upto: 250000, rate: 0 },
+      { upto: 500000, rate: 0.05 },
+      { upto: 1000000, rate: 0.20 },
+      { upto: Infinity, rate: 0.30 },
+    ];
+
+    function calcTax(income, slabs) {
+      let tax = 0, prev = 0;
+      const breakdown = [];
+      for (const slab of slabs) {
+        if (income <= prev) break;
+        const taxable = Math.min(income, slab.upto) - prev;
+        const slabTax = taxable * slab.rate;
+        tax += slabTax;
+        if (taxable > 0) {
+          breakdown.push({
+            range: inr(prev) + ' – ' + (slab.upto === Infinity ? 'Above' : inr(slab.upto)),
+            rate: (slab.rate * 100) + '%',
+            taxable: taxable,
+            tax: slabTax,
+          });
+        }
+        prev = slab.upto;
+      }
+      return { tax, breakdown };
+    }
+
+    function calcHRA(basic, hra, rent, isMetro) {
+      const actualHRA = hra;
+      const excess = Math.max(0, rent * 12 - 0.10 * basic);
+      const metroLimit = isMetro ? 0.50 * basic : 0.40 * basic;
+      return Math.min(actualHRA, excess, metroLimit);
+    }
+
+    f('calcBtn').addEventListener('click', () => {
+      const ctc = +f('ctc').value || 0;
+      const basicPct = +f('basicPct').value / 100;
+      const basic = ctc * basicPct;
+      const hra = +f('hra').value || 0;
+      const rent = +f('rent').value || 0;
+      const isMetro = f('metro').value === 'yes';
+      const hasEPF = f('epf').value === 'yes';
+
+      const d80c = Math.min(+f('d80c').value || 0, 150000);
+      const d80d = Math.min(+f('d80d').value || 0, 100000);
+      const d24b = Math.min(+f('d24b').value || 0, 200000);
+      const d80ccd = Math.min(+f('d80ccd').value || 0, 50000);
+      const d80e = +f('d80e').value || 0;
+      const dOther = +f('dOther').value || 0;
+
+      const epfEmployee = hasEPF ? Math.min(basic * 0.12, 21600 * 12 * 0.12) : 0;
+      const epfEmployer = hasEPF ? Math.min(basic * 0.12, 21600 * 12 * 0.12) : 0;
+
+      // OLD REGIME
+      const hraExempt = calcHRA(basic, hra, rent, isMetro);
+      const oldStdDeduction = 50000;
+      const oldTotalDeductions = hraExempt + oldStdDeduction + d80c + d80d + d24b + d80ccd + d80e + dOther;
+      const oldTaxableIncome = Math.max(0, ctc - epfEmployer - oldTotalDeductions);
+
+      let oldTaxResult = calcTax(oldTaxableIncome, oldSlabs);
+      // 87A rebate for old regime
+      if (oldTaxableIncome <= 500000) oldTaxResult.tax = 0;
+      const oldCess = oldTaxResult.tax * 0.04;
+      const oldTotalTax = oldTaxResult.tax + oldCess;
+      const oldTakeHome = ctc - epfEmployee - epfEmployer - oldTotalTax;
+
+      // NEW REGIME
+      const newStdDeduction = 75000;
+      const newTaxableIncome = Math.max(0, ctc - epfEmployer - newStdDeduction);
+
+      let newTaxResult = calcTax(newTaxableIncome, newSlabs);
+      // 87A rebate for new regime (up to 12L taxable = 12.75L with std deduction)
+      if (newTaxableIncome <= 1200000) newTaxResult.tax = 0;
+      const newCess = newTaxResult.tax * 0.04;
+      const newTotalTax = newTaxResult.tax + newCess;
+      const newTakeHome = ctc - epfEmployee - epfEmployer - newTotalTax;
+
+      // Render
+      function renderDetails(el, data) {
+        el.innerHTML = data.map(([label, val, highlight]) =>
+          `<div class="flex justify-between text-sm ${highlight ? 'font-bold text-lg' : ''}">
+            <span class="text-gray-600">${label}</span>
+            <span class="${highlight ? 'text-green-600' : 'text-gray-900'}">${val}</span>
+          </div>`
+        ).join('');
+      }
+
+      renderDetails(f('oldDetails'), [
+        ['Gross Salary (CTC)', inr(ctc)],
+        ['HRA Exemption', '- ' + inr(hraExempt)],
+        ['Standard Deduction', '- ' + inr(oldStdDeduction)],
+        ['80C + 80D + Others', '- ' + inr(d80c + d80d + d24b + d80ccd + d80e + dOther)],
+        ['EPF (Employee)', '- ' + inr(epfEmployee)],
+        ['Taxable Income', inr(oldTaxableIncome)],
+        ['Income Tax', inr(oldTaxResult.tax)],
+        ['Cess (4%)', inr(oldCess)],
+        ['Total Tax', inr(oldTotalTax)],
+        ['Annual Take-Home', inr(oldTakeHome), true],
+        ['Monthly Take-Home', inr(oldTakeHome / 12), true],
+      ]);
+
+      renderDetails(f('newDetails'), [
+        ['Gross Salary (CTC)', inr(ctc)],
+        ['Standard Deduction', '- ' + inr(newStdDeduction)],
+        ['EPF (Employee)', '- ' + inr(epfEmployee)],
+        ['Taxable Income', inr(newTaxableIncome)],
+        ['Income Tax', inr(newTaxResult.tax)],
+        ['Cess (4%)', inr(newCess)],
+        ['Total Tax', inr(newTotalTax)],
+        ['Annual Take-Home', inr(newTakeHome), true],
+        ['Monthly Take-Home', inr(newTakeHome / 12), true],
+      ]);
+
+      // Recommendation
+      const diff = Math.abs(oldTakeHome - newTakeHome);
+      const better = oldTakeHome > newTakeHome ? 'Old' : 'New';
+      f('recommendation').innerHTML = `
+        <h3 class="text-lg font-bold text-green-700 mb-2">Recommendation: ${better} Regime saves you ${inr(diff)}/year</h3>
+        <p class="text-sm text-gray-600">
+          ${better === 'Old'
+            ? `The Old Regime is better for you because your deductions (₹${Math.round(oldTotalDeductions).toLocaleString('en-IN')}) bring down your taxable income significantly.`
+            : `The New Regime is better for you. ${oldTotalDeductions < 375000 ? 'Your deductions are not high enough to make the Old Regime beneficial.' : 'The lower tax slabs in the new regime result in less tax despite fewer deductions.'}`
+          }
+          Monthly difference: ${inr(diff / 12)}/month.
+        </p>
+      `;
+
+      // Slab breakdowns
+      function renderSlabs(el, breakdown) {
+        el.innerHTML = breakdown.map(s => `
+          <div class="flex justify-between text-xs">
+            <span class="text-gray-500">${s.range} @ ${s.rate}</span>
+            <span class="text-gray-700">${inr(s.tax)}</span>
+          </div>
+        `).join('');
+      }
+      renderSlabs(f('oldSlabs'), oldTaxResult.breakdown);
+      renderSlabs(f('newSlabs'), newTaxResult.breakdown);
+
+      // Monthly breakdown
+      const bestTakeHome = Math.max(oldTakeHome, newTakeHome);
+      const monthlyGross = ctc / 12;
+      const monthlyEPF = epfEmployee / 12;
+      const monthlyTax = (bestTakeHome === oldTakeHome ? oldTotalTax : newTotalTax) / 12;
+
+      f('monthlyBreakdown').innerHTML = [
+        ['Monthly Gross', inr(monthlyGross)],
+        ['EPF Deduction', '- ' + inr(monthlyEPF)],
+        ['Income Tax (TDS)', '- ' + inr(monthlyTax)],
+        ['In-Hand Salary', inr(bestTakeHome / 12)],
+      ].map(([l, v], i) => `
+        <div class="flex justify-between text-sm ${i === 3 ? 'font-bold text-lg pt-2 border-t border-gray-200' : ''}">
+          <span class="text-gray-600">${l}</span>
+          <span class="${i === 3 ? 'text-green-600' : 'text-gray-900'}">${v}</span>
+        </div>
+      `).join('');
+
+      f('results').classList.remove('hidden');
+      f('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Auto-calculate on load
+    f('calcBtn').click();
+  </script>
+</Layout>
