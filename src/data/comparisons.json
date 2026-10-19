@@ -5,6 +5,11 @@
     "phone2Id": "samsung-galaxy-s26-ultra-512gb"
   },
   {
+    "slug": "xiaomi-redmi-17-5g-vs-infinix-hot-70-pro-5g",
+    "phone1Id": "xiaomi-redmi-17-5g",
+    "phone2Id": "infinix-hot-70-pro-5g"
+  },
+  {
     "slug": "vivo-t5-pro-256gb-vs-samsung-galaxy-a27-5g-8gb-ram-256gb",
     "phone1Id": "vivo-t5-pro-256gb",
     "phone2Id": "samsung-galaxy-a27-5g-8gb-ram-256gb"
@@ -15,14 +20,19 @@
     "phone2Id": "oneplus-15r-16gb-512gb"
   },
   {
-    "slug": "samsung-galaxy-a27-5g-8gb-ram-256gb-vs-xiaomi-redmi-turbo-5-12gb-256gb-ram",
-    "phone1Id": "samsung-galaxy-a27-5g-8gb-ram-256gb",
-    "phone2Id": "xiaomi-redmi-turbo-5-12gb-256gb-ram"
+    "slug": "xiaomi-redmi-17-5g-vs-vivo-t5-lite-5g-6gb-ram",
+    "phone1Id": "xiaomi-redmi-17-5g",
+    "phone2Id": "vivo-t5-lite-5g-6gb-ram"
   },
   {
-    "slug": "vivo-t5-pro-256gb-vs-xiaomi-redmi-turbo-5-12gb-256gb-ram",
-    "phone1Id": "vivo-t5-pro-256gb",
-    "phone2Id": "xiaomi-redmi-turbo-5-12gb-256gb-ram"
+    "slug": "vivo-t5-lite-5g-6gb-ram-vs-infinix-hot-70-pro-5g",
+    "phone1Id": "vivo-t5-lite-5g-6gb-ram",
+    "phone2Id": "infinix-hot-70-pro-5g"
+  },
+  {
+    "slug": "poco-m8x-5g-6gb-ram-vs-moto-g77-power-5g-4gb-ram",
+    "phone1Id": "poco-m8x-5g-6gb-ram",
+    "phone2Id": "moto-g77-power-5g-4gb-ram"
   },
   {
     "slug": "iqoo-15r-512gb-vs-motorola-signature-512gb-16gb-ram",
@@ -35,9 +45,29 @@
     "phone2Id": "motorola-edge-70-max-12gb-ram"
   },
   {
-    "slug": "xiaomi-redmi-turbo-5-12gb-256gb-ram-vs-motorola-edge-70-pro-5g",
+    "slug": "oneplus-n6-5g-6gb-ram-vs-infinix-hot-70-pro-5g",
+    "phone1Id": "oneplus-n6-5g-6gb-ram",
+    "phone2Id": "infinix-hot-70-pro-5g"
+  },
+  {
+    "slug": "xiaomi-redmi-17-5g-vs-oneplus-n6-5g-6gb-ram",
+    "phone1Id": "xiaomi-redmi-17-5g",
+    "phone2Id": "oneplus-n6-5g-6gb-ram"
+  },
+  {
+    "slug": "xiaomi-redmi-turbo-5-12gb-256gb-ram-vs-motorola-edge-70-pro-5g-12gb-ram",
     "phone1Id": "xiaomi-redmi-turbo-5-12gb-256gb-ram",
-    "phone2Id": "motorola-edge-70-pro-5g"
+    "phone2Id": "motorola-edge-70-pro-5g-12gb-ram"
+  },
+  {
+    "slug": "motorola-edge-70-fusion-512gb-12gb-ram-vs-oneplus-nord-ce-6-5g-256gb",
+    "phone1Id": "motorola-edge-70-fusion-512gb-12gb-ram",
+    "phone2Id": "oneplus-nord-ce-6-5g-256gb"
+  },
+  {
+    "slug": "motorola-edge-70-pro-5g-vs-iqoo-z11-12gb-ram-256gb",
+    "phone1Id": "motorola-edge-70-pro-5g",
+    "phone2Id": "iqoo-z11-12gb-ram-256gb"
   },
   {
     "slug": "iqoo-15r-512gb-vs-oneplus-15r-16gb-512gb",
@@ -50,6 +80,26 @@
     "phone2Id": "oneplus-13s-16gb-ram-512gb"
   },
   {
+    "slug": "xiaomi-redmi-turbo-5-12gb-256gb-ram-vs-oneplus-nord-ce-6-5g-256gb",
+    "phone1Id": "xiaomi-redmi-turbo-5-12gb-256gb-ram",
+    "phone2Id": "oneplus-nord-ce-6-5g-256gb"
+  },
+  {
+    "slug": "vivo-t5-pro-256gb-vs-motorola-edge-70-pro-5g-12gb-ram",
+    "phone1Id": "vivo-t5-pro-256gb",
+    "phone2Id": "motorola-edge-70-pro-5g-12gb-ram"
+  },
+  {
+    "slug": "samsung-galaxy-a27-5g-8gb-ram-256gb-vs-motorola-edge-70-pro-5g-12gb-ram",
+    "phone1Id": "samsung-galaxy-a27-5g-8gb-ram-256gb",
+    "phone2Id": "motorola-edge-70-pro-5g-12gb-ram"
+  },
+  {
+    "slug": "realme-p4s-5g-256gb-vs-motorola-edge-70-fusion-512gb-12gb-ram",
+    "phone1Id": "realme-p4s-5g-256gb",
+    "phone2Id": "motorola-edge-70-fusion-512gb-12gb-ram"
+  },
+  {
     "slug": "samsung-galaxy-a27-5g-8gb-ram-256gb-vs-motorola-edge-70-pro-5g",
     "phone1Id": "samsung-galaxy-a27-5g-8gb-ram-256gb",
     "phone2Id": "motorola-edge-70-pro-5g"
@@ -58,6 +108,11 @@
     "slug": "vivo-t5-pro-256gb-vs-motorola-edge-70-pro-5g",
     "phone1Id": "vivo-t5-pro-256gb",
     "phone2Id": "motorola-edge-70-pro-5g"
+  },
+  {
+    "slug": "vivo-t5-lite-5g-6gb-ram-vs-oneplus-n6-5g-6gb-ram",
+    "phone1Id": "vivo-t5-lite-5g-6gb-ram",
+    "phone2Id": "oneplus-n6-5g-6gb-ram"
   },
   {
     "slug": "oneplus-15r-16gb-512gb-vs-motorola-edge-70-max-12gb-ram",
@@ -75,6 +130,46 @@
     "phone2Id": "samsung-galaxy-s26-ultra-1tb-16gb-ram"
   },
   {
+    "slug": "vivo-t5-lite-5g-6gb-ram-vs-moto-g77-power-5g-4gb-ram",
+    "phone1Id": "vivo-t5-lite-5g-6gb-ram",
+    "phone2Id": "moto-g77-power-5g-4gb-ram"
+  },
+  {
+    "slug": "motorola-edge-70-pro-5g-12gb-ram-vs-oneplus-nord-ce-6-5g-256gb",
+    "phone1Id": "motorola-edge-70-pro-5g-12gb-ram",
+    "phone2Id": "oneplus-nord-ce-6-5g-256gb"
+  },
+  {
+    "slug": "xiaomi-redmi-turbo-5-12gb-256gb-ram-vs-motorola-edge-70-fusion-512gb-12gb-ram",
+    "phone1Id": "xiaomi-redmi-turbo-5-12gb-256gb-ram",
+    "phone2Id": "motorola-edge-70-fusion-512gb-12gb-ram"
+  },
+  {
+    "slug": "vivo-t5-pro-256gb-vs-xiaomi-redmi-turbo-5-12gb-256gb-ram",
+    "phone1Id": "vivo-t5-pro-256gb",
+    "phone2Id": "xiaomi-redmi-turbo-5-12gb-256gb-ram"
+  },
+  {
+    "slug": "samsung-galaxy-a27-5g-8gb-ram-256gb-vs-xiaomi-redmi-turbo-5-12gb-256gb-ram",
+    "phone1Id": "samsung-galaxy-a27-5g-8gb-ram-256gb",
+    "phone2Id": "xiaomi-redmi-turbo-5-12gb-256gb-ram"
+  },
+  {
+    "slug": "realme-p4s-5g-256gb-vs-oneplus-nord-ce-6-5g-256gb",
+    "phone1Id": "realme-p4s-5g-256gb",
+    "phone2Id": "oneplus-nord-ce-6-5g-256gb"
+  },
+  {
+    "slug": "samsung-galaxy-a27-5g-8gb-ram-256gb-vs-iqoo-z11-12gb-ram-256gb",
+    "phone1Id": "samsung-galaxy-a27-5g-8gb-ram-256gb",
+    "phone2Id": "iqoo-z11-12gb-ram-256gb"
+  },
+  {
+    "slug": "vivo-t5-pro-256gb-vs-iqoo-z11-12gb-ram-256gb",
+    "phone1Id": "vivo-t5-pro-256gb",
+    "phone2Id": "iqoo-z11-12gb-ram-256gb"
+  },
+  {
     "slug": "iqoo-15r-512gb-vs-motorola-edge-70-max-12gb-ram",
     "phone1Id": "iqoo-15r-512gb",
     "phone2Id": "motorola-edge-70-max-12gb-ram"
@@ -85,14 +180,74 @@
     "phone2Id": "xiaomi-17t-512gb"
   },
   {
+    "slug": "xiaomi-redmi-17-5g-vs-moto-g77-power-5g-4gb-ram",
+    "phone1Id": "xiaomi-redmi-17-5g",
+    "phone2Id": "moto-g77-power-5g-4gb-ram"
+  },
+  {
+    "slug": "moto-g77-power-5g-4gb-ram-vs-infinix-hot-70-pro-5g",
+    "phone1Id": "moto-g77-power-5g-4gb-ram",
+    "phone2Id": "infinix-hot-70-pro-5g"
+  },
+  {
+    "slug": "poco-m8x-5g-6gb-ram-vs-vivo-t5-lite-5g-6gb-ram",
+    "phone1Id": "poco-m8x-5g-6gb-ram",
+    "phone2Id": "vivo-t5-lite-5g-6gb-ram"
+  },
+  {
+    "slug": "xiaomi-redmi-17-5g-vs-poco-m8x-5g-6gb-ram",
+    "phone1Id": "xiaomi-redmi-17-5g",
+    "phone2Id": "poco-m8x-5g-6gb-ram"
+  },
+  {
+    "slug": "poco-m8x-5g-6gb-ram-vs-infinix-hot-70-pro-5g",
+    "phone1Id": "poco-m8x-5g-6gb-ram",
+    "phone2Id": "infinix-hot-70-pro-5g"
+  },
+  {
+    "slug": "vivo-t5-pro-256gb-vs-oneplus-nord-ce-6-5g-256gb",
+    "phone1Id": "vivo-t5-pro-256gb",
+    "phone2Id": "oneplus-nord-ce-6-5g-256gb"
+  },
+  {
+    "slug": "samsung-galaxy-a27-5g-8gb-ram-256gb-vs-oneplus-nord-ce-6-5g-256gb",
+    "phone1Id": "samsung-galaxy-a27-5g-8gb-ram-256gb",
+    "phone2Id": "oneplus-nord-ce-6-5g-256gb"
+  },
+  {
     "slug": "motorola-signature-512gb-16gb-ram-vs-xiaomi-17t-512gb",
     "phone1Id": "motorola-signature-512gb-16gb-ram",
     "phone2Id": "xiaomi-17t-512gb"
   },
   {
+    "slug": "xiaomi-redmi-turbo-5-12gb-256gb-ram-vs-realme-p4s-5g-256gb",
+    "phone1Id": "xiaomi-redmi-turbo-5-12gb-256gb-ram",
+    "phone2Id": "realme-p4s-5g-256gb"
+  },
+  {
     "slug": "oppo-find-x9-pro-vs-samsung-galaxy-s26-plus",
     "phone1Id": "oppo-find-x9-pro",
     "phone2Id": "samsung-galaxy-s26-plus"
+  },
+  {
+    "slug": "samsung-galaxy-f70-5g-vs-poco-m8x-5g-6gb-ram",
+    "phone1Id": "samsung-galaxy-f70-5g",
+    "phone2Id": "poco-m8x-5g-6gb-ram"
+  },
+  {
+    "slug": "xiaomi-redmi-turbo-5-12gb-256gb-ram-vs-motorola-edge-70-pro-5g",
+    "phone1Id": "xiaomi-redmi-turbo-5-12gb-256gb-ram",
+    "phone2Id": "motorola-edge-70-pro-5g"
+  },
+  {
+    "slug": "oneplus-n6-5g-6gb-ram-vs-moto-g77-power-5g-4gb-ram",
+    "phone1Id": "oneplus-n6-5g-6gb-ram",
+    "phone2Id": "moto-g77-power-5g-4gb-ram"
+  },
+  {
+    "slug": "iqoo-z11-12gb-ram-256gb-vs-motorola-edge-70-pro-5g-12gb-ram",
+    "phone1Id": "iqoo-z11-12gb-ram-256gb",
+    "phone2Id": "motorola-edge-70-pro-5g-12gb-ram"
   },
   {
     "slug": "oneplus-15r-16gb-512gb-vs-xiaomi-17t-512gb",
@@ -110,43 +265,38 @@
     "phone2Id": "oppo-find-x9-pro"
   },
   {
+    "slug": "samsung-galaxy-f70-5g-vs-moto-g77-power-5g-4gb-ram",
+    "phone1Id": "samsung-galaxy-f70-5g",
+    "phone2Id": "moto-g77-power-5g-4gb-ram"
+  },
+  {
+    "slug": "poco-m8x-5g-6gb-ram-vs-oneplus-n6-5g-6gb-ram",
+    "phone1Id": "poco-m8x-5g-6gb-ram",
+    "phone2Id": "oneplus-n6-5g-6gb-ram"
+  },
+  {
+    "slug": "motorola-edge-70-max-12gb-ram-vs-iqoo-z11-12gb-ram-256gb",
+    "phone1Id": "motorola-edge-70-max-12gb-ram",
+    "phone2Id": "iqoo-z11-12gb-ram-256gb"
+  },
+  {
+    "slug": "vivo-t5-pro-256gb-vs-motorola-edge-70-fusion-512gb-12gb-ram",
+    "phone1Id": "vivo-t5-pro-256gb",
+    "phone2Id": "motorola-edge-70-fusion-512gb-12gb-ram"
+  },
+  {
+    "slug": "samsung-galaxy-a27-5g-8gb-ram-256gb-vs-motorola-edge-70-fusion-512gb-12gb-ram",
+    "phone1Id": "samsung-galaxy-a27-5g-8gb-ram-256gb",
+    "phone2Id": "motorola-edge-70-fusion-512gb-12gb-ram"
+  },
+  {
+    "slug": "motorola-edge-70-pro-5g-12gb-ram-vs-realme-p4s-5g-256gb",
+    "phone1Id": "motorola-edge-70-pro-5g-12gb-ram",
+    "phone2Id": "realme-p4s-5g-256gb"
+  },
+  {
     "slug": "xiaomi-17t-512gb-vs-oneplus-13s-16gb-ram-512gb",
     "phone1Id": "xiaomi-17t-512gb",
     "phone2Id": "oneplus-13s-16gb-ram-512gb"
-  },
-  {
-    "slug": "vivo-x300-ultra-vs-xiaomi-17-ultra",
-    "phone1Id": "vivo-x300-ultra",
-    "phone2Id": "xiaomi-17-ultra"
-  },
-  {
-    "slug": "xiaomi-17-ultra-vs-samsung-galaxy-s26-ultra-512gb",
-    "phone1Id": "xiaomi-17-ultra",
-    "phone2Id": "samsung-galaxy-s26-ultra-512gb"
-  },
-  {
-    "slug": "samsung-galaxy-s26-vs-oppo-find-x9-pro",
-    "phone1Id": "samsung-galaxy-s26",
-    "phone2Id": "oppo-find-x9-pro"
-  },
-  {
-    "slug": "xiaomi-17t-512gb-vs-motorola-edge-70-max-12gb-ram",
-    "phone1Id": "xiaomi-17t-512gb",
-    "phone2Id": "motorola-edge-70-max-12gb-ram"
-  },
-  {
-    "slug": "xiaomi-17t-512gb-vs-samsung-galaxy-s26-plus",
-    "phone1Id": "xiaomi-17t-512gb",
-    "phone2Id": "samsung-galaxy-s26-plus"
-  },
-  {
-    "slug": "oneplus-13s-16gb-ram-512gb-vs-motorola-edge-70-pro-5g",
-    "phone1Id": "oneplus-13s-16gb-ram-512gb",
-    "phone2Id": "motorola-edge-70-pro-5g"
-  },
-  {
-    "slug": "motorola-edge-70-max-12gb-ram-vs-xiaomi-redmi-turbo-5-12gb-256gb-ram",
-    "phone1Id": "motorola-edge-70-max-12gb-ram",
-    "phone2Id": "xiaomi-redmi-turbo-5-12gb-256gb-ram"
   }
 ]

@@ -23,6 +23,14 @@ const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (
 // We scrape the top popular phones from 91mobiles listing, then fetch each phone's detail page
 const LISTING_URL = 'https://www.91mobiles.com/mobile-phones';
 
+// Additional listing pages to scrape for more phone variety
+const EXTRA_LISTING_URLS = [
+  'https://www.91mobiles.com/best-phones-under-15000',
+  'https://www.91mobiles.com/best-phones-under-20000',
+  'https://www.91mobiles.com/best-phones-under-30000',
+  'https://www.91mobiles.com/best-5g-phones',
+];
+
 // ── Fetch HTML ───────────────────────────────────────────
 async function fetchPage(url) {
   const res = await fetch(url, {
@@ -275,28 +283,60 @@ function generateComparisonPairs(phones) {
     return ratioA - ratioB;
   });
 
-  return pairs.slice(0, 30);
+  return pairs.slice(0, 60);
 }
 
 // ── Main ─────────────────────────────────────────────────
 async function main() {
   console.log('Fetching popular phones from 91mobiles...\n');
 
-  // Step 1: Get popular phone URLs from listing page
+  // Step 1: Get popular phone URLs from main listing page + extra pages
   let phoneUrls = [];
   try {
     const listingHtml = await fetchPage(LISTING_URL);
     phoneUrls = getPopularPhoneUrls(listingHtml);
-    console.log(`  Found ${phoneUrls.length} popular phones on listing page`);
+    console.log(`  Found ${phoneUrls.length} popular phones on main listing page`);
   } catch (err) {
-    console.error(`  Failed to fetch listing page: ${err.message}`);
+    console.error(`  Failed to fetch main listing page: ${err.message}`);
   }
+
+  // Scrape extra listing pages for more variety
+  for (const extraUrl of EXTRA_LISTING_URLS) {
+    try {
+      const html = await fetchPage(extraUrl);
+      const $ = cheerio.load(html);
+      // These pages have different structures - look for phone links
+      $('a[href*="price-in-india"]').each((_, el) => {
+        const href = $(el).attr('href') || '';
+        const fullUrl = href.startsWith('http') ? href : `https://www.91mobiles.com${href}`;
+        if (fullUrl.includes('price-in-india') && !fullUrl.includes('list-of') && !fullUrl.includes('laptops')) {
+          const text = $(el).text().trim();
+          if (text && text.length > 3 && text.length < 80) {
+            phoneUrls.push({ url: fullUrl, name: text });
+          }
+        }
+      });
+      console.log(`  Found phones from ${extraUrl.split('/').pop()}`);
+      await new Promise(r => setTimeout(r, 300));
+    } catch (err) {
+      console.warn(`  Failed to fetch ${extraUrl}: ${err.message}`);
+    }
+  }
+
+  console.log(`  Total found across all pages: ${phoneUrls.length}`);
+
+  // Deduplicate by URL
+  const seenUrls = new Set();
+  const dedupedByUrl = phoneUrls.filter(p => {
+    if (seenUrls.has(p.url)) return false;
+    seenUrls.add(p.url);
+    return true;
+  });
 
   // Deduplicate by base phone model (skip storage variants like 512GB, 1TB)
   const dedupedUrls = [];
   const seenBaseModels = new Set();
-  for (const phone of phoneUrls) {
-    // Normalize: remove storage variants like "512GB", "1TB", "16GB RAM"
+  for (const phone of dedupedByUrl) {
     const baseModel = phone.name
       .replace(/\d+\s*(GB|TB)\s*(RAM)?/gi, '')
       .replace(/\s+/g, ' ')
@@ -307,8 +347,8 @@ async function main() {
     }
   }
 
-  // Limit to top 20 phones
-  const phoneUrlsToScrape = dedupedUrls.slice(0, 20);
+  // Increase limit to 40 phones
+  const phoneUrlsToScrape = dedupedUrls.slice(0, 40);
   console.log(`  Scraping ${phoneUrlsToScrape.length} unique phone models\n`);
 
   // Step 2: Fetch each phone's detail page and parse specs
