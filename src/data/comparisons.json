@@ -10,24 +10,19 @@
     "phone2Id": "oppo-k14x-5g"
   },
   {
-    "slug": "oppo-reno16-5g-vs-iqoo-15r-512gb",
+    "slug": "oppo-reno16-5g-vs-iqoo-15r",
     "phone1Id": "oppo-reno16-5g",
-    "phone2Id": "iqoo-15r-512gb"
+    "phone2Id": "iqoo-15r"
   },
   {
-    "slug": "vivo-x300-ultra-vs-samsung-galaxy-s26-ultra-512gb",
-    "phone1Id": "vivo-x300-ultra",
-    "phone2Id": "samsung-galaxy-s26-ultra-512gb"
-  },
-  {
-    "slug": "vivo-v80-5g-vs-oneplus-13s-16gb-ram-512gb",
+    "slug": "vivo-v80-5g-vs-oneplus-13s",
     "phone1Id": "vivo-v80-5g",
-    "phone2Id": "oneplus-13s-16gb-ram-512gb"
+    "phone2Id": "oneplus-13s"
   },
   {
-    "slug": "samsung-galaxy-s25-vs-motorola-signature-512gb-16gb-ram",
+    "slug": "samsung-galaxy-s25-vs-motorola-signature",
     "phone1Id": "samsung-galaxy-s25",
-    "phone2Id": "motorola-signature-512gb-16gb-ram"
+    "phone2Id": "motorola-signature"
   },
   {
     "slug": "apple-iphone-17-pro-vs-xiaomi-17-ultra",
@@ -40,9 +35,9 @@
     "phone2Id": "poco-x7-pro"
   },
   {
-    "slug": "apple-iphone-17-vs-oneplus-15r-16gb-512gb",
+    "slug": "apple-iphone-17-vs-oneplus-15r",
     "phone1Id": "apple-iphone-17",
-    "phone2Id": "oneplus-15r-16gb-512gb"
+    "phone2Id": "oneplus-15r"
   },
   {
     "slug": "xiaomi-redmi-note-17-5g-vs-nothing-phone-3a-lite",
@@ -50,19 +45,14 @@
     "phone2Id": "nothing-phone-3a-lite"
   },
   {
-    "slug": "xiaomi-redmi-note-17-pro-5g-vs-nothing-phone-4a-8gb-ram",
+    "slug": "xiaomi-redmi-note-17-pro-5g-vs-nothing-phone-4a",
     "phone1Id": "xiaomi-redmi-note-17-pro-5g",
-    "phone2Id": "nothing-phone-4a-8gb-ram"
+    "phone2Id": "nothing-phone-4a"
   },
   {
     "slug": "realme-p4-power-vs-poco-x8-5g",
     "phone1Id": "realme-p4-power",
     "phone2Id": "poco-x8-5g"
-  },
-  {
-    "slug": "samsung-galaxy-s25-fe-vs-iqoo-15r",
-    "phone1Id": "samsung-galaxy-s25-fe",
-    "phone2Id": "iqoo-15r"
   },
   {
     "slug": "vivo-s2-5g-vs-poco-x8-power-5g",
@@ -105,14 +95,14 @@
     "phone2Id": "nothing-phone-3a"
   },
   {
-    "slug": "apple-iphone-16-vs-google-pixel-11",
-    "phone1Id": "apple-iphone-16",
-    "phone2Id": "google-pixel-11"
-  },
-  {
     "slug": "google-pixel-10-vs-xiaomi-17t",
     "phone1Id": "google-pixel-10",
     "phone2Id": "xiaomi-17t"
+  },
+  {
+    "slug": "apple-iphone-16-vs-google-pixel-11",
+    "phone1Id": "apple-iphone-16",
+    "phone2Id": "google-pixel-11"
   },
   {
     "slug": "oneplus-nord-ce-6-lite-5g-vs-vivo-t5x",
@@ -120,19 +110,14 @@
     "phone2Id": "vivo-t5x"
   },
   {
-    "slug": "xiaomi-17t-vs-motorola-signature-1tb-16gb-ram",
-    "phone1Id": "xiaomi-17t",
-    "phone2Id": "motorola-signature-1tb-16gb-ram"
+    "slug": "motorola-signature-vs-oneplus-15r",
+    "phone1Id": "motorola-signature",
+    "phone2Id": "oneplus-15r"
   },
   {
-    "slug": "motorola-signature-512gb-16gb-ram-vs-oneplus-15r-16gb-512gb",
-    "phone1Id": "motorola-signature-512gb-16gb-ram",
-    "phone2Id": "oneplus-15r-16gb-512gb"
-  },
-  {
-    "slug": "samsung-galaxy-s25-vs-oneplus-15r-16gb-512gb",
+    "slug": "samsung-galaxy-s25-vs-oneplus-15r",
     "phone1Id": "samsung-galaxy-s25",
-    "phone2Id": "oneplus-15r-16gb-512gb"
+    "phone2Id": "oneplus-15r"
   },
   {
     "slug": "oneplus-nord-ce-6-lite-5g-vs-nothing-phone-3a-lite",
@@ -145,9 +130,9 @@
     "phone2Id": "nothing-phone-4a-pro"
   },
   {
-    "slug": "apple-iphone-17-vs-motorola-signature-512gb-16gb-ram",
+    "slug": "apple-iphone-17-vs-motorola-signature",
     "phone1Id": "apple-iphone-17",
-    "phone2Id": "motorola-signature-512gb-16gb-ram"
+    "phone2Id": "motorola-signature"
   },
   {
     "slug": "samsung-galaxy-s25-vs-apple-iphone-17",
@@ -190,19 +175,14 @@
     "phone2Id": "iqoo-15"
   },
   {
-    "slug": "poco-x8-power-5g-vs-nothing-phone-4a-8gb-ram",
+    "slug": "poco-x8-power-5g-vs-nothing-phone-4a",
     "phone1Id": "poco-x8-power-5g",
-    "phone2Id": "nothing-phone-4a-8gb-ram"
+    "phone2Id": "nothing-phone-4a"
   },
   {
     "slug": "google-pixel-11-vs-samsung-galaxy-s26-fe",
     "phone1Id": "google-pixel-11",
     "phone2Id": "samsung-galaxy-s26-fe"
-  },
-  {
-    "slug": "apple-iphone-16-vs-xiaomi-17t-512gb",
-    "phone1Id": "apple-iphone-16",
-    "phone2Id": "xiaomi-17t-512gb"
   },
   {
     "slug": "motorola-edge-60-pro-vs-google-pixel-7a",
@@ -215,34 +195,14 @@
     "phone2Id": "poco-x8-power-5g"
   },
   {
-    "slug": "apple-iphone-18-pro-max-vs-samsung-galaxy-s26-ultra-1tb-16gb-ram",
-    "phone1Id": "apple-iphone-18-pro-max",
-    "phone2Id": "samsung-galaxy-s26-ultra-1tb-16gb-ram"
-  },
-  {
     "slug": "iqoo-z11-5g-vs-poco-x8-power-5g",
     "phone1Id": "iqoo-z11-5g",
     "phone2Id": "poco-x8-power-5g"
   },
   {
-    "slug": "google-pixel-10-vs-motorola-signature-1tb-16gb-ram",
-    "phone1Id": "google-pixel-10",
-    "phone2Id": "motorola-signature-1tb-16gb-ram"
-  },
-  {
     "slug": "oneplus-nord-ce-6-5g-vs-iqoo-z11-5g",
     "phone1Id": "oneplus-nord-ce-6-5g",
     "phone2Id": "iqoo-z11-5g"
-  },
-  {
-    "slug": "oppo-reno16-5g-vs-motorola-signature-1tb-16gb-ram",
-    "phone1Id": "oppo-reno16-5g",
-    "phone2Id": "motorola-signature-1tb-16gb-ram"
-  },
-  {
-    "slug": "iqoo-15r-512gb-vs-motorola-signature-1tb-16gb-ram",
-    "phone1Id": "iqoo-15r-512gb",
-    "phone2Id": "motorola-signature-1tb-16gb-ram"
   },
   {
     "slug": "vivo-t5x-vs-nothing-phone-3a-lite",
@@ -255,9 +215,9 @@
     "phone2Id": "vivo-v80-5g"
   },
   {
-    "slug": "apple-iphone-17-vs-oneplus-13s-16gb-ram-512gb",
+    "slug": "apple-iphone-17-vs-oneplus-13s",
     "phone1Id": "apple-iphone-17",
-    "phone2Id": "oneplus-13s-16gb-ram-512gb"
+    "phone2Id": "oneplus-13s"
   },
   {
     "slug": "samsung-galaxy-s25-vs-oppo-reno16-5g",
@@ -265,29 +225,29 @@
     "phone2Id": "oppo-reno16-5g"
   },
   {
-    "slug": "samsung-galaxy-s25-vs-iqoo-15r-512gb",
+    "slug": "samsung-galaxy-s25-vs-iqoo-15r",
     "phone1Id": "samsung-galaxy-s25",
-    "phone2Id": "iqoo-15r-512gb"
+    "phone2Id": "iqoo-15r"
   },
   {
-    "slug": "vivo-s2-5g-vs-nothing-phone-4a-8gb-ram",
+    "slug": "vivo-s2-5g-vs-nothing-phone-4a",
     "phone1Id": "vivo-s2-5g",
-    "phone2Id": "nothing-phone-4a-8gb-ram"
+    "phone2Id": "nothing-phone-4a"
   },
   {
-    "slug": "oppo-reno16-5g-vs-motorola-signature-512gb-16gb-ram",
+    "slug": "oppo-reno16-5g-vs-motorola-signature",
     "phone1Id": "oppo-reno16-5g",
-    "phone2Id": "motorola-signature-512gb-16gb-ram"
+    "phone2Id": "motorola-signature"
   },
   {
-    "slug": "motorola-signature-512gb-16gb-ram-vs-iqoo-15r-512gb",
-    "phone1Id": "motorola-signature-512gb-16gb-ram",
-    "phone2Id": "iqoo-15r-512gb"
+    "slug": "motorola-signature-vs-iqoo-15r",
+    "phone1Id": "motorola-signature",
+    "phone2Id": "iqoo-15r"
   },
   {
-    "slug": "vivo-v80-5g-vs-oneplus-15r-16gb-512gb",
+    "slug": "vivo-v80-5g-vs-oneplus-15r",
     "phone1Id": "vivo-v80-5g",
-    "phone2Id": "oneplus-15r-16gb-512gb"
+    "phone2Id": "oneplus-15r"
   },
   {
     "slug": "xiaomi-redmi-note-17-5g-vs-vivo-t5x",
@@ -300,9 +260,9 @@
     "phone2Id": "nothing-phone-3a-pro"
   },
   {
-    "slug": "oneplus-13s-16gb-ram-512gb-vs-motorola-edge-70-max-12gb-ram",
-    "phone1Id": "oneplus-13s-16gb-ram-512gb",
-    "phone2Id": "motorola-edge-70-max-12gb-ram"
+    "slug": "oneplus-13s-vs-motorola-edge-70-max",
+    "phone1Id": "oneplus-13s",
+    "phone2Id": "motorola-edge-70-max"
   },
   {
     "slug": "poco-x8-5g-vs-google-pixel-7a",
@@ -310,9 +270,9 @@
     "phone2Id": "google-pixel-7a"
   },
   {
-    "slug": "vivo-v80-5g-vs-motorola-edge-70-max-12gb-ram",
+    "slug": "vivo-v80-5g-vs-motorola-edge-70-max",
     "phone1Id": "vivo-v80-5g",
-    "phone2Id": "motorola-edge-70-max-12gb-ram"
+    "phone2Id": "motorola-edge-70-max"
   },
   {
     "slug": "xiaomi-redmi-note-17-pro-5g-vs-vivo-s2-5g",
@@ -328,11 +288,6 @@
     "slug": "apple-iphone-16-vs-samsung-galaxy-s26-fe",
     "phone1Id": "apple-iphone-16",
     "phone2Id": "samsung-galaxy-s26-fe"
-  },
-  {
-    "slug": "google-pixel-11-vs-xiaomi-17t-512gb",
-    "phone1Id": "google-pixel-11",
-    "phone2Id": "xiaomi-17t-512gb"
   },
   {
     "slug": "poco-x7-pro-vs-nothing-phone-3a",
@@ -355,9 +310,9 @@
     "phone2Id": "xiaomi-17t"
   },
   {
-    "slug": "xiaomi-17t-vs-iqoo-15r-512gb",
+    "slug": "xiaomi-17t-vs-iqoo-15r",
     "phone1Id": "xiaomi-17t",
-    "phone2Id": "iqoo-15r-512gb"
+    "phone2Id": "iqoo-15r"
   },
   {
     "slug": "oneplus-nord-ce-6-5g-vs-realme-p4s-5g",
@@ -365,24 +320,24 @@
     "phone2Id": "realme-p4s-5g"
   },
   {
-    "slug": "oppo-reno16-5g-vs-oneplus-15r-16gb-512gb",
+    "slug": "oppo-reno16-5g-vs-oneplus-15r",
     "phone1Id": "oppo-reno16-5g",
-    "phone2Id": "oneplus-15r-16gb-512gb"
+    "phone2Id": "oneplus-15r"
   },
   {
-    "slug": "oneplus-15r-16gb-512gb-vs-iqoo-15r-512gb",
-    "phone1Id": "oneplus-15r-16gb-512gb",
-    "phone2Id": "iqoo-15r-512gb"
+    "slug": "oneplus-15r-vs-iqoo-15r",
+    "phone1Id": "oneplus-15r",
+    "phone2Id": "iqoo-15r"
   },
   {
-    "slug": "vivo-v80-5g-vs-motorola-signature-512gb-16gb-ram",
+    "slug": "vivo-v80-5g-vs-motorola-signature",
     "phone1Id": "vivo-v80-5g",
-    "phone2Id": "motorola-signature-512gb-16gb-ram"
+    "phone2Id": "motorola-signature"
   },
   {
-    "slug": "motorola-signature-512gb-16gb-ram-vs-oneplus-13s-16gb-ram-512gb",
-    "phone1Id": "motorola-signature-512gb-16gb-ram",
-    "phone2Id": "oneplus-13s-16gb-ram-512gb"
+    "slug": "motorola-signature-vs-oneplus-13s",
+    "phone1Id": "motorola-signature",
+    "phone2Id": "oneplus-13s"
   },
   {
     "slug": "samsung-galaxy-s25-vs-vivo-v80-5g",
@@ -390,9 +345,9 @@
     "phone2Id": "vivo-v80-5g"
   },
   {
-    "slug": "samsung-galaxy-s25-vs-oneplus-13s-16gb-ram-512gb",
+    "slug": "samsung-galaxy-s25-vs-oneplus-13s",
     "phone1Id": "samsung-galaxy-s25",
-    "phone2Id": "oneplus-13s-16gb-ram-512gb"
+    "phone2Id": "oneplus-13s"
   },
   {
     "slug": "realme-p4s-5g-vs-google-pixel-7a",
@@ -405,9 +360,9 @@
     "phone2Id": "oppo-reno16-5g"
   },
   {
-    "slug": "apple-iphone-17-vs-iqoo-15r-512gb",
+    "slug": "apple-iphone-17-vs-iqoo-15r",
     "phone1Id": "apple-iphone-17",
-    "phone2Id": "iqoo-15r-512gb"
+    "phone2Id": "iqoo-15r"
   },
   {
     "slug": "vivo-t4x-vs-moto-g86-power",
@@ -435,9 +390,9 @@
     "phone2Id": "poco-x7-pro"
   },
   {
-    "slug": "iqoo-z11-5g-vs-nothing-phone-4a-8gb-ram",
+    "slug": "iqoo-z11-5g-vs-nothing-phone-4a",
     "phone1Id": "iqoo-z11-5g",
-    "phone2Id": "nothing-phone-4a-8gb-ram"
+    "phone2Id": "nothing-phone-4a"
   },
   {
     "slug": "samsung-galaxy-f70-pro-5g-vs-realme-p4x",
@@ -445,9 +400,14 @@
     "phone2Id": "realme-p4x"
   },
   {
-    "slug": "google-pixel-10-vs-xiaomi-17t-512gb",
+    "slug": "oppo-reno16-5g-vs-google-pixel-10",
+    "phone1Id": "oppo-reno16-5g",
+    "phone2Id": "google-pixel-10"
+  },
+  {
+    "slug": "google-pixel-10-vs-iqoo-15r",
     "phone1Id": "google-pixel-10",
-    "phone2Id": "xiaomi-17t-512gb"
+    "phone2Id": "iqoo-15r"
   },
   {
     "slug": "xiaomi-redmi-note-17-pro-5g-vs-iqoo-z11-5g",
@@ -470,16 +430,6 @@
     "phone2Id": "samsung-galaxy-f70-5g"
   },
   {
-    "slug": "oppo-reno16-5g-vs-google-pixel-10",
-    "phone1Id": "oppo-reno16-5g",
-    "phone2Id": "google-pixel-10"
-  },
-  {
-    "slug": "google-pixel-10-vs-iqoo-15r-512gb",
-    "phone1Id": "google-pixel-10",
-    "phone2Id": "iqoo-15r-512gb"
-  },
-  {
     "slug": "xiaomi-redmi-note-17-5g-vs-motorola-edge-70-fusion",
     "phone1Id": "xiaomi-redmi-note-17-5g",
     "phone2Id": "motorola-edge-70-fusion"
@@ -490,13 +440,63 @@
     "phone2Id": "nothing-phone-3a-pro"
   },
   {
-    "slug": "samsung-galaxy-s25-vs-motorola-signature-1tb-16gb-ram",
-    "phone1Id": "samsung-galaxy-s25",
-    "phone2Id": "motorola-signature-1tb-16gb-ram"
-  },
-  {
     "slug": "motorola-edge-70-fusion-vs-nothing-phone-3a-lite",
     "phone1Id": "motorola-edge-70-fusion",
     "phone2Id": "nothing-phone-3a-lite"
+  },
+  {
+    "slug": "vivo-t4x-vs-realme-p3",
+    "phone1Id": "vivo-t4x",
+    "phone2Id": "realme-p3"
+  },
+  {
+    "slug": "oppo-k14x-5g-vs-realme-p3",
+    "phone1Id": "oppo-k14x-5g",
+    "phone2Id": "realme-p3"
+  },
+  {
+    "slug": "oneplus-n6-5g-vs-nothing-phone-3a",
+    "phone1Id": "oneplus-n6-5g",
+    "phone2Id": "nothing-phone-3a"
+  },
+  {
+    "slug": "apple-iphone-17-vs-motorola-edge-70-max",
+    "phone1Id": "apple-iphone-17",
+    "phone2Id": "motorola-edge-70-max"
+  },
+  {
+    "slug": "oneplus-15r-vs-motorola-edge-70-max",
+    "phone1Id": "oneplus-15r",
+    "phone2Id": "motorola-edge-70-max"
+  },
+  {
+    "slug": "realme-p3-vs-poco-m7-pro",
+    "phone1Id": "realme-p3",
+    "phone2Id": "poco-m7-pro"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-5g-vs-realme-p4-power",
+    "phone1Id": "xiaomi-redmi-note-17-5g",
+    "phone2Id": "realme-p4-power"
+  },
+  {
+    "slug": "realme-p4-power-vs-nothing-phone-3a-pro",
+    "phone1Id": "realme-p4-power",
+    "phone2Id": "nothing-phone-3a-pro"
+  },
+  {
+    "slug": "samsung-galaxy-s25-fe-vs-google-pixel-10a",
+    "phone1Id": "samsung-galaxy-s25-fe",
+    "phone2Id": "google-pixel-10a"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-pro-max-5g-vs-nothing-phone-4a-pro",
+    "phone1Id": "xiaomi-redmi-note-17-pro-max-5g",
+    "phone2Id": "nothing-phone-4a-pro"
+  },
+  {
+    "slug": "oneplus-nord-6-vs-oppo-f35-pro",
+    "phone1Id": "oneplus-nord-6",
+    "phone2Id": "oppo-f35-pro"
   }
 ]

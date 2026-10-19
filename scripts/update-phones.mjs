@@ -389,7 +389,7 @@ async function main() {
   console.log(`  Scraping ${phoneUrlsToScrape.length} phone models\n`);
 
   // Step 2: Fetch each phone's detail page and parse specs
-  const phones = [];
+  const rawPhones = [];
   for (const { url, name } of phoneUrlsToScrape) {
     try {
       console.log(`  Fetching ${name || url}...`);
@@ -402,7 +402,7 @@ async function main() {
         continue;
       }
 
-      phones.push(phone);
+      rawPhones.push(phone);
       console.log(`    ✓ ${phone.name} - ₹${phone.price.toLocaleString()}`);
 
       // Be polite: small delay between requests
@@ -412,7 +412,44 @@ async function main() {
     }
   }
 
-  console.log(`\nTotal: ${phones.length} phones scraped`);
+  console.log(`\nTotal scraped: ${rawPhones.length}`);
+
+  // Step 3: Deduplicate by base model name (remove storage/RAM variants)
+  // "iPhone 18 Pro Max 512GB" and "iPhone 18 Pro Max 1TB" => keep only the cheapest
+  const phonesByBase = new Map();
+  for (const phone of rawPhones) {
+    // Strip storage/RAM suffixes to get base model name
+    const baseName = phone.name
+      .replace(/,?\s*\d+\s*(GB|TB)\s*(RAM)?\s*/gi, ' ')   // remove "512GB", "16GB RAM", "8GB RAM"
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    if (!phonesByBase.has(baseName)) {
+      phonesByBase.set(baseName, phone);
+    } else {
+      // Keep the one with the lower price (base variant)
+      const existing = phonesByBase.get(baseName);
+      if (phone.price < existing.price) {
+        phonesByBase.set(baseName, phone);
+      }
+    }
+  }
+
+  // Clean up names and normalize brands
+  const phones = [];
+  for (const [baseName, phone] of phonesByBase) {
+    phone.name = baseName;
+    // Normalize "Moto" brand to "Motorola"
+    if (phone.brand === 'Moto') phone.brand = 'Motorola';
+    phone.id = baseName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '')
+      .replace(/-+/g, '-');
+    phones.push(phone);
+  }
+
+  console.log(`After deduplication: ${phones.length} unique models`);
 
   if (phones.length === 0) {
     console.error('\nERROR: No phones scraped. Keeping existing file unchanged.');
