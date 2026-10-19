@@ -53,6 +53,15 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     )}
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7GYM7LM778"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7GYM7LM778');
+    </script>
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7638521765617220" crossorigin="anonymous"></script>
   </head>
