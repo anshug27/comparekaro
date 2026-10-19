@@ -31,6 +31,12 @@ jobs:
       - name: Scrape phone specs
         run: node scripts/update-phones.mjs
 
+      - name: Scrape loan rates
+        run: node scripts/update-loans.mjs
+
+      - name: Scrape broadband plans
+        run: node scripts/update-broadband.mjs
+
       # ── Commit if data changed ────────────────────────
       - name: Check for data changes
         id: changes
@@ -43,9 +49,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/data/
-          git commit -m "chore: auto-update plan and phone data
+          git commit -m "chore: auto-update all data
 
-          Scraped latest mobile plans (Bajaj Finserv) and phone specs (91mobiles).
+          Scraped latest mobile plans, phone specs, loan rates, and broadband plans.
 
           Generated with [Devin](https://devin.ai)
 

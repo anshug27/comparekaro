@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import AdUnit from '../../components/AdUnit.astro';
+import { homeLoans as liveHomeLoans, personalLoans as livePersonalLoans, lastUpdated } from '../../data/loans';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -12,29 +13,8 @@ const schema = {
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
 };
 
-const homeLoans = [
-  { bank: 'SBI', rate: 8.50, maxTenure: 30, processing: '0.35%', maxAmount: '5 Cr', prepayment: 'Free (floating)' },
-  { bank: 'HDFC', rate: 8.75, maxTenure: 30, processing: '0.50%', maxAmount: '10 Cr', prepayment: 'Free (floating)' },
-  { bank: 'ICICI', rate: 8.75, maxTenure: 30, processing: '0.50%', maxAmount: '5 Cr', prepayment: 'Free (floating)' },
-  { bank: 'Axis', rate: 8.75, maxTenure: 30, processing: '1.00%', maxAmount: '5 Cr', prepayment: 'Free (floating)' },
-  { bank: 'Kotak', rate: 8.70, maxTenure: 20, processing: '0.50%', maxAmount: '5 Cr', prepayment: 'Free (floating)' },
-  { bank: 'PNB', rate: 8.45, maxTenure: 30, processing: '0.35%', maxAmount: '5 Cr', prepayment: 'Free (floating)' },
-  { bank: 'Bank of Baroda', rate: 8.40, maxTenure: 30, processing: '0.25%', maxAmount: '10 Cr', prepayment: 'Free (floating)' },
-  { bank: 'Canara Bank', rate: 8.45, maxTenure: 30, processing: '0.50%', maxAmount: '3 Cr', prepayment: 'Free (floating)' },
-  { bank: 'LIC Housing', rate: 8.50, maxTenure: 30, processing: '0.50%', maxAmount: '5 Cr', prepayment: '2% (fixed)' },
-  { bank: 'Bajaj Housing', rate: 8.50, maxTenure: 30, processing: '0.40%', maxAmount: '3.5 Cr', prepayment: 'Free (floating)' },
-];
-
-const personalLoans = [
-  { bank: 'SBI', rate: 11.15, maxTenure: 6, processing: '1.50%', maxAmount: '20 L', prepayment: '3%' },
-  { bank: 'HDFC', rate: 10.75, maxTenure: 5, processing: '2.50%', maxAmount: '40 L', prepayment: '4%' },
-  { bank: 'ICICI', rate: 10.75, maxTenure: 5, processing: '2.50%', maxAmount: '50 L', prepayment: '5%' },
-  { bank: 'Axis', rate: 10.49, maxTenure: 5, processing: '2.00%', maxAmount: '40 L', prepayment: '5%' },
-  { bank: 'Kotak', rate: 10.99, maxTenure: 5, processing: '3.00%', maxAmount: '40 L', prepayment: '4%' },
-  { bank: 'Bajaj Finserv', rate: 11.00, maxTenure: 5, processing: '2.00%', maxAmount: '35 L', prepayment: '4%' },
-  { bank: 'Tata Capital', rate: 10.99, maxTenure: 6, processing: '2.50%', maxAmount: '35 L', prepayment: '5%' },
-  { bank: 'IndusInd', rate: 10.49, maxTenure: 5, processing: '3.00%', maxAmount: '25 L', prepayment: '5%' },
-];
+const homeLoans = liveHomeLoans;
+const personalLoans = livePersonalLoans;
 
 const creditCards = [
   { name: 'SBI SimplyCLICK', bank: 'SBI', fee: 499, cashback: '1.25% online', lounge: 'No', fuel: '1%', reward: '10x on Amazon, Cleartrip', best: 'Online shopping' },
@@ -66,6 +46,7 @@ const creditCards = [
       </nav>
       <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Loan & Credit Card Comparison</h1>
       <p class="text-gray-500 text-lg">Compare interest rates, fees, and benefits across India's top banks.</p>
+      <p class="text-xs text-gray-400 mt-2">Loan rates auto-updated from BankBazaar.com on {lastUpdated}</p>
     </div>
 
     <!-- Tab Navigation -->
@@ -83,22 +64,18 @@ const creditCards = [
             <thead>
               <tr class="text-left text-sm text-gray-500 bg-gray-50 border-b border-gray-200">
                 <th class="p-4 font-medium">Bank</th>
-                <th class="p-4 font-medium">Interest Rate</th>
-                <th class="p-4 font-medium">Max Tenure</th>
+                <th class="p-4 font-medium">Starting Rate</th>
+                <th class="p-4 font-medium">Max Rate</th>
                 <th class="p-4 font-medium">Processing Fee</th>
-                <th class="p-4 font-medium">Max Amount</th>
-                <th class="p-4 font-medium">Prepayment</th>
               </tr>
             </thead>
             <tbody>
-              {homeLoans.sort((a, b) => a.rate - b.rate).map((loan, i) => (
+              {homeLoans.sort((a, b) => a.minRate - b.minRate).map((loan, i) => (
                 <tr class:list={['border-b border-gray-50 hover:bg-gray-50', i === 0 && 'bg-green-50']}>
                   <td class="p-4 text-sm font-medium text-gray-900">{loan.bank}</td>
-                  <td class:list={['p-4 text-sm font-bold', i === 0 ? 'text-green-600' : 'text-blue-600']}>{loan.rate}% p.a.</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.maxTenure} years</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.processing}</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.maxAmount}</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.prepayment}</td>
+                  <td class:list={['p-4 text-sm font-bold', i === 0 ? 'text-green-600' : 'text-blue-600']}>{loan.minRate}% p.a.</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.maxRate}% p.a.</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.processingFee}</td>
                 </tr>
               ))}
             </tbody>
@@ -148,22 +125,18 @@ const creditCards = [
             <thead>
               <tr class="text-left text-sm text-gray-500 bg-gray-50 border-b border-gray-200">
                 <th class="p-4 font-medium">Bank</th>
-                <th class="p-4 font-medium">Interest Rate</th>
-                <th class="p-4 font-medium">Max Tenure</th>
+                <th class="p-4 font-medium">Starting Rate</th>
+                <th class="p-4 font-medium">Max Rate</th>
                 <th class="p-4 font-medium">Processing Fee</th>
-                <th class="p-4 font-medium">Max Amount</th>
-                <th class="p-4 font-medium">Prepayment</th>
               </tr>
             </thead>
             <tbody>
-              {personalLoans.sort((a, b) => a.rate - b.rate).map((loan, i) => (
+              {personalLoans.sort((a, b) => a.minRate - b.minRate).map((loan, i) => (
                 <tr class:list={['border-b border-gray-50 hover:bg-gray-50', i === 0 && 'bg-green-50']}>
                   <td class="p-4 text-sm font-medium text-gray-900">{loan.bank}</td>
-                  <td class:list={['p-4 text-sm font-bold', i === 0 ? 'text-green-600' : 'text-blue-600']}>{loan.rate}% p.a.</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.maxTenure} years</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.processing}</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.maxAmount}</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.prepayment}</td>
+                  <td class:list={['p-4 text-sm font-bold', i === 0 ? 'text-green-600' : 'text-blue-600']}>{loan.minRate}% p.a.</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.maxRate}% p.a.</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.processingFee}</td>
                 </tr>
               ))}
             </tbody>

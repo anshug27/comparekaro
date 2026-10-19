@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import AdUnit from '../../components/AdUnit.astro';
+import { broadbandPlans, providers as providerNames, lastUpdated } from '../../data/broadband';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -12,62 +13,8 @@ const schema = {
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
 };
 
-const providers = [
-  {
-    name: 'Jio Fiber',
-    plans: [
-      { name: 'Welcome Offer', speed: 30, data: 'Unlimited', price: 399, ott: '', router: true },
-      { name: 'Fiber Value', speed: 30, data: 'Unlimited', price: 599, ott: '', router: true },
-      { name: 'Fiber Popular', speed: 100, data: 'Unlimited', price: 899, ott: 'JioCinema, SonyLIV', router: true },
-      { name: 'Fiber Hero', speed: 150, data: 'Unlimited', price: 999, ott: 'JioCinema, SonyLIV', router: true },
-      { name: 'Fiber Super', speed: 300, data: 'Unlimited', price: 1499, ott: 'JioCinema, SonyLIV, ZEE5, SunNxt', router: true },
-      { name: 'Fiber Titanium', speed: 500, data: 'Unlimited', price: 2499, ott: 'Netflix, JioCinema, SonyLIV, ZEE5', router: true },
-      { name: 'Fiber 5G', speed: 1000, data: 'Unlimited', price: 3999, ott: 'Netflix, JioCinema, SonyLIV, ZEE5, Amazon Prime', router: true },
-    ],
-  },
-  {
-    name: 'Airtel Xstream Fiber',
-    plans: [
-      { name: 'Basic', speed: 40, data: 'Unlimited', price: 499, ott: '', router: true },
-      { name: 'Entertainment', speed: 100, data: 'Unlimited', price: 799, ott: 'Xstream Premium', router: true },
-      { name: 'Premium', speed: 200, data: 'Unlimited', price: 999, ott: 'Xstream, JioHotstar', router: true },
-      { name: 'Pro', speed: 300, data: 'Unlimited', price: 1499, ott: 'Xstream, JioHotstar, SonyLIV', router: true },
-      { name: 'VIP', speed: 1000, data: 'Unlimited', price: 3999, ott: 'Netflix, Xstream, JioHotstar, SonyLIV, ZEE5', router: true },
-    ],
-  },
-  {
-    name: 'ACT Fibernet',
-    plans: [
-      { name: 'ACT Swift', speed: 75, data: '500 GB', price: 599, ott: '', router: false },
-      { name: 'ACT Sprint', speed: 100, data: '1 TB', price: 749, ott: '', router: false },
-      { name: 'ACT Storm', speed: 150, data: '1.5 TB', price: 999, ott: 'ACT Stream TV', router: false },
-      { name: 'ACT Lightning', speed: 200, data: '2 TB', price: 1049, ott: 'ACT Stream TV', router: false },
-      { name: 'ACT Incredible', speed: 300, data: '3 TB', price: 1349, ott: 'ACT Stream TV', router: false },
-    ],
-  },
-  {
-    name: 'BSNL Fiber',
-    plans: [
-      { name: 'Fiber Basic', speed: 30, data: '3300 GB', price: 449, ott: '', router: false },
-      { name: 'Fiber Value', speed: 60, data: '3300 GB', price: 599, ott: '', router: false },
-      { name: 'Fiber Premium', speed: 100, data: '3300 GB', price: 799, ott: '', router: false },
-      { name: 'Fiber Ultra', speed: 200, data: '3300 GB', price: 999, ott: 'Disney+ Hotstar', router: false },
-      { name: 'Fiber Enterprise', speed: 300, data: '4000 GB', price: 1499, ott: 'Disney+ Hotstar, SonyLIV', router: false },
-    ],
-  },
-  {
-    name: 'Tata Play Fiber',
-    plans: [
-      { name: '100 Mbps', speed: 100, data: 'Unlimited', price: 699, ott: '', router: true },
-      { name: '150 Mbps', speed: 150, data: 'Unlimited', price: 899, ott: '', router: true },
-      { name: '300 Mbps', speed: 300, data: 'Unlimited', price: 1049, ott: '', router: true },
-      { name: '500 Mbps', speed: 500, data: 'Unlimited', price: 1599, ott: '', router: true },
-      { name: '1 Gbps', speed: 1000, data: 'Unlimited', price: 3599, ott: '', router: true },
-    ],
-  },
-];
-
-const allPlans = providers.flatMap(p => p.plans.map(plan => ({ provider: p.name, ...plan })));
+const allPlans = broadbandPlans;
+const providers = providerNames;
 ---
 
 <Layout
@@ -86,6 +33,7 @@ const allPlans = providers.flatMap(p => p.plans.map(plan => ({ provider: p.name,
       </nav>
       <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Broadband Plans Comparison</h1>
       <p class="text-gray-500 text-lg">Compare fiber broadband plans from all major providers in India. Find the best speed and value for your home.</p>
+      <p class="text-xs text-gray-400 mt-2">Auto-updated on {lastUpdated}</p>
     </div>
 
     <!-- Filters -->
@@ -94,7 +42,7 @@ const allPlans = providers.flatMap(p => p.plans.map(plan => ({ provider: p.name,
         <label class="text-sm font-medium text-gray-700">Provider:</label>
         <select id="providerFilter" class="ml-2 px-3 py-2 border border-gray-300 rounded-lg text-sm">
           <option value="all">All Providers</option>
-          {providers.map(p => <option value={p.name}>{p.name}</option>)}
+          {providers.map(p => <option value={p}>{p}</option>)}
         </select>
       </div>
       <div>
