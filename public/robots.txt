@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://comparekaro.in/sitemap-index.xml
+Sitemap: https://comparekaro.download/sitemap-index.xml

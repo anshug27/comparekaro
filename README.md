@@ -60,7 +60,7 @@ npx wrangler pages deploy dist/client --project-name=comparekaro
 ### Custom Domain
 
 1. In Cloudflare Pages project settings > Custom domains
-2. Add `comparekaro.in` (or your domain)
+2. Add `comparekaro.download` (or your domain)
 3. Update DNS as instructed by Cloudflare
 
 ## After Deployment

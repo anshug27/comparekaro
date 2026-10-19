@@ -8,7 +8,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://comparekaro.in',
+  site: 'https://comparekaro.download',
   output: 'static',
   vite: {
     plugins: [tailwindcss()]
