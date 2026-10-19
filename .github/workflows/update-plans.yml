@@ -37,21 +37,24 @@ jobs:
       - name: Scrape broadband plans
         run: node scripts/update-broadband.mjs
 
+      - name: Scrape gold & silver prices
+        run: node scripts/update-gold.mjs
+
       # ── Commit if data changed ────────────────────────
       - name: Check for data changes
         id: changes
         run: |
-          git diff --quiet src/data/ && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+          git diff --quiet src/data/ src/pages/tools/gold-silver-price.astro && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Commit updated data
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/
+          git add src/data/ src/pages/tools/gold-silver-price.astro
           git commit -m "chore: auto-update all data
 
-          Scraped latest mobile plans, phone specs, loan rates, and broadband plans.
+          Scraped latest mobile plans, phone specs, loan rates, broadband plans, and gold/silver prices.
 
           Generated with [Devin](https://devin.ai)
 

@@ -15,7 +15,8 @@
     "update-phones": "node scripts/update-phones.mjs",
     "update-loans": "node scripts/update-loans.mjs",
     "update-broadband": "node scripts/update-broadband.mjs",
-    "update-all": "node scripts/update-plans.mjs && node scripts/update-phones.mjs && node scripts/update-loans.mjs && node scripts/update-broadband.mjs"
+    "update-gold": "node scripts/update-gold.mjs",
+    "update-all": "node scripts/update-plans.mjs && node scripts/update-phones.mjs && node scripts/update-loans.mjs && node scripts/update-broadband.mjs && node scripts/update-gold.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.0",
