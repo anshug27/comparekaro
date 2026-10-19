@@ -1,0 +1,217 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Rent vs Buy Calculator',
+  url: 'https://comparekaro.in/tools/rent-vs-buy',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+---
+
+<Layout
+  title="Rent vs Buy Calculator - Should You Rent or Buy a Home in India?"
+  description="Free rent vs buy calculator for India. Compare total costs of renting vs buying a home over 5-30 years including EMI, maintenance, appreciation, and opportunity cost."
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-blue-600">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">Rent vs Buy</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Rent vs Buy Calculator</h1>
+      <p class="text-gray-500 text-lg">Should you rent or buy? Compare the real cost over time.</p>
+    </div>
+
+    <div class="bg-white rounded-xl border border-gray-200 p-6 md:p-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Buy Side -->
+        <div>
+          <h3 class="font-semibold text-lg text-blue-700 mb-4 flex items-center gap-2">🏠 Buying</h3>
+          <div class="space-y-4">
+            <div>
+              <label for="home-price" class="block text-sm font-medium text-gray-700 mb-1">Property Price (&#8377;)</label>
+              <input type="number" id="home-price" value="5000000" min="500000" step="100000"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base" />
+            </div>
+            <div>
+              <label for="down-payment" class="block text-sm font-medium text-gray-700 mb-1">Down Payment (%)</label>
+              <input type="number" id="down-payment" value="20" min="5" max="100" step="5"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base" />
+            </div>
+            <div>
+              <label for="loan-rate" class="block text-sm font-medium text-gray-700 mb-1">Loan Interest Rate (%)</label>
+              <input type="number" id="loan-rate" value="8.5" min="5" max="15" step="0.1"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base" />
+            </div>
+            <div>
+              <label for="appreciation" class="block text-sm font-medium text-gray-700 mb-1">Property Appreciation (%/yr)</label>
+              <input type="number" id="appreciation" value="5" min="0" max="15" step="0.5"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base" />
+            </div>
+            <div>
+              <label for="maintenance" class="block text-sm font-medium text-gray-700 mb-1">Maintenance (&#8377;/month)</label>
+              <input type="number" id="maintenance" value="3000" min="0" step="500"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Rent Side -->
+        <div>
+          <h3 class="font-semibold text-lg text-green-700 mb-4 flex items-center gap-2">🏢 Renting</h3>
+          <div class="space-y-4">
+            <div>
+              <label for="monthly-rent" class="block text-sm font-medium text-gray-700 mb-1">Monthly Rent (&#8377;)</label>
+              <input type="number" id="monthly-rent" value="20000" min="1000" step="1000"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-base" />
+            </div>
+            <div>
+              <label for="rent-increase" class="block text-sm font-medium text-gray-700 mb-1">Annual Rent Increase (%)</label>
+              <input type="number" id="rent-increase" value="5" min="0" max="15" step="0.5"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-base" />
+            </div>
+            <div>
+              <label for="invest-return" class="block text-sm font-medium text-gray-700 mb-1">Investment Return (% if renting)</label>
+              <input type="number" id="invest-return" value="12" min="5" max="20" step="0.5"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-base" />
+              <p class="text-xs text-gray-400 mt-1">Return on down payment if invested instead</p>
+            </div>
+            <div>
+              <label for="compare-years" class="block text-sm font-medium text-gray-700 mb-1">Compare Over (Years)</label>
+              <input type="range" id="compare-years-range" min="5" max="30" step="1" value="20"
+                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gray-600" />
+              <input type="number" id="compare-years" value="20" min="5" max="30" step="1"
+                class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 text-base" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Verdict -->
+      <div id="verdict" class="mt-8 rounded-xl p-6 text-center"></div>
+
+      <!-- Comparison Table -->
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="bg-blue-50 rounded-lg p-5">
+          <h4 class="font-semibold text-blue-800 mb-3">Buying Costs</h4>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span class="text-gray-600">Down Payment</span><span id="buy-down" class="font-medium">-</span></div>
+            <div class="flex justify-between"><span class="text-gray-600">Total EMI Paid</span><span id="buy-emi" class="font-medium">-</span></div>
+            <div class="flex justify-between"><span class="text-gray-600">Total Maintenance</span><span id="buy-maint" class="font-medium">-</span></div>
+            <div class="border-t border-blue-200 pt-2 flex justify-between"><span class="text-gray-700 font-medium">Total Cost</span><span id="buy-total" class="font-bold text-blue-800">-</span></div>
+            <div class="flex justify-between"><span class="text-gray-600">Property Value</span><span id="buy-value" class="font-medium text-green-700">-</span></div>
+            <div class="border-t border-blue-200 pt-2 flex justify-between"><span class="text-gray-700 font-medium">Net Cost</span><span id="buy-net" class="font-bold text-blue-800">-</span></div>
+          </div>
+        </div>
+        <div class="bg-green-50 rounded-lg p-5">
+          <h4 class="font-semibold text-green-800 mb-3">Renting Costs</h4>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span class="text-gray-600">Total Rent Paid</span><span id="rent-total-paid" class="font-medium">-</span></div>
+            <div class="flex justify-between"><span class="text-gray-600">Investment Value</span><span id="rent-invest" class="font-medium text-green-700">-</span></div>
+            <div class="border-t border-green-200 pt-2 flex justify-between"><span class="text-gray-700 font-medium">Net Cost</span><span id="rent-net" class="font-bold text-green-800">-</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+      <h2>How Does This Calculator Work?</h2>
+      <p>This calculator compares the total financial outcome of buying vs renting over a given period by considering:</p>
+      <ul>
+        <li><strong>Buying:</strong> Down payment, EMI payments, maintenance costs, and property appreciation</li>
+        <li><strong>Renting:</strong> Total rent paid (with annual increases), and the investment growth of the down payment amount if invested in mutual funds instead</li>
+      </ul>
+      <p>The "net cost" for buying = total payments - final property value. The "net cost" for renting = total rent - investment portfolio value.</p>
+
+      <h2>Key Factors to Consider</h2>
+      <ul>
+        <li>In metro cities like Mumbai and Bangalore, rent-to-price ratios are typically 2-3%, making renting often cheaper in the short term</li>
+        <li>Property appreciation varies significantly by location - tier-2 cities may appreciate faster than saturated metro markets</li>
+        <li>Buying gives you stability and a forced savings mechanism, while renting gives flexibility</li>
+        <li>Tax benefits on home loan (Section 24, Section 80C) are not included in this calculator for simplicity</li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    function formatINR(num: number): string {
+      return '₹' + num.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+    }
+
+    function calculate() {
+      const homePrice = parseFloat((document.getElementById('home-price') as HTMLInputElement).value);
+      const downPct = parseFloat((document.getElementById('down-payment') as HTMLInputElement).value) / 100;
+      const loanRate = parseFloat((document.getElementById('loan-rate') as HTMLInputElement).value);
+      const appreciation = parseFloat((document.getElementById('appreciation') as HTMLInputElement).value) / 100;
+      const maintenanceMonthly = parseFloat((document.getElementById('maintenance') as HTMLInputElement).value);
+      const monthlyRent = parseFloat((document.getElementById('monthly-rent') as HTMLInputElement).value);
+      const rentIncrease = parseFloat((document.getElementById('rent-increase') as HTMLInputElement).value) / 100;
+      const investReturn = parseFloat((document.getElementById('invest-return') as HTMLInputElement).value) / 100;
+      const years = parseInt((document.getElementById('compare-years') as HTMLInputElement).value);
+
+      const downPayment = homePrice * downPct;
+      const loanAmount = homePrice - downPayment;
+      const r = loanRate / 12 / 100;
+      const n = years * 12;
+      const emi = loanAmount > 0 ? loanAmount * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1) : 0;
+      const totalEmi = emi * n;
+      const totalMaintenance = maintenanceMonthly * 12 * years;
+      const totalBuyCost = downPayment + totalEmi + totalMaintenance;
+      const propertyValue = homePrice * Math.pow(1 + appreciation, years);
+      const buyNetCost = totalBuyCost - propertyValue;
+
+      let totalRent = 0;
+      let currentRent = monthlyRent;
+      for (let y = 0; y < years; y++) {
+        totalRent += currentRent * 12;
+        currentRent *= (1 + rentIncrease);
+      }
+      const investmentValue = downPayment * Math.pow(1 + investReturn, years);
+      const rentNetCost = totalRent - investmentValue;
+
+      (document.getElementById('buy-down') as HTMLElement).textContent = formatINR(downPayment);
+      (document.getElementById('buy-emi') as HTMLElement).textContent = formatINR(totalEmi);
+      (document.getElementById('buy-maint') as HTMLElement).textContent = formatINR(totalMaintenance);
+      (document.getElementById('buy-total') as HTMLElement).textContent = formatINR(totalBuyCost);
+      (document.getElementById('buy-value') as HTMLElement).textContent = formatINR(propertyValue);
+      (document.getElementById('buy-net') as HTMLElement).textContent = formatINR(buyNetCost);
+
+      (document.getElementById('rent-total-paid') as HTMLElement).textContent = formatINR(totalRent);
+      (document.getElementById('rent-invest') as HTMLElement).textContent = formatINR(investmentValue);
+      (document.getElementById('rent-net') as HTMLElement).textContent = formatINR(rentNetCost);
+
+      const verdict = document.getElementById('verdict') as HTMLElement;
+      if (buyNetCost < rentNetCost) {
+        const savings = rentNetCost - buyNetCost;
+        verdict.className = 'mt-8 rounded-xl p-6 text-center bg-blue-50 border border-blue-200';
+        verdict.innerHTML = `<p class="text-2xl font-bold text-blue-800">🏠 Buying is better by ${formatINR(savings)}</p><p class="text-blue-600 mt-2">Over ${years} years, buying saves you money compared to renting.</p>`;
+      } else {
+        const savings = buyNetCost - rentNetCost;
+        verdict.className = 'mt-8 rounded-xl p-6 text-center bg-green-50 border border-green-200';
+        verdict.innerHTML = `<p class="text-2xl font-bold text-green-800">🏢 Renting is better by ${formatINR(savings)}</p><p class="text-green-600 mt-2">Over ${years} years, renting and investing the difference saves you money.</p>`;
+      }
+    }
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', calculate);
+    });
+
+    const range = document.getElementById('compare-years-range') as HTMLInputElement;
+    const num = document.getElementById('compare-years') as HTMLInputElement;
+    range.addEventListener('input', () => { num.value = range.value; calculate(); });
+    num.addEventListener('input', () => { range.value = num.value; calculate(); });
+
+    calculate();
+  </script>
+</Layout>

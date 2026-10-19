@@ -1,0 +1,268 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'EMI Calculator',
+  url: 'https://comparekaro.in/tools/emi-calculator',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+  description: 'Free EMI calculator for home loan, car loan, and personal loan. Calculate monthly EMI, total interest, and view amortization schedule.',
+};
+---
+
+<Layout
+  title="EMI Calculator - Calculate Home, Car & Personal Loan EMI"
+  description="Free EMI calculator for India. Calculate monthly EMI for home loan, car loan, personal loan. See total interest, amortization schedule with charts."
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-blue-600">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">EMI Calculator</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">EMI Calculator</h1>
+      <p class="text-gray-500 text-lg">Calculate your monthly EMI for home loan, car loan, or personal loan instantly.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Calculator -->
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6 md:p-8">
+        <div class="space-y-6">
+          <div>
+            <label for="loan-amount" class="block text-sm font-medium text-gray-700 mb-2">Loan Amount (&#8377;)</label>
+            <input type="range" id="loan-amount-range" min="100000" max="50000000" step="100000" value="3000000"
+              class="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+            <input type="number" id="loan-amount" value="3000000" min="100000" max="50000000" step="100000"
+              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg" />
+          </div>
+
+          <div>
+            <label for="interest-rate" class="block text-sm font-medium text-gray-700 mb-2">Interest Rate (% per annum)</label>
+            <input type="range" id="interest-rate-range" min="1" max="30" step="0.1" value="8.5"
+              class="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+            <input type="number" id="interest-rate" value="8.5" min="1" max="30" step="0.1"
+              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg" />
+          </div>
+
+          <div>
+            <label for="loan-tenure" class="block text-sm font-medium text-gray-700 mb-2">Loan Tenure (Years)</label>
+            <input type="range" id="loan-tenure-range" min="1" max="30" step="1" value="20"
+              class="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+            <input type="number" id="loan-tenure" value="20" min="1" max="30" step="1"
+              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg" />
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-blue-50 rounded-lg p-4 text-center">
+            <p class="text-sm text-blue-600 font-medium">Monthly EMI</p>
+            <p id="emi-result" class="text-2xl font-bold text-blue-800 mt-1">&#8377;26,035</p>
+          </div>
+          <div class="bg-green-50 rounded-lg p-4 text-center">
+            <p class="text-sm text-green-600 font-medium">Total Interest</p>
+            <p id="interest-result" class="text-2xl font-bold text-green-800 mt-1">&#8377;32,48,488</p>
+          </div>
+          <div class="bg-purple-50 rounded-lg p-4 text-center">
+            <p class="text-sm text-purple-600 font-medium">Total Amount</p>
+            <p id="total-result" class="text-2xl font-bold text-purple-800 mt-1">&#8377;62,48,488</p>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="mt-8">
+          <h3 class="font-semibold text-gray-900 mb-4">Payment Breakdown</h3>
+          <div class="flex items-center gap-8">
+            <div class="relative w-40 h-40">
+              <svg viewBox="0 0 36 36" class="w-40 h-40">
+                <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#dbeafe" stroke-width="3" />
+                <circle id="chart-circle" cx="18" cy="18" r="15.9155" fill="none" stroke="#2563eb" stroke-width="3"
+                  stroke-dasharray="48 52" stroke-dashoffset="25" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="space-y-3">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 bg-blue-600 rounded-full"></div>
+                <span class="text-sm text-gray-600">Principal: <strong id="chart-principal">&#8377;30,00,000</strong></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 bg-blue-200 rounded-full"></div>
+                <span class="text-sm text-gray-600">Interest: <strong id="chart-interest">&#8377;32,48,488</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-6">
+        <AdUnit format="rectangle" />
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <h3 class="font-semibold text-gray-900 mb-4">Quick Presets</h3>
+          <div class="space-y-2">
+            <button data-preset="home" class="w-full text-left px-4 py-3 rounded-lg bg-gray-50 hover:bg-blue-50 hover:text-blue-700 transition-colors text-sm font-medium">
+              🏠 Home Loan (&#8377;50L, 8.5%, 20yr)
+            </button>
+            <button data-preset="car" class="w-full text-left px-4 py-3 rounded-lg bg-gray-50 hover:bg-blue-50 hover:text-blue-700 transition-colors text-sm font-medium">
+              🚗 Car Loan (&#8377;8L, 9%, 5yr)
+            </button>
+            <button data-preset="personal" class="w-full text-left px-4 py-3 rounded-lg bg-gray-50 hover:bg-blue-50 hover:text-blue-700 transition-colors text-sm font-medium">
+              💳 Personal Loan (&#8377;3L, 12%, 3yr)
+            </button>
+            <button data-preset="education" class="w-full text-left px-4 py-3 rounded-lg bg-gray-50 hover:bg-blue-50 hover:text-blue-700 transition-colors text-sm font-medium">
+              🎓 Education Loan (&#8377;10L, 10%, 7yr)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Amortization Table -->
+    <div class="mt-8 bg-white rounded-xl border border-gray-200 p-6 md:p-8">
+      <h3 class="font-semibold text-gray-900 mb-4">Year-wise Amortization Schedule</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 text-left">
+              <th class="py-3 px-4 font-semibold text-gray-600">Year</th>
+              <th class="py-3 px-4 font-semibold text-gray-600 text-right">EMI Paid</th>
+              <th class="py-3 px-4 font-semibold text-gray-600 text-right">Principal</th>
+              <th class="py-3 px-4 font-semibold text-gray-600 text-right">Interest</th>
+              <th class="py-3 px-4 font-semibold text-gray-600 text-right">Balance</th>
+            </tr>
+          </thead>
+          <tbody id="amortization-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <!-- SEO Content -->
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+      <h2>How is EMI Calculated?</h2>
+      <p>EMI (Equated Monthly Installment) is calculated using the formula:</p>
+      <p class="bg-gray-50 p-4 rounded-lg font-mono text-sm">EMI = P × r × (1+r)<sup>n</sup> / ((1+r)<sup>n</sup> - 1)</p>
+      <p>Where <strong>P</strong> = Principal loan amount, <strong>r</strong> = Monthly interest rate (annual rate / 12 / 100), and <strong>n</strong> = Number of monthly installments.</p>
+
+      <h2>Current Home Loan Interest Rates in India (2026)</h2>
+      <table>
+        <thead><tr><th>Bank</th><th>Rate</th></tr></thead>
+        <tbody>
+          <tr><td>SBI</td><td>8.25% - 9.65%</td></tr>
+          <tr><td>HDFC Bank</td><td>8.70% onwards</td></tr>
+          <tr><td>ICICI Bank</td><td>8.75% onwards</td></tr>
+          <tr><td>Bank of Baroda</td><td>8.15% - 10.65%</td></tr>
+          <tr><td>Kotak Mahindra</td><td>8.70% onwards</td></tr>
+        </tbody>
+      </table>
+      <p><em>Rates are indicative and subject to change. Please verify with the respective bank.</em></p>
+
+      <h2>FAQs</h2>
+      <h3>What is EMI?</h3>
+      <p>EMI stands for Equated Monthly Installment. It is the fixed amount you pay to the bank each month until your loan is fully repaid. Each EMI payment includes both principal repayment and interest.</p>
+
+      <h3>Does prepayment reduce EMI?</h3>
+      <p>Prepayment reduces your outstanding principal. Depending on your bank's policy, it can either reduce your EMI amount or reduce the loan tenure. Most banks don't charge prepayment penalties on floating-rate loans as per RBI guidelines.</p>
+    </div>
+  </section>
+
+  <script>
+    function formatINR(num: number): string {
+      return '₹' + num.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+    }
+
+    function calculateEMI() {
+      const P = parseFloat((document.getElementById('loan-amount') as HTMLInputElement).value);
+      const annualRate = parseFloat((document.getElementById('interest-rate') as HTMLInputElement).value);
+      const years = parseInt((document.getElementById('loan-tenure') as HTMLInputElement).value);
+
+      const r = annualRate / 12 / 100;
+      const n = years * 12;
+
+      const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+      const totalAmount = emi * n;
+      const totalInterest = totalAmount - P;
+
+      (document.getElementById('emi-result') as HTMLElement).textContent = formatINR(emi);
+      (document.getElementById('interest-result') as HTMLElement).textContent = formatINR(totalInterest);
+      (document.getElementById('total-result') as HTMLElement).textContent = formatINR(totalAmount);
+      (document.getElementById('chart-principal') as HTMLElement).textContent = formatINR(P);
+      (document.getElementById('chart-interest') as HTMLElement).textContent = formatINR(totalInterest);
+
+      const principalPct = (P / totalAmount) * 100;
+      (document.getElementById('chart-circle') as SVGCircleElement).setAttribute('stroke-dasharray', `${principalPct} ${100 - principalPct}`);
+
+      // Amortization table
+      const tbody = document.getElementById('amortization-table') as HTMLElement;
+      tbody.innerHTML = '';
+      let balance = P;
+      for (let y = 1; y <= years; y++) {
+        let yearPrincipal = 0, yearInterest = 0;
+        for (let m = 0; m < 12; m++) {
+          const interestMonth = balance * r;
+          const principalMonth = emi - interestMonth;
+          yearPrincipal += principalMonth;
+          yearInterest += interestMonth;
+          balance -= principalMonth;
+        }
+        if (balance < 0) balance = 0;
+        const row = document.createElement('tr');
+        row.className = 'border-b border-gray-100 hover:bg-gray-50';
+        row.innerHTML = `
+          <td class="py-3 px-4">${y}</td>
+          <td class="py-3 px-4 text-right">${formatINR(emi * 12)}</td>
+          <td class="py-3 px-4 text-right text-blue-600">${formatINR(yearPrincipal)}</td>
+          <td class="py-3 px-4 text-right text-orange-600">${formatINR(yearInterest)}</td>
+          <td class="py-3 px-4 text-right font-medium">${formatINR(balance)}</td>
+        `;
+        tbody.appendChild(row);
+      }
+    }
+
+    // Sync range <-> number inputs
+    function syncInputs(rangeId: string, numberId: string) {
+      const range = document.getElementById(rangeId) as HTMLInputElement;
+      const num = document.getElementById(numberId) as HTMLInputElement;
+      range.addEventListener('input', () => { num.value = range.value; calculateEMI(); });
+      num.addEventListener('input', () => { range.value = num.value; calculateEMI(); });
+    }
+
+    syncInputs('loan-amount-range', 'loan-amount');
+    syncInputs('interest-rate-range', 'interest-rate');
+    syncInputs('loan-tenure-range', 'loan-tenure');
+
+    // Presets
+    const presets: Record<string, [number, number, number]> = {
+      home: [5000000, 8.5, 20],
+      car: [800000, 9, 5],
+      personal: [300000, 12, 3],
+      education: [1000000, 10, 7],
+    };
+
+    document.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = presets[btn.dataset.preset!];
+        if (!p) return;
+        (document.getElementById('loan-amount') as HTMLInputElement).value = String(p[0]);
+        (document.getElementById('loan-amount-range') as HTMLInputElement).value = String(p[0]);
+        (document.getElementById('interest-rate') as HTMLInputElement).value = String(p[1]);
+        (document.getElementById('interest-rate-range') as HTMLInputElement).value = String(p[1]);
+        (document.getElementById('loan-tenure') as HTMLInputElement).value = String(p[2]);
+        (document.getElementById('loan-tenure-range') as HTMLInputElement).value = String(p[2]);
+        calculateEMI();
+      });
+    });
+
+    calculateEMI();
+  </script>
+</Layout>

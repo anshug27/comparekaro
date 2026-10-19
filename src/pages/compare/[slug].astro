@@ -1,0 +1,201 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+import { phones } from '../../data/phones';
+import type { Phone } from '../../data/phones';
+import comparisons from '../../data/comparisons.json';
+
+export function getStaticPaths() {
+  return comparisons
+    .filter(c => {
+      const p1 = phones.find(p => p.id === c.phone1Id);
+      const p2 = phones.find(p => p.id === c.phone2Id);
+      return p1 && p2;
+    })
+    .map(c => ({
+      params: { slug: c.slug },
+      props: { phone1Id: c.phone1Id, phone2Id: c.phone2Id },
+    }));
+}
+
+interface Props {
+  phone1Id: string;
+  phone2Id: string;
+}
+
+const { phone1Id, phone2Id } = Astro.props;
+const p1 = phones.find(p => p.id === phone1Id)!;
+const p2 = phones.find(p => p.id === phone2Id)!;
+
+function formatINR(num: number): string {
+  return '₹' + num.toLocaleString('en-IN');
+}
+
+const specs: { key: keyof Phone; label: string; compare?: 'lower' | 'higher' }[] = [
+  { key: 'price', label: 'Price', compare: 'lower' },
+  { key: 'display', label: 'Display' },
+  { key: 'displaySize', label: 'Screen Size' },
+  { key: 'processor', label: 'Processor' },
+  { key: 'ram', label: 'RAM' },
+  { key: 'storage', label: 'Storage' },
+  { key: 'mainCamera', label: 'Main Camera' },
+  { key: 'selfieCamera', label: 'Selfie Camera' },
+  { key: 'battery', label: 'Battery', compare: 'higher' },
+  { key: 'charging', label: 'Charging' },
+  { key: 'os', label: 'Operating System' },
+  { key: 'weight', label: 'Weight' },
+  { key: 'rating', label: 'Rating', compare: 'higher' },
+];
+
+function formatVal(key: keyof Phone, val: Phone[keyof Phone]): string {
+  if (key === 'price') return formatINR(val as number);
+  if (key === 'has5G') return val ? 'Yes' : 'No';
+  if (key === 'rating') return val + ' / 5';
+  return String(val);
+}
+
+// Generate verdict
+const advantages1: string[] = [];
+const advantages2: string[] = [];
+
+if (p1.price < p2.price) advantages1.push(`cheaper by ${formatINR(p2.price - p1.price)}`);
+else if (p2.price < p1.price) advantages2.push(`cheaper by ${formatINR(p1.price - p2.price)}`);
+
+const bat1 = parseInt(p1.battery);
+const bat2 = parseInt(p2.battery);
+if (bat1 > bat2) advantages1.push('bigger battery');
+else if (bat2 > bat1) advantages2.push('bigger battery');
+
+if (parseFloat(p1.rating as unknown as string) > parseFloat(p2.rating as unknown as string)) advantages1.push('higher rated');
+else if (parseFloat(p2.rating as unknown as string) > parseFloat(p1.rating as unknown as string)) advantages2.push('higher rated');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `${p1.name} vs ${p2.name} - Specs Comparison`,
+  description: `Compare ${p1.name} and ${p2.name} specs, price, camera, battery and more. ${p1.name} starts at ${formatINR(p1.price)} and ${p2.name} at ${formatINR(p2.price)}.`,
+  url: `https://comparekaro.in/compare/${phone1Id}-vs-${phone2Id}`,
+};
+---
+
+<Layout
+  title={`${p1.name} vs ${p2.name} - Specs, Price & Camera Comparison`}
+  description={`Compare ${p1.name} vs ${p2.name}. Price: ${formatINR(p1.price)} vs ${formatINR(p2.price)}. Camera, battery, processor, display & more compared side by side.`}
+  schema={schema}
+>
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-blue-600">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/compare" class="hover:text-blue-600">Compare</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">{p1.name} vs {p2.name}</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{p1.name} vs {p2.name}</h1>
+      <p class="text-gray-500 text-lg">Detailed specification comparison between {p1.name} ({formatINR(p1.price)}) and {p2.name} ({formatINR(p2.price)}).</p>
+    </div>
+
+    <!-- Quick Verdict -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+      <div class="bg-blue-50 rounded-xl p-5 border border-blue-200">
+        <h3 class="font-bold text-blue-800 mb-2">{p1.name} is better if...</h3>
+        <ul class="space-y-1 text-sm text-blue-700">
+          {advantages1.length > 0
+            ? advantages1.map(a => <li>&#10003; {a}</li>)
+            : <li>See detailed comparison below</li>
+          }
+        </ul>
+      </div>
+      <div class="bg-green-50 rounded-xl p-5 border border-green-200">
+        <h3 class="font-bold text-green-800 mb-2">{p2.name} is better if...</h3>
+        <ul class="space-y-1 text-sm text-green-700">
+          {advantages2.length > 0
+            ? advantages2.map(a => <li>&#10003; {a}</li>)
+            : <li>See detailed comparison below</li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div class="grid grid-cols-3 bg-gray-50 border-b border-gray-200">
+        <div class="p-4 font-semibold text-gray-600 text-sm">Specification</div>
+        <div class="p-4 text-center font-bold text-blue-700">{p1.name}</div>
+        <div class="p-4 text-center font-bold text-green-700">{p2.name}</div>
+      </div>
+      {specs.map(spec => {
+        const v1 = p1[spec.key];
+        const v2 = p2[spec.key];
+        let class1 = '', class2 = '';
+        if (spec.compare && typeof v1 === 'number' && typeof v2 === 'number') {
+          if (spec.compare === 'lower') {
+            if (v1 < v2) class1 = 'text-green-600 font-semibold';
+            else if (v2 < v1) class2 = 'text-green-600 font-semibold';
+          } else {
+            if (v1 > v2) class1 = 'text-green-600 font-semibold';
+            else if (v2 > v1) class2 = 'text-green-600 font-semibold';
+          }
+        }
+        return (
+          <div class="grid grid-cols-3 border-b border-gray-100 hover:bg-gray-50">
+            <div class="p-4 text-sm font-medium text-gray-600">{spec.label}</div>
+            <div class:list={['p-4 text-sm text-center', class1]}>{formatVal(spec.key, v1)}</div>
+            <div class:list={['p-4 text-sm text-center', class2]}>{formatVal(spec.key, v2)}</div>
+          </div>
+        );
+      })}
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+      <h2>{p1.name} vs {p2.name} - Which Should You Buy?</h2>
+      <p>
+        The {p1.name} is priced at {formatINR(p1.price)} while the {p2.name} comes at {formatINR(p2.price)}.
+        {p1.price < p2.price
+          ? `The ${p1.name} is ${formatINR(p2.price - p1.price)} cheaper.`
+          : p2.price < p1.price
+            ? `The ${p2.name} is ${formatINR(p1.price - p2.price)} cheaper.`
+            : 'Both are priced the same.'
+        }
+      </p>
+
+      <h3>Camera</h3>
+      <p>The {p1.name} features a {p1.mainCamera} rear camera setup, while the {p2.name} has {p2.mainCamera}. For selfies, {p1.name} has {p1.selfieCamera} and {p2.name} has {p2.selfieCamera}.</p>
+
+      <h3>Battery & Charging</h3>
+      <p>The {p1.name} packs a {p1.battery} battery with {p1.charging}, while the {p2.name} has a {p2.battery} battery with {p2.charging}.</p>
+
+      <h3>Performance</h3>
+      <p>The {p1.name} runs on {p1.processor} with {p1.ram} RAM, while the {p2.name} is powered by {p2.processor} with {p2.ram} RAM.</p>
+
+      <p><em>Prices are indicative and may vary. Please check the latest prices before purchasing.</em></p>
+    </div>
+
+    <AdUnit />
+
+    <!-- Related Comparisons -->
+    <div class="mt-8">
+      <h2 class="text-xl font-bold text-gray-900 mb-4">More Comparisons</h2>
+      <div class="flex flex-wrap gap-2">
+        <a href="/compare" class="px-4 py-2 bg-gray-100 rounded-lg text-sm hover:bg-blue-100 hover:text-blue-700 transition-colors">All Phones</a>
+        {comparisons
+          .filter(c => c.slug !== `${phone1Id}-vs-${phone2Id}`)
+          .slice(0, 5)
+          .map(c => {
+            const cp1 = phones.find(p => p.id === c.phone1Id);
+            const cp2 = phones.find(p => p.id === c.phone2Id);
+            if (!cp1 || !cp2) return null;
+            return (
+              <a href={`/compare/${c.slug}`} class="px-4 py-2 bg-gray-100 rounded-lg text-sm hover:bg-blue-100 hover:text-blue-700 transition-colors">
+                {cp1.name} vs {cp2.name}
+              </a>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,234 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+import { plans, operators, operatorColors } from '../../data/plans';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Mobile Plan Finder',
+  url: 'https://comparekaro.in/tools/plan-finder',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+---
+
+<Layout
+  title="Best Mobile Recharge Plan Finder - Jio, Airtel, Vi, BSNL (Oct 2026)"
+  description="Find the best prepaid mobile recharge plan in India. Compare Jio, Airtel, Vi & BSNL plans by price, data, validity and 5G. Get personalized recommendations."
+  schema={schema}
+>
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-blue-600">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">Plan Finder</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Mobile Plan Finder</h1>
+      <p class="text-gray-500 text-lg">Find the best prepaid plan based on your actual needs.</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+      <h2 class="font-semibold text-gray-900 mb-4">What do you need?</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Operator</label>
+          <select id="filter-operator" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+            <option value="all">All Operators</option>
+            {operators.map(op => <option value={op}>{op}</option>)}
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Budget (max &#8377;)</label>
+          <select id="filter-budget" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+            <option value="0">Any Budget</option>
+            <option value="200">Under &#8377;200</option>
+            <option value="350">Under &#8377;350</option>
+            <option value="500">Under &#8377;500</option>
+            <option value="1000">Under &#8377;1,000</option>
+            <option value="3000">Under &#8377;3,000</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Daily Data</label>
+          <select id="filter-data" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+            <option value="0">Any</option>
+            <option value="1">1+ GB/day</option>
+            <option value="1.5">1.5+ GB/day</option>
+            <option value="2">2+ GB/day</option>
+            <option value="3">3+ GB/day</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Validity</label>
+          <select id="filter-validity" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+            <option value="0">Any</option>
+            <option value="28">28 Days</option>
+            <option value="84">84 Days (3 months)</option>
+            <option value="365">365 Days (1 year)</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-4 mt-4">
+        <label class="flex items-center gap-2 text-sm cursor-pointer">
+          <input type="checkbox" id="filter-5g" class="rounded accent-blue-600" />
+          <span>5G Only</span>
+        </label>
+        <label class="flex items-center gap-2 text-sm cursor-pointer">
+          <input type="checkbox" id="filter-ott" class="rounded accent-blue-600" />
+          <span>With OTT Benefits</span>
+        </label>
+      </div>
+      <div class="mt-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+        <select id="sort-by" class="px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+          <option value="pricePerDay">Price per Day (Low to High)</option>
+          <option value="price">Price (Low to High)</option>
+          <option value="data">Data (High to Low)</option>
+          <option value="validity">Validity (Longest First)</option>
+          <option value="pricePerGB">Price per GB (Low to High)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Results Count -->
+    <div class="flex items-center justify-between mb-4">
+      <p id="results-count" class="text-sm text-gray-500">Loading plans...</p>
+      <p id="best-pick" class="text-sm font-medium text-green-600"></p>
+    </div>
+
+    <!-- Plan Cards -->
+    <div id="plan-list" class="space-y-4"></div>
+
+    <AdUnit />
+
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+      <h2>How to Choose the Best Mobile Plan?</h2>
+      <p>Choosing the right mobile plan depends on your usage pattern:</p>
+      <ul>
+        <li><strong>Light users</strong> (calls + WhatsApp): Choose a plan with minimal data (1-2 GB total) and long validity.</li>
+        <li><strong>Regular users</strong> (social media + video): 1.5-2 GB/day plans are ideal. Use the filters above to sort by price per day.</li>
+        <li><strong>Heavy users</strong> (streaming + gaming): 3+ GB/day plans. Filter by "2+ GB/day" or "3+ GB/day" above.</li>
+        <li><strong>Budget-conscious</strong>: Annual plans give the lowest per-day cost. Sort by "Price per Day" to find the cheapest options.</li>
+      </ul>
+
+      <h2>Jio vs Airtel vs Vi vs BSNL - Quick Comparison</h2>
+      <table>
+        <thead><tr><th>Factor</th><th>Jio</th><th>Airtel</th><th>Vi</th><th>BSNL</th></tr></thead>
+        <tbody>
+          <tr><td>5G Coverage</td><td>Widest</td><td>Best in cities</td><td>Limited</td><td>No 5G yet</td></tr>
+          <tr><td>Network Speed</td><td>Good</td><td>Best</td><td>Average</td><td>Average</td></tr>
+          <tr><td>Rural Coverage</td><td>Good</td><td>Good</td><td>Limited</td><td>Best</td></tr>
+        </tbody>
+      </table>
+      <p><em>Plan data is automatically updated from official sources twice per week. Prices and benefits may vary by telecom circle. Always verify with the operator's app before recharging.</em></p>
+    </div>
+  </section>
+
+  <script define:vars={{ plans, operatorColors }}>
+    function formatINR(num) {
+      return '₹' + num.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+    }
+
+    function renderPlans() {
+      const operator = document.getElementById('filter-operator').value;
+      const budget = parseInt(document.getElementById('filter-budget').value);
+      const minData = parseFloat(document.getElementById('filter-data').value);
+      const validity = parseInt(document.getElementById('filter-validity').value);
+      const only5G = document.getElementById('filter-5g').checked;
+      const onlyOTT = document.getElementById('filter-ott').checked;
+      const sortBy = document.getElementById('sort-by').value;
+
+      let filtered = plans.filter(p => {
+        if (operator !== 'all' && p.operator !== operator) return false;
+        if (budget > 0 && p.price > budget) return false;
+        if (minData > 0 && (p.dailyData || 0) < minData) return false;
+        if (validity > 0 && p.validity !== validity) return false;
+        if (only5G && !p.has5G) return false;
+        if (onlyOTT && p.ott.length === 0) return false;
+        return true;
+      });
+
+      filtered.sort((a, b) => {
+        if (sortBy === 'pricePerDay') return a.pricePerDay - b.pricePerDay;
+        if (sortBy === 'price') return a.price - b.price;
+        if (sortBy === 'data') return (b.dailyData || 0) - (a.dailyData || 0);
+        if (sortBy === 'validity') return b.validity - a.validity;
+        if (sortBy === 'pricePerGB') return a.pricePerGB - b.pricePerGB;
+        return 0;
+      });
+
+      document.getElementById('results-count').textContent = `Showing ${filtered.length} plan${filtered.length !== 1 ? 's' : ''}`;
+
+      const best = filtered[0];
+      const bestPick = document.getElementById('best-pick');
+      if (best) {
+        bestPick.textContent = `Best pick: ${best.operator} ${formatINR(best.price)} (${formatINR(best.pricePerDay)}/day)`;
+      } else {
+        bestPick.textContent = '';
+      }
+
+      const list = document.getElementById('plan-list');
+      list.innerHTML = '';
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="text-center py-12 text-gray-400"><p class="text-lg">No plans match your filters.</p><p class="text-sm mt-2">Try adjusting your criteria.</p></div>';
+        return;
+      }
+
+      filtered.forEach((plan, idx) => {
+        const opColor = operatorColors[plan.operator] || 'bg-gray-500';
+        const dataText = plan.dailyData ? `${plan.dailyData} GB/day` : plan.totalData ? `${plan.totalData} GB total` : 'Unlimited';
+        const isBest = idx === 0;
+
+        const card = document.createElement('div');
+        card.className = `bg-white rounded-xl border ${isBest ? 'border-green-300 ring-2 ring-green-100' : 'border-gray-200'} p-5 hover:shadow-md transition-shadow`;
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+            <div class="flex items-center gap-3 sm:w-36">
+              <span class="${opColor} text-white text-xs font-bold px-3 py-1 rounded-full">${plan.operator}</span>
+              ${isBest ? '<span class="bg-green-100 text-green-700 text-xs font-medium px-2 py-0.5 rounded-full">Best Match</span>' : ''}
+            </div>
+            <div class="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
+              <div>
+                <p class="text-gray-400 text-xs">Price</p>
+                <p class="font-bold text-lg">${formatINR(plan.price)}</p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-xs">Data</p>
+                <p class="font-semibold">${dataText}</p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-xs">Validity</p>
+                <p class="font-semibold">${plan.validity} days</p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-xs">Per Day</p>
+                <p class="font-semibold text-green-600">${formatINR(plan.pricePerDay)}</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-1.5 sm:w-48 sm:justify-end">
+              ${plan.has5G ? '<span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full font-medium">5G</span>' : ''}
+              ${plan.ott.map(o => `<span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">${o}</span>`).join('')}
+            </div>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    document.querySelectorAll('#filter-operator, #filter-budget, #filter-data, #filter-validity, #sort-by').forEach(el => {
+      el.addEventListener('change', renderPlans);
+    });
+    document.querySelectorAll('#filter-5g, #filter-ott').forEach(el => {
+      el.addEventListener('change', renderPlans);
+    });
+
+    renderPlans();
+  </script>
+</Layout>

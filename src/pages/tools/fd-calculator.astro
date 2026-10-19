@@ -1,0 +1,168 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'FD Calculator',
+  url: 'https://comparekaro.in/tools/fd-calculator',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+---
+
+<Layout
+  title="FD Calculator - Fixed Deposit Maturity Calculator"
+  description="Free FD calculator for India. Calculate fixed deposit maturity amount with quarterly compounding. Compare FD rates across SBI, HDFC, ICICI and more."
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-blue-600">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">FD Calculator</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Fixed Deposit Calculator</h1>
+      <p class="text-gray-500 text-lg">Calculate your FD maturity amount with quarterly compounding.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6 md:p-8">
+        <div class="space-y-6">
+          <div>
+            <label for="fd-amount" class="block text-sm font-medium text-gray-700 mb-2">Deposit Amount (&#8377;)</label>
+            <input type="range" id="fd-amount-range" min="10000" max="10000000" step="10000" value="500000"
+              class="w-full h-2 bg-purple-100 rounded-lg appearance-none cursor-pointer accent-purple-600" />
+            <input type="number" id="fd-amount" value="500000" min="10000" max="10000000" step="10000"
+              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg" />
+          </div>
+
+          <div>
+            <label for="fd-rate" class="block text-sm font-medium text-gray-700 mb-2">Interest Rate (% per annum)</label>
+            <input type="range" id="fd-rate-range" min="3" max="10" step="0.05" value="7"
+              class="w-full h-2 bg-purple-100 rounded-lg appearance-none cursor-pointer accent-purple-600" />
+            <input type="number" id="fd-rate" value="7" min="3" max="10" step="0.05"
+              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg" />
+          </div>
+
+          <div>
+            <label for="fd-years" class="block text-sm font-medium text-gray-700 mb-2">Tenure (Years)</label>
+            <input type="range" id="fd-years-range" min="1" max="10" step="1" value="5"
+              class="w-full h-2 bg-purple-100 rounded-lg appearance-none cursor-pointer accent-purple-600" />
+            <input type="number" id="fd-years" value="5" min="1" max="10" step="1"
+              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Compounding Frequency</label>
+            <div class="flex flex-wrap gap-2">
+              <button data-freq="12" class="freq-btn px-4 py-2 rounded-lg border text-sm font-medium border-gray-300 hover:border-purple-400">Monthly</button>
+              <button data-freq="4" class="freq-btn px-4 py-2 rounded-lg border text-sm font-medium bg-purple-600 text-white border-purple-600">Quarterly</button>
+              <button data-freq="2" class="freq-btn px-4 py-2 rounded-lg border text-sm font-medium border-gray-300 hover:border-purple-400">Half-Yearly</button>
+              <button data-freq="1" class="freq-btn px-4 py-2 rounded-lg border text-sm font-medium border-gray-300 hover:border-purple-400">Yearly</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-purple-50 rounded-lg p-4 text-center">
+            <p class="text-sm text-purple-600 font-medium">Maturity Amount</p>
+            <p id="fd-maturity" class="text-2xl font-bold text-purple-800 mt-1">&#8377;7,07,160</p>
+          </div>
+          <div class="bg-green-50 rounded-lg p-4 text-center">
+            <p class="text-sm text-green-600 font-medium">Interest Earned</p>
+            <p id="fd-interest" class="text-2xl font-bold text-green-800 mt-1">&#8377;2,07,160</p>
+          </div>
+          <div class="bg-blue-50 rounded-lg p-4 text-center">
+            <p class="text-sm text-blue-600 font-medium">Effective Yield</p>
+            <p id="fd-yield" class="text-2xl font-bold text-blue-800 mt-1">7.19%</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <AdUnit format="rectangle" />
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <h3 class="font-semibold text-gray-900 mb-4">FD Rates (Oct 2026)</h3>
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between"><span class="text-gray-600">SBI</span><span class="font-medium">6.50% - 7.25%</span></div>
+            <div class="flex justify-between"><span class="text-gray-600">HDFC Bank</span><span class="font-medium">6.60% - 7.40%</span></div>
+            <div class="flex justify-between"><span class="text-gray-600">ICICI Bank</span><span class="font-medium">6.60% - 7.25%</span></div>
+            <div class="flex justify-between"><span class="text-gray-600">Post Office</span><span class="font-medium">6.90% - 7.50%</span></div>
+            <div class="flex justify-between"><span class="text-gray-600">Bajaj Finance</span><span class="font-medium">7.40% - 8.25%</span></div>
+          </div>
+          <p class="text-xs text-gray-400 mt-3">Senior citizens typically get 0.25-0.50% extra. Rates are indicative.</p>
+        </div>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+      <h2>FD Maturity Calculation Formula</h2>
+      <p class="bg-gray-50 p-4 rounded-lg font-mono text-sm">A = P × (1 + r/n)<sup>n×t</sup></p>
+      <p>Where <strong>A</strong> = Maturity amount, <strong>P</strong> = Principal, <strong>r</strong> = Annual interest rate, <strong>n</strong> = Compounding frequency per year, <strong>t</strong> = Tenure in years.</p>
+
+      <h2>FD vs SIP - Which is Better?</h2>
+      <p>FDs offer guaranteed returns (6-8%) with zero risk, making them ideal for short-term goals and emergency funds. SIPs in equity mutual funds offer potentially higher returns (12-15%) but with market risk, making them better for long-term wealth creation. A balanced portfolio typically includes both.</p>
+
+      <h2>Tax on FD Interest</h2>
+      <p>FD interest is taxable as per your income tax slab. Banks deduct TDS at 10% if interest exceeds &#8377;40,000/year (&#8377;50,000 for senior citizens). You can submit Form 15G/15H to avoid TDS if your total income is below the taxable limit.</p>
+    </div>
+  </section>
+
+  <script>
+    function formatINR(num: number): string {
+      return '₹' + num.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+    }
+
+    let compoundFreq = 4;
+
+    function calculateFD() {
+      const P = parseFloat((document.getElementById('fd-amount') as HTMLInputElement).value);
+      const rate = parseFloat((document.getElementById('fd-rate') as HTMLInputElement).value);
+      const years = parseInt((document.getElementById('fd-years') as HTMLInputElement).value);
+
+      const r = rate / 100;
+      const maturity = P * Math.pow(1 + r / compoundFreq, compoundFreq * years);
+      const interest = maturity - P;
+      const effectiveYield = (Math.pow(maturity / P, 1 / years) - 1) * 100;
+
+      (document.getElementById('fd-maturity') as HTMLElement).textContent = formatINR(maturity);
+      (document.getElementById('fd-interest') as HTMLElement).textContent = formatINR(interest);
+      (document.getElementById('fd-yield') as HTMLElement).textContent = effectiveYield.toFixed(2) + '%';
+    }
+
+    function syncInputs(rangeId: string, numberId: string) {
+      const range = document.getElementById(rangeId) as HTMLInputElement;
+      const num = document.getElementById(numberId) as HTMLInputElement;
+      range.addEventListener('input', () => { num.value = range.value; calculateFD(); });
+      num.addEventListener('input', () => { range.value = num.value; calculateFD(); });
+    }
+
+    syncInputs('fd-amount-range', 'fd-amount');
+    syncInputs('fd-rate-range', 'fd-rate');
+    syncInputs('fd-years-range', 'fd-years');
+
+    document.querySelectorAll<HTMLButtonElement>('.freq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.freq-btn').forEach(b => {
+          b.classList.remove('bg-purple-600', 'text-white', 'border-purple-600');
+          b.classList.add('border-gray-300');
+        });
+        btn.classList.add('bg-purple-600', 'text-white', 'border-purple-600');
+        btn.classList.remove('border-gray-300');
+        compoundFreq = parseInt(btn.dataset.freq!);
+        calculateFD();
+      });
+    });
+
+    calculateFD();
+  </script>
+</Layout>

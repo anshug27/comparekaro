@@ -1,0 +1,167 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ToolCard from '../components/ToolCard.astro';
+import AdUnit from '../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'CompareKaro',
+  url: 'https://comparekaro.in',
+  description: 'Free comparison tools for India - compare mobile plans, calculate EMI, SIP, and more.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://comparekaro.in/compare?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+};
+---
+
+<Layout title="CompareKaro" schema={schema}>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
+          Compare Smarter.<br/>Save More.
+        </h1>
+        <p class="text-lg md:text-xl text-blue-100 mb-8 leading-relaxed">
+          Free tools to compare mobile plans, calculate EMI & SIP returns, and make better purchase decisions. Built for India.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/tools" class="inline-flex items-center justify-center px-8 py-3 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-50 transition-colors shadow-lg">
+            Explore Tools
+          </a>
+          <a href="/tools/plan-finder" class="inline-flex items-center justify-center px-8 py-3 border-2 border-white/30 text-white font-semibold rounded-lg hover:bg-white/10 transition-colors">
+            Find Best Plan
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Tools -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Popular Tools</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">Free calculators and comparison tools used by thousands of Indians every day.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <ToolCard
+        title="EMI Calculator"
+        description="Calculate monthly EMI for home, car, or personal loans. See total interest and amortization schedule."
+        href="/tools/emi-calculator"
+        icon="🏠"
+        color="blue"
+      />
+      <ToolCard
+        title="SIP Calculator"
+        description="Estimate your mutual fund SIP returns with compound interest. Plan your wealth growth."
+        href="/tools/sip-calculator"
+        icon="📈"
+        color="green"
+      />
+      <ToolCard
+        title="FD Calculator"
+        description="Calculate fixed deposit maturity amount with quarterly compounding for all major banks."
+        href="/tools/fd-calculator"
+        icon="🏦"
+        color="purple"
+      />
+      <ToolCard
+        title="Mobile Plan Finder"
+        description="Find the best prepaid plan across Jio, Airtel, Vi & BSNL based on your data needs and budget."
+        href="/tools/plan-finder"
+        icon="📱"
+        color="orange"
+      />
+      <ToolCard
+        title="Rent vs Buy Calculator"
+        description="Should you rent or buy a home? Compare total costs over 5-30 years with real numbers."
+        href="/tools/rent-vs-buy"
+        icon="🏡"
+        color="teal"
+      />
+      <ToolCard
+        title="Phone Comparison"
+        description="Compare phones side-by-side on specs, price, camera, battery and performance."
+        href="/compare"
+        icon="🔍"
+        color="red"
+      />
+    </div>
+  </section>
+
+  <AdUnit />
+
+  <!-- How It Works -->
+  <section class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Why CompareKaro?</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
+            ⚡
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Instant Results</h3>
+          <p class="text-gray-500 text-sm">All calculations happen in your browser. No waiting, no sign-ups, no data collection.</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
+            🇮🇳
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Built for India</h3>
+          <p class="text-gray-500 text-sm">Indian tax rules, Indian bank rates, Indian telecom plans. Everything localized for you.</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
+            🔒
+          </div>
+          <h3 class="font-semibold text-lg mb-2">100% Free & Private</h3>
+          <p class="text-gray-500 text-sm">No registration needed. Your data stays on your device. We never store personal information.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Explore by Category</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <a href="/tools#finance" class="flex items-center gap-4 bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-blue-200 transition-all">
+        <span class="text-3xl">💰</span>
+        <div>
+          <h3 class="font-semibold">Finance</h3>
+          <p class="text-sm text-gray-500">EMI, SIP, FD, Tax</p>
+        </div>
+      </a>
+      <a href="/tools#telecom" class="flex items-center gap-4 bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-blue-200 transition-all">
+        <span class="text-3xl">📱</span>
+        <div>
+          <h3 class="font-semibold">Telecom</h3>
+          <p class="text-sm text-gray-500">Plans, Recharge, Data</p>
+        </div>
+      </a>
+      <a href="/compare" class="flex items-center gap-4 bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-blue-200 transition-all">
+        <span class="text-3xl">📊</span>
+        <div>
+          <h3 class="font-semibold">Products</h3>
+          <p class="text-sm text-gray-500">Phones, Laptops</p>
+        </div>
+      </a>
+      <a href="/tools#lifestyle" class="flex items-center gap-4 bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-blue-200 transition-all">
+        <span class="text-3xl">🏡</span>
+        <div>
+          <h3 class="font-semibold">Lifestyle</h3>
+          <p class="text-sm text-gray-500">Rent vs Buy, Cost</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <AdUnit />
+</Layout>

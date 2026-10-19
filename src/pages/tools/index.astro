@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolCard from '../../components/ToolCard.astro';
+import AdUnit from '../../components/AdUnit.astro';
+---
+
+<Layout
+  title="Free Online Tools"
+  description="Free calculators and comparison tools for India. EMI calculator, SIP calculator, FD calculator, mobile plan finder, rent vs buy calculator and more."
+>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Free Tools</h1>
+      <p class="text-lg text-gray-500 max-w-2xl">All calculations run in your browser. No sign-ups, no data collection.</p>
+    </div>
+
+    <!-- Finance -->
+    <div id="finance" class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+        <span class="text-3xl">💰</span> Financial Calculators
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ToolCard
+          title="EMI Calculator"
+          description="Calculate monthly EMI for home, car, or personal loans. See total interest and amortization schedule."
+          href="/tools/emi-calculator"
+          icon="🏠"
+          color="blue"
+        />
+        <ToolCard
+          title="SIP Calculator"
+          description="Estimate mutual fund SIP returns. See how your monthly investment grows with compound interest."
+          href="/tools/sip-calculator"
+          icon="📈"
+          color="green"
+        />
+        <ToolCard
+          title="FD Calculator"
+          description="Calculate fixed deposit maturity amount with quarterly compounding for all major banks."
+          href="/tools/fd-calculator"
+          icon="🏦"
+          color="purple"
+        />
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <!-- Telecom -->
+    <div id="telecom" class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+        <span class="text-3xl">📱</span> Telecom Tools
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ToolCard
+          title="Mobile Plan Finder"
+          description="Find the best prepaid plan across Jio, Airtel, Vi & BSNL based on your data needs and budget."
+          href="/tools/plan-finder"
+          icon="📱"
+          color="orange"
+        />
+      </div>
+    </div>
+
+    <!-- Lifestyle -->
+    <div id="lifestyle" class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+        <span class="text-3xl">🏡</span> Lifestyle Decisions
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ToolCard
+          title="Rent vs Buy Calculator"
+          description="Should you rent or buy a home? Compare total costs over 5-30 years with real numbers."
+          href="/tools/rent-vs-buy"
+          icon="🏡"
+          color="teal"
+        />
+      </div>
+    </div>
+
+    <AdUnit />
+  </section>
+</Layout>

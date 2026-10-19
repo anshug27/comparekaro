@@ -1,0 +1,219 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'SIP Calculator',
+  url: 'https://comparekaro.in/tools/sip-calculator',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+  description: 'Free SIP calculator to estimate your mutual fund returns. Calculate wealth growth from monthly SIP investments.',
+};
+---
+
+<Layout
+  title="SIP Calculator - Mutual Fund SIP Returns Calculator"
+  description="Free SIP calculator for India. Estimate mutual fund SIP returns, total wealth, and growth with interactive charts. Plan your investment journey."
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-blue-600">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">SIP Calculator</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">SIP Calculator</h1>
+      <p class="text-gray-500 text-lg">Estimate how much your monthly SIP investment will grow over time.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6 md:p-8">
+        <div class="space-y-6">
+          <div>
+            <label for="sip-amount" class="block text-sm font-medium text-gray-700 mb-2">Monthly Investment (&#8377;)</label>
+            <input type="range" id="sip-amount-range" min="500" max="200000" step="500" value="10000"
+              class="w-full h-2 bg-green-100 rounded-lg appearance-none cursor-pointer accent-green-600" />
+            <input type="number" id="sip-amount" value="10000" min="500" max="200000" step="500"
+              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-lg" />
+          </div>
+
+          <div>
+            <label for="sip-rate" class="block text-sm font-medium text-gray-700 mb-2">Expected Return Rate (% per annum)</label>
+            <input type="range" id="sip-rate-range" min="1" max="30" step="0.5" value="12"
+              class="w-full h-2 bg-green-100 rounded-lg appearance-none cursor-pointer accent-green-600" />
+            <input type="number" id="sip-rate" value="12" min="1" max="30" step="0.5"
+              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-lg" />
+          </div>
+
+          <div>
+            <label for="sip-years" class="block text-sm font-medium text-gray-700 mb-2">Investment Period (Years)</label>
+            <input type="range" id="sip-years-range" min="1" max="40" step="1" value="15"
+              class="w-full h-2 bg-green-100 rounded-lg appearance-none cursor-pointer accent-green-600" />
+            <input type="number" id="sip-years" value="15" min="1" max="40" step="1"
+              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-lg" />
+          </div>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-green-50 rounded-lg p-4 text-center">
+            <p class="text-sm text-green-600 font-medium">Total Invested</p>
+            <p id="sip-invested" class="text-2xl font-bold text-green-800 mt-1">&#8377;18,00,000</p>
+          </div>
+          <div class="bg-blue-50 rounded-lg p-4 text-center">
+            <p class="text-sm text-blue-600 font-medium">Wealth Gained</p>
+            <p id="sip-returns" class="text-2xl font-bold text-blue-800 mt-1">&#8377;32,48,488</p>
+          </div>
+          <div class="bg-purple-50 rounded-lg p-4 text-center">
+            <p class="text-sm text-purple-600 font-medium">Total Value</p>
+            <p id="sip-total" class="text-2xl font-bold text-purple-800 mt-1">&#8377;50,48,488</p>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="mt-8">
+          <h3 class="font-semibold text-gray-900 mb-4">Growth Over Time</h3>
+          <div class="bg-gray-50 rounded-lg p-4 overflow-x-auto">
+            <div id="sip-chart" class="flex items-end gap-1 h-48 min-w-[400px]"></div>
+          </div>
+          <div class="flex justify-between text-xs text-gray-400 mt-2 px-1">
+            <span>Year 1</span>
+            <span id="sip-chart-end">Year 15</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <AdUnit format="rectangle" />
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <h3 class="font-semibold text-gray-900 mb-4">Investment Tips</h3>
+          <ul class="space-y-3 text-sm text-gray-600">
+            <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">&#10003;</span> Start early - even &#8377;1,000/month grows significantly over 20+ years</li>
+            <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">&#10003;</span> Increase SIP by 10% annually for much faster wealth creation</li>
+            <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">&#10003;</span> Don't stop SIP during market dips - you buy more units at lower prices</li>
+            <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">&#10003;</span> Equity funds typically return 12-15% over 10+ year periods</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year-wise table -->
+    <div class="mt-8 bg-white rounded-xl border border-gray-200 p-6 md:p-8">
+      <h3 class="font-semibold text-gray-900 mb-4">Year-wise Growth</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 text-left">
+              <th class="py-3 px-4 font-semibold text-gray-600">Year</th>
+              <th class="py-3 px-4 font-semibold text-gray-600 text-right">Invested</th>
+              <th class="py-3 px-4 font-semibold text-gray-600 text-right">Returns</th>
+              <th class="py-3 px-4 font-semibold text-gray-600 text-right">Total Value</th>
+            </tr>
+          </thead>
+          <tbody id="sip-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+      <h2>What is SIP?</h2>
+      <p>SIP (Systematic Investment Plan) is a method of investing a fixed amount regularly in mutual funds. Instead of investing a lump sum, you invest a fixed amount every month, which helps average out market volatility through rupee cost averaging.</p>
+
+      <h2>SIP Return Formula</h2>
+      <p class="bg-gray-50 p-4 rounded-lg font-mono text-sm">FV = P x [((1+r)<sup>n</sup> - 1) / r] x (1+r)</p>
+      <p>Where <strong>P</strong> = Monthly SIP amount, <strong>r</strong> = Monthly rate of return (annual rate / 12 / 100), <strong>n</strong> = Total number of months.</p>
+
+      <h2>FAQs</h2>
+      <h3>Is SIP better than FD?</h3>
+      <p>Over long periods (10+ years), equity SIPs have historically given higher returns (12-15%) compared to FDs (6-7%). However, SIP returns are market-linked and not guaranteed, while FD returns are fixed.</p>
+
+      <h3>Can I stop my SIP anytime?</h3>
+      <p>Yes, SIPs can be stopped anytime without any penalty. There is no lock-in period for regular mutual fund SIPs (except ELSS which has a 3-year lock-in).</p>
+    </div>
+  </section>
+
+  <script>
+    function formatINR(num: number): string {
+      return '₹' + num.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+    }
+
+    function calculateSIP() {
+      const monthly = parseFloat((document.getElementById('sip-amount') as HTMLInputElement).value);
+      const annualRate = parseFloat((document.getElementById('sip-rate') as HTMLInputElement).value);
+      const years = parseInt((document.getElementById('sip-years') as HTMLInputElement).value);
+
+      const r = annualRate / 12 / 100;
+      const n = years * 12;
+
+      const futureValue = monthly * (((Math.pow(1 + r, n) - 1) / r) * (1 + r));
+      const totalInvested = monthly * n;
+      const wealthGained = futureValue - totalInvested;
+
+      (document.getElementById('sip-invested') as HTMLElement).textContent = formatINR(totalInvested);
+      (document.getElementById('sip-returns') as HTMLElement).textContent = formatINR(wealthGained);
+      (document.getElementById('sip-total') as HTMLElement).textContent = formatINR(futureValue);
+      (document.getElementById('sip-chart-end') as HTMLElement).textContent = `Year ${years}`;
+
+      // Chart
+      const chart = document.getElementById('sip-chart') as HTMLElement;
+      chart.innerHTML = '';
+      const yearValues: { invested: number; total: number }[] = [];
+      for (let y = 1; y <= years; y++) {
+        const nm = y * 12;
+        const fv = monthly * (((Math.pow(1 + r, nm) - 1) / r) * (1 + r));
+        yearValues.push({ invested: monthly * nm, total: fv });
+      }
+      const maxVal = yearValues[yearValues.length - 1]?.total || 1;
+
+      yearValues.forEach((v, i) => {
+        const investedH = (v.invested / maxVal) * 100;
+        const totalH = (v.total / maxVal) * 100;
+        const bar = document.createElement('div');
+        bar.className = 'flex-1 flex flex-col justify-end items-center gap-0';
+        bar.innerHTML = `
+          <div class="w-full bg-green-200 rounded-t" style="height:${totalH}%">
+            <div class="w-full bg-green-500 rounded-t" style="height:${(investedH / totalH) * 100}%"></div>
+          </div>
+        `;
+        bar.title = `Year ${i + 1}: Invested ${formatINR(v.invested)}, Value ${formatINR(v.total)}`;
+        chart.appendChild(bar);
+      });
+
+      // Table
+      const tbody = document.getElementById('sip-table') as HTMLElement;
+      tbody.innerHTML = '';
+      yearValues.forEach((v, i) => {
+        const row = document.createElement('tr');
+        row.className = 'border-b border-gray-100 hover:bg-gray-50';
+        row.innerHTML = `
+          <td class="py-3 px-4">${i + 1}</td>
+          <td class="py-3 px-4 text-right">${formatINR(v.invested)}</td>
+          <td class="py-3 px-4 text-right text-green-600">${formatINR(v.total - v.invested)}</td>
+          <td class="py-3 px-4 text-right font-medium">${formatINR(v.total)}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function syncInputs(rangeId: string, numberId: string) {
+      const range = document.getElementById(rangeId) as HTMLInputElement;
+      const num = document.getElementById(numberId) as HTMLInputElement;
+      range.addEventListener('input', () => { num.value = range.value; calculateSIP(); });
+      num.addEventListener('input', () => { range.value = num.value; calculateSIP(); });
+    }
+
+    syncInputs('sip-amount-range', 'sip-amount');
+    syncInputs('sip-rate-range', 'sip-rate');
+    syncInputs('sip-years-range', 'sip-years');
+
+    calculateSIP();
+  </script>
+</Layout>
