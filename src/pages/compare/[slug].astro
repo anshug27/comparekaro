@@ -125,15 +125,43 @@ const schema = {
         <div class="p-4 font-semibold text-gray-600 text-sm flex items-center">Specification</div>
         <div class="p-4 text-center">
           <div class="font-bold text-blue-700 mb-2">{p1.name}</div>
-          <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p1.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
-            Check on Amazon
-          </a>
+          <div class="flex flex-col gap-1.5 mt-2">
+            {p1.amazonPrice > 0 && (
+              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p1.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-flex items-center justify-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+                Amazon &#8377;{p1.amazonPrice.toLocaleString('en-IN')}
+              </a>
+            )}
+            {p1.flipkartPrice > 0 && (
+              <a href={`https://www.flipkart.com/search?q=${encodeURIComponent(p1.name)}`} target="_blank" rel="nofollow" class="inline-flex items-center justify-center gap-1 bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+                Flipkart &#8377;{p1.flipkartPrice.toLocaleString('en-IN')}
+              </a>
+            )}
+            {!p1.amazonPrice && !p1.flipkartPrice && (
+              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p1.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+                Check on Amazon
+              </a>
+            )}
+          </div>
         </div>
         <div class="p-4 text-center">
           <div class="font-bold text-green-700 mb-2">{p2.name}</div>
-          <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p2.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
-            Check on Amazon
-          </a>
+          <div class="flex flex-col gap-1.5 mt-2">
+            {p2.amazonPrice > 0 && (
+              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p2.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-flex items-center justify-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+                Amazon &#8377;{p2.amazonPrice.toLocaleString('en-IN')}
+              </a>
+            )}
+            {p2.flipkartPrice > 0 && (
+              <a href={`https://www.flipkart.com/search?q=${encodeURIComponent(p2.name)}`} target="_blank" rel="nofollow" class="inline-flex items-center justify-center gap-1 bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+                Flipkart &#8377;{p2.flipkartPrice.toLocaleString('en-IN')}
+              </a>
+            )}
+            {!p2.amazonPrice && !p2.flipkartPrice && (
+              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p2.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+                Check on Amazon
+              </a>
+            )}
+          </div>
         </div>
       </div>
       {specs.map(spec => {

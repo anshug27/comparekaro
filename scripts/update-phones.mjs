@@ -185,6 +185,34 @@ function parsePhoneSpecs(html, url) {
     || general.join(' ').match(/(\d{2,3}(?:\.\d+)?\s*(?:grams?|g(?:ms?)?))\b/i);
   const weight = weightMatch ? weightMatch[1] : '';
 
+  // 4. Extract retailer prices (Amazon, Flipkart) from price sections
+  const retailers = {};
+  // Method 1: Parse prc-section text (e.g. "12 GB + 256 GB Amazon ₹64,999 Go To Store")
+  $('.prc-section').each((_, el) => {
+    const text = $(el).text().replace(/\s+/g, ' ').trim();
+    const priceMatch = text.match(/₹([\d,]+)/);
+    if (priceMatch) {
+      const p = parseInt(priceMatch[1].replace(/,/g, ''));
+      if (/amazon/i.test(text) && !retailers['amazon']) retailers['amazon'] = p;
+      if (/flipkart/i.test(text) && !retailers['flipkart']) retailers['flipkart'] = p;
+    }
+  });
+  // Method 2: Parse store-detail elements
+  $('.store-detail').each((_, el) => {
+    const storeText = $(el).text().trim();
+    const parent = $(el).parent();
+    const priceText = parent.text().replace(/\s+/g, ' ').trim();
+    const priceMatch = priceText.match(/₹([\d,]+)/);
+    if (priceMatch) {
+      const p = parseInt(priceMatch[1].replace(/,/g, ''));
+      if (/amazon/i.test(storeText) && !retailers['amazon']) retailers['amazon'] = p;
+      if (/flipkart/i.test(storeText) && !retailers['flipkart']) retailers['flipkart'] = p;
+    }
+  });
+
+  const amazonPrice = retailers['amazon'] || 0;
+  const flipkartPrice = retailers['flipkart'] || 0;
+
   // Generate ID from name
   const id = name
     .toLowerCase()
@@ -198,6 +226,8 @@ function parsePhoneSpecs(html, url) {
     brand,
     price,
     priceLabel,
+    amazonPrice,
+    flipkartPrice,
     display: displayType || displayLine,
     displaySize,
     processor,
@@ -227,6 +257,8 @@ export interface Phone {
   brand: string;
   price: number;
   priceLabel: 'actual' | 'expected';
+  amazonPrice: number;
+  flipkartPrice: number;
   display: string;
   displaySize: string;
   processor: string;
@@ -249,6 +281,7 @@ export const phones: Phone[] = [
     const esc = (s) => s.replace(/'/g, "\\'");
     ts += `  {
     id: '${esc(p.id)}', name: '${esc(p.name)}', brand: '${esc(p.brand)}', price: ${p.price}, priceLabel: '${p.priceLabel}',
+    amazonPrice: ${p.amazonPrice || 0}, flipkartPrice: ${p.flipkartPrice || 0},
     display: '${esc(p.display)}', displaySize: '${esc(p.displaySize)}', processor: '${esc(p.processor)}',
     ram: '${esc(p.ram)}', storage: '${esc(p.storage)}', mainCamera: '${esc(p.mainCamera)}', selfieCamera: '${esc(p.selfieCamera)}',
     battery: '${esc(p.battery)}', charging: '${esc(p.charging)}', os: '${esc(p.os)}',

@@ -55,14 +55,14 @@
     "phone2Id": "poco-x8-5g"
   },
   {
-    "slug": "vivo-s2-5g-vs-poco-x8-power-5g",
-    "phone1Id": "vivo-s2-5g",
-    "phone2Id": "poco-x8-power-5g"
-  },
-  {
     "slug": "xiaomi-redmi-note-17-pro-max-5g-vs-google-pixel-10a",
     "phone1Id": "xiaomi-redmi-note-17-pro-max-5g",
     "phone2Id": "google-pixel-10a"
+  },
+  {
+    "slug": "vivo-s2-5g-vs-poco-x8-power-5g",
+    "phone1Id": "vivo-s2-5g",
+    "phone2Id": "poco-x8-power-5g"
   },
   {
     "slug": "motorola-edge-60-pro-vs-poco-x8-5g",
@@ -205,11 +205,6 @@
     "phone2Id": "iqoo-z11-5g"
   },
   {
-    "slug": "vivo-t5x-vs-nothing-phone-3a-lite",
-    "phone1Id": "vivo-t5x",
-    "phone2Id": "nothing-phone-3a-lite"
-  },
-  {
     "slug": "apple-iphone-17-vs-vivo-v80-5g",
     "phone1Id": "apple-iphone-17",
     "phone2Id": "vivo-v80-5g"
@@ -230,11 +225,6 @@
     "phone2Id": "iqoo-15r"
   },
   {
-    "slug": "vivo-s2-5g-vs-nothing-phone-4a",
-    "phone1Id": "vivo-s2-5g",
-    "phone2Id": "nothing-phone-4a"
-  },
-  {
     "slug": "oppo-reno16-5g-vs-motorola-signature",
     "phone1Id": "oppo-reno16-5g",
     "phone2Id": "motorola-signature"
@@ -243,6 +233,16 @@
     "slug": "motorola-signature-vs-iqoo-15r",
     "phone1Id": "motorola-signature",
     "phone2Id": "iqoo-15r"
+  },
+  {
+    "slug": "vivo-t5x-vs-nothing-phone-3a-lite",
+    "phone1Id": "vivo-t5x",
+    "phone2Id": "nothing-phone-3a-lite"
+  },
+  {
+    "slug": "vivo-s2-5g-vs-nothing-phone-4a",
+    "phone1Id": "vivo-s2-5g",
+    "phone2Id": "nothing-phone-4a"
   },
   {
     "slug": "vivo-v80-5g-vs-oneplus-15r",
