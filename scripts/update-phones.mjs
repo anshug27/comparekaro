@@ -89,6 +89,14 @@ function parsePhoneSpecs(html, url) {
     } catch (e) {}
   });
 
+  // Check if price is "expected" / rumored (not actual selling price)
+  // Look specifically in the price container area, not the whole page
+  const priceContainer = $('.price_container, .priceContainer, [class*="price-box"], [class*="pricebox"]').first().text().toLowerCase();
+  const titleTag = $('title').text().toLowerCase();
+  const isExpected = priceContainer.includes('expected') || titleTag.includes('expected')
+    || priceContainer.includes('rumour') || titleTag.includes('rumour');
+  const priceLabel = isExpected ? 'expected' : 'actual';
+
   if (!name) {
     // Fallback: try title tag
     const titleText = $('title').text();
@@ -189,6 +197,7 @@ function parsePhoneSpecs(html, url) {
     name,
     brand,
     price,
+    priceLabel,
     display: displayType || displayLine,
     displaySize,
     processor,
@@ -217,6 +226,7 @@ export interface Phone {
   name: string;
   brand: string;
   price: number;
+  priceLabel: 'actual' | 'expected';
   display: string;
   displaySize: string;
   processor: string;
@@ -238,7 +248,7 @@ export const phones: Phone[] = [
   for (const p of phones) {
     const esc = (s) => s.replace(/'/g, "\\'");
     ts += `  {
-    id: '${esc(p.id)}', name: '${esc(p.name)}', brand: '${esc(p.brand)}', price: ${p.price},
+    id: '${esc(p.id)}', name: '${esc(p.name)}', brand: '${esc(p.brand)}', price: ${p.price}, priceLabel: '${p.priceLabel}',
     display: '${esc(p.display)}', displaySize: '${esc(p.displaySize)}', processor: '${esc(p.processor)}',
     ram: '${esc(p.ram)}', storage: '${esc(p.storage)}', mainCamera: '${esc(p.mainCamera)}', selfieCamera: '${esc(p.selfieCamera)}',
     battery: '${esc(p.battery)}', charging: '${esc(p.charging)}', os: '${esc(p.os)}',
