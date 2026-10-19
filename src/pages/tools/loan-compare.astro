@@ -1,0 +1,270 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Loan & Credit Card Comparison India',
+  url: 'https://comparekaro.download/tools/loan-compare',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+
+const homeLoans = [
+  { bank: 'SBI', rate: 8.50, maxTenure: 30, processing: '0.35%', maxAmount: '5 Cr', prepayment: 'Free (floating)' },
+  { bank: 'HDFC', rate: 8.75, maxTenure: 30, processing: '0.50%', maxAmount: '10 Cr', prepayment: 'Free (floating)' },
+  { bank: 'ICICI', rate: 8.75, maxTenure: 30, processing: '0.50%', maxAmount: '5 Cr', prepayment: 'Free (floating)' },
+  { bank: 'Axis', rate: 8.75, maxTenure: 30, processing: '1.00%', maxAmount: '5 Cr', prepayment: 'Free (floating)' },
+  { bank: 'Kotak', rate: 8.70, maxTenure: 20, processing: '0.50%', maxAmount: '5 Cr', prepayment: 'Free (floating)' },
+  { bank: 'PNB', rate: 8.45, maxTenure: 30, processing: '0.35%', maxAmount: '5 Cr', prepayment: 'Free (floating)' },
+  { bank: 'Bank of Baroda', rate: 8.40, maxTenure: 30, processing: '0.25%', maxAmount: '10 Cr', prepayment: 'Free (floating)' },
+  { bank: 'Canara Bank', rate: 8.45, maxTenure: 30, processing: '0.50%', maxAmount: '3 Cr', prepayment: 'Free (floating)' },
+  { bank: 'LIC Housing', rate: 8.50, maxTenure: 30, processing: '0.50%', maxAmount: '5 Cr', prepayment: '2% (fixed)' },
+  { bank: 'Bajaj Housing', rate: 8.50, maxTenure: 30, processing: '0.40%', maxAmount: '3.5 Cr', prepayment: 'Free (floating)' },
+];
+
+const personalLoans = [
+  { bank: 'SBI', rate: 11.15, maxTenure: 6, processing: '1.50%', maxAmount: '20 L', prepayment: '3%' },
+  { bank: 'HDFC', rate: 10.75, maxTenure: 5, processing: '2.50%', maxAmount: '40 L', prepayment: '4%' },
+  { bank: 'ICICI', rate: 10.75, maxTenure: 5, processing: '2.50%', maxAmount: '50 L', prepayment: '5%' },
+  { bank: 'Axis', rate: 10.49, maxTenure: 5, processing: '2.00%', maxAmount: '40 L', prepayment: '5%' },
+  { bank: 'Kotak', rate: 10.99, maxTenure: 5, processing: '3.00%', maxAmount: '40 L', prepayment: '4%' },
+  { bank: 'Bajaj Finserv', rate: 11.00, maxTenure: 5, processing: '2.00%', maxAmount: '35 L', prepayment: '4%' },
+  { bank: 'Tata Capital', rate: 10.99, maxTenure: 6, processing: '2.50%', maxAmount: '35 L', prepayment: '5%' },
+  { bank: 'IndusInd', rate: 10.49, maxTenure: 5, processing: '3.00%', maxAmount: '25 L', prepayment: '5%' },
+];
+
+const creditCards = [
+  { name: 'SBI SimplyCLICK', bank: 'SBI', fee: 499, cashback: '1.25% online', lounge: 'No', fuel: '1%', reward: '10x on Amazon, Cleartrip', best: 'Online shopping' },
+  { name: 'HDFC Regalia', bank: 'HDFC', fee: 2500, cashback: '-', lounge: '12/year', fuel: '1%', reward: '4 points/₹150', best: 'Travel & lounge' },
+  { name: 'HDFC MoneyBack+', bank: 'HDFC', fee: 500, cashback: '2% cashback', lounge: 'No', fuel: '1%', reward: '2x on online', best: 'Everyday cashback' },
+  { name: 'Axis Flipkart', bank: 'Axis', fee: 500, cashback: '5% Flipkart', lounge: 'No', fuel: '1%', reward: '4% on Myntra, Swiggy', best: 'Flipkart shoppers' },
+  { name: 'ICICI Amazon Pay', bank: 'ICICI', fee: 500, cashback: '5% Amazon Prime', lounge: 'No', fuel: '1%', reward: '2% Amazon, 1% others', best: 'Amazon shoppers' },
+  { name: 'Axis ACE', bank: 'Axis', fee: 499, cashback: '5% on bills', lounge: 'No', fuel: '1%', reward: '2% on everything', best: 'Bill payments' },
+  { name: 'OneCard', bank: 'OneCard', fee: 0, cashback: '5x rewards', lounge: '4/quarter', fuel: '1%', reward: 'Metal card, no fee', best: 'No annual fee' },
+  { name: 'AU Lit', bank: 'AU SFB', fee: 0, cashback: '3% movies', lounge: 'No', fuel: '1%', reward: '1% cashback', best: 'Lifetime free card' },
+  { name: 'HDFC Infinia', bank: 'HDFC', fee: 12500, cashback: '-', lounge: 'Unlimited', fuel: '1%', reward: '5 points/₹150', best: 'Ultra-premium travel' },
+  { name: 'Amex Platinum Travel', bank: 'Amex', fee: 3500, cashback: '-', lounge: '8/year', fuel: '-', reward: '5x on travel', best: 'International travel' },
+];
+---
+
+<Layout
+  title="Loan & Credit Card Comparison India - Home Loan, Personal Loan, Best Cards"
+  description="Compare home loans, personal loans and credit cards across Indian banks. SBI, HDFC, ICICI, Axis - interest rates, fees, rewards compared."
+  schema={schema}
+>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-blue-600">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">Loan & Card Comparison</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Loan & Credit Card Comparison</h1>
+      <p class="text-gray-500 text-lg">Compare interest rates, fees, and benefits across India's top banks.</p>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="flex gap-2 mb-8 border-b border-gray-200">
+      <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-blue-600 text-blue-600" data-tab="home-loan">Home Loans</button>
+      <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="personal-loan">Personal Loans</button>
+      <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="credit-cards">Credit Cards</button>
+    </div>
+
+    <!-- Home Loans Tab -->
+    <div id="tab-home-loan" class="tab-content">
+      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="text-left text-sm text-gray-500 bg-gray-50 border-b border-gray-200">
+                <th class="p-4 font-medium">Bank</th>
+                <th class="p-4 font-medium">Interest Rate</th>
+                <th class="p-4 font-medium">Max Tenure</th>
+                <th class="p-4 font-medium">Processing Fee</th>
+                <th class="p-4 font-medium">Max Amount</th>
+                <th class="p-4 font-medium">Prepayment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {homeLoans.sort((a, b) => a.rate - b.rate).map((loan, i) => (
+                <tr class:list={['border-b border-gray-50 hover:bg-gray-50', i === 0 && 'bg-green-50']}>
+                  <td class="p-4 text-sm font-medium text-gray-900">{loan.bank}</td>
+                  <td class:list={['p-4 text-sm font-bold', i === 0 ? 'text-green-600' : 'text-blue-600']}>{loan.rate}% p.a.</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.maxTenure} years</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.processing}</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.maxAmount}</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.prepayment}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Quick EMI Calculator -->
+      <div class="mt-8 bg-white rounded-xl border border-gray-200 p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Quick Home Loan EMI Calculator</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label class="block text-sm text-gray-600 mb-1">Loan Amount (₹)</label>
+            <input type="number" id="hlAmount" value="5000000" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+          </div>
+          <div>
+            <label class="block text-sm text-gray-600 mb-1">Interest Rate (%)</label>
+            <input type="number" id="hlRate" value="8.50" step="0.05" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+          </div>
+          <div>
+            <label class="block text-sm text-gray-600 mb-1">Tenure (years)</label>
+            <input type="number" id="hlTenure" value="20" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-4 text-center">
+          <div class="bg-blue-50 rounded-lg p-4">
+            <p class="text-xs text-blue-600">Monthly EMI</p>
+            <p id="hlEmi" class="text-xl font-bold text-blue-700">-</p>
+          </div>
+          <div class="bg-green-50 rounded-lg p-4">
+            <p class="text-xs text-green-600">Total Interest</p>
+            <p id="hlInterest" class="text-xl font-bold text-green-700">-</p>
+          </div>
+          <div class="bg-purple-50 rounded-lg p-4">
+            <p class="text-xs text-purple-600">Total Payment</p>
+            <p id="hlTotal" class="text-xl font-bold text-purple-700">-</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal Loans Tab -->
+    <div id="tab-personal-loan" class="tab-content hidden">
+      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="text-left text-sm text-gray-500 bg-gray-50 border-b border-gray-200">
+                <th class="p-4 font-medium">Bank</th>
+                <th class="p-4 font-medium">Interest Rate</th>
+                <th class="p-4 font-medium">Max Tenure</th>
+                <th class="p-4 font-medium">Processing Fee</th>
+                <th class="p-4 font-medium">Max Amount</th>
+                <th class="p-4 font-medium">Prepayment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {personalLoans.sort((a, b) => a.rate - b.rate).map((loan, i) => (
+                <tr class:list={['border-b border-gray-50 hover:bg-gray-50', i === 0 && 'bg-green-50']}>
+                  <td class="p-4 text-sm font-medium text-gray-900">{loan.bank}</td>
+                  <td class:list={['p-4 text-sm font-bold', i === 0 ? 'text-green-600' : 'text-blue-600']}>{loan.rate}% p.a.</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.maxTenure} years</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.processing}</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.maxAmount}</td>
+                  <td class="p-4 text-sm text-gray-700">{loan.prepayment}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Credit Cards Tab -->
+    <div id="tab-credit-cards" class="tab-content hidden">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {creditCards.map(card => (
+          <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="font-bold text-gray-900">{card.name}</h3>
+                <p class="text-sm text-gray-500">{card.bank}</p>
+              </div>
+              <span class:list={['px-2 py-1 rounded-full text-xs font-medium', card.fee === 0 ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600']}>
+                {card.fee === 0 ? 'FREE' : `₹${card.fee.toLocaleString('en-IN')}/yr`}
+              </span>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span class="text-gray-500">Best for</span>
+                <span class="font-medium text-blue-600">{card.best}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-500">Cashback</span>
+                <span class="text-gray-700">{card.cashback || '-'}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-500">Rewards</span>
+                <span class="text-gray-700">{card.reward}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-500">Lounge Access</span>
+                <span class="text-gray-700">{card.lounge}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-500">Fuel Surcharge Waiver</span>
+                <span class="text-gray-700">{card.fuel}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+      <h2>How to Choose the Right Financial Product</h2>
+      <ul>
+        <li><strong>Home Loan:</strong> Go for the lowest interest rate. Even 0.25% difference saves lakhs over 20 years. Government banks (SBI, BOB, PNB) usually offer the best rates.</li>
+        <li><strong>Personal Loan:</strong> Compare processing fees along with interest rates. A low rate with high processing fee may cost more overall.</li>
+        <li><strong>Credit Card:</strong> Pick based on your spending pattern — if you shop on Amazon, get the Amazon Pay card. If you travel, get a card with lounge access.</li>
+      </ul>
+      <p>Use the <a href="/tools/emi-calculator">EMI Calculator</a> to see exactly how much you'll pay for any loan amount.</p>
+      <p><em>Rates are indicative and subject to change. Final rates depend on your credit score and profile. Check bank websites for the latest rates.</em></p>
+    </div>
+
+    <AdUnit />
+  </section>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => {
+          b.classList.remove('border-blue-600', 'text-blue-600');
+          b.classList.add('border-transparent', 'text-gray-500');
+        });
+        btn.classList.add('border-blue-600', 'text-blue-600');
+        btn.classList.remove('border-transparent', 'text-gray-500');
+
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+        document.getElementById('tab-' + btn.dataset.tab)?.classList.remove('hidden');
+      });
+    });
+
+    // Home loan EMI calculator
+    function calcEmi() {
+      const P = parseFloat(document.getElementById('hlAmount').value);
+      const r = parseFloat(document.getElementById('hlRate').value) / 12 / 100;
+      const n = parseInt(document.getElementById('hlTenure').value) * 12;
+      if (!P || !r || !n) return;
+
+      const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+      const total = emi * n;
+      const interest = total - P;
+
+      const fmt = v => '₹' + Math.round(v).toLocaleString('en-IN');
+      document.getElementById('hlEmi').textContent = fmt(emi);
+      document.getElementById('hlInterest').textContent = fmt(interest);
+      document.getElementById('hlTotal').textContent = fmt(total);
+    }
+
+    document.getElementById('hlAmount').addEventListener('input', calcEmi);
+    document.getElementById('hlRate').addEventListener('input', calcEmi);
+    document.getElementById('hlTenure').addEventListener('input', calcEmi);
+    calcEmi();
+  </script>
+</Layout>

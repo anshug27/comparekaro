@@ -1,0 +1,268 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'OTT Subscription Comparison',
+  url: 'https://comparekaro.download/tools/ott-compare',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+
+const platforms = [
+  {
+    name: 'Netflix',
+    plans: [
+      { name: 'Mobile', price: 149, screens: 1, quality: '480p', downloads: true, ads: false },
+      { name: 'Basic', price: 199, screens: 1, quality: '720p', downloads: true, ads: true },
+      { name: 'Standard', price: 499, screens: 2, quality: '1080p', downloads: true, ads: false },
+      { name: 'Premium', price: 649, screens: 4, quality: '4K + HDR', downloads: true, ads: false },
+    ],
+    highlights: ['Global originals', 'Largest content library', 'Best UI/UX'],
+    color: 'red',
+  },
+  {
+    name: 'JioHotstar',
+    plans: [
+      { name: 'Mobile', price: 99, screens: 1, quality: '720p', downloads: true, ads: true },
+      { name: 'Super', price: 299, screens: 2, quality: '1080p', downloads: true, ads: false },
+      { name: 'Premium', price: 499, screens: 4, quality: '4K', downloads: true, ads: false },
+    ],
+    highlights: ['IPL & Cricket live', 'HBO originals', 'Disney+ content', 'Star network shows'],
+    color: 'blue',
+  },
+  {
+    name: 'Amazon Prime Video',
+    plans: [
+      { name: 'Prime Lite', price: 299, screens: 1, quality: '480p', downloads: false, ads: true },
+      { name: 'Prime', price: 1499, screens: 3, quality: '4K + HDR', downloads: true, ads: false },
+    ],
+    highlights: ['Free delivery on Amazon', 'Prime Music included', 'Thursday Night Football', 'Rent/buy latest movies'],
+    color: 'orange',
+  },
+  {
+    name: 'SonyLIV',
+    plans: [
+      { name: 'Mobile', price: 599, screens: 1, quality: '720p', downloads: true, ads: false },
+      { name: 'Premium', price: 999, screens: 2, quality: '1080p', downloads: true, ads: false },
+    ],
+    highlights: ['Sony network shows', 'UEFA Champions League', 'KBC', 'International sports'],
+    color: 'purple',
+  },
+  {
+    name: 'ZEE5',
+    plans: [
+      { name: 'Monthly', price: 149, screens: 2, quality: '1080p', downloads: true, ads: false },
+      { name: 'Yearly', price: 599, screens: 2, quality: '1080p', downloads: true, ads: false },
+    ],
+    highlights: ['Regional content', 'Zee TV shows', 'Alt Balaji content', 'Live TV channels'],
+    color: 'purple',
+  },
+  {
+    name: 'JioCinema',
+    plans: [
+      { name: 'Free', price: 0, screens: 1, quality: '720p', downloads: false, ads: true },
+      { name: 'Premium', price: 29, screens: 2, quality: '1080p', downloads: true, ads: false },
+    ],
+    highlights: ['Free tier available', 'NBA live', 'Peacock originals', 'Jio exclusive content'],
+    color: 'green',
+  },
+];
+
+const allPlans = platforms.flatMap(p => p.plans.map(plan => ({ platform: p.name, ...plan })));
+const cheapest = [...allPlans].filter(p => !p.ads).sort((a, b) => a.price - b.price)[0];
+---
+
+<Layout
+  title="OTT Subscription Comparison - Netflix vs Hotstar vs Prime vs JioCinema"
+  description="Compare OTT streaming plans in India. Netflix, JioHotstar, Amazon Prime, SonyLIV, ZEE5, JioCinema - prices, features, quality compared side by side."
+  schema={schema}
+>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-blue-600">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">OTT Comparison</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">OTT Subscription Comparison</h1>
+      <p class="text-gray-500 text-lg">Compare all major streaming platforms in India. Find the best plan for your budget and viewing needs.</p>
+    </div>
+
+    <!-- Quick Summary -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+      {platforms.map(p => (
+        <div class="bg-white rounded-xl border border-gray-200 p-4 text-center">
+          <h3 class="font-bold text-gray-900 text-sm mb-1">{p.name}</h3>
+          <p class="text-blue-600 font-bold text-lg">
+            {p.plans[0].price === 0 ? 'Free' : `₹${p.plans[0].price}`}
+          </p>
+          <p class="text-gray-400 text-xs">starting price/mo</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Filter -->
+    <div class="bg-white rounded-xl border border-gray-200 p-4 mb-8 flex flex-wrap gap-4 items-center">
+      <label class="text-sm font-medium text-gray-700">Budget:</label>
+      <select id="budget" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+        <option value="all">All Plans</option>
+        <option value="200">Under ₹200/mo</option>
+        <option value="500">Under ₹500/mo</option>
+        <option value="1000">Under ₹1000/mo</option>
+      </select>
+      <label class="text-sm font-medium text-gray-700 ml-4">Quality:</label>
+      <select id="quality" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+        <option value="all">Any</option>
+        <option value="4K">4K</option>
+        <option value="1080p">1080p+</option>
+      </select>
+      <label class="flex items-center gap-2 text-sm text-gray-700 ml-4">
+        <input type="checkbox" id="noAds" class="rounded" /> No Ads
+      </label>
+    </div>
+
+    <!-- Platform Cards -->
+    <div id="platforms" class="space-y-8">
+      {platforms.map(p => (
+        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden" data-platform={p.name}>
+          <div class="bg-gray-50 border-b border-gray-200 p-5">
+            <div class="flex items-center justify-between">
+              <h2 class="text-xl font-bold text-gray-900">{p.name}</h2>
+              <div class="flex flex-wrap gap-2">
+                {p.highlights.map(h => (
+                  <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full">{h}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="text-left text-sm text-gray-500 border-b border-gray-100">
+                  <th class="p-4 font-medium">Plan</th>
+                  <th class="p-4 font-medium">Price/mo</th>
+                  <th class="p-4 font-medium">Screens</th>
+                  <th class="p-4 font-medium">Quality</th>
+                  <th class="p-4 font-medium">Downloads</th>
+                  <th class="p-4 font-medium">Ads</th>
+                </tr>
+              </thead>
+              <tbody>
+                {p.plans.map(plan => (
+                  <tr class="border-b border-gray-50 hover:bg-gray-50 plan-row"
+                    data-price={plan.price}
+                    data-quality={plan.quality}
+                    data-ads={plan.ads ? 'yes' : 'no'}>
+                    <td class="p-4 font-medium text-gray-900">{plan.name}</td>
+                    <td class="p-4 font-bold text-blue-600">
+                      {plan.price === 0 ? 'Free' : `₹${plan.price}`}
+                    </td>
+                    <td class="p-4 text-gray-700">{plan.screens}</td>
+                    <td class="p-4 text-gray-700">{plan.quality}</td>
+                    <td class="p-4">
+                      {plan.downloads
+                        ? <span class="text-green-600">Yes</span>
+                        : <span class="text-red-400">No</span>
+                      }
+                    </td>
+                    <td class="p-4">
+                      {plan.ads
+                        ? <span class="text-red-400">Yes</span>
+                        : <span class="text-green-600">No</span>
+                      }
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <AdUnit />
+
+    <!-- Cost Calculator -->
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">OTT Bundle Calculator</h2>
+      <p class="text-gray-500 mb-6">Select the platforms you subscribe to and see your total monthly cost.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+        {platforms.map(p => (
+          <label class="flex items-center gap-2 bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-blue-50 transition-colors">
+            <input type="checkbox" class="bundle-check rounded" data-cheapest={p.plans[0].price} />
+            <span class="text-sm font-medium text-gray-700">{p.name}</span>
+          </label>
+        ))}
+      </div>
+      <div class="bg-blue-50 rounded-lg p-4 text-center">
+        <p class="text-sm text-blue-600">Monthly total (cheapest plans)</p>
+        <p id="bundleTotal" class="text-3xl font-bold text-blue-700 mt-1">₹0</p>
+        <p id="bundleYearly" class="text-sm text-blue-500 mt-1">₹0/year</p>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+      <h2>Which OTT Platform is Best in India?</h2>
+      <p>Choosing the right streaming platform depends on what you watch:</p>
+      <ul>
+        <li><strong>Cricket & Sports:</strong> JioHotstar (IPL, ICC) and SonyLIV (UEFA, other sports)</li>
+        <li><strong>International Shows:</strong> Netflix (largest global library) and Amazon Prime (The Boys, Rings of Power)</li>
+        <li><strong>Hindi TV:</strong> JioHotstar (Star network) and ZEE5 (Zee TV shows)</li>
+        <li><strong>Budget-friendly:</strong> JioCinema (free tier) and ZEE5 (₹149/mo)</li>
+        <li><strong>Best Value:</strong> Amazon Prime at ₹1499/year includes free delivery, Prime Music, and Prime Video</li>
+      </ul>
+      <p><em>Prices are as of October 2026 and may change. Check the platform websites for the latest pricing.</em></p>
+    </div>
+  </section>
+
+  <script>
+    function filterPlans() {
+      const budget = document.getElementById('budget').value;
+      const quality = document.getElementById('quality').value;
+      const noAds = document.getElementById('noAds').checked;
+
+      document.querySelectorAll('.plan-row').forEach(row => {
+        const price = parseInt(row.dataset.price);
+        const qual = row.dataset.quality;
+        const hasAds = row.dataset.ads === 'yes';
+
+        let show = true;
+        if (budget !== 'all' && price > parseInt(budget)) show = false;
+        if (quality === '4K' && !qual.includes('4K')) show = false;
+        if (quality === '1080p' && !qual.includes('1080') && !qual.includes('4K')) show = false;
+        if (noAds && hasAds) show = false;
+
+        row.style.display = show ? '' : 'none';
+      });
+
+      document.querySelectorAll('[data-platform]').forEach(card => {
+        const visibleRows = card.querySelectorAll('.plan-row:not([style*="display: none"])');
+        card.style.display = visibleRows.length > 0 ? '' : 'none';
+      });
+    }
+
+    document.getElementById('budget').addEventListener('change', filterPlans);
+    document.getElementById('quality').addEventListener('change', filterPlans);
+    document.getElementById('noAds').addEventListener('change', filterPlans);
+
+    // Bundle calculator
+    document.querySelectorAll('.bundle-check').forEach(cb => {
+      cb.addEventListener('change', () => {
+        let total = 0;
+        document.querySelectorAll('.bundle-check:checked').forEach(checked => {
+          total += parseInt(checked.dataset.cheapest);
+        });
+        document.getElementById('bundleTotal').textContent = '₹' + total.toLocaleString('en-IN');
+        document.getElementById('bundleYearly').textContent = '₹' + (total * 12).toLocaleString('en-IN') + '/year';
+      });
+    });
+  </script>
+</Layout>

@@ -1,0 +1,223 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Broadband Plans Comparison India',
+  url: 'https://comparekaro.download/tools/broadband-compare',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+
+const providers = [
+  {
+    name: 'Jio Fiber',
+    plans: [
+      { name: 'Welcome Offer', speed: 30, data: 'Unlimited', price: 399, ott: '', router: true },
+      { name: 'Fiber Value', speed: 30, data: 'Unlimited', price: 599, ott: '', router: true },
+      { name: 'Fiber Popular', speed: 100, data: 'Unlimited', price: 899, ott: 'JioCinema, SonyLIV', router: true },
+      { name: 'Fiber Hero', speed: 150, data: 'Unlimited', price: 999, ott: 'JioCinema, SonyLIV', router: true },
+      { name: 'Fiber Super', speed: 300, data: 'Unlimited', price: 1499, ott: 'JioCinema, SonyLIV, ZEE5, SunNxt', router: true },
+      { name: 'Fiber Titanium', speed: 500, data: 'Unlimited', price: 2499, ott: 'Netflix, JioCinema, SonyLIV, ZEE5', router: true },
+      { name: 'Fiber 5G', speed: 1000, data: 'Unlimited', price: 3999, ott: 'Netflix, JioCinema, SonyLIV, ZEE5, Amazon Prime', router: true },
+    ],
+  },
+  {
+    name: 'Airtel Xstream Fiber',
+    plans: [
+      { name: 'Basic', speed: 40, data: 'Unlimited', price: 499, ott: '', router: true },
+      { name: 'Entertainment', speed: 100, data: 'Unlimited', price: 799, ott: 'Xstream Premium', router: true },
+      { name: 'Premium', speed: 200, data: 'Unlimited', price: 999, ott: 'Xstream, JioHotstar', router: true },
+      { name: 'Pro', speed: 300, data: 'Unlimited', price: 1499, ott: 'Xstream, JioHotstar, SonyLIV', router: true },
+      { name: 'VIP', speed: 1000, data: 'Unlimited', price: 3999, ott: 'Netflix, Xstream, JioHotstar, SonyLIV, ZEE5', router: true },
+    ],
+  },
+  {
+    name: 'ACT Fibernet',
+    plans: [
+      { name: 'ACT Swift', speed: 75, data: '500 GB', price: 599, ott: '', router: false },
+      { name: 'ACT Sprint', speed: 100, data: '1 TB', price: 749, ott: '', router: false },
+      { name: 'ACT Storm', speed: 150, data: '1.5 TB', price: 999, ott: 'ACT Stream TV', router: false },
+      { name: 'ACT Lightning', speed: 200, data: '2 TB', price: 1049, ott: 'ACT Stream TV', router: false },
+      { name: 'ACT Incredible', speed: 300, data: '3 TB', price: 1349, ott: 'ACT Stream TV', router: false },
+    ],
+  },
+  {
+    name: 'BSNL Fiber',
+    plans: [
+      { name: 'Fiber Basic', speed: 30, data: '3300 GB', price: 449, ott: '', router: false },
+      { name: 'Fiber Value', speed: 60, data: '3300 GB', price: 599, ott: '', router: false },
+      { name: 'Fiber Premium', speed: 100, data: '3300 GB', price: 799, ott: '', router: false },
+      { name: 'Fiber Ultra', speed: 200, data: '3300 GB', price: 999, ott: 'Disney+ Hotstar', router: false },
+      { name: 'Fiber Enterprise', speed: 300, data: '4000 GB', price: 1499, ott: 'Disney+ Hotstar, SonyLIV', router: false },
+    ],
+  },
+  {
+    name: 'Tata Play Fiber',
+    plans: [
+      { name: '100 Mbps', speed: 100, data: 'Unlimited', price: 699, ott: '', router: true },
+      { name: '150 Mbps', speed: 150, data: 'Unlimited', price: 899, ott: '', router: true },
+      { name: '300 Mbps', speed: 300, data: 'Unlimited', price: 1049, ott: '', router: true },
+      { name: '500 Mbps', speed: 500, data: 'Unlimited', price: 1599, ott: '', router: true },
+      { name: '1 Gbps', speed: 1000, data: 'Unlimited', price: 3599, ott: '', router: true },
+    ],
+  },
+];
+
+const allPlans = providers.flatMap(p => p.plans.map(plan => ({ provider: p.name, ...plan })));
+---
+
+<Layout
+  title="Broadband Plans Comparison India - Jio Fiber vs Airtel vs ACT vs BSNL"
+  description="Compare broadband and WiFi plans in India. Jio Fiber, Airtel Xstream, ACT Fibernet, BSNL Fiber, Tata Play - speed, price, data limit, OTT benefits compared."
+  schema={schema}
+>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-blue-600">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">Broadband Comparison</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Broadband Plans Comparison</h1>
+      <p class="text-gray-500 text-lg">Compare fiber broadband plans from all major providers in India. Find the best speed and value for your home.</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white rounded-xl border border-gray-200 p-4 mb-8 flex flex-wrap gap-4 items-center">
+      <div>
+        <label class="text-sm font-medium text-gray-700">Provider:</label>
+        <select id="providerFilter" class="ml-2 px-3 py-2 border border-gray-300 rounded-lg text-sm">
+          <option value="all">All Providers</option>
+          {providers.map(p => <option value={p.name}>{p.name}</option>)}
+        </select>
+      </div>
+      <div>
+        <label class="text-sm font-medium text-gray-700">Budget:</label>
+        <select id="budgetFilter" class="ml-2 px-3 py-2 border border-gray-300 rounded-lg text-sm">
+          <option value="all">Any</option>
+          <option value="500">Under ₹500</option>
+          <option value="1000">Under ₹1000</option>
+          <option value="1500">Under ₹1500</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-sm font-medium text-gray-700">Min Speed:</label>
+        <select id="speedFilter" class="ml-2 px-3 py-2 border border-gray-300 rounded-lg text-sm">
+          <option value="0">Any</option>
+          <option value="100">100+ Mbps</option>
+          <option value="200">200+ Mbps</option>
+          <option value="300">300+ Mbps</option>
+          <option value="500">500+ Mbps</option>
+        </select>
+      </div>
+      <label class="flex items-center gap-2 text-sm text-gray-700">
+        <input type="checkbox" id="ottFilter" class="rounded" /> With OTT
+      </label>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="text-left text-sm text-gray-500 bg-gray-50 border-b border-gray-200">
+              <th class="p-4 font-medium cursor-pointer hover:text-blue-600" data-sort="provider">Provider</th>
+              <th class="p-4 font-medium cursor-pointer hover:text-blue-600" data-sort="name">Plan</th>
+              <th class="p-4 font-medium cursor-pointer hover:text-blue-600" data-sort="speed">Speed</th>
+              <th class="p-4 font-medium">Data</th>
+              <th class="p-4 font-medium cursor-pointer hover:text-blue-600" data-sort="price">Price/mo</th>
+              <th class="p-4 font-medium">₹/Mbps</th>
+              <th class="p-4 font-medium">OTT Benefits</th>
+              <th class="p-4 font-medium">Router</th>
+            </tr>
+          </thead>
+          <tbody id="planRows">
+            {allPlans
+              .sort((a, b) => a.price - b.price)
+              .map(plan => (
+                <tr class="border-b border-gray-50 hover:bg-gray-50 bb-row"
+                  data-provider={plan.provider}
+                  data-price={plan.price}
+                  data-speed={plan.speed}
+                  data-ott={plan.ott ? 'yes' : 'no'}>
+                  <td class="p-4 text-sm font-medium text-gray-900">{plan.provider}</td>
+                  <td class="p-4 text-sm text-gray-700">{plan.name}</td>
+                  <td class="p-4 text-sm font-bold text-blue-600">{plan.speed} Mbps</td>
+                  <td class="p-4 text-sm text-gray-700">{plan.data}</td>
+                  <td class="p-4 text-sm font-bold text-gray-900">₹{plan.price}</td>
+                  <td class="p-4 text-sm text-gray-500">₹{(plan.price / plan.speed).toFixed(1)}</td>
+                  <td class="p-4 text-sm text-gray-600">
+                    {plan.ott
+                      ? <span class="text-green-600">{plan.ott}</span>
+                      : <span class="text-gray-400">-</span>
+                    }
+                  </td>
+                  <td class="p-4 text-sm">
+                    {plan.router
+                      ? <span class="text-green-600">Free</span>
+                      : <span class="text-gray-400">No</span>
+                    }
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p id="planCount" class="text-sm text-gray-500 mt-3"></p>
+
+    <AdUnit />
+
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+      <h2>Best Broadband Plan in India?</h2>
+      <p>The right broadband plan depends on your usage:</p>
+      <ul>
+        <li><strong>Basic browsing & WFH:</strong> 30-60 Mbps plans from Jio Fiber (₹399) or BSNL (₹449) are sufficient</li>
+        <li><strong>HD streaming + gaming:</strong> 100-200 Mbps plans - Jio Fiber (₹899), Airtel (₹799), ACT (₹749)</li>
+        <li><strong>4K streaming + large family:</strong> 300+ Mbps - multiple users can stream simultaneously</li>
+        <li><strong>Best OTT bundle:</strong> Jio Fiber ₹2499+ and Airtel ₹3999 include Netflix</li>
+        <li><strong>Best value per Mbps:</strong> Tata Play and ACT Fibernet often have the lowest cost per Mbps</li>
+      </ul>
+      <p><em>Availability varies by city and area. Prices may change. Check provider websites for latest plans.</em></p>
+    </div>
+
+    <AdUnit />
+  </section>
+
+  <script>
+    function filterBroadband() {
+      const provider = document.getElementById('providerFilter').value;
+      const budget = document.getElementById('budgetFilter').value;
+      const speed = parseInt(document.getElementById('speedFilter').value);
+      const wantOtt = document.getElementById('ottFilter').checked;
+
+      let visible = 0;
+      document.querySelectorAll('.bb-row').forEach(row => {
+        let show = true;
+        if (provider !== 'all' && row.dataset.provider !== provider) show = false;
+        if (budget !== 'all' && parseInt(row.dataset.price) > parseInt(budget)) show = false;
+        if (parseInt(row.dataset.speed) < speed) show = false;
+        if (wantOtt && row.dataset.ott !== 'yes') show = false;
+
+        row.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      document.getElementById('planCount').textContent = `Showing ${visible} plans`;
+    }
+
+    document.getElementById('providerFilter').addEventListener('change', filterBroadband);
+    document.getElementById('budgetFilter').addEventListener('change', filterBroadband);
+    document.getElementById('speedFilter').addEventListener('change', filterBroadband);
+    document.getElementById('ottFilter').addEventListener('change', filterBroadband);
+
+    filterBroadband();
+  </script>
+</Layout>

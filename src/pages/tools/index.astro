@@ -46,10 +46,10 @@ import AdUnit from '../../components/AdUnit.astro';
 
     <AdUnit />
 
-    <!-- Telecom -->
+    <!-- Telecom & Subscriptions -->
     <div id="telecom" class="mb-12">
       <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-        <span class="text-3xl">📱</span> Telecom Tools
+        <span class="text-3xl">📱</span> Telecom & Subscriptions
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <ToolCard
@@ -57,6 +57,61 @@ import AdUnit from '../../components/AdUnit.astro';
           description="Find the best prepaid plan across Jio, Airtel, Vi & BSNL based on your data needs and budget."
           href="/tools/plan-finder"
           icon="📱"
+          color="orange"
+        />
+        <ToolCard
+          title="Broadband Comparison"
+          description="Compare fiber broadband plans from Jio Fiber, Airtel Xstream, ACT, BSNL & Tata Play."
+          href="/tools/broadband-compare"
+          icon="📡"
+          color="blue"
+        />
+        <ToolCard
+          title="OTT Comparison"
+          description="Compare Netflix, JioHotstar, Amazon Prime, SonyLIV, ZEE5 & JioCinema plans and prices."
+          href="/tools/ott-compare"
+          icon="🎬"
+          color="red"
+        />
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <!-- Compare Devices -->
+    <div id="devices" class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+        <span class="text-3xl">💻</span> Compare Devices
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ToolCard
+          title="Laptop & Tablet Compare"
+          description="Compare MacBook, Dell, HP, Lenovo laptops and iPad, Samsung tablets side by side."
+          href="/tools/laptop-compare"
+          icon="💻"
+          color="purple"
+        />
+        <ToolCard
+          title="Phone Comparison"
+          description="Compare smartphones from Samsung, Apple, OnePlus, Xiaomi and more."
+          href="/compare"
+          icon="📱"
+          color="green"
+        />
+      </div>
+    </div>
+
+    <!-- Loans & Cards -->
+    <div id="loans" class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+        <span class="text-3xl">💳</span> Loans & Credit Cards
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ToolCard
+          title="Loan & Card Comparison"
+          description="Compare home loans, personal loans & credit cards across SBI, HDFC, ICICI, Axis & more."
+          href="/tools/loan-compare"
+          icon="💳"
           color="orange"
         />
       </div>

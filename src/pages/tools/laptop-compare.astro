@@ -1,0 +1,209 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+import { laptops } from '../../data/laptops';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Laptop & Tablet Comparison India',
+  url: 'https://comparekaro.download/tools/laptop-compare',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+
+const laptopList = laptops.filter(l => l.type === 'Laptop');
+const tabletList = laptops.filter(l => l.type === 'Tablet');
+const brands = [...new Set(laptops.map(l => l.brand))];
+---
+
+<Layout
+  title="Laptop & Tablet Comparison India - MacBook vs Dell vs HP vs Lenovo"
+  description="Compare laptops and tablets side by side. MacBook Air, Dell XPS, HP Pavilion, Lenovo IdeaPad, iPad, Samsung Tab - specs, price, performance compared."
+  schema={schema}
+>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-blue-600">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">Laptop & Tablet Comparison</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Laptop & Tablet Comparison</h1>
+      <p class="text-gray-500 text-lg">Select two devices to compare specs, price, and performance side by side.</p>
+    </div>
+
+    <!-- Device Selectors -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+      <div>
+        <label for="device1" class="block text-sm font-medium text-gray-700 mb-2">Device 1</label>
+        <select id="device1" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base">
+          {laptops.map((l, i) => <option value={l.id} selected={i === 0}>{l.name} - ₹{l.price.toLocaleString('en-IN')} ({l.type})</option>)}
+        </select>
+      </div>
+      <div>
+        <label for="device2" class="block text-sm font-medium text-gray-700 mb-2">Device 2</label>
+        <select id="device2" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base">
+          {laptops.map((l, i) => <option value={l.id} selected={i === 2}>{l.name} - ₹{l.price.toLocaleString('en-IN')} ({l.type})</option>)}
+        </select>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div id="comparison" class="bg-white rounded-xl border border-gray-200 overflow-hidden"></div>
+
+    <AdUnit />
+
+    <!-- All Laptops -->
+    <div class="mt-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">All Laptops</h2>
+      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="text-left text-sm text-gray-500 bg-gray-50 border-b border-gray-200">
+                <th class="p-4 font-medium">Name</th>
+                <th class="p-4 font-medium">Processor</th>
+                <th class="p-4 font-medium">RAM</th>
+                <th class="p-4 font-medium">Storage</th>
+                <th class="p-4 font-medium">GPU</th>
+                <th class="p-4 font-medium">Display</th>
+                <th class="p-4 font-medium">Battery</th>
+                <th class="p-4 font-medium">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {laptopList.sort((a, b) => a.price - b.price).map(l => (
+                <tr class="border-b border-gray-50 hover:bg-gray-50">
+                  <td class="p-4 text-sm font-medium text-gray-900">{l.name}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.processor}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.ram}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.storage}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.gpu}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.displaySize}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.battery}</td>
+                  <td class="p-4 text-sm font-bold text-blue-600">₹{l.price.toLocaleString('en-IN')}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Tablets -->
+    <div class="mt-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">All Tablets</h2>
+      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="text-left text-sm text-gray-500 bg-gray-50 border-b border-gray-200">
+                <th class="p-4 font-medium">Name</th>
+                <th class="p-4 font-medium">Processor</th>
+                <th class="p-4 font-medium">RAM</th>
+                <th class="p-4 font-medium">Storage</th>
+                <th class="p-4 font-medium">Display</th>
+                <th class="p-4 font-medium">Battery</th>
+                <th class="p-4 font-medium">Weight</th>
+                <th class="p-4 font-medium">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tabletList.sort((a, b) => a.price - b.price).map(l => (
+                <tr class="border-b border-gray-50 hover:bg-gray-50">
+                  <td class="p-4 text-sm font-medium text-gray-900">{l.name}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.processor}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.ram}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.storage}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.displaySize}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.battery}</td>
+                  <td class="p-4 text-sm text-gray-700">{l.weight}</td>
+                  <td class="p-4 text-sm font-bold text-blue-600">₹{l.price.toLocaleString('en-IN')}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+      <h2>How to Choose the Right Laptop or Tablet</h2>
+      <ul>
+        <li><strong>Students & basic use:</strong> ASUS Vivobook or Lenovo IdeaPad — affordable, reliable, good battery life</li>
+        <li><strong>Professionals:</strong> MacBook Air M3 or Dell XPS — premium build, excellent display, all-day battery</li>
+        <li><strong>Gaming:</strong> Acer Nitro V or HP Victus — dedicated GPU (RTX 4050), 144Hz display</li>
+        <li><strong>Creative work:</strong> MacBook Pro M3 Pro — best display, powerful GPU, pro performance</li>
+        <li><strong>Media consumption:</strong> iPad Air M2 or OnePlus Pad 2 — portable, great display</li>
+        <li><strong>Budget tablet:</strong> iPad 10th Gen or Samsung Tab S9 FE — S Pen included with Samsung</li>
+      </ul>
+      <p><em>Prices are indicative. Check retailer websites for current pricing and offers.</em></p>
+    </div>
+  </section>
+
+  <script define:vars={{ laptops }}>
+    const specs = [
+      { key: 'price', label: 'Price', format: v => '₹' + v.toLocaleString('en-IN'), compare: 'lower' },
+      { key: 'type', label: 'Type', format: v => v },
+      { key: 'display', label: 'Display', format: v => v },
+      { key: 'displaySize', label: 'Screen Size', format: v => v },
+      { key: 'processor', label: 'Processor', format: v => v },
+      { key: 'ram', label: 'RAM', format: v => v },
+      { key: 'storage', label: 'Storage', format: v => v },
+      { key: 'gpu', label: 'GPU', format: v => v },
+      { key: 'battery', label: 'Battery', format: v => v },
+      { key: 'weight', label: 'Weight', format: v => v },
+      { key: 'os', label: 'Operating System', format: v => v },
+      { key: 'ports', label: 'Ports', format: v => v },
+      { key: 'rating', label: 'Rating', format: v => v + ' / 5', compare: 'higher' },
+    ];
+
+    function render() {
+      const d1 = laptops.find(l => l.id === document.getElementById('device1').value);
+      const d2 = laptops.find(l => l.id === document.getElementById('device2').value);
+      if (!d1 || !d2) return;
+
+      let html = `
+        <div class="grid grid-cols-3 bg-gray-50 border-b border-gray-200">
+          <div class="p-4 font-semibold text-gray-600 text-sm">Specification</div>
+          <div class="p-4 text-center font-bold text-blue-700">${d1.name}</div>
+          <div class="p-4 text-center font-bold text-green-700">${d2.name}</div>
+        </div>
+      `;
+
+      specs.forEach(spec => {
+        const v1 = d1[spec.key];
+        const v2 = d2[spec.key];
+        let c1 = '', c2 = '';
+        if (spec.compare && typeof v1 === 'number' && typeof v2 === 'number') {
+          if (spec.compare === 'lower') {
+            if (v1 < v2) c1 = 'text-green-600 font-semibold';
+            else if (v2 < v1) c2 = 'text-green-600 font-semibold';
+          } else {
+            if (v1 > v2) c1 = 'text-green-600 font-semibold';
+            else if (v2 > v1) c2 = 'text-green-600 font-semibold';
+          }
+        }
+        html += `
+          <div class="grid grid-cols-3 border-b border-gray-100 hover:bg-gray-50">
+            <div class="p-4 text-sm font-medium text-gray-600">${spec.label}</div>
+            <div class="p-4 text-sm text-center ${c1}">${spec.format(v1)}</div>
+            <div class="p-4 text-sm text-center ${c2}">${spec.format(v2)}</div>
+          </div>
+        `;
+      });
+
+      document.getElementById('comparison').innerHTML = html;
+    }
+
+    document.getElementById('device1').addEventListener('change', render);
+    document.getElementById('device2').addEventListener('change', render);
+    render();
+  </script>
+</Layout>
