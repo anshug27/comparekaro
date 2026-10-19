@@ -23,12 +23,20 @@ const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (
 // We scrape the top popular phones from 91mobiles listing, then fetch each phone's detail page
 const LISTING_URL = 'https://www.91mobiles.com/mobile-phones';
 
-// Additional listing pages to scrape for more phone variety
-const EXTRA_LISTING_URLS = [
-  'https://www.91mobiles.com/best-phones-under-15000',
-  'https://www.91mobiles.com/best-phones-under-20000',
-  'https://www.91mobiles.com/best-phones-under-30000',
-  'https://www.91mobiles.com/best-5g-phones',
+// Brand listing pages — each has 20-30 phones with price-in-india links
+const BRAND_LISTING_URLS = [
+  'https://www.91mobiles.com/samsung-mobile-price-list-in-india',
+  'https://www.91mobiles.com/apple-mobile-price-list-in-india',
+  'https://www.91mobiles.com/xiaomi-mobile-price-list-in-india',
+  'https://www.91mobiles.com/oneplus-mobile-price-list-in-india',
+  'https://www.91mobiles.com/vivo-mobile-price-list-in-india',
+  'https://www.91mobiles.com/oppo-mobile-price-list-in-india',
+  'https://www.91mobiles.com/realme-mobile-price-list-in-india',
+  'https://www.91mobiles.com/motorola-mobile-price-list-in-india',
+  'https://www.91mobiles.com/iqoo-mobile-price-list-in-india',
+  'https://www.91mobiles.com/poco-mobile-price-list-in-india',
+  'https://www.91mobiles.com/nothing-mobile-price-list-in-india',
+  'https://www.91mobiles.com/google-mobile-price-list-in-india',
 ];
 
 // ── Fetch HTML ───────────────────────────────────────────
@@ -283,73 +291,92 @@ function generateComparisonPairs(phones) {
     return ratioA - ratioB;
   });
 
-  return pairs.slice(0, 60);
+  return pairs.slice(0, 100);
 }
 
 // ── Main ─────────────────────────────────────────────────
 async function main() {
   console.log('Fetching popular phones from 91mobiles...\n');
 
-  // Step 1: Get popular phone URLs from main listing page + extra pages
-  let phoneUrls = [];
-  try {
-    const listingHtml = await fetchPage(LISTING_URL);
-    phoneUrls = getPopularPhoneUrls(listingHtml);
-    console.log(`  Found ${phoneUrls.length} popular phones on main listing page`);
-  } catch (err) {
-    console.error(`  Failed to fetch main listing page: ${err.message}`);
-  }
+  // Strategy: scrape each brand page individually for guaranteed diversity
+  // Take top N phones from each brand, then fill remaining from main listing
+  const allPhoneUrls = [];
+  const globalSeenUrls = new Set();
+  const PHONES_PER_BRAND = 5; // 5 per brand x 12 brands = 60 phones
 
-  // Scrape extra listing pages for more variety
-  for (const extraUrl of EXTRA_LISTING_URLS) {
+  // Step 1: Scrape brand pages first for guaranteed per-brand coverage
+  for (const brandUrl of BRAND_LISTING_URLS) {
     try {
-      const html = await fetchPage(extraUrl);
+      const html = await fetchPage(brandUrl);
       const $ = cheerio.load(html);
-      // These pages have different structures - look for phone links
-      $('a[href*="price-in-india"]').each((_, el) => {
-        const href = $(el).attr('href') || '';
-        const fullUrl = href.startsWith('http') ? href : `https://www.91mobiles.com${href}`;
-        if (fullUrl.includes('price-in-india') && !fullUrl.includes('list-of') && !fullUrl.includes('laptops')) {
-          const text = $(el).text().trim();
-          if (text && text.length > 3 && text.length < 80) {
-            phoneUrls.push({ url: fullUrl, name: text });
-          }
-        }
+      const brandPhones = [];
+      const seenInBrand = new Set();
+
+      $('[data-ga]').each((_, el) => {
+        let url = $(el).attr('data-href-url') || $(el).attr('href') || '';
+        if (!url.includes('price-in-india') || url.includes('list') || url.includes('?')) return;
+        if (!url.startsWith('http')) url = 'https://www.91mobiles.com' + url;
+        const cleanUrl = url.split('?')[0];
+        if (seenInBrand.has(cleanUrl)) return;
+        seenInBrand.add(cleanUrl);
+
+        const ga = $(el).attr('data-ga') || '';
+        const nameMatch = ga.match(/\|([^:]+):/);
+        const name = nameMatch ? nameMatch[1] : '';
+        if (name) brandPhones.push({ url: cleanUrl, name });
       });
-      console.log(`  Found phones from ${extraUrl.split('/').pop()}`);
+
+      // Deduplicate by base model within brand
+      const brandDeduped = [];
+      const brandSeen = new Set();
+      for (const phone of brandPhones) {
+        const base = phone.name.replace(/\d+\s*(GB|TB)\s*(RAM)?/gi, '').replace(/\s+/g, ' ').trim();
+        if (!brandSeen.has(base)) {
+          brandSeen.add(base);
+          brandDeduped.push(phone);
+        }
+      }
+
+      const added = brandDeduped.slice(0, PHONES_PER_BRAND);
+      for (const p of added) {
+        if (!globalSeenUrls.has(p.url)) {
+          globalSeenUrls.add(p.url);
+          allPhoneUrls.push(p);
+        }
+      }
+
+      const brandName = brandUrl.match(/\/(\w+)-mobile/)?.[1] || brandUrl;
+      console.log(`  ${brandName}: ${brandDeduped.length} unique, taking top ${added.length}`);
       await new Promise(r => setTimeout(r, 300));
     } catch (err) {
-      console.warn(`  Failed to fetch ${extraUrl}: ${err.message}`);
+      console.warn(`  Failed to fetch ${brandUrl}: ${err.message}`);
     }
   }
 
-  console.log(`  Total found across all pages: ${phoneUrls.length}`);
-
-  // Deduplicate by URL
-  const seenUrls = new Set();
-  const dedupedByUrl = phoneUrls.filter(p => {
-    if (seenUrls.has(p.url)) return false;
-    seenUrls.add(p.url);
-    return true;
-  });
-
-  // Deduplicate by base phone model (skip storage variants like 512GB, 1TB)
-  const dedupedUrls = [];
-  const seenBaseModels = new Set();
-  for (const phone of dedupedByUrl) {
-    const baseModel = phone.name
-      .replace(/\d+\s*(GB|TB)\s*(RAM)?/gi, '')
-      .replace(/\s+/g, ' ')
-      .trim();
-    if (!seenBaseModels.has(baseModel)) {
-      seenBaseModels.add(baseModel);
-      dedupedUrls.push(phone);
+  // Step 2: Also get popular phones from main listing to fill any gaps
+  try {
+    const listingHtml = await fetchPage(LISTING_URL);
+    const mainPhones = getPopularPhoneUrls(listingHtml);
+    let added = 0;
+    for (const phone of mainPhones) {
+      const cleanUrl = phone.url.split('?')[0];
+      const base = phone.name.replace(/\d+\s*(GB|TB)\s*(RAM)?/gi, '').replace(/\s+/g, ' ').trim();
+      if (!globalSeenUrls.has(cleanUrl)) {
+        globalSeenUrls.add(cleanUrl);
+        allPhoneUrls.push(phone);
+        added++;
+      }
     }
+    console.log(`  main listing: added ${added} extra phones`);
+  } catch (err) {
+    console.error(`  Failed to fetch main listing: ${err.message}`);
   }
 
-  // Increase limit to 40 phones
-  const phoneUrlsToScrape = dedupedUrls.slice(0, 40);
-  console.log(`  Scraping ${phoneUrlsToScrape.length} unique phone models\n`);
+  console.log(`\n  Total unique phone URLs: ${allPhoneUrls.length}`);
+
+  // Scrape up to 80 unique phones
+  const phoneUrlsToScrape = allPhoneUrls.slice(0, 80);
+  console.log(`  Scraping ${phoneUrlsToScrape.length} phone models\n`);
 
   // Step 2: Fetch each phone's detail page and parse specs
   const phones = [];
