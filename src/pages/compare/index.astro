@@ -21,67 +21,67 @@ for (const phone of phones) {
   phonesByBrand[phone.brand].push(phone);
 }
 
-// Sort brands by count
 const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) - (phonesByBrand[a]?.length || 0));
 ---
 
 <Layout
   title="Compare Phones & Laptops Side by Side - Specs, Price & Features"
-  description="Compare 117+ phones and 30+ laptops side by side. Samsung vs Apple vs OnePlus vs Xiaomi - specs, price, camera, battery. Amazon & Flipkart prices."
+  description={`Compare ${phones.length}+ phones and 30+ laptops side by side. Samsung vs Apple vs OnePlus vs Xiaomi - specs, price, camera, battery. Amazon & Flipkart prices.`}
   schema={schema}
 >
   <!-- Hero -->
-  <div class="relative bg-white border-b border-gray-200/60 overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-white to-indigo-50/50"></div>
+  <div class="page-header-bg relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><line x1=%220%22 y1=%220%22 x2=%2260%22 y2=%220%22 stroke=%22white%22 stroke-width=%220.5%22/><line x1=%220%22 y1=%220%22 x2=%220%22 y2=%2260%22 stroke=%22white%22 stroke-width=%220.5%22/></svg>');"></div>
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
       <nav class="text-sm text-gray-500 mb-4">
-        <a href="/" class="hover:text-blue-600">Home</a>
-        <span class="mx-2">/</span>
-        <span class="text-gray-900 font-medium">Compare</span>
+        <a href="/" class="hover:text-indigo-400 transition-colors">Home</a>
+        <span class="mx-2 text-gray-600">/</span>
+        <span class="text-gray-300">Compare</span>
       </nav>
-      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-3">
-        Compare <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Devices</span>
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">
+        <span class="text-white">Compare </span><span class="gradient-text">Devices</span>
       </h1>
-      <p class="text-gray-500 text-lg max-w-2xl">{phones.length} phones across {brands.length} brands. Select two devices to compare specs, prices, and features side by side.</p>
+      <p class="text-gray-400 text-lg max-w-2xl">{phones.length} phones across {brands.length} brands. Select two devices to compare specs, prices, and features side by side.</p>
 
       <!-- Quick category links -->
       <div class="flex flex-wrap gap-3 mt-6">
-        <span class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-full">
+        <span class="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-indigo-500 to-pink-500 text-white text-sm font-semibold rounded-full shadow-lg shadow-indigo-500/20">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
           Phones ({phones.length})
         </span>
-        <a href="/tools/laptop-compare" class="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-gray-700 text-sm font-semibold rounded-full border border-gray-200 hover:bg-gray-50 hover:border-blue-300 transition-all">
+        <a href="/tools/laptop-compare" class="inline-flex items-center gap-1.5 px-4 py-2 bg-white/[0.06] text-gray-300 text-sm font-semibold rounded-full border border-white/10 hover:bg-white/[0.10] hover:border-indigo-500/30 transition-all">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           Laptops & Tablets
         </a>
-        <a href="/tools/car-compare" class="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-gray-700 text-sm font-semibold rounded-full border border-gray-200 hover:bg-gray-50 hover:border-blue-300 transition-all">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+        <a href="/tools/car-compare" class="inline-flex items-center gap-1.5 px-4 py-2 bg-white/[0.06] text-gray-300 text-sm font-semibold rounded-full border border-white/10 hover:bg-white/[0.10] hover:border-indigo-500/30 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17h.01M16 17h.01M3 11l1.5-5A2 2 0 016.4 4h11.2a2 2 0 011.9 1.5L21 11M3 11v5a1 1 0 001 1h1a2 2 0 002-2 2 2 0 012-2h6a2 2 0 012 2 2 2 0 002 2h1a1 1 0 001-1v-5M3 11h18"/></svg>
           Cars
         </a>
       </div>
     </div>
+    <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#0a0a1a] to-transparent"></div>
   </div>
 
   <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
     <!-- Compare Tool -->
-    <div class="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 shadow-sm mb-10">
-      <h2 class="text-xl font-extrabold text-gray-900 mb-6 flex items-center gap-2">
-        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+    <div class="glass rounded-2xl p-6 md:p-8 mb-10 fade-up">
+      <h2 class="text-xl font-extrabold text-white mb-6 flex items-center gap-2">
+        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
         Quick Compare
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
         <!-- Phone 1 -->
         <div class="space-y-3">
           <div class="flex items-center gap-2 mb-1">
-            <span class="bg-blue-100 text-blue-700 w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-bold">1</span>
-            <span class="font-bold text-gray-900">First Phone</span>
+            <span class="bg-indigo-500/20 text-indigo-400 w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-bold">1</span>
+            <span class="font-bold text-white text-sm">First Phone</span>
           </div>
-          <select id="brand1" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 hover:bg-white transition-colors">
+          <select id="brand1" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 hover:bg-white/[0.08] transition-colors">
             <option value="">Select Brand</option>
             {sortedBrands.map(b => <option value={b}>{b} ({phonesByBrand[b].length})</option>)}
           </select>
-          <select id="phone1" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 hover:bg-white transition-colors">
+          <select id="phone1" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 hover:bg-white/[0.08] transition-colors">
             <option value="">Select Model</option>
             {phones.map(p => <option value={p.id} data-brand={p.brand}>{p.name} - &#8377;{p.price.toLocaleString('en-IN')}</option>)}
           </select>
@@ -89,43 +89,43 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
         <!-- Phone 2 -->
         <div class="space-y-3">
           <div class="flex items-center gap-2 mb-1">
-            <span class="bg-green-100 text-green-700 w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-bold">2</span>
-            <span class="font-bold text-gray-900">Second Phone</span>
+            <span class="bg-emerald-500/20 text-emerald-400 w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-bold">2</span>
+            <span class="font-bold text-white text-sm">Second Phone</span>
           </div>
-          <select id="brand2" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-gray-50 hover:bg-white transition-colors">
+          <select id="brand2" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 hover:bg-white/[0.08] transition-colors">
             <option value="">Select Brand</option>
             {sortedBrands.map(b => <option value={b}>{b} ({phonesByBrand[b].length})</option>)}
           </select>
-          <select id="phone2" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-gray-50 hover:bg-white transition-colors">
+          <select id="phone2" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 hover:bg-white/[0.08] transition-colors">
             <option value="">Select Model</option>
             {phones.map(p => <option value={p.id} data-brand={p.brand}>{p.name} - &#8377;{p.price.toLocaleString('en-IN')}</option>)}
           </select>
         </div>
       </div>
-      <button id="compareBtn" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg shadow-blue-600/20 hover:shadow-xl hover:shadow-blue-600/30 hover:-translate-y-0.5 transition-all cursor-pointer">
+      <button id="compareBtn" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-3.5 bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 hover:-translate-y-0.5 transition-all cursor-pointer">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
         Compare Now
       </button>
     </div>
 
     <!-- Comparison Table -->
-    <div id="comparison" class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden hidden mb-10"></div>
+    <div id="comparison" class="glass rounded-2xl overflow-hidden hidden mb-10"></div>
 
     <AdUnit />
 
     <!-- Search -->
     <div class="mt-10 mb-6">
       <div class="relative">
-        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-        <input type="text" id="phoneSearch" placeholder="Search phones... (e.g. iPhone 16, Galaxy S25, POCO)" class="w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm" />
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" id="phoneSearch" placeholder="Search phones... (e.g. iPhone 16, Galaxy S25, POCO)" class="w-full pl-12 pr-4 py-3.5 bg-white/[0.04] border border-white/10 rounded-xl text-sm text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" />
       </div>
     </div>
 
     <!-- Browse by Brand -->
     <div>
       <div class="flex items-center justify-between mb-5">
-        <h2 class="text-2xl font-extrabold text-gray-900">Browse {phones.length} Phones</h2>
-        <span id="phoneCount" class="text-sm text-gray-400 font-medium">{phones.length} phones</span>
+        <h2 class="text-2xl font-extrabold text-white">Browse {phones.length} Phones</h2>
+        <span id="phoneCount" class="text-sm text-gray-500 font-medium">{phones.length} phones</span>
       </div>
 
       <!-- Brand pills -->
@@ -140,31 +140,31 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
         ))}
       </div>
       <style>{`
-        .brand-tab { background: white; color: #374151; border: 1px solid #e5e7eb; }
-        .brand-tab:hover { border-color: #93c5fd; background: #f9fafb; }
-        .brand-tab.active { background: linear-gradient(to right, #2563eb, #4f46e5); color: white; border-color: transparent; box-shadow: 0 1px 3px rgba(37,99,235,0.3); }
+        .brand-tab { background: rgba(255,255,255,0.04); color: #9ca3af; border: 1px solid rgba(255,255,255,0.08); }
+        .brand-tab:hover { border-color: rgba(99,102,241,0.3); color: #d1d5db; background: rgba(255,255,255,0.06); }
+        .brand-tab.active { background: linear-gradient(to right, #6366f1, #ec4899); color: white; border-color: transparent; box-shadow: 0 4px 15px rgba(99,102,241,0.3); }
       `}</style>
 
       <!-- Phone Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="phoneGrid">
         {phones.sort((a, b) => a.price - b.price).map(p => (
-          <div class="phone-card group flex flex-col bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-xl hover:shadow-blue-600/5 hover:border-blue-200 hover:-translate-y-0.5 transition-all duration-300" data-brand={p.brand} data-name={p.name.toLowerCase()}>
+          <div class="phone-card group flex flex-col glass rounded-2xl overflow-hidden hover:bg-white/[0.06] hover:border-indigo-500/20 hover:-translate-y-1 transition-all duration-300" data-brand={p.brand} data-name={p.name.toLowerCase()}>
             <!-- Image + Header -->
             <div class="px-5 pt-5 pb-3">
               <div class="flex gap-4 items-start">
                 {p.image && (
-                  <div class="shrink-0 w-20 h-20 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center">
+                  <div class="shrink-0 w-20 h-20 bg-white/[0.06] rounded-xl overflow-hidden flex items-center justify-center">
                     <img src={p.image} alt={p.name} class="w-full h-full object-contain" loading="lazy" />
                   </div>
                 )}
                 <div class="min-w-0 flex-1">
-                  <p class="text-[11px] uppercase tracking-wider text-blue-600 font-bold">{p.brand}</p>
-                  <h3 class="font-bold text-gray-900 leading-snug mt-0.5">{p.name}</h3>
+                  <p class="text-[11px] uppercase tracking-wider text-indigo-400 font-bold">{p.brand}</p>
+                  <h3 class="font-bold text-white leading-snug mt-0.5">{p.name}</h3>
                   <div class="mt-1">
-                    <span class="text-lg text-gray-900 font-extrabold">&#8377;{p.price.toLocaleString('en-IN')}</span>
+                    <span class="text-lg text-white font-extrabold">&#8377;{p.price.toLocaleString('en-IN')}</span>
                     {(p.amazonPrice > 0 || p.flipkartPrice > 0) 
-                      ? <span class="text-[10px] text-green-600 font-medium ml-1">Verified</span>
-                      : <span class="text-[10px] text-amber-600 font-medium ml-1">Expected</span>
+                      ? <span class="text-[10px] text-emerald-400 font-medium ml-1">Verified</span>
+                      : <span class="text-[10px] text-amber-400 font-medium ml-1">Expected</span>
                     }
                   </div>
                 </div>
@@ -173,33 +173,30 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
             <!-- Specs -->
             <div class="px-5 pb-3 flex-1">
               <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
-                {p.processor && <div class="flex flex-col"><span class="text-gray-400 text-[10px] uppercase tracking-wider">Processor</span><span class="text-gray-700 font-medium">{p.processor}</span></div>}
-                {p.ram && <div class="flex flex-col"><span class="text-gray-400 text-[10px] uppercase tracking-wider">RAM</span><span class="text-gray-700 font-medium">{p.ram}</span></div>}
-                {p.mainCamera && <div class="flex flex-col"><span class="text-gray-400 text-[10px] uppercase tracking-wider">Camera</span><span class="text-gray-700 font-medium">{p.mainCamera}</span></div>}
-                {p.battery && <div class="flex flex-col"><span class="text-gray-400 text-[10px] uppercase tracking-wider">Battery</span><span class="text-gray-700 font-medium">{p.battery}</span></div>}
-                {p.displaySize && <div class="flex flex-col"><span class="text-gray-400 text-[10px] uppercase tracking-wider">Display</span><span class="text-gray-700 font-medium">{p.displaySize}</span></div>}
-                {p.has5G && <div class="flex items-end"><span class="inline-flex items-center px-2 py-0.5 bg-green-50 text-green-700 rounded-full text-[10px] font-bold ring-1 ring-inset ring-green-600/20">5G</span></div>}
+                {p.processor && <div class="flex flex-col"><span class="text-gray-600 text-[10px] uppercase tracking-wider">Processor</span><span class="text-gray-300 font-medium">{p.processor}</span></div>}
+                {p.ram && <div class="flex flex-col"><span class="text-gray-600 text-[10px] uppercase tracking-wider">RAM</span><span class="text-gray-300 font-medium">{p.ram}</span></div>}
+                {p.mainCamera && <div class="flex flex-col"><span class="text-gray-600 text-[10px] uppercase tracking-wider">Camera</span><span class="text-gray-300 font-medium">{p.mainCamera}</span></div>}
+                {p.battery && <div class="flex flex-col"><span class="text-gray-600 text-[10px] uppercase tracking-wider">Battery</span><span class="text-gray-300 font-medium">{p.battery}</span></div>}
+                {p.displaySize && <div class="flex flex-col"><span class="text-gray-600 text-[10px] uppercase tracking-wider">Display</span><span class="text-gray-300 font-medium">{p.displaySize}</span></div>}
+                {p.has5G && <div class="flex items-end"><span class="inline-flex items-center px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded-full text-[10px] font-bold border border-emerald-500/20">5G</span></div>}
               </div>
             </div>
             <!-- Buy Buttons -->
-            <div class="px-5 pb-5 pt-2 border-t border-gray-100 space-y-2">
+            <div class="px-5 pb-5 pt-2 border-t border-white/5 space-y-2">
               {p.amazonPrice > 0 && (
-                <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="flex items-center justify-between w-full bg-amber-400 hover:bg-amber-500 text-black text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
-                  <span class="flex items-center gap-1.5">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 21.75c.3-.15.6-.15.75 0 2.25 1.35 4.95 2.25 7.5 2.25 3.45 0 6.6-1.35 9-3.6.3-.3.15-.75-.3-.6-2.7.9-5.55 1.35-8.25 1.35-3.9 0-7.65-.9-10.95-2.7-.15-.15-.3 0-.3.15v.6c0 .9.15 1.8.45 2.55zm11.25-2.55c.45 0 .9-.15 1.05-.3.15-.15.15-.45-.15-.45-.6.15-1.95.15-2.1.15-1.35 0-1.65-.9-1.65-1.65V11.1c0-1.65-1.05-2.55-3.15-2.55-1.5 0-3.15.6-3.45 2.1-.15.15 0 .3.15.3l2.1.3c.15 0 .3-.15.3-.3 0-.75.6-1.05 1.05-1.05.3 0 .75.15.75.75v.6c-1.65.15-3.75.45-3.75 2.85 0 1.8 1.2 2.7 2.7 2.7 1.35 0 2.1-.6 2.55-1.35.45.75.6 1.05 1.5 1.65z"/></svg>
-                    Amazon
-                  </span>
+                <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="flex items-center justify-between w-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors border border-amber-500/20">
+                  <span class="flex items-center gap-1.5">Amazon</span>
                   <span>&#8377;{p.amazonPrice.toLocaleString('en-IN')}</span>
                 </a>
               )}
               {p.flipkartPrice > 0 && (
-                <a href={`https://www.flipkart.com/search?q=${encodeURIComponent(p.name)}`} target="_blank" rel="nofollow" class="flex items-center justify-between w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+                <a href={`https://www.flipkart.com/search?q=${encodeURIComponent(p.name)}`} target="_blank" rel="nofollow" class="flex items-center justify-between w-full bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors border border-blue-500/20">
                   <span>Flipkart</span>
                   <span>&#8377;{p.flipkartPrice.toLocaleString('en-IN')}</span>
                 </a>
               )}
               {!p.amazonPrice && !p.flipkartPrice && (
-                <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="block w-full text-center bg-amber-400 hover:bg-amber-500 text-black text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+                <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="block w-full text-center bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors border border-amber-500/20">
                   Check Price on Amazon
                 </a>
               )}
@@ -212,21 +209,21 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
     <AdUnit />
 
     <!-- Popular Comparisons -->
-    <div class="mt-16">
-      <h2 class="text-2xl font-extrabold text-gray-900 mb-6">Popular Comparisons</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="mt-16 fade-up">
+      <h2 class="text-2xl font-extrabold text-white mb-6">Popular Comparisons</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger">
         {comparisons.slice(0, 15).map(c => {
           const cp1 = phones.find(p => p.id === c.phone1Id);
           const cp2 = phones.find(p => p.id === c.phone2Id);
           if (!cp1 || !cp2) return null;
           return (
-            <a href={`/compare/${c.slug}`} class="group block bg-white rounded-2xl border border-gray-200 p-5 hover:shadow-lg hover:shadow-blue-600/5 hover:border-blue-200 transition-all duration-300">
+            <a href={`/compare/${c.slug}`} class="group block glass rounded-2xl p-5 hover:bg-white/[0.06] hover:border-indigo-500/20 transition-all duration-300">
               <div class="flex items-center gap-3 mb-2">
-                <span class="text-sm font-bold text-blue-600">{cp1.brand}</span>
-                <span class="text-gray-300">vs</span>
-                <span class="text-sm font-bold text-green-600">{cp2.brand}</span>
+                <span class="text-sm font-bold text-indigo-400">{cp1.brand}</span>
+                <span class="text-gray-600 text-xs">vs</span>
+                <span class="text-sm font-bold text-emerald-400">{cp2.brand}</span>
               </div>
-              <p class="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{cp1.name} vs {cp2.name}</p>
+              <p class="font-bold text-white group-hover:text-indigo-300 transition-colors">{cp1.name} vs {cp2.name}</p>
               <p class="text-sm text-gray-500 mt-1">&#8377;{cp1.price.toLocaleString('en-IN')} vs &#8377;{cp2.price.toLocaleString('en-IN')}</p>
             </a>
           );
@@ -237,18 +234,18 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
     <AdUnit />
 
     <!-- SEO Content -->
-    <div class="mt-16 bg-white rounded-2xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
-      <h2>How to Choose the Right Phone</h2>
-      <p>Browse {phones.length} phones from {brands.length} brands including {sortedBrands.slice(0, 5).join(', ')} and more. Select a brand above to filter, or use the comparison tool to compare any two phones side by side.</p>
-      <ul>
-        <li><strong>Camera:</strong> Higher MP count, multiple lenses, and OIS for better photos.</li>
-        <li><strong>Performance:</strong> Snapdragon 8 series or Apple A-series for flagship performance.</li>
-        <li><strong>Battery:</strong> 5000+ mAh with fast charging (65W+) for all-day usage.</li>
-        <li><strong>Display:</strong> AMOLED/OLED with 120Hz for the best viewing experience.</li>
-        <li><strong>Value:</strong> Compare specs at similar prices to find the best deal.</li>
+    <div class="mt-16 glass rounded-2xl p-6 md:p-8">
+      <h2 class="text-xl font-bold text-white mb-3">How to Choose the Right Phone</h2>
+      <p class="text-gray-400 text-sm leading-relaxed mb-3">Browse {phones.length} phones from {brands.length} brands including {sortedBrands.slice(0, 5).join(', ')} and more. Select a brand above to filter, or use the comparison tool to compare any two phones side by side.</p>
+      <ul class="text-gray-400 text-sm space-y-2 mb-3 list-disc list-inside">
+        <li><strong class="text-gray-300">Camera:</strong> Higher MP count, multiple lenses, and OIS for better photos.</li>
+        <li><strong class="text-gray-300">Performance:</strong> Snapdragon 8 series or Apple A-series for flagship performance.</li>
+        <li><strong class="text-gray-300">Battery:</strong> 5000+ mAh with fast charging (65W+) for all-day usage.</li>
+        <li><strong class="text-gray-300">Display:</strong> AMOLED/OLED with 120Hz for the best viewing experience.</li>
+        <li><strong class="text-gray-300">Value:</strong> Compare specs at similar prices to find the best deal.</li>
       </ul>
-      <p><em>Phone data auto-updated from 91mobiles.com. Prices show the lowest available from Amazon/Flipkart.</em></p>
-      <p>Also compare: <a href="/tools/laptop-compare">Laptops & Tablets</a> | <a href="/tools/car-compare">Cars</a></p>
+      <p class="text-gray-500 text-xs italic">Phone data auto-updated from 91mobiles.com. Prices show the lowest available from Amazon/Flipkart.</p>
+      <p class="text-gray-500 text-sm mt-2">Also compare: <a href="/tools/laptop-compare" class="text-indigo-400 hover:text-indigo-300">Laptops & Tablets</a> | <a href="/tools/car-compare" class="text-indigo-400 hover:text-indigo-300">Cars</a></p>
     </div>
   </section>
 
@@ -280,7 +277,7 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
       if (opt && opt.dataset.brand) document.getElementById('brand2').value = opt.dataset.brand;
     });
 
-    // Search functionality
+    // Search
     const searchInput = document.getElementById('phoneSearch');
     const phoneCount = document.getElementById('phoneCount');
     
@@ -294,40 +291,34 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
       document.querySelectorAll('.phone-card').forEach(card => {
         const name = card.dataset.name || '';
         const brand = (card.dataset.brand || '').toLowerCase();
-        const match = !query || name.includes(query) || brand.includes(query);
-        card.style.display = match ? '' : 'none';
+        card.style.display = (!query || name.includes(query) || brand.includes(query)) ? '' : 'none';
       });
-      // Reset brand tabs
       document.querySelectorAll('.brand-tab').forEach(t => t.classList.remove('active'));
-      if (!query) {
-        document.querySelector('.brand-tab[data-brand="all"]')?.classList.add('active');
-      }
+      if (!query) document.querySelector('.brand-tab[data-brand="all"]')?.classList.add('active');
       updateVisibleCount();
     });
 
-    // Brand tabs for phone grid
+    // Brand tabs
     document.querySelectorAll('.brand-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         searchInput.value = '';
         document.querySelectorAll('.brand-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-
         const brand = tab.dataset.brand;
         document.querySelectorAll('.phone-card').forEach(card => {
-          const show = (brand === 'all' || card.dataset.brand === brand);
-          card.style.display = show ? '' : 'none';
+          card.style.display = (brand === 'all' || card.dataset.brand === brand) ? '' : 'none';
         });
         updateVisibleCount();
       });
     });
 
     // Comparison
-    function formatINR(num) { return '₹' + num.toLocaleString('en-IN'); }
+    function formatINR(num) { return '\u20B9' + num.toLocaleString('en-IN'); }
 
     const specs = [
       { key: 'price', label: 'Price', format: v => formatINR(v), compare: 'lower' },
-      { key: 'amazonPrice', label: 'Amazon Price', format: v => v ? formatINR(v) : '—' },
-      { key: 'flipkartPrice', label: 'Flipkart Price', format: v => v ? formatINR(v) : '—' },
+      { key: 'amazonPrice', label: 'Amazon Price', format: v => v ? formatINR(v) : '\u2014' },
+      { key: 'flipkartPrice', label: 'Flipkart Price', format: v => v ? formatINR(v) : '\u2014' },
       { key: 'display', label: 'Display', format: v => v },
       { key: 'displaySize', label: 'Screen Size', format: v => v },
       { key: 'processor', label: 'Processor', format: v => v },
@@ -338,8 +329,8 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
       { key: 'battery', label: 'Battery', format: v => v, compare: 'higher' },
       { key: 'charging', label: 'Charging', format: v => v },
       { key: 'os', label: 'OS', format: v => v },
-      { key: 'has5G', label: '5G', format: v => v ? '✓ Yes' : '✗ No' },
-      { key: 'weight', label: 'Weight', format: v => v || '—' },
+      { key: 'has5G', label: '5G', format: v => v ? '\u2713 Yes' : '\u2717 No' },
+      { key: 'weight', label: 'Weight', format: v => v || '\u2014' },
     ];
 
     document.getElementById('compareBtn').addEventListener('click', () => {
@@ -351,16 +342,16 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
       container.classList.remove('hidden');
 
       let html = `
-        <div class="grid grid-cols-3 bg-gradient-to-r from-blue-50 via-white to-green-50 border-b border-gray-200">
+        <div class="grid grid-cols-3 border-b border-white/5 bg-white/[0.02]">
           <div class="p-4 font-semibold text-gray-500 text-xs uppercase tracking-wider flex items-center">Spec</div>
-          <div class="p-5 text-center">
+          <div class="p-5 text-center border-l border-white/5">
             ${p1.image ? `<img src="${p1.image}" alt="${p1.name}" class="w-20 h-20 object-contain mx-auto mb-2" />` : ''}
-            <div class="font-extrabold text-blue-700 text-lg">${p1.name}</div>
+            <div class="font-extrabold text-indigo-400 text-lg">${p1.name}</div>
             <div class="text-sm text-gray-500 mt-1">${formatINR(p1.price)}</div>
           </div>
-          <div class="p-5 text-center">
+          <div class="p-5 text-center border-l border-white/5">
             ${p2.image ? `<img src="${p2.image}" alt="${p2.name}" class="w-20 h-20 object-contain mx-auto mb-2" />` : ''}
-            <div class="font-extrabold text-green-700 text-lg">${p2.name}</div>
+            <div class="font-extrabold text-emerald-400 text-lg">${p2.name}</div>
             <div class="text-sm text-gray-500 mt-1">${formatINR(p2.price)}</div>
           </div>
         </div>
@@ -369,35 +360,34 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
       specs.forEach((spec, i) => {
         const v1 = p1[spec.key];
         const v2 = p2[spec.key];
-        let c1 = '', c2 = '';
+        let c1 = 'text-gray-300', c2 = 'text-gray-300';
         if (spec.compare && typeof v1 === 'number' && typeof v2 === 'number') {
           if (spec.compare === 'lower') {
-            if (v1 < v2) c1 = 'text-green-600 font-bold';
-            else if (v2 < v1) c2 = 'text-green-600 font-bold';
+            if (v1 < v2) c1 = 'text-emerald-400 font-bold';
+            else if (v2 < v1) c2 = 'text-emerald-400 font-bold';
           } else {
-            if (v1 > v2) c1 = 'text-green-600 font-bold';
-            else if (v2 > v1) c2 = 'text-green-600 font-bold';
+            if (v1 > v2) c1 = 'text-emerald-400 font-bold';
+            else if (v2 > v1) c2 = 'text-emerald-400 font-bold';
           }
         }
-        const bg = i % 2 === 0 ? 'bg-gray-50/50' : '';
+        const bg = i % 2 === 0 ? 'bg-white/[0.02]' : '';
         html += `
-          <div class="grid grid-cols-3 border-b border-gray-100 ${bg} hover:bg-blue-50/30 transition-colors">
-            <div class="p-4 text-sm font-semibold text-gray-600">${spec.label}</div>
-            <div class="p-4 text-sm text-center ${c1}">${spec.format(v1)}</div>
-            <div class="p-4 text-sm text-center ${c2}">${spec.format(v2)}</div>
+          <div class="grid grid-cols-3 border-b border-white/5 ${bg} hover:bg-white/[0.04] transition-colors">
+            <div class="p-4 text-sm font-semibold text-gray-500">${spec.label}</div>
+            <div class="p-4 text-sm text-center border-l border-white/5 ${c1}">${spec.format(v1)}</div>
+            <div class="p-4 text-sm text-center border-l border-white/5 ${c2}">${spec.format(v2)}</div>
           </div>
         `;
       });
 
-      // Add buy buttons at the bottom
       html += `
-        <div class="grid grid-cols-3 bg-gray-50 p-4">
-          <div class="text-sm font-semibold text-gray-600 flex items-center">Buy</div>
-          <div class="text-center">
-            <a href="https://www.amazon.in/s?k=${encodeURIComponent(p1.name)}&tag=comparekaro03-21" target="_blank" rel="nofollow sponsored" class="inline-block bg-amber-400 hover:bg-amber-500 text-black text-xs font-bold px-4 py-2 rounded-lg">Amazon</a>
+        <div class="grid grid-cols-3 bg-white/[0.03] p-4">
+          <div class="text-sm font-semibold text-gray-500 flex items-center">Buy</div>
+          <div class="text-center border-l border-white/5">
+            <a href="https://www.amazon.in/s?k=${encodeURIComponent(p1.name)}&tag=comparekaro03-21" target="_blank" rel="nofollow sponsored" class="inline-block bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold px-4 py-2 rounded-lg border border-amber-500/20 transition-colors">Amazon</a>
           </div>
-          <div class="text-center">
-            <a href="https://www.amazon.in/s?k=${encodeURIComponent(p2.name)}&tag=comparekaro03-21" target="_blank" rel="nofollow sponsored" class="inline-block bg-amber-400 hover:bg-amber-500 text-black text-xs font-bold px-4 py-2 rounded-lg">Amazon</a>
+          <div class="text-center border-l border-white/5">
+            <a href="https://www.amazon.in/s?k=${encodeURIComponent(p2.name)}&tag=comparekaro03-21" target="_blank" rel="nofollow sponsored" class="inline-block bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold px-4 py-2 rounded-lg border border-amber-500/20 transition-colors">Amazon</a>
           </div>
         </div>
       `;

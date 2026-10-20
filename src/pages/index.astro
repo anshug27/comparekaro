@@ -8,10 +8,10 @@ import { cars } from '../data/cars';
 import { plans } from '../data/plans';
 
 const stats = [
-  { value: phones.length, label: 'Phones' },
-  { value: laptops.length, label: 'Laptops & Tablets' },
-  { value: cars.length, label: 'Cars' },
-  { value: plans.length, label: 'Recharge Plans' },
+  { value: phones.length, label: 'Phones', icon: '📱' },
+  { value: laptops.length, label: 'Laptops & Tablets', icon: '💻' },
+  { value: cars.length, label: 'Cars', icon: '🚗' },
+  { value: plans.length, label: 'Recharge Plans', icon: '📡' },
 ];
 
 const schema = {
@@ -30,90 +30,115 @@ const schema = {
 
 <Layout title="CompareKaro" schema={schema}>
   <!-- Hero -->
-  <section class="hero-bg relative overflow-hidden border-b border-gray-200/50">
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+  <section class="hero-bg relative overflow-hidden">
+    <!-- Floating blobs -->
+    <div class="blob w-72 h-72 bg-indigo-600/30 top-10 left-[10%]" style="animation-delay: 0s;"></div>
+    <div class="blob w-64 h-64 bg-pink-500/20 top-40 right-[15%]" style="animation-delay: -3s;"></div>
+    <div class="blob w-48 h-48 bg-blue-500/20 bottom-10 left-[40%]" style="animation-delay: -5s;"></div>
+
+    <!-- Grid pattern overlay -->
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><line x1=%220%22 y1=%220%22 x2=%2260%22 y2=%220%22 stroke=%22white%22 stroke-width=%220.5%22/><line x1=%220%22 y1=%220%22 x2=%220%22 y2=%2260%22 stroke=%22white%22 stroke-width=%220.5%22/></svg>');"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36">
       <div class="max-w-3xl mx-auto text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-semibold mb-6 ring-1 ring-inset ring-blue-700/10">
-          <span class="flex h-2 w-2 relative">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+        <!-- Badge -->
+        <div class="fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/10 text-sm font-medium text-gray-300 mb-8 backdrop-blur-sm">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500 pulse-dot"></span>
           </span>
-          India's Fastest Comparison Tools
+          India's Smartest Comparison Platform
         </div>
-        <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900 mb-6 leading-tight">
-          Compare Smarter.<br/>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Save More.</span>
+
+        <!-- Headline -->
+        <h1 class="fade-up text-5xl md:text-6xl lg:text-8xl font-extrabold tracking-tight mb-6 leading-[1.05]">
+          <span class="text-white">Compare.</span><br/>
+          <span class="gradient-text">Save. Decide.</span>
         </h1>
-        <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Free tools to compare mobile plans, calculate EMI & SIP returns, and make better purchase decisions.
+
+        <p class="fade-up text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+          Free tools to compare mobile plans, phones, laptops, cars, and calculate EMI, SIP & more. Made for India.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a href="/tools" class="inline-flex items-center justify-center px-8 py-3.5 bg-blue-600 text-white text-base font-semibold rounded-xl hover:bg-blue-700 transition-all shadow-md hover:shadow-xl hover:shadow-blue-600/20 w-full sm:w-auto">
-            Explore All Tools
+
+        <!-- CTA Buttons -->
+        <div class="fade-up flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a href="/tools" class="group relative inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold rounded-xl transition-all w-full sm:w-auto overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-pink-500 transition-all group-hover:scale-105"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <span class="relative text-white flex items-center gap-2">
+              Explore All Tools
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </span>
           </a>
-          <a href="/tools/plan-finder" class="inline-flex items-center justify-center px-8 py-3.5 bg-white text-gray-900 border border-gray-200 text-base font-semibold rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm w-full sm:w-auto">
-            Find Best Plan
+          <a href="/compare" class="inline-flex items-center justify-center px-8 py-3.5 bg-white/[0.06] hover:bg-white/[0.10] text-white border border-white/10 hover:border-white/20 text-base font-semibold rounded-xl transition-all w-full sm:w-auto backdrop-blur-sm">
+            Compare Phones
           </a>
         </div>
       </div>
 
-      <div class="mt-16 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-200/70 rounded-2xl overflow-hidden ring-1 ring-gray-200/70 shadow-sm">
+      <!-- Stats -->
+      <div class="mt-20 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
         {stats.map(s => (
-          <div class="bg-white/90 backdrop-blur px-6 py-5 text-center">
-            <p class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">{s.value}+</p>
+          <div class="glass rounded-2xl px-6 py-5 text-center group hover:bg-white/[0.06] transition-all">
+            <div class="text-2xl mb-2">{s.icon}</div>
+            <p class="text-3xl font-extrabold gradient-text">{s.value}+</p>
             <p class="text-sm font-medium text-gray-500 mt-1">{s.label}</p>
           </div>
         ))}
       </div>
     </div>
+
+    <!-- Bottom gradient fade -->
+    <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0a0a1a] to-transparent"></div>
   </section>
 
   <!-- Popular Tools -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Popular Tools</h2>
+    <div class="text-center mb-14 fade-up">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">Popular</div>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Tools You'll Love</h2>
       <p class="text-gray-500 max-w-2xl mx-auto text-lg">Free calculators and comparison tools used by thousands of Indians every day.</p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 stagger">
       <ToolCard
         title="EMI Calculator"
-        description="Calculate monthly EMI for home, car, or personal loans. See total interest and amortization schedule."
+        description="Calculate monthly EMI for home, car, or personal loans with amortization schedule."
         href="/tools/emi-calculator"
         icon="🏠"
         color="blue"
       />
       <ToolCard
         title="SIP Calculator"
-        description="Estimate your mutual fund SIP returns with compound interest. Plan your wealth growth."
+        description="Estimate mutual fund SIP returns with compound interest. Plan your wealth."
         href="/tools/sip-calculator"
         icon="📈"
         color="green"
       />
       <ToolCard
         title="FD Calculator"
-        description="Calculate fixed deposit maturity amount with quarterly compounding for all major banks."
+        description="Calculate fixed deposit maturity with quarterly compounding for all major banks."
         href="/tools/fd-calculator"
         icon="🏦"
         color="purple"
       />
       <ToolCard
         title="Mobile Plan Finder"
-        description="Find the best prepaid plan across Jio, Airtel, Vi & BSNL based on your data needs and budget."
+        description="Find the best prepaid plan across Jio, Airtel, Vi & BSNL for your needs."
         href="/tools/plan-finder"
         icon="📱"
         color="orange"
       />
       <ToolCard
-        title="Rent vs Buy Calculator"
-        description="Should you rent or buy a home? Compare total costs over 5-30 years with real numbers."
+        title="Rent vs Buy"
+        description="Should you rent or buy a home? Compare total costs over 5-30 years."
         href="/tools/rent-vs-buy"
         icon="🏡"
         color="teal"
       />
       <ToolCard
         title="Phone Comparison"
-        description="Compare phones side-by-side on specs, price, camera, battery and performance."
+        description="Compare 100+ phones side-by-side with Amazon & Flipkart prices."
         href="/compare"
         icon="🔍"
         color="red"
@@ -123,81 +148,114 @@ const schema = {
 
   <AdUnit />
 
-  <!-- How It Works -->
-  <section class="bg-gray-50 py-20 border-y border-gray-200/50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Why CompareKaro?</h2>
-        <p class="text-gray-500 text-lg">Built from the ground up to be fast, accurate, and completely free.</p>
+  <!-- Compare Section (visual showcase) -->
+  <section class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a1a] via-[#0d0d28] to-[#0a0a1a]"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-500/10 rounded-full blur-[120px]"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 fade-up">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-400 text-xs font-semibold uppercase tracking-wider mb-4">Compare</div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Compare Anything, Instantly</h2>
+        <p class="text-gray-500 max-w-2xl mx-auto text-lg">Side-by-side comparisons with real prices, specs, and honest data.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-          <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-6 ring-1 ring-inset ring-blue-600/10">
-            ⚡
-          </div>
-          <h3 class="font-bold text-xl text-gray-900 mb-3">Instant Results</h3>
-          <p class="text-gray-500 leading-relaxed">All calculations happen in your browser. No waiting, no sign-ups, no data collection.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger">
+        <a href="/compare" class="group glass rounded-2xl p-8 hover:bg-white/[0.06] transition-all duration-300 text-center">
+          <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">📱</div>
+          <h3 class="text-xl font-bold text-white mb-2">Phones</h3>
+          <p class="text-gray-500 text-sm mb-3">{phones.length} phones across 12 brands</p>
+          <p class="text-indigo-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">Compare Now &rarr;</p>
+        </a>
+        <a href="/tools/laptop-compare" class="group glass rounded-2xl p-8 hover:bg-white/[0.06] transition-all duration-300 text-center">
+          <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">💻</div>
+          <h3 class="text-xl font-bold text-white mb-2">Laptops & Tablets</h3>
+          <p class="text-gray-500 text-sm mb-3">{laptops.length} devices across 8 brands</p>
+          <p class="text-emerald-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">Compare Now &rarr;</p>
+        </a>
+        <a href="/tools/car-compare" class="group glass rounded-2xl p-8 hover:bg-white/[0.06] transition-all duration-300 text-center">
+          <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-orange-500/20 to-rose-500/20 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">🚗</div>
+          <h3 class="text-xl font-bold text-white mb-2">Cars</h3>
+          <p class="text-gray-500 text-sm mb-3">{cars.length} cars across 8 brands</p>
+          <p class="text-orange-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">Compare Now &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why CompareKaro -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="text-center mb-16 fade-up">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Why CompareKaro?</h2>
+      <p class="text-gray-500 text-lg">Built from the ground up to be fast, accurate, and completely free.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger">
+      <div class="glass rounded-2xl p-8 hover:bg-white/[0.06] transition-all duration-300 group">
+        <div class="w-14 h-14 bg-indigo-500/10 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+          ⚡
         </div>
-        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-          <div class="w-14 h-14 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-2xl mb-6 ring-1 ring-inset ring-green-600/10">
-            🇮🇳
-          </div>
-          <h3 class="font-bold text-xl text-gray-900 mb-3">Built for India</h3>
-          <p class="text-gray-500 leading-relaxed">Indian tax rules, Indian bank rates, Indian telecom plans. Everything localized for you.</p>
+        <h3 class="font-bold text-xl text-white mb-3">Instant Results</h3>
+        <p class="text-gray-500 leading-relaxed">All calculations happen in your browser. No waiting, no sign-ups, no data collection.</p>
+      </div>
+      <div class="glass rounded-2xl p-8 hover:bg-white/[0.06] transition-all duration-300 group">
+        <div class="w-14 h-14 bg-emerald-500/10 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+          🇮🇳
         </div>
-        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-          <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-2xl mb-6 ring-1 ring-inset ring-purple-600/10">
-            🔒
-          </div>
-          <h3 class="font-bold text-xl text-gray-900 mb-3">100% Free & Private</h3>
-          <p class="text-gray-500 leading-relaxed">No registration needed. Your data stays on your device. We never store personal information.</p>
+        <h3 class="font-bold text-xl text-white mb-3">Built for India</h3>
+        <p class="text-gray-500 leading-relaxed">Indian tax rules, Indian bank rates, Indian telecom plans. Everything localized for you.</p>
+      </div>
+      <div class="glass rounded-2xl p-8 hover:bg-white/[0.06] transition-all duration-300 group">
+        <div class="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+          🔒
         </div>
+        <h3 class="font-bold text-xl text-white mb-3">100% Free & Private</h3>
+        <p class="text-gray-500 leading-relaxed">No registration needed. Your data stays on your device. We never store personal information.</p>
       </div>
     </div>
   </section>
 
   <!-- Categories -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Explore by Category</h2>
+    <div class="text-center mb-12 fade-up">
+      <h2 class="text-3xl font-extrabold text-white mb-4">Explore by Category</h2>
     </div>
     
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <a href="/tools#finance" class="group flex items-center gap-5 bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-xl hover:shadow-blue-600/5 hover:border-blue-300 transition-all duration-300">
-        <div class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-xl group-hover:bg-blue-50 group-hover:scale-110 transition-all">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger">
+      <a href="/tools#finance" class="group flex items-center gap-4 glass rounded-2xl p-5 hover:bg-white/[0.06] transition-all duration-300">
+        <div class="w-12 h-12 flex items-center justify-center bg-blue-500/10 rounded-xl group-hover:scale-110 transition-transform">
           <span class="text-2xl">💰</span>
         </div>
         <div>
-          <h3 class="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">Finance</h3>
-          <p class="text-sm text-gray-500 mt-0.5">EMI, SIP, FD, Tax</p>
+          <h3 class="font-bold text-white group-hover:text-blue-400 transition-colors">Finance</h3>
+          <p class="text-sm text-gray-500">EMI, SIP, FD, Tax</p>
         </div>
       </a>
-      <a href="/tools#telecom" class="group flex items-center gap-5 bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-xl hover:shadow-indigo-600/5 hover:border-indigo-300 transition-all duration-300">
-        <div class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-xl group-hover:bg-indigo-50 group-hover:scale-110 transition-all">
+      <a href="/tools#telecom" class="group flex items-center gap-4 glass rounded-2xl p-5 hover:bg-white/[0.06] transition-all duration-300">
+        <div class="w-12 h-12 flex items-center justify-center bg-indigo-500/10 rounded-xl group-hover:scale-110 transition-transform">
           <span class="text-2xl">📱</span>
         </div>
         <div>
-          <h3 class="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">Telecom</h3>
-          <p class="text-sm text-gray-500 mt-0.5">Plans, Recharge</p>
+          <h3 class="font-bold text-white group-hover:text-indigo-400 transition-colors">Telecom</h3>
+          <p class="text-sm text-gray-500">Plans, Recharge</p>
         </div>
       </a>
-      <a href="/compare" class="group flex items-center gap-5 bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-xl hover:shadow-red-600/5 hover:border-red-300 transition-all duration-300">
-        <div class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-xl group-hover:bg-red-50 group-hover:scale-110 transition-all">
+      <a href="/compare" class="group flex items-center gap-4 glass rounded-2xl p-5 hover:bg-white/[0.06] transition-all duration-300">
+        <div class="w-12 h-12 flex items-center justify-center bg-pink-500/10 rounded-xl group-hover:scale-110 transition-transform">
           <span class="text-2xl">📊</span>
         </div>
         <div>
-          <h3 class="font-bold text-gray-900 group-hover:text-red-600 transition-colors">Products</h3>
-          <p class="text-sm text-gray-500 mt-0.5">Phones, Laptops</p>
+          <h3 class="font-bold text-white group-hover:text-pink-400 transition-colors">Products</h3>
+          <p class="text-sm text-gray-500">Phones, Laptops, Cars</p>
         </div>
       </a>
-      <a href="/tools#lifestyle" class="group flex items-center gap-5 bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-xl hover:shadow-teal-600/5 hover:border-teal-300 transition-all duration-300">
-        <div class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-xl group-hover:bg-teal-50 group-hover:scale-110 transition-all">
+      <a href="/tools#lifestyle" class="group flex items-center gap-4 glass rounded-2xl p-5 hover:bg-white/[0.06] transition-all duration-300">
+        <div class="w-12 h-12 flex items-center justify-center bg-teal-500/10 rounded-xl group-hover:scale-110 transition-transform">
           <span class="text-2xl">🏡</span>
         </div>
         <div>
-          <h3 class="font-bold text-gray-900 group-hover:text-teal-600 transition-colors">Lifestyle</h3>
-          <p class="text-sm text-gray-500 mt-0.5">Rent vs Buy, Salary</p>
+          <h3 class="font-bold text-white group-hover:text-teal-400 transition-colors">Lifestyle</h3>
+          <p class="text-sm text-gray-500">Rent vs Buy, Salary</p>
         </div>
       </a>
     </div>

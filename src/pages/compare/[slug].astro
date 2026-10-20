@@ -86,31 +86,31 @@ const schema = {
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="mb-8">
       <nav class="text-sm text-gray-500 mb-4">
-        <a href="/" class="hover:text-blue-600">Home</a>
-        <span class="mx-2">/</span>
-        <a href="/compare" class="hover:text-blue-600">Compare</a>
-        <span class="mx-2">/</span>
-        <span class="text-gray-900">{p1.name} vs {p2.name}</span>
+        <a href="/" class="hover:text-indigo-400 transition-colors">Home</a>
+        <span class="mx-2 text-gray-600">/</span>
+        <a href="/compare" class="hover:text-indigo-400 transition-colors">Compare</a>
+        <span class="mx-2 text-gray-600">/</span>
+        <span class="text-gray-300">{p1.name} vs {p2.name}</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{p1.name} vs {p2.name}</h1>
-      <p class="text-gray-500 text-lg">Detailed specification comparison between {p1.name} ({formatINR(p1.price)}) and {p2.name} ({formatINR(p2.price)}).</p>
-      <p class="text-xs text-gray-400 mt-2">Prices sourced from 91mobiles.com and may include exchange offers. Actual prices may vary by retailer.</p>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">{p1.name} vs {p2.name}</h1>
+      <p class="text-gray-400 text-lg">Detailed specification comparison between {p1.name} ({formatINR(p1.price)}) and {p2.name} ({formatINR(p2.price)}).</p>
+      <p class="text-xs text-gray-600 mt-2">Prices sourced from 91mobiles.com and may include exchange offers. Actual prices may vary by retailer.</p>
     </div>
 
     <!-- Quick Verdict -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-      <div class="bg-blue-50 rounded-xl p-5 border border-blue-200">
-        <h3 class="font-bold text-blue-800 mb-2">{p1.name} is better if...</h3>
-        <ul class="space-y-1 text-sm text-blue-700">
+      <div class="glass rounded-xl p-5 border-l-2 border-indigo-500">
+        <h3 class="font-bold text-indigo-400 mb-2">{p1.name} is better if...</h3>
+        <ul class="space-y-1 text-sm text-gray-400">
           {advantages1.length > 0
             ? advantages1.map(a => <li>&#10003; {a}</li>)
             : <li>See detailed comparison below</li>
           }
         </ul>
       </div>
-      <div class="bg-green-50 rounded-xl p-5 border border-green-200">
-        <h3 class="font-bold text-green-800 mb-2">{p2.name} is better if...</h3>
-        <ul class="space-y-1 text-sm text-green-700">
+      <div class="glass rounded-xl p-5 border-l-2 border-emerald-500">
+        <h3 class="font-bold text-emerald-400 mb-2">{p2.name} is better if...</h3>
+        <ul class="space-y-1 text-sm text-gray-400">
           {advantages2.length > 0
             ? advantages2.map(a => <li>&#10003; {a}</li>)
             : <li>See detailed comparison below</li>
@@ -120,70 +120,71 @@ const schema = {
     </div>
 
     <!-- Comparison Table -->
-    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-      <div class="grid grid-cols-3 bg-gray-50 border-b border-gray-200">
-        <div class="p-4 font-semibold text-gray-600 text-sm flex items-center">Specification</div>
-        <div class="p-4 text-center">
+    <div class="glass rounded-xl overflow-hidden">
+      <div class="grid grid-cols-3 bg-white/[0.03] border-b border-white/5">
+        <div class="p-4 font-semibold text-gray-500 text-sm flex items-center">Specification</div>
+        <div class="p-4 text-center border-l border-white/5">
           {p1.image && <img src={p1.image} alt={p1.name} class="w-20 h-20 object-contain mx-auto mb-2" loading="lazy" />}
-          <div class="font-bold text-blue-700 mb-2">{p1.name}</div>
+          <div class="font-bold text-indigo-400 mb-2">{p1.name}</div>
           <div class="flex flex-col gap-1.5 mt-2">
             {p1.amazonPrice > 0 && (
-              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p1.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-flex items-center justify-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p1.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-flex items-center justify-center gap-1 bg-amber-500/20 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-500/20 hover:bg-amber-500/30 transition-colors">
                 Amazon &#8377;{p1.amazonPrice.toLocaleString('en-IN')}
               </a>
             )}
             {p1.flipkartPrice > 0 && (
-              <a href={`https://www.flipkart.com/search?q=${encodeURIComponent(p1.name)}`} target="_blank" rel="nofollow" class="inline-flex items-center justify-center gap-1 bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+              <a href={`https://www.flipkart.com/search?q=${encodeURIComponent(p1.name)}`} target="_blank" rel="nofollow" class="inline-flex items-center justify-center gap-1 bg-blue-500/20 text-blue-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-blue-500/20 hover:bg-blue-500/30 transition-colors">
                 Flipkart &#8377;{p1.flipkartPrice.toLocaleString('en-IN')}
               </a>
             )}
             {!p1.amazonPrice && !p1.flipkartPrice && (
-              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p1.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p1.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-block bg-amber-500/20 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-500/20 hover:bg-amber-500/30 transition-colors">
                 Check on Amazon
               </a>
             )}
           </div>
         </div>
-        <div class="p-4 text-center">
+        <div class="p-4 text-center border-l border-white/5">
           {p2.image && <img src={p2.image} alt={p2.name} class="w-20 h-20 object-contain mx-auto mb-2" loading="lazy" />}
-          <div class="font-bold text-green-700 mb-2">{p2.name}</div>
+          <div class="font-bold text-emerald-400 mb-2">{p2.name}</div>
           <div class="flex flex-col gap-1.5 mt-2">
             {p2.amazonPrice > 0 && (
-              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p2.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-flex items-center justify-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p2.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-flex items-center justify-center gap-1 bg-amber-500/20 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-500/20 hover:bg-amber-500/30 transition-colors">
                 Amazon &#8377;{p2.amazonPrice.toLocaleString('en-IN')}
               </a>
             )}
             {p2.flipkartPrice > 0 && (
-              <a href={`https://www.flipkart.com/search?q=${encodeURIComponent(p2.name)}`} target="_blank" rel="nofollow" class="inline-flex items-center justify-center gap-1 bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+              <a href={`https://www.flipkart.com/search?q=${encodeURIComponent(p2.name)}`} target="_blank" rel="nofollow" class="inline-flex items-center justify-center gap-1 bg-blue-500/20 text-blue-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-blue-500/20 hover:bg-blue-500/30 transition-colors">
                 Flipkart &#8377;{p2.flipkartPrice.toLocaleString('en-IN')}
               </a>
             )}
             {!p2.amazonPrice && !p2.flipkartPrice && (
-              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p2.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+              <a href={`https://www.amazon.in/s?k=${encodeURIComponent(p2.name)}&tag=comparekaro03-21`} target="_blank" rel="nofollow sponsored" class="inline-block bg-amber-500/20 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-500/20 hover:bg-amber-500/30 transition-colors">
                 Check on Amazon
               </a>
             )}
           </div>
         </div>
       </div>
-      {specs.map(spec => {
+      {specs.map((spec, i) => {
         const v1 = p1[spec.key];
         const v2 = p2[spec.key];
-        let class1 = '', class2 = '';
+        let class1 = 'text-gray-300', class2 = 'text-gray-300';
         if (spec.compare && typeof v1 === 'number' && typeof v2 === 'number') {
           if (spec.compare === 'lower') {
-            if (v1 < v2) class1 = 'text-green-600 font-semibold';
-            else if (v2 < v1) class2 = 'text-green-600 font-semibold';
+            if (v1 < v2) class1 = 'text-emerald-400 font-semibold';
+            else if (v2 < v1) class2 = 'text-emerald-400 font-semibold';
           } else {
-            if (v1 > v2) class1 = 'text-green-600 font-semibold';
-            else if (v2 > v1) class2 = 'text-green-600 font-semibold';
+            if (v1 > v2) class1 = 'text-emerald-400 font-semibold';
+            else if (v2 > v1) class2 = 'text-emerald-400 font-semibold';
           }
         }
+        const bg = i % 2 === 0 ? 'bg-white/[0.02]' : '';
         return (
-          <div class="grid grid-cols-3 border-b border-gray-100 last:border-0 hover:bg-blue-50/40 transition-colors">
-            <div class="p-4 text-sm font-medium text-gray-600">{spec.label}</div>
-            <div class:list={['p-4 text-sm text-center', class1]}>{formatVal(spec.key, v1)}</div>
-            <div class:list={['p-4 text-sm text-center', class2]}>{formatVal(spec.key, v2)}</div>
+          <div class={`grid grid-cols-3 border-b border-white/5 last:border-0 hover:bg-white/[0.04] transition-colors ${bg}`}>
+            <div class="p-4 text-sm font-medium text-gray-500">{spec.label}</div>
+            <div class:list={['p-4 text-sm text-center border-l border-white/5', class1]}>{formatVal(spec.key, v1)}</div>
+            <div class:list={['p-4 text-sm text-center border-l border-white/5', class2]}>{formatVal(spec.key, v2)}</div>
           </div>
         );
       })}
@@ -191,9 +192,9 @@ const schema = {
 
     <AdUnit />
 
-    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
-      <h2>{p1.name} vs {p2.name} - Which Should You Buy?</h2>
-      <p>
+    <div class="mt-12 glass rounded-xl p-6 md:p-8">
+      <h2 class="text-xl font-bold text-white mb-3">{p1.name} vs {p2.name} - Which Should You Buy?</h2>
+      <p class="text-gray-400 text-sm leading-relaxed">
         The {p1.name} is priced at {formatINR(p1.price)} while the {p2.name} comes at {formatINR(p2.price)}.
         {p1.price < p2.price
           ? `The ${p1.name} is ${formatINR(p2.price - p1.price)} cheaper.`
@@ -203,25 +204,25 @@ const schema = {
         }
       </p>
 
-      <h3>Camera</h3>
-      <p>The {p1.name} features a {p1.mainCamera} rear camera setup, while the {p2.name} has {p2.mainCamera}. For selfies, {p1.name} has {p1.selfieCamera} and {p2.name} has {p2.selfieCamera}.</p>
+      <h3 class="text-lg font-bold text-white mt-4 mb-2">Camera</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">The {p1.name} features a {p1.mainCamera} rear camera setup, while the {p2.name} has {p2.mainCamera}. For selfies, {p1.name} has {p1.selfieCamera} and {p2.name} has {p2.selfieCamera}.</p>
 
-      <h3>Battery & Charging</h3>
-      <p>The {p1.name} packs a {p1.battery} battery with {p1.charging}, while the {p2.name} has a {p2.battery} battery with {p2.charging}.</p>
+      <h3 class="text-lg font-bold text-white mt-4 mb-2">Battery & Charging</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">The {p1.name} packs a {p1.battery} battery with {p1.charging}, while the {p2.name} has a {p2.battery} battery with {p2.charging}.</p>
 
-      <h3>Performance</h3>
-      <p>The {p1.name} runs on {p1.processor} with {p1.ram} RAM, while the {p2.name} is powered by {p2.processor} with {p2.ram} RAM.</p>
+      <h3 class="text-lg font-bold text-white mt-4 mb-2">Performance</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">The {p1.name} runs on {p1.processor} with {p1.ram} RAM, while the {p2.name} is powered by {p2.processor} with {p2.ram} RAM.</p>
 
-      <p><em>Prices are indicative and may vary. Please check the latest prices before purchasing.</em></p>
+      <p class="text-gray-600 text-xs italic mt-4">Prices are indicative and may vary. Please check the latest prices before purchasing.</p>
     </div>
 
     <AdUnit />
 
     <!-- Related Comparisons -->
     <div class="mt-8">
-      <h2 class="text-xl font-bold text-gray-900 mb-4">More Comparisons</h2>
+      <h2 class="text-xl font-bold text-white mb-4">More Comparisons</h2>
       <div class="flex flex-wrap gap-2">
-        <a href="/compare" class="px-4 py-2 bg-gray-100 rounded-lg text-sm hover:bg-blue-100 hover:text-blue-700 transition-colors">All Phones</a>
+        <a href="/compare" class="px-4 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-300 hover:bg-indigo-500/20 hover:text-indigo-300 hover:border-indigo-500/30 transition-all">All Phones</a>
         {comparisons
           .filter(c => c.slug !== `${phone1Id}-vs-${phone2Id}`)
           .slice(0, 5)
@@ -230,7 +231,7 @@ const schema = {
             const cp2 = phones.find(p => p.id === c.phone2Id);
             if (!cp1 || !cp2) return null;
             return (
-              <a href={`/compare/${c.slug}`} class="px-4 py-2 bg-gray-100 rounded-lg text-sm hover:bg-blue-100 hover:text-blue-700 transition-colors">
+              <a href={`/compare/${c.slug}`} class="px-4 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-300 hover:bg-indigo-500/20 hover:text-indigo-300 hover:border-indigo-500/30 transition-all">
                 {cp1.name} vs {cp2.name}
               </a>
             );
