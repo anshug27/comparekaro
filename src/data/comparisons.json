@@ -1,8 +1,38 @@
 [
   {
+    "slug": "samsung-galaxy-s25-vs-xiaomi-17t",
+    "phone1Id": "samsung-galaxy-s25",
+    "phone2Id": "xiaomi-17t"
+  },
+  {
+    "slug": "samsung-galaxy-s25-ultra-vs-nothing-phone-3",
+    "phone1Id": "samsung-galaxy-s25-ultra",
+    "phone2Id": "nothing-phone-3"
+  },
+  {
+    "slug": "samsung-galaxy-m47-5g-vs-vivo-t5x",
+    "phone1Id": "samsung-galaxy-m47-5g",
+    "phone2Id": "vivo-t5x"
+  },
+  {
+    "slug": "samsung-galaxy-m47-5g-vs-poco-x8-5g",
+    "phone1Id": "samsung-galaxy-m47-5g",
+    "phone2Id": "poco-x8-5g"
+  },
+  {
     "slug": "xiaomi-redmi-note-17-5g-vs-nothing-phone-3a-pro",
     "phone1Id": "xiaomi-redmi-note-17-5g",
     "phone2Id": "nothing-phone-3a-pro"
+  },
+  {
+    "slug": "xiaomi-17-vs-vivo-x300-fe",
+    "phone1Id": "xiaomi-17",
+    "phone2Id": "vivo-x300-fe"
+  },
+  {
+    "slug": "xiaomi-redmi-note-15-vs-iqoo-z10x",
+    "phone1Id": "xiaomi-redmi-note-15",
+    "phone2Id": "iqoo-z10x"
   },
   {
     "slug": "vivo-t4x-vs-oppo-k14x-5g",
@@ -10,19 +40,114 @@
     "phone2Id": "oppo-k14x-5g"
   },
   {
+    "slug": "vivo-t4x-vs-iqoo-z10-lite",
+    "phone1Id": "vivo-t4x",
+    "phone2Id": "iqoo-z10-lite"
+  },
+  {
+    "slug": "vivo-t5x-vs-poco-x8-5g",
+    "phone1Id": "vivo-t5x",
+    "phone2Id": "poco-x8-5g"
+  },
+  {
+    "slug": "vivo-t5-5g-vs-motorola-edge-70",
+    "phone1Id": "vivo-t5-5g",
+    "phone2Id": "motorola-edge-70"
+  },
+  {
+    "slug": "vivo-t5-5g-vs-iqoo-z11-5g",
+    "phone1Id": "vivo-t5-5g",
+    "phone2Id": "iqoo-z11-5g"
+  },
+  {
+    "slug": "vivo-t5-pro-vs-oppo-f35",
+    "phone1Id": "vivo-t5-pro",
+    "phone2Id": "oppo-f35"
+  },
+  {
+    "slug": "vivo-v70-vs-oppo-reno15-pro-mini",
+    "phone1Id": "vivo-v70",
+    "phone2Id": "oppo-reno15-pro-mini"
+  },
+  {
+    "slug": "vivo-s2-fe-5g-vs-oppo-f35",
+    "phone1Id": "vivo-s2-fe-5g",
+    "phone2Id": "oppo-f35"
+  },
+  {
     "slug": "oppo-reno16-5g-vs-iqoo-15r",
     "phone1Id": "oppo-reno16-5g",
     "phone2Id": "iqoo-15r"
   },
   {
-    "slug": "vivo-v80-5g-vs-oneplus-13s",
-    "phone1Id": "vivo-v80-5g",
-    "phone2Id": "oneplus-13s"
+    "slug": "oppo-k14x-5g-vs-iqoo-z10-lite",
+    "phone1Id": "oppo-k14x-5g",
+    "phone2Id": "iqoo-z10-lite"
   },
   {
-    "slug": "samsung-galaxy-s25-vs-motorola-signature",
-    "phone1Id": "samsung-galaxy-s25",
-    "phone2Id": "motorola-signature"
+    "slug": "realme-16-pro-vs-samsung-galaxy-a27-5g",
+    "phone1Id": "realme-16-pro",
+    "phone2Id": "samsung-galaxy-a27-5g"
+  },
+  {
+    "slug": "realme-16-pro-vs-iqoo-z11",
+    "phone1Id": "realme-16-pro",
+    "phone2Id": "iqoo-z11"
+  },
+  {
+    "slug": "realme-gt-7-vs-poco-x8-pro-max",
+    "phone1Id": "realme-gt-7",
+    "phone2Id": "poco-x8-pro-max"
+  },
+  {
+    "slug": "motorola-edge-70-vs-iqoo-z11-5g",
+    "phone1Id": "motorola-edge-70",
+    "phone2Id": "iqoo-z11-5g"
+  },
+  {
+    "slug": "poco-x7-vs-samsung-galaxy-f70-5g",
+    "phone1Id": "poco-x7",
+    "phone2Id": "samsung-galaxy-f70-5g"
+  },
+  {
+    "slug": "nothing-phone-3-vs-samsung-galaxy-s26-plus",
+    "phone1Id": "nothing-phone-3",
+    "phone2Id": "samsung-galaxy-s26-plus"
+  },
+  {
+    "slug": "google-pixel-9-vs-samsung-galaxy-s26-fe",
+    "phone1Id": "google-pixel-9",
+    "phone2Id": "samsung-galaxy-s26-fe"
+  },
+  {
+    "slug": "samsung-galaxy-a27-5g-vs-iqoo-z11",
+    "phone1Id": "samsung-galaxy-a27-5g",
+    "phone2Id": "iqoo-z11"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-pro-max-5g-vs-google-pixel-9a",
+    "phone1Id": "xiaomi-redmi-note-17-pro-max-5g",
+    "phone2Id": "google-pixel-9a"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-pro-max-5g-vs-google-pixel-8-pro",
+    "phone1Id": "xiaomi-redmi-note-17-pro-max-5g",
+    "phone2Id": "google-pixel-8-pro"
+  },
+  {
+    "slug": "xiaomi-redmi-note-15-vs-iqoo-z11xa-5g",
+    "phone1Id": "xiaomi-redmi-note-15",
+    "phone2Id": "iqoo-z11xa-5g"
+  },
+  {
+    "slug": "xiaomi-redmi-17-5g-vs-poco-x7-pro",
+    "phone1Id": "xiaomi-redmi-17-5g",
+    "phone2Id": "poco-x7-pro"
+  },
+  {
+    "slug": "oneplus-nord-5-vs-oppo-f35-pro",
+    "phone1Id": "oneplus-nord-5",
+    "phone2Id": "oppo-f35-pro"
   },
   {
     "slug": "apple-iphone-17-pro-vs-xiaomi-17-ultra",
@@ -30,14 +155,29 @@
     "phone2Id": "xiaomi-17-ultra"
   },
   {
+    "slug": "apple-iphone-air-vs-google-pixel-11-pro",
+    "phone1Id": "apple-iphone-air",
+    "phone2Id": "google-pixel-11-pro"
+  },
+  {
+    "slug": "xiaomi-redmi-17-5g-vs-realme-p4x",
+    "phone1Id": "xiaomi-redmi-17-5g",
+    "phone2Id": "realme-p4x"
+  },
+  {
     "slug": "realme-p4x-vs-poco-x7-pro",
     "phone1Id": "realme-p4x",
     "phone2Id": "poco-x7-pro"
   },
   {
-    "slug": "apple-iphone-17-vs-oneplus-15r",
-    "phone1Id": "apple-iphone-17",
-    "phone2Id": "oneplus-15r"
+    "slug": "apple-iphone-16e-iphone-se-4-vs-vivo-v70",
+    "phone1Id": "apple-iphone-16e-iphone-se-4",
+    "phone2Id": "vivo-v70"
+  },
+  {
+    "slug": "apple-iphone-16e-iphone-se-4-vs-oppo-reno15-pro-mini",
+    "phone1Id": "apple-iphone-16e-iphone-se-4",
+    "phone2Id": "oppo-reno15-pro-mini"
   },
   {
     "slug": "xiaomi-redmi-note-17-5g-vs-nothing-phone-3a-lite",
@@ -45,14 +185,39 @@
     "phone2Id": "nothing-phone-3a-lite"
   },
   {
+    "slug": "realme-p4-power-vs-google-pixel-7a",
+    "phone1Id": "realme-p4-power",
+    "phone2Id": "google-pixel-7a"
+  },
+  {
+    "slug": "oneplus-nord-ce-6-5g-vs-nothing-phone-4b",
+    "phone1Id": "oneplus-nord-ce-6-5g",
+    "phone2Id": "nothing-phone-4b"
+  },
+  {
     "slug": "xiaomi-redmi-note-17-pro-5g-vs-nothing-phone-4a",
     "phone1Id": "xiaomi-redmi-note-17-pro-5g",
     "phone2Id": "nothing-phone-4a"
   },
   {
-    "slug": "realme-p4-power-vs-poco-x8-5g",
-    "phone1Id": "realme-p4-power",
-    "phone2Id": "poco-x8-5g"
+    "slug": "realme-p3-pro-vs-motorola-edge-60-fusion",
+    "phone1Id": "realme-p3-pro",
+    "phone2Id": "motorola-edge-60-fusion"
+  },
+  {
+    "slug": "realme-p4-vs-motorola-edge-60-fusion",
+    "phone1Id": "realme-p4",
+    "phone2Id": "motorola-edge-60-fusion"
+  },
+  {
+    "slug": "samsung-galaxy-s24-fe-vs-motorola-edge-70-pro-5g",
+    "phone1Id": "samsung-galaxy-s24-fe",
+    "phone2Id": "motorola-edge-70-pro-5g"
+  },
+  {
+    "slug": "oneplus-n6x-5g-vs-poco-m8x-5g",
+    "phone1Id": "oneplus-n6x-5g",
+    "phone2Id": "poco-m8x-5g"
   },
   {
     "slug": "xiaomi-redmi-note-17-pro-max-5g-vs-google-pixel-10a",
@@ -60,34 +225,9 @@
     "phone2Id": "google-pixel-10a"
   },
   {
-    "slug": "vivo-s2-5g-vs-poco-x8-power-5g",
-    "phone1Id": "vivo-s2-5g",
-    "phone2Id": "poco-x8-power-5g"
-  },
-  {
-    "slug": "motorola-edge-60-pro-vs-poco-x8-5g",
+    "slug": "motorola-edge-60-pro-vs-google-pixel-7a",
     "phone1Id": "motorola-edge-60-pro",
-    "phone2Id": "poco-x8-5g"
-  },
-  {
-    "slug": "realme-p4-power-vs-motorola-edge-70-fusion",
-    "phone1Id": "realme-p4-power",
-    "phone2Id": "motorola-edge-70-fusion"
-  },
-  {
-    "slug": "realme-p4-power-vs-motorola-edge-60-pro",
-    "phone1Id": "realme-p4-power",
-    "phone2Id": "motorola-edge-60-pro"
-  },
-  {
-    "slug": "moto-g86-power-vs-samsung-galaxy-f70-5g",
-    "phone1Id": "moto-g86-power",
-    "phone2Id": "samsung-galaxy-f70-5g"
-  },
-  {
-    "slug": "motorola-edge-70-fusion-vs-poco-x8-5g",
-    "phone1Id": "motorola-edge-70-fusion",
-    "phone2Id": "poco-x8-5g"
+    "phone2Id": "google-pixel-7a"
   },
   {
     "slug": "samsung-galaxy-f70-pro-5g-vs-nothing-phone-3a",
@@ -95,9 +235,29 @@
     "phone2Id": "nothing-phone-3a"
   },
   {
-    "slug": "google-pixel-10-vs-xiaomi-17t",
-    "phone1Id": "google-pixel-10",
-    "phone2Id": "xiaomi-17t"
+    "slug": "samsung-galaxy-f70-pro-5g-vs-nothing-phone-2a",
+    "phone1Id": "samsung-galaxy-f70-pro-5g",
+    "phone2Id": "nothing-phone-2a"
+  },
+  {
+    "slug": "vivo-s2-5g-vs-poco-x8-power-5g",
+    "phone1Id": "vivo-s2-5g",
+    "phone2Id": "poco-x8-power-5g"
+  },
+  {
+    "slug": "realme-p4-power-vs-motorola-edge-60-pro",
+    "phone1Id": "realme-p4-power",
+    "phone2Id": "motorola-edge-60-pro"
+  },
+  {
+    "slug": "moto-g86-power-vs-poco-x7",
+    "phone1Id": "moto-g86-power",
+    "phone2Id": "poco-x7"
+  },
+  {
+    "slug": "moto-g86-power-vs-samsung-galaxy-f70-5g",
+    "phone1Id": "moto-g86-power",
+    "phone2Id": "samsung-galaxy-f70-5g"
   },
   {
     "slug": "apple-iphone-16-vs-google-pixel-11",
@@ -105,24 +265,9 @@
     "phone2Id": "google-pixel-11"
   },
   {
-    "slug": "oneplus-nord-ce-6-lite-5g-vs-vivo-t5x",
-    "phone1Id": "oneplus-nord-ce-6-lite-5g",
-    "phone2Id": "vivo-t5x"
-  },
-  {
-    "slug": "motorola-signature-vs-oneplus-15r",
-    "phone1Id": "motorola-signature",
-    "phone2Id": "oneplus-15r"
-  },
-  {
-    "slug": "samsung-galaxy-s25-vs-oneplus-15r",
-    "phone1Id": "samsung-galaxy-s25",
-    "phone2Id": "oneplus-15r"
-  },
-  {
-    "slug": "oneplus-nord-ce-6-lite-5g-vs-nothing-phone-3a-lite",
-    "phone1Id": "oneplus-nord-ce-6-lite-5g",
-    "phone2Id": "nothing-phone-3a-lite"
+    "slug": "apple-iphone-16e-iphone-se-4-vs-motorola-signature",
+    "phone1Id": "apple-iphone-16e-iphone-se-4",
+    "phone2Id": "motorola-signature"
   },
   {
     "slug": "oppo-f35-pro-vs-nothing-phone-4a-pro",
@@ -130,14 +275,89 @@
     "phone2Id": "nothing-phone-4a-pro"
   },
   {
-    "slug": "apple-iphone-17-vs-motorola-signature",
-    "phone1Id": "apple-iphone-17",
+    "slug": "oneplus-nord-5-vs-nothing-phone-4a-pro",
+    "phone1Id": "oneplus-nord-5",
+    "phone2Id": "nothing-phone-4a-pro"
+  },
+  {
+    "slug": "oppo-k13-5g-vs-poco-m8-power-5g",
+    "phone1Id": "oppo-k13-5g",
+    "phone2Id": "poco-m8-power-5g"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-pro-5g-vs-google-pixel-8a",
+    "phone1Id": "xiaomi-redmi-note-17-pro-5g",
+    "phone2Id": "google-pixel-8a"
+  },
+  {
+    "slug": "vivo-v70-vs-motorola-signature",
+    "phone1Id": "vivo-v70",
     "phone2Id": "motorola-signature"
+  },
+  {
+    "slug": "oppo-reno15-pro-mini-vs-motorola-signature",
+    "phone1Id": "oppo-reno15-pro-mini",
+    "phone2Id": "motorola-signature"
+  },
+  {
+    "slug": "realme-p4-power-vs-motorola-edge-70-fusion",
+    "phone1Id": "realme-p4-power",
+    "phone2Id": "motorola-edge-70-fusion"
+  },
+  {
+    "slug": "realme-p3-pro-vs-moto-g57-power",
+    "phone1Id": "realme-p3-pro",
+    "phone2Id": "moto-g57-power"
+  },
+  {
+    "slug": "realme-p4-vs-moto-g57-power",
+    "phone1Id": "realme-p4",
+    "phone2Id": "moto-g57-power"
+  },
+  {
+    "slug": "samsung-galaxy-a56-5g-vs-realme-p4s-5g",
+    "phone1Id": "samsung-galaxy-a56-5g",
+    "phone2Id": "realme-p4s-5g"
+  },
+  {
+    "slug": "oneplus-nord-ce-6-lite-5g-vs-nothing-phone-3a-lite",
+    "phone1Id": "oneplus-nord-ce-6-lite-5g",
+    "phone2Id": "nothing-phone-3a-lite"
+  },
+  {
+    "slug": "motorola-edge-70-fusion-vs-google-pixel-7a",
+    "phone1Id": "motorola-edge-70-fusion",
+    "phone2Id": "google-pixel-7a"
   },
   {
     "slug": "samsung-galaxy-s25-vs-apple-iphone-17",
     "phone1Id": "samsung-galaxy-s25",
     "phone2Id": "apple-iphone-17"
+  },
+  {
+    "slug": "apple-iphone-17-vs-xiaomi-17t",
+    "phone1Id": "apple-iphone-17",
+    "phone2Id": "xiaomi-17t"
+  },
+  {
+    "slug": "xiaomi-redmi-note-15-vs-motorola-edge-70-fusion",
+    "phone1Id": "xiaomi-redmi-note-15",
+    "phone2Id": "motorola-edge-70-fusion"
+  },
+  {
+    "slug": "motorola-edge-70-fusion-vs-iqoo-z10x",
+    "phone1Id": "motorola-edge-70-fusion",
+    "phone2Id": "iqoo-z10x"
+  },
+  {
+    "slug": "motorola-edge-70-fusion-vs-iqoo-z11xa-5g",
+    "phone1Id": "motorola-edge-70-fusion",
+    "phone2Id": "iqoo-z11xa-5g"
+  },
+  {
+    "slug": "nothing-phone-4a-vs-google-pixel-8a",
+    "phone1Id": "nothing-phone-4a",
+    "phone2Id": "google-pixel-8a"
   },
   {
     "slug": "xiaomi-redmi-note-17-5g-vs-oneplus-nord-ce-6-lite-5g",
@@ -150,6 +370,21 @@
     "phone2Id": "nothing-phone-3a-pro"
   },
   {
+    "slug": "samsung-galaxy-m47-5g-vs-oneplus-nord-ce-6-lite-5g",
+    "phone1Id": "samsung-galaxy-m47-5g",
+    "phone2Id": "oneplus-nord-ce-6-lite-5g"
+  },
+  {
+    "slug": "oneplus-nord-ce-6-lite-5g-vs-vivo-t5x",
+    "phone1Id": "oneplus-nord-ce-6-lite-5g",
+    "phone2Id": "vivo-t5x"
+  },
+  {
+    "slug": "oneplus-nord-ce-6-lite-5g-vs-poco-x8-5g",
+    "phone1Id": "oneplus-nord-ce-6-lite-5g",
+    "phone2Id": "poco-x8-5g"
+  },
+  {
     "slug": "apple-iphone-18-pro-vs-oppo-find-x9-pro",
     "phone1Id": "apple-iphone-18-pro",
     "phone2Id": "oppo-find-x9-pro"
@@ -160,9 +395,34 @@
     "phone2Id": "realme-p4x"
   },
   {
-    "slug": "oneplus-n6-5g-vs-poco-x7-pro",
-    "phone1Id": "oneplus-n6-5g",
-    "phone2Id": "poco-x7-pro"
+    "slug": "vivo-t5-pro-vs-motorola-edge-70-pro-5g",
+    "phone1Id": "vivo-t5-pro",
+    "phone2Id": "motorola-edge-70-pro-5g"
+  },
+  {
+    "slug": "vivo-s2-fe-5g-vs-motorola-edge-70-pro-5g",
+    "phone1Id": "vivo-s2-fe-5g",
+    "phone2Id": "motorola-edge-70-pro-5g"
+  },
+  {
+    "slug": "oppo-f35-vs-motorola-edge-70-pro-5g",
+    "phone1Id": "oppo-f35",
+    "phone2Id": "motorola-edge-70-pro-5g"
+  },
+  {
+    "slug": "oneplus-13s-vs-motorola-signature",
+    "phone1Id": "oneplus-13s",
+    "phone2Id": "motorola-signature"
+  },
+  {
+    "slug": "samsung-galaxy-a17-5g-vs-poco-m8-power-5g",
+    "phone1Id": "samsung-galaxy-a17-5g",
+    "phone2Id": "poco-m8-power-5g"
+  },
+  {
+    "slug": "vivo-s2-5g-vs-motorola-edge-70",
+    "phone1Id": "vivo-s2-5g",
+    "phone2Id": "motorola-edge-70"
   },
   {
     "slug": "vivo-s2-5g-vs-iqoo-z11-5g",
@@ -170,9 +430,109 @@
     "phone2Id": "iqoo-z11-5g"
   },
   {
+    "slug": "xiaomi-redmi-17-5g-vs-oneplus-n6-5g",
+    "phone1Id": "xiaomi-redmi-17-5g",
+    "phone2Id": "oneplus-n6-5g"
+  },
+  {
+    "slug": "oneplus-n6-5g-vs-poco-x7-pro",
+    "phone1Id": "oneplus-n6-5g",
+    "phone2Id": "poco-x7-pro"
+  },
+  {
+    "slug": "oneplus-nord-5-vs-realme-16-pro",
+    "phone1Id": "oneplus-nord-5",
+    "phone2Id": "realme-16-pro"
+  },
+  {
+    "slug": "oneplus-nord-5-vs-samsung-galaxy-a27-5g",
+    "phone1Id": "oneplus-nord-5",
+    "phone2Id": "samsung-galaxy-a27-5g"
+  },
+  {
+    "slug": "oneplus-nord-5-vs-iqoo-z11",
+    "phone1Id": "oneplus-nord-5",
+    "phone2Id": "iqoo-z11"
+  },
+  {
+    "slug": "oppo-f35-pro-vs-realme-16-pro",
+    "phone1Id": "oppo-f35-pro",
+    "phone2Id": "realme-16-pro"
+  },
+  {
+    "slug": "oppo-f35-pro-vs-samsung-galaxy-a27-5g",
+    "phone1Id": "oppo-f35-pro",
+    "phone2Id": "samsung-galaxy-a27-5g"
+  },
+  {
+    "slug": "oppo-f35-pro-vs-iqoo-z11",
+    "phone1Id": "oppo-f35-pro",
+    "phone2Id": "iqoo-z11"
+  },
+  {
+    "slug": "samsung-galaxy-s25-fe-vs-motorola-edge-70-max",
+    "phone1Id": "samsung-galaxy-s25-fe",
+    "phone2Id": "motorola-edge-70-max"
+  },
+  {
+    "slug": "apple-iphone-17e-vs-google-pixel-10",
+    "phone1Id": "apple-iphone-17e",
+    "phone2Id": "google-pixel-10"
+  },
+  {
+    "slug": "samsung-galaxy-s26-vs-xiaomi-17",
+    "phone1Id": "samsung-galaxy-s26",
+    "phone2Id": "xiaomi-17"
+  },
+  {
+    "slug": "samsung-galaxy-s26-vs-vivo-x300-fe",
+    "phone1Id": "samsung-galaxy-s26",
+    "phone2Id": "vivo-x300-fe"
+  },
+  {
+    "slug": "realme-16-pro-vs-iqoo-neo-10",
+    "phone1Id": "realme-16-pro",
+    "phone2Id": "iqoo-neo-10"
+  },
+  {
+    "slug": "realme-16-pro-vs-iqoo-neo-10r",
+    "phone1Id": "realme-16-pro",
+    "phone2Id": "iqoo-neo-10r"
+  },
+  {
+    "slug": "iqoo-neo-10-vs-samsung-galaxy-a27-5g",
+    "phone1Id": "iqoo-neo-10",
+    "phone2Id": "samsung-galaxy-a27-5g"
+  },
+  {
+    "slug": "iqoo-neo-10r-vs-samsung-galaxy-a27-5g",
+    "phone1Id": "iqoo-neo-10r",
+    "phone2Id": "samsung-galaxy-a27-5g"
+  },
+  {
+    "slug": "apple-iphone-17-pro-vs-google-pixel-11-pro-xl",
+    "phone1Id": "apple-iphone-17-pro",
+    "phone2Id": "google-pixel-11-pro-xl"
+  },
+  {
     "slug": "samsung-galaxy-s26-vs-iqoo-15",
     "phone1Id": "samsung-galaxy-s26",
     "phone2Id": "iqoo-15"
+  },
+  {
+    "slug": "oneplus-nord-6-vs-iqoo-neo-10",
+    "phone1Id": "oneplus-nord-6",
+    "phone2Id": "iqoo-neo-10"
+  },
+  {
+    "slug": "oneplus-nord-6-vs-iqoo-neo-10r",
+    "phone1Id": "oneplus-nord-6",
+    "phone2Id": "iqoo-neo-10r"
+  },
+  {
+    "slug": "google-pixel-11-pro-xl-vs-xiaomi-17-ultra",
+    "phone1Id": "google-pixel-11-pro-xl",
+    "phone2Id": "xiaomi-17-ultra"
   },
   {
     "slug": "poco-x8-power-5g-vs-nothing-phone-4a",
@@ -180,18 +540,68 @@
     "phone2Id": "nothing-phone-4a"
   },
   {
+    "slug": "samsung-galaxy-s25-fe-vs-oneplus-15r",
+    "phone1Id": "samsung-galaxy-s25-fe",
+    "phone2Id": "oneplus-15r"
+  },
+  {
+    "slug": "oneplus-15-vs-google-pixel-9",
+    "phone1Id": "oneplus-15",
+    "phone2Id": "google-pixel-9"
+  },
+  {
+    "slug": "oneplus-15-vs-samsung-galaxy-s26-fe",
+    "phone1Id": "oneplus-15",
+    "phone2Id": "samsung-galaxy-s26-fe"
+  },
+  {
+    "slug": "samsung-galaxy-s24-fe-vs-xiaomi-redmi-turbo-5",
+    "phone1Id": "samsung-galaxy-s24-fe",
+    "phone2Id": "xiaomi-redmi-turbo-5"
+  },
+  {
+    "slug": "samsung-galaxy-s24-fe-vs-vivo-t5-pro",
+    "phone1Id": "samsung-galaxy-s24-fe",
+    "phone2Id": "vivo-t5-pro"
+  },
+  {
+    "slug": "samsung-galaxy-s24-fe-vs-vivo-s2-fe-5g",
+    "phone1Id": "samsung-galaxy-s24-fe",
+    "phone2Id": "vivo-s2-fe-5g"
+  },
+  {
+    "slug": "samsung-galaxy-s24-fe-vs-oppo-f35",
+    "phone1Id": "samsung-galaxy-s24-fe",
+    "phone2Id": "oppo-f35"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-pro-5g-vs-poco-x8-power-5g",
+    "phone1Id": "xiaomi-redmi-note-17-pro-5g",
+    "phone2Id": "poco-x8-power-5g"
+  },
+  {
+    "slug": "oneplus-n6x-5g-vs-poco-x7",
+    "phone1Id": "oneplus-n6x-5g",
+    "phone2Id": "poco-x7"
+  },
+  {
+    "slug": "oneplus-n6x-5g-vs-samsung-galaxy-f70-5g",
+    "phone1Id": "oneplus-n6x-5g",
+    "phone2Id": "samsung-galaxy-f70-5g"
+  },
+  {
     "slug": "google-pixel-11-vs-samsung-galaxy-s26-fe",
     "phone1Id": "google-pixel-11",
     "phone2Id": "samsung-galaxy-s26-fe"
   },
   {
-    "slug": "motorola-edge-60-pro-vs-google-pixel-7a",
-    "phone1Id": "motorola-edge-60-pro",
-    "phone2Id": "google-pixel-7a"
+    "slug": "vivo-t5-5g-vs-poco-x8-power-5g",
+    "phone1Id": "vivo-t5-5g",
+    "phone2Id": "poco-x8-power-5g"
   },
   {
-    "slug": "xiaomi-redmi-note-17-pro-5g-vs-poco-x8-power-5g",
-    "phone1Id": "xiaomi-redmi-note-17-pro-5g",
+    "slug": "motorola-edge-70-vs-poco-x8-power-5g",
+    "phone1Id": "motorola-edge-70",
     "phone2Id": "poco-x8-power-5g"
   },
   {
@@ -200,19 +610,34 @@
     "phone2Id": "poco-x8-power-5g"
   },
   {
+    "slug": "oneplus-nord-ce-6-5g-vs-vivo-t5-5g",
+    "phone1Id": "oneplus-nord-ce-6-5g",
+    "phone2Id": "vivo-t5-5g"
+  },
+  {
+    "slug": "oneplus-nord-ce-6-5g-vs-motorola-edge-70",
+    "phone1Id": "oneplus-nord-ce-6-5g",
+    "phone2Id": "motorola-edge-70"
+  },
+  {
     "slug": "oneplus-nord-ce-6-5g-vs-iqoo-z11-5g",
     "phone1Id": "oneplus-nord-ce-6-5g",
     "phone2Id": "iqoo-z11-5g"
   },
   {
+    "slug": "xiaomi-redmi-turbo-5-vs-motorola-edge-70-pro-5g",
+    "phone1Id": "xiaomi-redmi-turbo-5",
+    "phone2Id": "motorola-edge-70-pro-5g"
+  },
+  {
+    "slug": "oppo-k13-5g-vs-moto-g57-power",
+    "phone1Id": "oppo-k13-5g",
+    "phone2Id": "moto-g57-power"
+  },
+  {
     "slug": "apple-iphone-17-vs-vivo-v80-5g",
     "phone1Id": "apple-iphone-17",
     "phone2Id": "vivo-v80-5g"
-  },
-  {
-    "slug": "apple-iphone-17-vs-oneplus-13s",
-    "phone1Id": "apple-iphone-17",
-    "phone2Id": "oneplus-13s"
   },
   {
     "slug": "samsung-galaxy-s25-vs-oppo-reno16-5g",
@@ -225,86 +650,6 @@
     "phone2Id": "iqoo-15r"
   },
   {
-    "slug": "oppo-reno16-5g-vs-motorola-signature",
-    "phone1Id": "oppo-reno16-5g",
-    "phone2Id": "motorola-signature"
-  },
-  {
-    "slug": "motorola-signature-vs-iqoo-15r",
-    "phone1Id": "motorola-signature",
-    "phone2Id": "iqoo-15r"
-  },
-  {
-    "slug": "vivo-t5x-vs-nothing-phone-3a-lite",
-    "phone1Id": "vivo-t5x",
-    "phone2Id": "nothing-phone-3a-lite"
-  },
-  {
-    "slug": "vivo-s2-5g-vs-nothing-phone-4a",
-    "phone1Id": "vivo-s2-5g",
-    "phone2Id": "nothing-phone-4a"
-  },
-  {
-    "slug": "vivo-v80-5g-vs-oneplus-15r",
-    "phone1Id": "vivo-v80-5g",
-    "phone2Id": "oneplus-15r"
-  },
-  {
-    "slug": "xiaomi-redmi-note-17-5g-vs-vivo-t5x",
-    "phone1Id": "xiaomi-redmi-note-17-5g",
-    "phone2Id": "vivo-t5x"
-  },
-  {
-    "slug": "vivo-t5x-vs-nothing-phone-3a-pro",
-    "phone1Id": "vivo-t5x",
-    "phone2Id": "nothing-phone-3a-pro"
-  },
-  {
-    "slug": "oneplus-13s-vs-motorola-edge-70-max",
-    "phone1Id": "oneplus-13s",
-    "phone2Id": "motorola-edge-70-max"
-  },
-  {
-    "slug": "poco-x8-5g-vs-google-pixel-7a",
-    "phone1Id": "poco-x8-5g",
-    "phone2Id": "google-pixel-7a"
-  },
-  {
-    "slug": "vivo-v80-5g-vs-motorola-edge-70-max",
-    "phone1Id": "vivo-v80-5g",
-    "phone2Id": "motorola-edge-70-max"
-  },
-  {
-    "slug": "xiaomi-redmi-note-17-pro-5g-vs-vivo-s2-5g",
-    "phone1Id": "xiaomi-redmi-note-17-pro-5g",
-    "phone2Id": "vivo-s2-5g"
-  },
-  {
-    "slug": "realme-p4-power-vs-google-pixel-7a",
-    "phone1Id": "realme-p4-power",
-    "phone2Id": "google-pixel-7a"
-  },
-  {
-    "slug": "apple-iphone-16-vs-samsung-galaxy-s26-fe",
-    "phone1Id": "apple-iphone-16",
-    "phone2Id": "samsung-galaxy-s26-fe"
-  },
-  {
-    "slug": "poco-x7-pro-vs-nothing-phone-3a",
-    "phone1Id": "poco-x7-pro",
-    "phone2Id": "nothing-phone-3a"
-  },
-  {
-    "slug": "realme-p4x-vs-nothing-phone-3a",
-    "phone1Id": "realme-p4x",
-    "phone2Id": "nothing-phone-3a"
-  },
-  {
-    "slug": "motorola-edge-70-fusion-vs-google-pixel-7a",
-    "phone1Id": "motorola-edge-70-fusion",
-    "phone2Id": "google-pixel-7a"
-  },
-  {
     "slug": "oppo-reno16-5g-vs-xiaomi-17t",
     "phone1Id": "oppo-reno16-5g",
     "phone2Id": "xiaomi-17t"
@@ -315,188 +660,343 @@
     "phone2Id": "iqoo-15r"
   },
   {
-    "slug": "oneplus-nord-ce-6-5g-vs-realme-p4s-5g",
-    "phone1Id": "oneplus-nord-ce-6-5g",
-    "phone2Id": "realme-p4s-5g"
-  },
-  {
-    "slug": "oppo-reno16-5g-vs-oneplus-15r",
-    "phone1Id": "oppo-reno16-5g",
-    "phone2Id": "oneplus-15r"
-  },
-  {
-    "slug": "oneplus-15r-vs-iqoo-15r",
-    "phone1Id": "oneplus-15r",
-    "phone2Id": "iqoo-15r"
-  },
-  {
-    "slug": "vivo-v80-5g-vs-motorola-signature",
-    "phone1Id": "vivo-v80-5g",
-    "phone2Id": "motorola-signature"
-  },
-  {
-    "slug": "motorola-signature-vs-oneplus-13s",
-    "phone1Id": "motorola-signature",
-    "phone2Id": "oneplus-13s"
-  },
-  {
-    "slug": "samsung-galaxy-s25-vs-vivo-v80-5g",
-    "phone1Id": "samsung-galaxy-s25",
-    "phone2Id": "vivo-v80-5g"
-  },
-  {
-    "slug": "samsung-galaxy-s25-vs-oneplus-13s",
-    "phone1Id": "samsung-galaxy-s25",
-    "phone2Id": "oneplus-13s"
-  },
-  {
-    "slug": "realme-p4s-5g-vs-google-pixel-7a",
-    "phone1Id": "realme-p4s-5g",
-    "phone2Id": "google-pixel-7a"
-  },
-  {
-    "slug": "apple-iphone-17-vs-oppo-reno16-5g",
-    "phone1Id": "apple-iphone-17",
-    "phone2Id": "oppo-reno16-5g"
-  },
-  {
-    "slug": "apple-iphone-17-vs-iqoo-15r",
-    "phone1Id": "apple-iphone-17",
-    "phone2Id": "iqoo-15r"
-  },
-  {
-    "slug": "vivo-t4x-vs-moto-g86-power",
-    "phone1Id": "vivo-t4x",
-    "phone2Id": "moto-g86-power"
-  },
-  {
-    "slug": "oppo-k14x-5g-vs-moto-g86-power",
-    "phone1Id": "oppo-k14x-5g",
-    "phone2Id": "moto-g86-power"
-  },
-  {
-    "slug": "oppo-k13-5g-vs-motorola-edge-60-fusion",
-    "phone1Id": "oppo-k13-5g",
-    "phone2Id": "motorola-edge-60-fusion"
-  },
-  {
-    "slug": "oneplus-nord-ce-6-5g-vs-vivo-s2-5g",
-    "phone1Id": "oneplus-nord-ce-6-5g",
-    "phone2Id": "vivo-s2-5g"
-  },
-  {
-    "slug": "samsung-galaxy-f70-pro-5g-vs-poco-x7-pro",
-    "phone1Id": "samsung-galaxy-f70-pro-5g",
-    "phone2Id": "poco-x7-pro"
-  },
-  {
-    "slug": "iqoo-z11-5g-vs-nothing-phone-4a",
-    "phone1Id": "iqoo-z11-5g",
-    "phone2Id": "nothing-phone-4a"
-  },
-  {
-    "slug": "samsung-galaxy-f70-pro-5g-vs-realme-p4x",
-    "phone1Id": "samsung-galaxy-f70-pro-5g",
-    "phone2Id": "realme-p4x"
-  },
-  {
-    "slug": "oppo-reno16-5g-vs-google-pixel-10",
-    "phone1Id": "oppo-reno16-5g",
-    "phone2Id": "google-pixel-10"
-  },
-  {
-    "slug": "google-pixel-10-vs-iqoo-15r",
-    "phone1Id": "google-pixel-10",
-    "phone2Id": "iqoo-15r"
-  },
-  {
-    "slug": "xiaomi-redmi-note-17-pro-5g-vs-iqoo-z11-5g",
-    "phone1Id": "xiaomi-redmi-note-17-pro-5g",
-    "phone2Id": "iqoo-z11-5g"
-  },
-  {
-    "slug": "oneplus-nord-ce-6-5g-vs-poco-x8-power-5g",
-    "phone1Id": "oneplus-nord-ce-6-5g",
-    "phone2Id": "poco-x8-power-5g"
-  },
-  {
-    "slug": "vivo-t4x-vs-samsung-galaxy-f70-5g",
-    "phone1Id": "vivo-t4x",
-    "phone2Id": "samsung-galaxy-f70-5g"
-  },
-  {
-    "slug": "oppo-k14x-5g-vs-samsung-galaxy-f70-5g",
-    "phone1Id": "oppo-k14x-5g",
-    "phone2Id": "samsung-galaxy-f70-5g"
-  },
-  {
-    "slug": "xiaomi-redmi-note-17-5g-vs-motorola-edge-70-fusion",
-    "phone1Id": "xiaomi-redmi-note-17-5g",
-    "phone2Id": "motorola-edge-70-fusion"
-  },
-  {
-    "slug": "motorola-edge-70-fusion-vs-nothing-phone-3a-pro",
-    "phone1Id": "motorola-edge-70-fusion",
-    "phone2Id": "nothing-phone-3a-pro"
-  },
-  {
-    "slug": "motorola-edge-70-fusion-vs-nothing-phone-3a-lite",
-    "phone1Id": "motorola-edge-70-fusion",
-    "phone2Id": "nothing-phone-3a-lite"
-  },
-  {
-    "slug": "vivo-t4x-vs-realme-p3",
-    "phone1Id": "vivo-t4x",
-    "phone2Id": "realme-p3"
-  },
-  {
-    "slug": "oppo-k14x-5g-vs-realme-p3",
-    "phone1Id": "oppo-k14x-5g",
-    "phone2Id": "realme-p3"
-  },
-  {
-    "slug": "oneplus-n6-5g-vs-nothing-phone-3a",
-    "phone1Id": "oneplus-n6-5g",
-    "phone2Id": "nothing-phone-3a"
-  },
-  {
-    "slug": "apple-iphone-17-vs-motorola-edge-70-max",
-    "phone1Id": "apple-iphone-17",
-    "phone2Id": "motorola-edge-70-max"
-  },
-  {
-    "slug": "oneplus-15r-vs-motorola-edge-70-max",
-    "phone1Id": "oneplus-15r",
-    "phone2Id": "motorola-edge-70-max"
-  },
-  {
-    "slug": "realme-p3-vs-poco-m7-pro",
-    "phone1Id": "realme-p3",
-    "phone2Id": "poco-m7-pro"
-  },
-  {
-    "slug": "xiaomi-redmi-note-17-5g-vs-realme-p4-power",
-    "phone1Id": "xiaomi-redmi-note-17-5g",
-    "phone2Id": "realme-p4-power"
-  },
-  {
-    "slug": "realme-p4-power-vs-nothing-phone-3a-pro",
-    "phone1Id": "realme-p4-power",
-    "phone2Id": "nothing-phone-3a-pro"
-  },
-  {
-    "slug": "samsung-galaxy-s25-fe-vs-google-pixel-10a",
-    "phone1Id": "samsung-galaxy-s25-fe",
-    "phone2Id": "google-pixel-10a"
-  },
-  {
-    "slug": "xiaomi-redmi-note-17-pro-max-5g-vs-nothing-phone-4a-pro",
-    "phone1Id": "xiaomi-redmi-note-17-pro-max-5g",
+    "slug": "realme-gt-7-vs-nothing-phone-4a-pro",
+    "phone1Id": "realme-gt-7",
     "phone2Id": "nothing-phone-4a-pro"
   },
   {
-    "slug": "oneplus-nord-6-vs-oppo-f35-pro",
-    "phone1Id": "oneplus-nord-6",
-    "phone2Id": "oppo-f35-pro"
+    "slug": "poco-x8-pro-max-vs-nothing-phone-4a-pro",
+    "phone1Id": "poco-x8-pro-max",
+    "phone2Id": "nothing-phone-4a-pro"
+  },
+  {
+    "slug": "vivo-s2-5g-vs-nothing-phone-4a",
+    "phone1Id": "vivo-s2-5g",
+    "phone2Id": "nothing-phone-4a"
+  },
+  {
+    "slug": "xiaomi-redmi-note-15-vs-realme-p4-power",
+    "phone1Id": "xiaomi-redmi-note-15",
+    "phone2Id": "realme-p4-power"
+  },
+  {
+    "slug": "realme-p4-power-vs-iqoo-z10x",
+    "phone1Id": "realme-p4-power",
+    "phone2Id": "iqoo-z10x"
+  },
+  {
+    "slug": "realme-p4-power-vs-iqoo-z11xa-5g",
+    "phone1Id": "realme-p4-power",
+    "phone2Id": "iqoo-z11xa-5g"
+  },
+  {
+    "slug": "vivo-t5-5g-vs-nothing-phone-4b",
+    "phone1Id": "vivo-t5-5g",
+    "phone2Id": "nothing-phone-4b"
+  },
+  {
+    "slug": "motorola-edge-70-vs-nothing-phone-4b",
+    "phone1Id": "motorola-edge-70",
+    "phone2Id": "nothing-phone-4b"
+  },
+  {
+    "slug": "iqoo-z11-5g-vs-nothing-phone-4b",
+    "phone1Id": "iqoo-z11-5g",
+    "phone2Id": "nothing-phone-4b"
+  },
+  {
+    "slug": "apple-iphone-16e-iphone-se-4-vs-oneplus-13s",
+    "phone1Id": "apple-iphone-16e-iphone-se-4",
+    "phone2Id": "oneplus-13s"
+  },
+  {
+    "slug": "poco-m8x-5g-vs-samsung-galaxy-f70-5g",
+    "phone1Id": "poco-m8x-5g",
+    "phone2Id": "samsung-galaxy-f70-5g"
+  },
+  {
+    "slug": "vivo-v80-5g-vs-oppo-reno15-pro-mini",
+    "phone1Id": "vivo-v80-5g",
+    "phone2Id": "oppo-reno15-pro-mini"
+  },
+  {
+    "slug": "samsung-galaxy-a17-5g-vs-oppo-k13-5g",
+    "phone1Id": "samsung-galaxy-a17-5g",
+    "phone2Id": "oppo-k13-5g"
+  },
+  {
+    "slug": "oneplus-13s-vs-vivo-v70",
+    "phone1Id": "oneplus-13s",
+    "phone2Id": "vivo-v70"
+  },
+  {
+    "slug": "oneplus-13s-vs-oppo-reno15-pro-mini",
+    "phone1Id": "oneplus-13s",
+    "phone2Id": "oppo-reno15-pro-mini"
+  },
+  {
+    "slug": "xiaomi-redmi-note-15-vs-google-pixel-7a",
+    "phone1Id": "xiaomi-redmi-note-15",
+    "phone2Id": "google-pixel-7a"
+  },
+  {
+    "slug": "iqoo-z10x-vs-google-pixel-7a",
+    "phone1Id": "iqoo-z10x",
+    "phone2Id": "google-pixel-7a"
+  },
+  {
+    "slug": "iqoo-z11xa-5g-vs-google-pixel-7a",
+    "phone1Id": "iqoo-z11xa-5g",
+    "phone2Id": "google-pixel-7a"
+  },
+  {
+    "slug": "realme-p4r-5g-vs-motorola-edge-60-fusion",
+    "phone1Id": "realme-p4r-5g",
+    "phone2Id": "motorola-edge-60-fusion"
+  },
+  {
+    "slug": "realme-16-pro-vs-nothing-phone-4a-pro",
+    "phone1Id": "realme-16-pro",
+    "phone2Id": "nothing-phone-4a-pro"
+  },
+  {
+    "slug": "nothing-phone-4a-pro-vs-samsung-galaxy-a27-5g",
+    "phone1Id": "nothing-phone-4a-pro",
+    "phone2Id": "samsung-galaxy-a27-5g"
+  },
+  {
+    "slug": "nothing-phone-4a-pro-vs-iqoo-z11",
+    "phone1Id": "nothing-phone-4a-pro",
+    "phone2Id": "iqoo-z11"
+  },
+  {
+    "slug": "samsung-galaxy-m47-5g-vs-nothing-phone-3a-lite",
+    "phone1Id": "samsung-galaxy-m47-5g",
+    "phone2Id": "nothing-phone-3a-lite"
+  },
+  {
+    "slug": "vivo-t5x-vs-nothing-phone-3a-lite",
+    "phone1Id": "vivo-t5x",
+    "phone2Id": "nothing-phone-3a-lite"
+  },
+  {
+    "slug": "poco-x8-5g-vs-nothing-phone-3a-lite",
+    "phone1Id": "poco-x8-5g",
+    "phone2Id": "nothing-phone-3a-lite"
+  },
+  {
+    "slug": "samsung-galaxy-s26-ultra-vs-apple-iphone-17-pro-max",
+    "phone1Id": "samsung-galaxy-s26-ultra",
+    "phone2Id": "apple-iphone-17-pro-max"
+  },
+  {
+    "slug": "apple-iphone-16e-iphone-se-4-vs-vivo-v80-5g",
+    "phone1Id": "apple-iphone-16e-iphone-se-4",
+    "phone2Id": "vivo-v80-5g"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-pro-5g-vs-vivo-s2-5g",
+    "phone1Id": "xiaomi-redmi-note-17-pro-5g",
+    "phone2Id": "vivo-s2-5g"
+  },
+  {
+    "slug": "samsung-galaxy-a17-5g-vs-oneplus-n6-5g",
+    "phone1Id": "samsung-galaxy-a17-5g",
+    "phone2Id": "oneplus-n6-5g"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-5g-vs-iqoo-z11xa-5g",
+    "phone1Id": "xiaomi-redmi-note-17-5g",
+    "phone2Id": "iqoo-z11xa-5g"
+  },
+  {
+    "slug": "iqoo-z11xa-5g-vs-nothing-phone-3a-pro",
+    "phone1Id": "iqoo-z11xa-5g",
+    "phone2Id": "nothing-phone-3a-pro"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-5g-vs-iqoo-z10x",
+    "phone1Id": "xiaomi-redmi-note-17-5g",
+    "phone2Id": "iqoo-z10x"
+  },
+  {
+    "slug": "xiaomi-redmi-note-15-vs-nothing-phone-3a-pro",
+    "phone1Id": "xiaomi-redmi-note-15",
+    "phone2Id": "nothing-phone-3a-pro"
+  },
+  {
+    "slug": "iqoo-z10x-vs-nothing-phone-3a-pro",
+    "phone1Id": "iqoo-z10x",
+    "phone2Id": "nothing-phone-3a-pro"
+  },
+  {
+    "slug": "realme-p4r-5g-vs-iqoo-z11-lite-5g",
+    "phone1Id": "realme-p4r-5g",
+    "phone2Id": "iqoo-z11-lite-5g"
+  },
+  {
+    "slug": "samsung-galaxy-m47-5g-vs-xiaomi-redmi-note-17-5g",
+    "phone1Id": "samsung-galaxy-m47-5g",
+    "phone2Id": "xiaomi-redmi-note-17-5g"
+  },
+  {
+    "slug": "samsung-galaxy-m47-5g-vs-nothing-phone-3a-pro",
+    "phone1Id": "samsung-galaxy-m47-5g",
+    "phone2Id": "nothing-phone-3a-pro"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-5g-vs-vivo-t5x",
+    "phone1Id": "xiaomi-redmi-note-17-5g",
+    "phone2Id": "vivo-t5x"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-5g-vs-poco-x8-5g",
+    "phone1Id": "xiaomi-redmi-note-17-5g",
+    "phone2Id": "poco-x8-5g"
+  },
+  {
+    "slug": "vivo-t5x-vs-nothing-phone-3a-pro",
+    "phone1Id": "vivo-t5x",
+    "phone2Id": "nothing-phone-3a-pro"
+  },
+  {
+    "slug": "poco-x8-5g-vs-nothing-phone-3a-pro",
+    "phone1Id": "poco-x8-5g",
+    "phone2Id": "nothing-phone-3a-pro"
+  },
+  {
+    "slug": "oneplus-n6x-5g-vs-moto-g86-power",
+    "phone1Id": "oneplus-n6x-5g",
+    "phone2Id": "moto-g86-power"
+  },
+  {
+    "slug": "iqoo-z11xa-5g-vs-nothing-phone-3a-lite",
+    "phone1Id": "iqoo-z11xa-5g",
+    "phone2Id": "nothing-phone-3a-lite"
+  },
+  {
+    "slug": "xiaomi-redmi-note-15-vs-nothing-phone-3a-lite",
+    "phone1Id": "xiaomi-redmi-note-15",
+    "phone2Id": "nothing-phone-3a-lite"
+  },
+  {
+    "slug": "iqoo-z10x-vs-nothing-phone-3a-lite",
+    "phone1Id": "iqoo-z10x",
+    "phone2Id": "nothing-phone-3a-lite"
+  },
+  {
+    "slug": "apple-iphone-16-vs-google-pixel-9",
+    "phone1Id": "apple-iphone-16",
+    "phone2Id": "google-pixel-9"
+  },
+  {
+    "slug": "apple-iphone-16-vs-samsung-galaxy-s26-fe",
+    "phone1Id": "apple-iphone-16",
+    "phone2Id": "samsung-galaxy-s26-fe"
+  },
+  {
+    "slug": "vivo-t5-pro-vs-google-pixel-8a",
+    "phone1Id": "vivo-t5-pro",
+    "phone2Id": "google-pixel-8a"
+  },
+  {
+    "slug": "vivo-s2-fe-5g-vs-google-pixel-8a",
+    "phone1Id": "vivo-s2-fe-5g",
+    "phone2Id": "google-pixel-8a"
+  },
+  {
+    "slug": "oppo-f35-vs-google-pixel-8a",
+    "phone1Id": "oppo-f35",
+    "phone2Id": "google-pixel-8a"
+  },
+  {
+    "slug": "realme-p3x-vs-poco-m7",
+    "phone1Id": "realme-p3x",
+    "phone2Id": "poco-m7"
+  },
+  {
+    "slug": "xiaomi-redmi-note-15-vs-motorola-edge-60-pro",
+    "phone1Id": "xiaomi-redmi-note-15",
+    "phone2Id": "motorola-edge-60-pro"
+  },
+  {
+    "slug": "motorola-edge-60-pro-vs-iqoo-z10x",
+    "phone1Id": "motorola-edge-60-pro",
+    "phone2Id": "iqoo-z10x"
+  },
+  {
+    "slug": "motorola-edge-60-pro-vs-iqoo-z11xa-5g",
+    "phone1Id": "motorola-edge-60-pro",
+    "phone2Id": "iqoo-z11xa-5g"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-pro-max-5g-vs-realme-gt-7",
+    "phone1Id": "xiaomi-redmi-note-17-pro-max-5g",
+    "phone2Id": "realme-gt-7"
+  },
+  {
+    "slug": "xiaomi-redmi-note-17-pro-max-5g-vs-poco-x8-pro-max",
+    "phone1Id": "xiaomi-redmi-note-17-pro-max-5g",
+    "phone2Id": "poco-x8-pro-max"
+  },
+  {
+    "slug": "realme-gt-7-vs-google-pixel-9a",
+    "phone1Id": "realme-gt-7",
+    "phone2Id": "google-pixel-9a"
+  },
+  {
+    "slug": "realme-gt-7-vs-google-pixel-8-pro",
+    "phone1Id": "realme-gt-7",
+    "phone2Id": "google-pixel-8-pro"
+  },
+  {
+    "slug": "poco-x8-pro-max-vs-google-pixel-9a",
+    "phone1Id": "poco-x8-pro-max",
+    "phone2Id": "google-pixel-9a"
+  },
+  {
+    "slug": "poco-x8-pro-max-vs-google-pixel-8-pro",
+    "phone1Id": "poco-x8-pro-max",
+    "phone2Id": "google-pixel-8-pro"
+  },
+  {
+    "slug": "poco-x8-power-5g-vs-google-pixel-8a",
+    "phone1Id": "poco-x8-power-5g",
+    "phone2Id": "google-pixel-8a"
+  },
+  {
+    "slug": "poco-x7-pro-vs-nothing-phone-3a",
+    "phone1Id": "poco-x7-pro",
+    "phone2Id": "nothing-phone-3a"
+  },
+  {
+    "slug": "poco-x7-pro-vs-nothing-phone-2a",
+    "phone1Id": "poco-x7-pro",
+    "phone2Id": "nothing-phone-2a"
+  },
+  {
+    "slug": "xiaomi-redmi-17-5g-vs-nothing-phone-3a",
+    "phone1Id": "xiaomi-redmi-17-5g",
+    "phone2Id": "nothing-phone-3a"
+  },
+  {
+    "slug": "xiaomi-redmi-17-5g-vs-nothing-phone-2a",
+    "phone1Id": "xiaomi-redmi-17-5g",
+    "phone2Id": "nothing-phone-2a"
+  },
+  {
+    "slug": "moto-g86-power-vs-poco-m8x-5g",
+    "phone1Id": "moto-g86-power",
+    "phone2Id": "poco-m8x-5g"
+  },
+  {
+    "slug": "realme-p4s-5g-vs-nothing-phone-4b",
+    "phone1Id": "realme-p4s-5g",
+    "phone2Id": "nothing-phone-4b"
+  },
+  {
+    "slug": "realme-p4x-vs-nothing-phone-3a",
+    "phone1Id": "realme-p4x",
+    "phone2Id": "nothing-phone-3a"
   }
 ]

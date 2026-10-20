@@ -334,7 +334,7 @@ function generateComparisonPairs(phones) {
     return ratioA - ratioB;
   });
 
-  return pairs.slice(0, 100);
+  return pairs.slice(0, 200);
 }
 
 // ── Main ─────────────────────────────────────────────────
@@ -345,7 +345,7 @@ async function main() {
   // Take top N phones from each brand, then fill remaining from main listing
   const allPhoneUrls = [];
   const globalSeenUrls = new Set();
-  const PHONES_PER_BRAND = 5; // 5 per brand x 12 brands = 60 phones
+  const PHONES_PER_BRAND = 10; // 10 per brand x 12 brands = 120 phones
 
   // Step 1: Scrape brand pages first for guaranteed per-brand coverage
   for (const brandUrl of BRAND_LISTING_URLS) {
@@ -417,8 +417,8 @@ async function main() {
 
   console.log(`\n  Total unique phone URLs: ${allPhoneUrls.length}`);
 
-  // Scrape up to 80 unique phones
-  const phoneUrlsToScrape = allPhoneUrls.slice(0, 80);
+  // Scrape up to 150 unique phones
+  const phoneUrlsToScrape = allPhoneUrls.slice(0, 150);
   console.log(`  Scraping ${phoneUrlsToScrape.length} phone models\n`);
 
   // Step 2: Fetch each phone's detail page and parse specs

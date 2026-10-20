@@ -6,4 +6,19 @@
 
 body {
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero-bg {
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99, 102, 241, 0.18), transparent 70%),
+    radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.08) 1px, transparent 0);
+  background-size: 100% 100%, 24px 24px;
+}
+
+.page-header-bg {
+  background-image:
+    radial-gradient(ellipse 70% 80% at 0% 0%, rgba(59, 130, 246, 0.10), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 100% 0%, rgba(99, 102, 241, 0.10), transparent 60%);
 }
