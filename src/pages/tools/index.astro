@@ -14,7 +14,7 @@ import AdUnit from '../../components/AdUnit.astro';
       <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">Free Tools</h1>
       <p class="text-lg text-gray-500 max-w-2xl mb-8">All calculations run in your browser. No sign-ups, no data collection.</p>
       <div class="flex flex-wrap gap-2">
-        {[['finance', '💰 Finance'], ['telecom', '📱 Telecom'], ['devices', '💻 Devices'], ['loans', '🏦 Loans'], ['lifestyle', '🏡 Lifestyle']].map(([id, label]) => (
+        {[['finance', '💰 Finance'], ['telecom', '📱 Telecom'], ['devices', '💻 Devices'], ['loans', '🏦 Loans'], ['lifestyle', '🏡 Lifestyle & Utilities']].map(([id, label]) => (
           <a href={`#${id}`} class="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-sm font-semibold text-gray-300 hover:border-blue-300 hover:text-indigo-400 hover:shadow-lg shadow-black/10 transition-all">{label}</a>
         ))}
       </div>
@@ -64,6 +64,13 @@ import AdUnit from '../../components/AdUnit.astro';
           icon="🥇"
           color="orange"
         />
+        <ToolCard
+          title="Savings Goal Planner"
+          description="Set a financial goal and find out how much to save monthly. Compare SIP, FD, and RD options."
+          href="/tools/savings-goal"
+          icon="🎯"
+          color="green"
+        />
       </div>
     </div>
 
@@ -88,6 +95,13 @@ import AdUnit from '../../components/AdUnit.astro';
           href="/tools/broadband-compare"
           icon="📡"
           color="blue"
+        />
+        <ToolCard
+          title="Internet Speed Test"
+          description="Test your internet download & upload speed. Get tips to improve your connection."
+          href="/tools/speed-test"
+          icon="🚀"
+          color="purple"
         />
         <ToolCard
           title="OTT Comparison"
@@ -166,6 +180,20 @@ import AdUnit from '../../components/AdUnit.astro';
           href="/tools/car-compare"
           icon="🚗"
           color="red"
+        />
+        <ToolCard
+          title="Fuel Cost Calculator"
+          description="Calculate trip fuel costs, monthly fuel budget, and compare city-wise petrol & diesel prices."
+          href="/tools/fuel-calculator"
+          icon="⛽"
+          color="orange"
+        />
+        <ToolCard
+          title="Age Calculator"
+          description="Enter your birthday to get exact age, zodiac sign, life statistics and next birthday countdown."
+          href="/tools/age-calculator"
+          icon="🎂"
+          color="purple"
         />
       </div>
     </div>

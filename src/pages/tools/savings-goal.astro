@@ -1,0 +1,304 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Savings Goal Planner',
+  url: 'https://comparekaro.download/tools/savings-goal',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+---
+
+<Layout
+  title="Savings Goal Planner - How Much to Save Monthly"
+  description="Set a financial goal and find out how much you need to save monthly. Compare SIP, FD, and RD options to reach your goal faster."
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-indigo-400">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-white">Savings Goal Planner</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Savings Goal Planner</h1>
+      <p class="text-gray-400 text-lg">Set a financial goal and discover how much to save every month to achieve it.</p>
+    </div>
+
+    <!-- Goal Presets -->
+    <div class="flex flex-wrap gap-2 mb-6">
+      <button class="goal-preset px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300 hover:bg-indigo-500/20 hover:text-indigo-400 transition-colors" data-amount="500000" data-years="2" data-label="Emergency Fund">Emergency Fund (₹5L)</button>
+      <button class="goal-preset px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300 hover:bg-indigo-500/20 hover:text-indigo-400 transition-colors" data-amount="1000000" data-years="3" data-label="Car Down Payment">Car (₹10L)</button>
+      <button class="goal-preset px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300 hover:bg-indigo-500/20 hover:text-indigo-400 transition-colors" data-amount="2500000" data-years="5" data-label="Home Down Payment">Home Down Payment (₹25L)</button>
+      <button class="goal-preset px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300 hover:bg-indigo-500/20 hover:text-indigo-400 transition-colors" data-amount="1500000" data-years="4" data-label="Wedding">Wedding (₹15L)</button>
+      <button class="goal-preset px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300 hover:bg-indigo-500/20 hover:text-indigo-400 transition-colors" data-amount="3000000" data-years="10" data-label="Education">Education (₹30L)</button>
+      <button class="goal-preset px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300 hover:bg-indigo-500/20 hover:text-indigo-400 transition-colors" data-amount="10000000" data-years="20" data-label="Retirement">Retirement (₹1Cr)</button>
+    </div>
+
+    <!-- Calculator -->
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-5">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Goal Amount (₹)</label>
+          <input type="number" id="goalAmount" value="1000000" min="10000" max="100000000" step="10000"
+            class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200 focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Timeline (Years)</label>
+          <input type="number" id="goalYears" value="5" min="1" max="30" step="1"
+            class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200 focus:ring-2 focus:ring-indigo-500" />
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Amount Already Saved (₹)</label>
+          <input type="number" id="currentSavings" value="0" min="0" step="10000"
+            class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200 focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Monthly Income (₹, optional)</label>
+          <input type="number" id="monthlyIncome" value="" placeholder="For % calculation" min="0" step="1000"
+            class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200 focus:ring-2 focus:ring-indigo-500" />
+        </div>
+      </div>
+
+      <button id="calcBtn" class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all cursor-pointer">
+        Plan My Savings
+      </button>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="hidden space-y-6">
+      <!-- Summary -->
+      <div class="glass rounded-2xl p-6 text-center">
+        <p class="text-gray-400 text-sm mb-1">To reach your goal of</p>
+        <p id="goalDisplay" class="text-3xl font-extrabold gradient-text mb-2">₹10,00,000</p>
+        <p id="timelineDisplay" class="text-gray-400">in 5 years</p>
+        <p id="incomePercent" class="text-sm text-gray-500 mt-2 hidden"></p>
+      </div>
+
+      <!-- Investment Options -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <!-- SIP -->
+        <div class="glass rounded-xl p-5 border-t-2 border-emerald-500">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-emerald-400 font-bold text-sm">Equity SIP</span>
+            <span class="text-xs text-gray-600 px-2 py-0.5 bg-white/5 rounded">~12% p.a.</span>
+          </div>
+          <p class="text-xs text-gray-500 mb-1">Monthly SIP Needed</p>
+          <p id="sipMonthly" class="text-2xl font-extrabold text-emerald-400">-</p>
+          <p id="sipTotal" class="text-xs text-gray-500 mt-2">Total invested: -</p>
+          <p id="sipReturns" class="text-xs text-emerald-500">Returns: -</p>
+        </div>
+        <!-- FD -->
+        <div class="glass rounded-xl p-5 border-t-2 border-indigo-500">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-indigo-400 font-bold text-sm">Fixed Deposit</span>
+            <span class="text-xs text-gray-600 px-2 py-0.5 bg-white/5 rounded">~7% p.a.</span>
+          </div>
+          <p class="text-xs text-gray-500 mb-1">Monthly Savings Needed</p>
+          <p id="fdMonthly" class="text-2xl font-extrabold text-indigo-400">-</p>
+          <p id="fdTotal" class="text-xs text-gray-500 mt-2">Total invested: -</p>
+          <p id="fdReturns" class="text-xs text-indigo-500">Returns: -</p>
+        </div>
+        <!-- RD -->
+        <div class="glass rounded-xl p-5 border-t-2 border-pink-500">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-pink-400 font-bold text-sm">Recurring Deposit</span>
+            <span class="text-xs text-gray-600 px-2 py-0.5 bg-white/5 rounded">~6.5% p.a.</span>
+          </div>
+          <p class="text-xs text-gray-500 mb-1">Monthly Deposit Needed</p>
+          <p id="rdMonthly" class="text-2xl font-extrabold text-pink-400">-</p>
+          <p id="rdTotal" class="text-xs text-gray-500 mt-2">Total invested: -</p>
+          <p id="rdReturns" class="text-xs text-pink-500">Returns: -</p>
+        </div>
+      </div>
+
+      <!-- Pure Savings (no interest) -->
+      <div class="glass rounded-xl p-5">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-400 text-sm">Without any investment (just saving)</p>
+            <p class="text-xs text-gray-600">0% returns, under the mattress</p>
+          </div>
+          <p id="pureSavings" class="text-xl font-bold text-gray-300">-</p>
+        </div>
+        <p id="savingsComparison" class="text-xs text-emerald-400 mt-2">-</p>
+      </div>
+
+      <AdUnit />
+
+      <!-- Milestone Timeline -->
+      <div class="glass rounded-2xl p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Milestone Timeline (SIP at 12%)</h3>
+        <div id="milestones" class="space-y-3"></div>
+      </div>
+
+      <!-- Advice -->
+      <div class="glass rounded-xl p-5">
+        <h3 class="font-bold text-white mb-3">Recommended Strategy</h3>
+        <div id="advice" class="text-sm text-gray-400 space-y-2"></div>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-12 glass rounded-2xl p-6 md:p-8">
+      <h2 class="text-xl font-bold text-white mb-3">How It Works</h2>
+      <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
+        <li><strong class="text-gray-300">SIP (Systematic Investment Plan):</strong> Invest monthly in equity mutual funds. Higher risk, higher returns (~12% average over 10+ years). Best for goals 3+ years away.</li>
+        <li><strong class="text-gray-300">FD (Fixed Deposit):</strong> Lump sum or recurring deposits in banks. Low risk, guaranteed returns (~7%). Good for 1-3 year goals.</li>
+        <li><strong class="text-gray-300">RD (Recurring Deposit):</strong> Monthly fixed deposit in a bank. Low risk (~6.5%). Good for short-term goals.</li>
+        <li><strong class="text-gray-300">Hybrid Approach:</strong> Split your savings — put 60% in SIP and 40% in FD/RD for a balance of growth and safety.</li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    const f = id => document.getElementById(id);
+    const fmt = n => '\u20B9' + Math.round(n).toLocaleString('en-IN');
+
+    // Required monthly SIP to reach FV
+    function sipMonthly(fv, rate, years) {
+      const r = rate / 100 / 12;
+      const n = years * 12;
+      if (r === 0) return fv / n;
+      return fv * r / ((Math.pow(1 + r, n) - 1) * (1 + r));
+    }
+
+    // Future value of SIP
+    function sipFV(monthly, rate, years) {
+      const r = rate / 100 / 12;
+      const n = years * 12;
+      if (r === 0) return monthly * n;
+      return monthly * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+    }
+
+    // Future value of lump sum
+    function lumpFV(pv, rate, years) {
+      return pv * Math.pow(1 + rate / 100, years);
+    }
+
+    document.querySelectorAll('.goal-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        f('goalAmount').value = btn.dataset.amount;
+        f('goalYears').value = btn.dataset.years;
+        document.querySelectorAll('.goal-preset').forEach(b => {
+          b.classList.remove('bg-indigo-500/20', 'text-indigo-400');
+          b.classList.add('bg-white/[0.06]', 'text-gray-300');
+        });
+        btn.classList.add('bg-indigo-500/20', 'text-indigo-400');
+        btn.classList.remove('bg-white/[0.06]', 'text-gray-300');
+      });
+    });
+
+    f('calcBtn').addEventListener('click', () => {
+      const goal = parseFloat(f('goalAmount').value) || 0;
+      const years = parseInt(f('goalYears').value) || 1;
+      const current = parseFloat(f('currentSavings').value) || 0;
+      const income = parseFloat(f('monthlyIncome').value) || 0;
+
+      if (goal <= 0) { alert('Enter a valid goal amount'); return; }
+
+      // Future value of current savings growing at respective rates
+      const remaining = {
+        sip: Math.max(0, goal - lumpFV(current, 12, years)),
+        fd: Math.max(0, goal - lumpFV(current, 7, years)),
+        rd: Math.max(0, goal - lumpFV(current, 6.5, years)),
+        pure: Math.max(0, goal - current),
+      };
+
+      const sipM = sipMonthly(remaining.sip, 12, years);
+      const fdM = sipMonthly(remaining.fd, 7, years);
+      const rdM = sipMonthly(remaining.rd, 6.5, years);
+      const pureM = remaining.pure / (years * 12);
+
+      const sipTotalInvested = sipM * years * 12;
+      const fdTotalInvested = fdM * years * 12;
+      const rdTotalInvested = rdM * years * 12;
+
+      f('goalDisplay').textContent = fmt(goal);
+      f('timelineDisplay').textContent = `in ${years} year${years > 1 ? 's' : ''}${current > 0 ? ` (₹${Math.round(current).toLocaleString('en-IN')} already saved)` : ''}`;
+
+      f('sipMonthly').textContent = fmt(sipM);
+      f('sipTotal').textContent = `Total invested: ${fmt(sipTotalInvested + current)}`;
+      f('sipReturns').textContent = `Returns: ${fmt(goal - sipTotalInvested - current)}`;
+
+      f('fdMonthly').textContent = fmt(fdM);
+      f('fdTotal').textContent = `Total invested: ${fmt(fdTotalInvested + current)}`;
+      f('fdReturns').textContent = `Returns: ${fmt(goal - fdTotalInvested - current)}`;
+
+      f('rdMonthly').textContent = fmt(rdM);
+      f('rdTotal').textContent = `Total invested: ${fmt(rdTotalInvested + current)}`;
+      f('rdReturns').textContent = `Returns: ${fmt(goal - rdTotalInvested - current)}`;
+
+      f('pureSavings').textContent = fmt(pureM) + '/mo';
+      const saved = fmt(goal - sipTotalInvested - current);
+      f('savingsComparison').textContent = `SIP saves you ${saved} vs saving without returns`;
+
+      // Income percentage
+      if (income > 0) {
+        const pct = ((sipM / income) * 100).toFixed(1);
+        f('incomePercent').textContent = `That's ${pct}% of your monthly income via SIP`;
+        f('incomePercent').classList.remove('hidden');
+      } else {
+        f('incomePercent').classList.add('hidden');
+      }
+
+      // Milestones
+      const milestones = [0.25, 0.5, 0.75, 1.0];
+      const milestonesHtml = milestones.map(pct => {
+        const target = goal * pct;
+        // Find months to reach this target via SIP
+        let months = 0;
+        let value = current;
+        const r = 12 / 100 / 12;
+        while (value < target && months < years * 12 + 1) {
+          value = value * (1 + r) + sipM;
+          months++;
+        }
+        const yr = Math.floor(months / 12);
+        const mo = months % 12;
+        const timeStr = yr > 0 ? `${yr}y ${mo}m` : `${mo}m`;
+        return `
+          <div class="flex items-center gap-4">
+            <div class="w-16 text-right text-sm font-bold text-indigo-400">${timeStr}</div>
+            <div class="flex-1 h-2 bg-white/[0.06] rounded-full overflow-hidden">
+              <div class="h-full rounded-full bg-gradient-to-r from-indigo-500 to-pink-500" style="width:${pct * 100}%"></div>
+            </div>
+            <div class="text-sm text-white font-medium w-28">${fmt(target)} (${Math.round(pct * 100)}%)</div>
+          </div>
+        `;
+      }).join('');
+      f('milestones').innerHTML = milestonesHtml;
+
+      // Advice
+      const adviceItems = [];
+      if (years <= 2) {
+        adviceItems.push('For short-term goals (1-2 years), prefer FD or RD over equity SIP to avoid market volatility.');
+        adviceItems.push('Consider debt mutual funds or liquid funds for slightly better returns than FD.');
+      } else if (years <= 5) {
+        adviceItems.push('For medium-term goals (3-5 years), a balanced approach works best: 60% equity SIP + 40% debt/FD.');
+        adviceItems.push('Start STP (Systematic Transfer Plan) from equity to debt 1 year before the goal date.');
+      } else {
+        adviceItems.push('For long-term goals (5+ years), equity SIP is your best bet. Stay invested through market cycles.');
+        adviceItems.push('Consider increasing your SIP by 10% each year (step-up SIP) to reach your goal even faster.');
+      }
+      if (income > 0 && sipM > income * 0.3) {
+        adviceItems.push(`The SIP amount is ${((sipM/income)*100).toFixed(0)}% of your income, which is high. Consider extending your timeline or reducing the goal.`);
+      }
+      adviceItems.push('Always maintain 3-6 months of expenses as an emergency fund before investing.');
+
+      f('advice').innerHTML = adviceItems.map(a => `<p>&#8226; ${a}</p>`).join('');
+
+      f('results').classList.remove('hidden');
+      f('results').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</Layout>

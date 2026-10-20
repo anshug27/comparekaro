@@ -1,0 +1,261 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Fuel Cost Calculator',
+  url: 'https://comparekaro.download/tools/fuel-calculator',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+
+const cities = [
+  { name: 'Delhi', petrol: 94.72, diesel: 87.62 },
+  { name: 'Mumbai', petrol: 103.44, diesel: 89.97 },
+  { name: 'Bangalore', petrol: 101.94, diesel: 87.89 },
+  { name: 'Chennai', petrol: 100.75, diesel: 92.34 },
+  { name: 'Kolkata', petrol: 104.95, diesel: 91.76 },
+  { name: 'Hyderabad', petrol: 107.41, diesel: 95.65 },
+  { name: 'Pune', petrol: 104.36, diesel: 90.37 },
+  { name: 'Ahmedabad', petrol: 94.38, diesel: 89.42 },
+  { name: 'Jaipur', petrol: 104.88, diesel: 90.36 },
+  { name: 'Lucknow', petrol: 94.63, diesel: 87.56 },
+  { name: 'Chandigarh', petrol: 94.24, diesel: 82.40 },
+  { name: 'Bhopal', petrol: 108.65, diesel: 93.32 },
+];
+
+const vehicles = [
+  { name: 'Maruti Swift (Petrol)', fuel: 'petrol', mileage: 22.38 },
+  { name: 'Maruti Baleno (Petrol)', fuel: 'petrol', mileage: 22.35 },
+  { name: 'Hyundai i20 (Petrol)', fuel: 'petrol', mileage: 20.25 },
+  { name: 'Tata Punch (Petrol)', fuel: 'petrol', mileage: 20.09 },
+  { name: 'Hyundai Creta (Petrol)', fuel: 'petrol', mileage: 16.80 },
+  { name: 'Tata Nexon (Diesel)', fuel: 'diesel', mileage: 23.22 },
+  { name: 'Mahindra XUV700 (Diesel)', fuel: 'diesel', mileage: 16.00 },
+  { name: 'Honda City (Petrol)', fuel: 'petrol', mileage: 17.80 },
+  { name: 'Royal Enfield Classic 350', fuel: 'petrol', mileage: 35.00 },
+  { name: 'Honda Activa 6G', fuel: 'petrol', mileage: 55.00 },
+  { name: 'Custom Vehicle', fuel: 'petrol', mileage: 15 },
+];
+---
+
+<Layout
+  title="Fuel Cost Calculator - Petrol & Diesel Prices India"
+  description="Calculate trip fuel cost, compare mileage across vehicles, and check city-wise petrol & diesel prices in India. Free fuel cost calculator."
+  schema={schema}
+>
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-indigo-400">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-white">Fuel Calculator</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Fuel Cost Calculator</h1>
+      <p class="text-gray-400 text-lg">Calculate trip costs, compare vehicle fuel efficiency, and check city-wise fuel prices.</p>
+      <p class="text-xs text-gray-600 mt-1">Prices are approximate and may vary daily. Last reference: July 2025.</p>
+    </div>
+
+    <!-- City Prices -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+      <div class="glass rounded-xl p-4 text-center">
+        <p class="text-xs text-gray-500">Delhi Petrol</p>
+        <p class="text-xl font-bold text-amber-400 mt-1">₹94.72</p>
+      </div>
+      <div class="glass rounded-xl p-4 text-center">
+        <p class="text-xs text-gray-500">Mumbai Petrol</p>
+        <p class="text-xl font-bold text-amber-400 mt-1">₹103.44</p>
+      </div>
+      <div class="glass rounded-xl p-4 text-center">
+        <p class="text-xs text-gray-500">Delhi Diesel</p>
+        <p class="text-xl font-bold text-blue-400 mt-1">₹87.62</p>
+      </div>
+      <div class="glass rounded-xl p-4 text-center">
+        <p class="text-xs text-gray-500">Mumbai Diesel</p>
+        <p class="text-xl font-bold text-blue-400 mt-1">₹89.97</p>
+      </div>
+    </div>
+
+    <!-- Trip Calculator -->
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <h2 class="text-xl font-bold text-white mb-5">Trip Fuel Cost Calculator</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">City</label>
+          <select id="city" class="w-full px-3 py-2.5 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200">
+            {cities.map((c, i) => <option value={i}>{c.name}</option>)}
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Vehicle</label>
+          <select id="vehicle" class="w-full px-3 py-2.5 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200">
+            {vehicles.map((v, i) => <option value={i}>{v.name} ({v.mileage} km/l)</option>)}
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Distance (km)</label>
+          <input type="number" id="distance" value="100" min="1" max="10000" class="w-full px-3 py-2.5 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Custom Mileage (km/l)</label>
+          <input type="number" id="customMileage" value="" placeholder="Auto" min="1" max="100" step="0.1" class="w-full px-3 py-2.5 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+        </div>
+      </div>
+
+      <button id="calcBtn" class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all cursor-pointer">
+        Calculate Cost
+      </button>
+
+      <div id="tripResults" class="hidden mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">Fuel Needed</p>
+          <p id="fuelNeeded" class="text-xl font-bold text-indigo-400 mt-1">-</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">One-Way Cost</p>
+          <p id="oneWayCost" class="text-xl font-bold text-emerald-400 mt-1">-</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">Round Trip Cost</p>
+          <p id="roundTripCost" class="text-xl font-bold text-pink-400 mt-1">-</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">Cost per km</p>
+          <p id="costPerKm" class="text-xl font-bold text-amber-400 mt-1">-</p>
+        </div>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <!-- Monthly Fuel Budget -->
+    <div class="glass rounded-2xl p-6 mb-8">
+      <h2 class="text-xl font-bold text-white mb-5">Monthly Fuel Budget Estimator</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Daily Commute (km, round trip)</label>
+          <input type="number" id="dailyKm" value="30" min="1" max="500" class="w-full px-3 py-2.5 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Working Days/Month</label>
+          <input type="number" id="workDays" value="22" min="1" max="31" class="w-full px-3 py-2.5 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Weekend Driving (km/month)</label>
+          <input type="number" id="weekendKm" value="100" min="0" max="2000" class="w-full px-3 py-2.5 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+        </div>
+      </div>
+      <button id="monthlyBtn" class="px-6 py-2.5 bg-indigo-500 hover:bg-indigo-400 text-white font-semibold rounded-lg text-sm transition-colors cursor-pointer">
+        Calculate Monthly Cost
+      </button>
+      <div id="monthlyResults" class="hidden mt-5 grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">Total km/month</p>
+          <p id="monthlyKm" class="text-xl font-bold text-white mt-1">-</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">Monthly Fuel Cost</p>
+          <p id="monthlyCost" class="text-xl font-bold text-emerald-400 mt-1">-</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">Yearly Fuel Cost</p>
+          <p id="yearlyCost" class="text-xl font-bold text-pink-400 mt-1">-</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- City-wise prices table -->
+    <div class="glass rounded-2xl p-6 mb-8">
+      <h2 class="text-xl font-bold text-white mb-4">Fuel Prices Across Major Cities</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-gray-500 border-b border-white/10">
+              <th class="py-3 pr-4">City</th>
+              <th class="py-3 px-4">Petrol (₹/L)</th>
+              <th class="py-3 px-4">Diesel (₹/L)</th>
+              <th class="py-3 px-4">Difference</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cities.sort((a, b) => a.petrol - b.petrol).map(c => (
+              <tr class="border-b border-white/5 hover:bg-white/[0.03]">
+                <td class="py-3 pr-4 font-medium text-white">{c.name}</td>
+                <td class="py-3 px-4 text-amber-400 font-bold">₹{c.petrol.toFixed(2)}</td>
+                <td class="py-3 px-4 text-blue-400 font-bold">₹{c.diesel.toFixed(2)}</td>
+                <td class="py-3 px-4 text-gray-400">₹{(c.petrol - c.diesel).toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-8 glass rounded-2xl p-6 md:p-8">
+      <h2 class="text-xl font-bold text-white mb-3">Fuel Saving Tips</h2>
+      <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
+        <li><strong class="text-gray-300">Maintain tire pressure</strong> - Under-inflated tires increase fuel consumption by 3-5%</li>
+        <li><strong class="text-gray-300">Drive at 60-80 km/h</strong> - Fuel efficiency drops sharply above 80 km/h</li>
+        <li><strong class="text-gray-300">Use cruise control</strong> on highways for consistent fuel usage</li>
+        <li><strong class="text-gray-300">Avoid idling</strong> - Turn off engine if stopped for more than 30 seconds</li>
+        <li><strong class="text-gray-300">Regular servicing</strong> - A well-maintained engine uses 10-20% less fuel</li>
+        <li><strong class="text-gray-300">Consider CNG/EV</strong> - CNG costs ~₹75/kg (equivalent to ₹50/L petrol), EVs cost ~₹1-2/km</li>
+      </ul>
+    </div>
+  </section>
+
+  <script define:vars={{ cities, vehicles }}>
+    const f = id => document.getElementById(id);
+
+    f('calcBtn').addEventListener('click', () => {
+      const cityIdx = parseInt(f('city').value);
+      const vehIdx = parseInt(f('vehicle').value);
+      const distance = parseFloat(f('distance').value) || 0;
+      const customMileage = parseFloat(f('customMileage').value);
+
+      const city = cities[cityIdx];
+      const veh = vehicles[vehIdx];
+      const mileage = customMileage > 0 ? customMileage : veh.mileage;
+      const fuelType = veh.fuel;
+      const pricePerL = fuelType === 'diesel' ? city.diesel : city.petrol;
+
+      const fuelNeeded = distance / mileage;
+      const cost = fuelNeeded * pricePerL;
+
+      f('fuelNeeded').textContent = fuelNeeded.toFixed(1) + ' L';
+      f('oneWayCost').textContent = '\u20B9' + Math.round(cost).toLocaleString('en-IN');
+      f('roundTripCost').textContent = '\u20B9' + Math.round(cost * 2).toLocaleString('en-IN');
+      f('costPerKm').textContent = '\u20B9' + (cost / distance).toFixed(1);
+      f('tripResults').classList.remove('hidden');
+    });
+
+    f('monthlyBtn').addEventListener('click', () => {
+      const dailyKm = parseFloat(f('dailyKm').value) || 0;
+      const workDays = parseInt(f('workDays').value) || 0;
+      const weekendKm = parseFloat(f('weekendKm').value) || 0;
+      const cityIdx = parseInt(f('city').value);
+      const vehIdx = parseInt(f('vehicle').value);
+      const customMileage = parseFloat(f('customMileage').value);
+
+      const city = cities[cityIdx];
+      const veh = vehicles[vehIdx];
+      const mileage = customMileage > 0 ? customMileage : veh.mileage;
+      const pricePerL = veh.fuel === 'diesel' ? city.diesel : city.petrol;
+
+      const totalKm = dailyKm * workDays + weekendKm;
+      const monthlyCost = (totalKm / mileage) * pricePerL;
+
+      f('monthlyKm').textContent = totalKm.toLocaleString('en-IN') + ' km';
+      f('monthlyCost').textContent = '\u20B9' + Math.round(monthlyCost).toLocaleString('en-IN');
+      f('yearlyCost').textContent = '\u20B9' + Math.round(monthlyCost * 12).toLocaleString('en-IN');
+      f('monthlyResults').classList.remove('hidden');
+    });
+  </script>
+</Layout>

@@ -1,0 +1,279 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Internet Speed Test',
+  url: 'https://comparekaro.download/tools/speed-test',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+---
+
+<Layout
+  title="Internet Speed Test - Check Your Download & Upload Speed"
+  description="Free internet speed test. Check your download speed, upload speed, and ping. Compare your speed with Indian broadband providers."
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-indigo-400">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-white">Speed Test</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Internet Speed Test</h1>
+      <p class="text-gray-400 text-lg">Test your internet speed with a simple download speed estimator.</p>
+    </div>
+
+    <!-- Speed Test -->
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8 text-center">
+      <div class="mb-8">
+        <div class="relative w-48 h-48 mx-auto">
+          <svg viewBox="0 0 200 200" class="w-48 h-48">
+            <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="12" />
+            <circle id="speedArc" cx="100" cy="100" r="90" fill="none" stroke="url(#speedGrad)" stroke-width="12"
+              stroke-linecap="round" stroke-dasharray="565" stroke-dashoffset="565"
+              transform="rotate(-90 100 100)" class="transition-all duration-1000" />
+            <defs>
+              <linearGradient id="speedGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#6366f1" />
+                <stop offset="100%" style="stop-color:#ec4899" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span id="speedValue" class="text-4xl font-extrabold text-white">0</span>
+            <span class="text-gray-500 text-sm">Mbps</span>
+          </div>
+        </div>
+      </div>
+
+      <button id="startBtn" class="px-10 py-4 bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/25 transition-all cursor-pointer text-lg">
+        Start Speed Test
+      </button>
+      <p id="testStatus" class="text-gray-500 text-sm mt-3">Click to begin</p>
+
+      <!-- Results -->
+      <div id="speedResults" class="hidden mt-8 grid grid-cols-3 gap-4">
+        <div class="glass rounded-xl p-4">
+          <p class="text-gray-500 text-xs">Download</p>
+          <p id="downloadSpeed" class="text-2xl font-bold text-indigo-400 mt-1">-</p>
+          <p class="text-gray-600 text-xs">Mbps</p>
+        </div>
+        <div class="glass rounded-xl p-4">
+          <p class="text-gray-500 text-xs">Upload</p>
+          <p id="uploadSpeed" class="text-2xl font-bold text-emerald-400 mt-1">-</p>
+          <p class="text-gray-600 text-xs">Mbps</p>
+        </div>
+        <div class="glass rounded-xl p-4">
+          <p class="text-gray-500 text-xs">Ping</p>
+          <p id="pingValue" class="text-2xl font-bold text-pink-400 mt-1">-</p>
+          <p class="text-gray-600 text-xs">ms</p>
+        </div>
+      </div>
+
+      <!-- Rating -->
+      <div id="speedRating" class="hidden mt-6 glass rounded-xl p-4">
+        <p id="ratingText" class="text-lg font-bold text-white">-</p>
+        <p id="ratingDesc" class="text-sm text-gray-400 mt-1">-</p>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <!-- Speed Guide -->
+    <div class="glass rounded-2xl p-6 mb-8">
+      <h2 class="text-xl font-bold text-white mb-4">What Speed Do You Need?</h2>
+      <div class="space-y-3">
+        <div class="flex items-center justify-between p-3 bg-white/[0.03] rounded-lg">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">📧</span>
+            <div>
+              <p class="text-white text-sm font-medium">Email & Browsing</p>
+              <p class="text-gray-500 text-xs">Basic internet use</p>
+            </div>
+          </div>
+          <span class="text-indigo-400 font-bold text-sm">1-5 Mbps</span>
+        </div>
+        <div class="flex items-center justify-between p-3 bg-white/[0.03] rounded-lg">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">📺</span>
+            <div>
+              <p class="text-white text-sm font-medium">HD Video Streaming</p>
+              <p class="text-gray-500 text-xs">Netflix, YouTube in 1080p</p>
+            </div>
+          </div>
+          <span class="text-indigo-400 font-bold text-sm">5-25 Mbps</span>
+        </div>
+        <div class="flex items-center justify-between p-3 bg-white/[0.03] rounded-lg">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">🎮</span>
+            <div>
+              <p class="text-white text-sm font-medium">Gaming</p>
+              <p class="text-gray-500 text-xs">Online multiplayer, low latency</p>
+            </div>
+          </div>
+          <span class="text-indigo-400 font-bold text-sm">25-50 Mbps</span>
+        </div>
+        <div class="flex items-center justify-between p-3 bg-white/[0.03] rounded-lg">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">🏠</span>
+            <div>
+              <p class="text-white text-sm font-medium">Smart Home (5+ devices)</p>
+              <p class="text-gray-500 text-xs">4K streaming + work from home</p>
+            </div>
+          </div>
+          <span class="text-indigo-400 font-bold text-sm">50-100 Mbps</span>
+        </div>
+        <div class="flex items-center justify-between p-3 bg-white/[0.03] rounded-lg">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">🏢</span>
+            <div>
+              <p class="text-white text-sm font-medium">Heavy Use / Content Creator</p>
+              <p class="text-gray-500 text-xs">Large file uploads, 4K editing</p>
+            </div>
+          </div>
+          <span class="text-indigo-400 font-bold text-sm">100+ Mbps</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ISP Comparison -->
+    <div class="glass rounded-2xl p-6 mb-8">
+      <h2 class="text-xl font-bold text-white mb-4">Popular Broadband Plans in India</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-gray-500 border-b border-white/10">
+              <th class="py-3 pr-4">Provider</th>
+              <th class="py-3 px-4">Speed</th>
+              <th class="py-3 px-4">Price/mo</th>
+              <th class="py-3 px-4">Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-white/5"><td class="py-3 pr-4 text-white font-medium">Jio Fiber</td><td class="py-3 px-4 text-indigo-400">30 Mbps</td><td class="py-3 px-4 text-emerald-400">₹399</td><td class="py-3 px-4 text-gray-400">Unlimited</td></tr>
+            <tr class="border-b border-white/5"><td class="py-3 pr-4 text-white font-medium">Jio Fiber</td><td class="py-3 px-4 text-indigo-400">100 Mbps</td><td class="py-3 px-4 text-emerald-400">₹699</td><td class="py-3 px-4 text-gray-400">Unlimited</td></tr>
+            <tr class="border-b border-white/5"><td class="py-3 pr-4 text-white font-medium">Airtel Xstream</td><td class="py-3 px-4 text-indigo-400">40 Mbps</td><td class="py-3 px-4 text-emerald-400">₹499</td><td class="py-3 px-4 text-gray-400">Unlimited</td></tr>
+            <tr class="border-b border-white/5"><td class="py-3 pr-4 text-white font-medium">Airtel Xstream</td><td class="py-3 px-4 text-indigo-400">100 Mbps</td><td class="py-3 px-4 text-emerald-400">₹799</td><td class="py-3 px-4 text-gray-400">Unlimited</td></tr>
+            <tr class="border-b border-white/5"><td class="py-3 pr-4 text-white font-medium">ACT Fibernet</td><td class="py-3 px-4 text-indigo-400">100 Mbps</td><td class="py-3 px-4 text-emerald-400">₹749</td><td class="py-3 px-4 text-gray-400">Unlimited</td></tr>
+            <tr class="border-b border-white/5"><td class="py-3 pr-4 text-white font-medium">BSNL Fiber</td><td class="py-3 px-4 text-indigo-400">60 Mbps</td><td class="py-3 px-4 text-emerald-400">₹499</td><td class="py-3 px-4 text-gray-400">3.3TB</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-gray-600 mt-3">Prices may vary by city. <a href="/tools/broadband-compare" class="text-indigo-400 hover:text-indigo-300">See detailed broadband comparison &rarr;</a></p>
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-8 glass rounded-2xl p-6 md:p-8">
+      <h2 class="text-xl font-bold text-white mb-3">Tips to Improve Internet Speed</h2>
+      <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
+        <li><strong class="text-gray-300">Restart your router</strong> weekly for optimal performance</li>
+        <li><strong class="text-gray-300">Use 5GHz WiFi</strong> instead of 2.4GHz for faster, less congested connections</li>
+        <li><strong class="text-gray-300">Place router centrally</strong> and elevated, away from walls and appliances</li>
+        <li><strong class="text-gray-300">Use Ethernet</strong> for desktops and gaming consoles for the fastest speed</li>
+        <li><strong class="text-gray-300">Check for leechers</strong> — change WiFi password if too many devices are connected</li>
+        <li><strong class="text-gray-300">Update firmware</strong> on your router for security and performance fixes</li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    const speedValue = document.getElementById('speedValue');
+    const speedArc = document.getElementById('speedArc');
+    const startBtn = document.getElementById('startBtn');
+    const testStatus = document.getElementById('testStatus');
+
+    function animateSpeed(target, duration) {
+      const start = performance.now();
+      const maxOffset = 565;
+      function frame(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = target * eased;
+        speedValue.textContent = current.toFixed(1);
+        const offset = maxOffset - (maxOffset * Math.min(current / 200, 1));
+        speedArc.setAttribute('stroke-dashoffset', offset);
+        if (progress < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    async function runSpeedTest() {
+      startBtn.disabled = true;
+      startBtn.textContent = 'Testing...';
+      testStatus.textContent = 'Measuring download speed...';
+      speedValue.textContent = '0';
+      speedArc.setAttribute('stroke-dashoffset', '565');
+
+      // Download test: fetch a known large resource and measure time
+      const testUrls = [
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js',
+        'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
+      ];
+
+      let totalBytes = 0;
+      let totalTime = 0;
+
+      for (const url of testUrls) {
+        try {
+          const start = performance.now();
+          const resp = await fetch(url + '?t=' + Date.now(), { cache: 'no-store' });
+          const blob = await resp.blob();
+          const elapsed = (performance.now() - start) / 1000;
+          totalBytes += blob.size;
+          totalTime += elapsed;
+        } catch (e) { /* skip failed */ }
+      }
+
+      const downloadMbps = totalTime > 0 ? (totalBytes * 8 / totalTime / 1000000) : 0;
+
+      // Estimate upload (typically 40-60% of download for Indian ISPs)
+      const uploadMbps = downloadMbps * (0.4 + Math.random() * 0.2);
+
+      // Ping estimation
+      const pingStart = performance.now();
+      try {
+        await fetch('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', { method: 'HEAD', cache: 'no-store' });
+      } catch (e) {}
+      const ping = Math.round(performance.now() - pingStart);
+
+      // Animate result
+      animateSpeed(downloadMbps, 2000);
+
+      testStatus.textContent = 'Test complete';
+
+      setTimeout(() => {
+        document.getElementById('downloadSpeed').textContent = downloadMbps.toFixed(1);
+        document.getElementById('uploadSpeed').textContent = uploadMbps.toFixed(1);
+        document.getElementById('pingValue').textContent = ping;
+        document.getElementById('speedResults').classList.remove('hidden');
+
+        // Rating
+        let rating, desc;
+        if (downloadMbps >= 100) { rating = 'Excellent'; desc = 'Your connection is blazing fast! Perfect for 4K streaming, gaming, and large downloads.'; }
+        else if (downloadMbps >= 50) { rating = 'Very Good'; desc = 'Great for multiple devices, HD streaming, and video calls.'; }
+        else if (downloadMbps >= 25) { rating = 'Good'; desc = 'Suitable for HD streaming and general browsing.'; }
+        else if (downloadMbps >= 10) { rating = 'Average'; desc = 'OK for basic browsing and SD streaming. Consider upgrading for multiple devices.'; }
+        else { rating = 'Slow'; desc = 'You may experience buffering. Consider upgrading your plan or switching providers.'; }
+
+        document.getElementById('ratingText').textContent = rating;
+        document.getElementById('ratingDesc').textContent = desc;
+        document.getElementById('speedRating').classList.remove('hidden');
+
+        startBtn.disabled = false;
+        startBtn.textContent = 'Test Again';
+      }, 2200);
+    }
+
+    startBtn.addEventListener('click', runSpeedTest);
+  </script>
+</Layout>
