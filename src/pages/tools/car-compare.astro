@@ -132,17 +132,23 @@ function formatPrice(p: number) {
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="carGrid">
         {cars.sort((a, b) => a.priceMin - b.priceMin).map(c => (
           <div class="car-card bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow" data-brand={c.brand} data-seg={c.segment}>
-            <div class="flex justify-between items-start mb-2">
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="text-xs text-gray-400 font-medium">{c.brand}</span>
-                  <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">{segmentLabels[c.segment]}</span>
-                </div>
-                <h3 class="font-semibold text-gray-900 mt-1">{c.name}</h3>
+            <div class="flex gap-4 items-start mb-2">
+              <div class="shrink-0 w-16 h-16 rounded-xl bg-gray-100 flex items-center justify-center">
+                {c.image
+                  ? <img src={c.image} alt={c.name} class="w-full h-full object-contain rounded-xl" loading="lazy" />
+                  : <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 17h.01M16 17h.01M3 11l1.5-5A2 2 0 016.4 4h11.2a2 2 0 011.9 1.5L21 11M3 11v5a1 1 0 001 1h1a2 2 0 002-2 2 2 0 012-2h6a2 2 0 012 2 2 2 0 002 2h1a1 1 0 001-1v-5M3 11h18"/></svg>
+                }
               </div>
-              <div class="text-right">
-                <span class="text-blue-600 font-bold text-sm">&#8377;{formatPrice(c.priceMin)}</span>
-                <p class="text-[10px] text-gray-400">onwards</p>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] uppercase tracking-wider text-blue-600 font-bold">{c.brand}</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-medium">{segmentLabels[c.segment]}</span>
+                </div>
+                <h3 class="font-bold text-gray-900 mt-0.5">{c.name}</h3>
+                <div>
+                  <span class="text-blue-600 font-extrabold text-sm">&#8377;{formatPrice(c.priceMin)}</span>
+                  <span class="text-[10px] text-gray-400 ml-1">onwards</span>
+                </div>
               </div>
             </div>
             <div class="grid grid-cols-2 gap-x-4 gap-y-1 mt-3 text-xs text-gray-500">

@@ -124,6 +124,7 @@ const schema = {
       <div class="grid grid-cols-3 bg-gray-50 border-b border-gray-200">
         <div class="p-4 font-semibold text-gray-600 text-sm flex items-center">Specification</div>
         <div class="p-4 text-center">
+          {p1.image && <img src={p1.image} alt={p1.name} class="w-20 h-20 object-contain mx-auto mb-2" loading="lazy" />}
           <div class="font-bold text-blue-700 mb-2">{p1.name}</div>
           <div class="flex flex-col gap-1.5 mt-2">
             {p1.amazonPrice > 0 && (
@@ -144,6 +145,7 @@ const schema = {
           </div>
         </div>
         <div class="p-4 text-center">
+          {p2.image && <img src={p2.image} alt={p2.name} class="w-20 h-20 object-contain mx-auto mb-2" loading="lazy" />}
           <div class="font-bold text-green-700 mb-2">{p2.name}</div>
           <div class="flex flex-col gap-1.5 mt-2">
             {p2.amazonPrice > 0 && (

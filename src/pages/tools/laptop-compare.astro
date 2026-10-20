@@ -189,15 +189,21 @@ const categoryLabels: Record<string, string> = {
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="laptopGrid">
         {laptopList.sort((a, b) => a.price - b.price).map(l => (
           <div class="laptop-card bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow" data-brand={l.brand} data-cat={l.category}>
-            <div class="flex justify-between items-start mb-2">
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="text-xs text-gray-400 font-medium">{l.brand}</span>
-                  <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">{categoryLabels[l.category]}</span>
-                </div>
-                <h3 class="font-semibold text-gray-900 mt-1">{l.name}</h3>
+            <div class="flex gap-4 items-start mb-2">
+              <div class="shrink-0 w-16 h-16 rounded-xl bg-gray-100 flex items-center justify-center">
+                {l.image
+                  ? <img src={l.image} alt={l.name} class="w-full h-full object-contain rounded-xl" loading="lazy" />
+                  : <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                }
               </div>
-              <span class="text-blue-600 font-bold text-sm">&#8377;{l.price.toLocaleString('en-IN')}</span>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] uppercase tracking-wider text-blue-600 font-bold">{l.brand}</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-medium">{categoryLabels[l.category]}</span>
+                </div>
+                <h3 class="font-bold text-gray-900 mt-0.5">{l.name}</h3>
+                <span class="text-blue-600 font-extrabold text-sm">&#8377;{l.price.toLocaleString('en-IN')}</span>
+              </div>
             </div>
             <div class="grid grid-cols-2 gap-x-4 gap-y-1 mt-3 text-xs text-gray-500">
               <p><span class="text-gray-400">CPU:</span> {l.processor}</p>
@@ -223,12 +229,18 @@ const categoryLabels: Record<string, string> = {
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {tabletList.sort((a, b) => a.price - b.price).map(l => (
           <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
-            <div class="flex justify-between items-start mb-2">
-              <div>
-                <span class="text-xs text-gray-400 font-medium">{l.brand}</span>
-                <h3 class="font-semibold text-gray-900 mt-1">{l.name}</h3>
+            <div class="flex gap-4 items-start mb-2">
+              <div class="shrink-0 w-16 h-16 rounded-xl bg-gray-100 flex items-center justify-center">
+                {l.image
+                  ? <img src={l.image} alt={l.name} class="w-full h-full object-contain rounded-xl" loading="lazy" />
+                  : <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                }
               </div>
-              <span class="text-blue-600 font-bold text-sm">&#8377;{l.price.toLocaleString('en-IN')}</span>
+              <div class="flex-1 min-w-0">
+                <span class="text-[11px] uppercase tracking-wider text-blue-600 font-bold">{l.brand}</span>
+                <h3 class="font-bold text-gray-900 mt-0.5">{l.name}</h3>
+                <span class="text-blue-600 font-extrabold text-sm">&#8377;{l.price.toLocaleString('en-IN')}</span>
+              </div>
             </div>
             <div class="grid grid-cols-2 gap-x-4 gap-y-1 mt-3 text-xs text-gray-500">
               <p><span class="text-gray-400">CPU:</span> {l.processor}</p>

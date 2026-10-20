@@ -268,6 +268,7 @@ function parsePhoneSpecs(html, url) {
     os,
     has5G,
     weight,
+    image,
     rating: 0, // We don't scrape ratings
   };
 }
@@ -299,6 +300,7 @@ export interface Phone {
   os: string;
   has5G: boolean;
   weight: string;
+  image: string;
   rating: number;
 }
 
@@ -313,7 +315,7 @@ export const phones: Phone[] = [
     display: '${esc(p.display)}', displaySize: '${esc(p.displaySize)}', processor: '${esc(p.processor)}',
     ram: '${esc(p.ram)}', storage: '${esc(p.storage)}', mainCamera: '${esc(p.mainCamera)}', selfieCamera: '${esc(p.selfieCamera)}',
     battery: '${esc(p.battery)}', charging: '${esc(p.charging)}', os: '${esc(p.os)}',
-    has5G: ${p.has5G}, weight: '${esc(p.weight)}', rating: ${p.rating},
+    has5G: ${p.has5G}, weight: '${esc(p.weight)}', image: '${esc(p.image || '')}', rating: ${p.rating},
   },
 `;
   }
