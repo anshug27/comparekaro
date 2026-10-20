@@ -1,0 +1,206 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Discount Calculator',
+  url: 'https://comparekaro.download/tools/discount-calculator',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+---
+
+<Layout
+  title="Discount Calculator - Calculate Sale Price, Savings & Compare Deals"
+  description="Free discount calculator. Calculate final price after discount, compare two deals, figure out the discount percentage, and find the better offer."
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-indigo-400">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-white">Discount Calculator</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Discount Calculator</h1>
+      <p class="text-gray-400 text-lg">Calculate discounts, compare deals, and find the real savings.</p>
+    </div>
+
+    <!-- Mode tabs -->
+    <div class="flex gap-2 mb-6">
+      <button class="mode-tab px-5 py-2 rounded-full text-sm font-medium bg-indigo-500 text-white" data-mode="calc">Calculate Discount</button>
+      <button class="mode-tab px-5 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-mode="compare">Compare Deals</button>
+      <button class="mode-tab px-5 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-mode="find">Find Discount %</button>
+    </div>
+
+    <!-- Calculate Discount -->
+    <div id="mode-calc" class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Original Price (₹)</label>
+          <input type="number" id="origPrice" value="5000" min="0" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200 focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Discount (%)</label>
+          <input type="number" id="discPct" value="20" min="0" max="100" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200 focus:ring-2 focus:ring-indigo-500" />
+          <input type="range" id="discSlider" min="0" max="80" value="20" class="w-full mt-2 accent-indigo-500" />
+        </div>
+      </div>
+      <div class="mb-5">
+        <label class="block text-sm font-medium text-gray-300 mb-2">Additional Coupon (₹, optional)</label>
+        <input type="number" id="coupon" value="0" min="0" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200" />
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">You Save</p>
+          <p id="savings" class="text-xl font-bold text-emerald-400 mt-1">₹1,000</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center border border-emerald-500/30">
+          <p class="text-xs text-gray-500">Final Price</p>
+          <p id="finalPrice" class="text-xl font-bold text-white mt-1">₹4,000</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">Effective Discount</p>
+          <p id="effDisc" class="text-xl font-bold text-indigo-400 mt-1">20%</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">Per ₹100</p>
+          <p id="per100" class="text-xl font-bold text-pink-400 mt-1">₹80</p>
+        </div>
+      </div>
+
+      <!-- Quick discount buttons -->
+      <div class="mt-5 flex flex-wrap gap-2">
+        <p class="text-xs text-gray-500 w-full mb-1">Quick:</p>
+        {[10, 15, 20, 25, 30, 40, 50, 60, 70].map(d => (
+          <button class="quick-disc px-3 py-1.5 rounded-lg bg-white/[0.04] text-gray-400 text-xs font-medium hover:bg-indigo-500/20 hover:text-indigo-400 transition-all cursor-pointer" data-disc={d}>{d}%</button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Compare Deals -->
+    <div id="mode-compare" class="hidden glass rounded-2xl p-6 md:p-8 mb-8">
+      <h3 class="font-bold text-white mb-4">Which deal is better?</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-5">
+        <div class="glass rounded-xl p-4">
+          <h4 class="text-indigo-400 font-bold text-sm mb-3">Deal A</h4>
+          <div class="space-y-3">
+            <div><label class="block text-xs text-gray-500 mb-1">Original Price (₹)</label><input type="number" id="dealA_price" value="2999" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" /></div>
+            <div><label class="block text-xs text-gray-500 mb-1">Discount (%)</label><input type="number" id="dealA_disc" value="30" min="0" max="100" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" /></div>
+          </div>
+        </div>
+        <div class="glass rounded-xl p-4">
+          <h4 class="text-pink-400 font-bold text-sm mb-3">Deal B</h4>
+          <div class="space-y-3">
+            <div><label class="block text-xs text-gray-500 mb-1">Original Price (₹)</label><input type="number" id="dealB_price" value="3499" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" /></div>
+            <div><label class="block text-xs text-gray-500 mb-1">Discount (%)</label><input type="number" id="dealB_disc" value="40" min="0" max="100" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" /></div>
+          </div>
+        </div>
+      </div>
+      <button id="compareBtn" class="w-full px-6 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer">Compare Deals</button>
+      <div id="compareResult" class="hidden mt-5 glass rounded-xl p-5 text-center">
+        <p id="compareText" class="text-lg font-bold text-white">-</p>
+        <p id="compareSub" class="text-sm text-gray-400 mt-1">-</p>
+      </div>
+    </div>
+
+    <!-- Find Discount % -->
+    <div id="mode-find" class="hidden glass rounded-2xl p-6 md:p-8 mb-8">
+      <h3 class="font-bold text-white mb-4">What discount % was applied?</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+        <div><label class="block text-sm font-medium text-gray-300 mb-2">Original Price (₹)</label><input type="number" id="findOrig" value="4999" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200" /></div>
+        <div><label class="block text-sm font-medium text-gray-300 mb-2">Sale Price (₹)</label><input type="number" id="findSale" value="3499" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200" /></div>
+      </div>
+      <button id="findBtn" class="w-full px-6 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer">Calculate</button>
+      <div id="findResult" class="hidden mt-5 glass rounded-xl p-5 text-center">
+        <p class="text-gray-400 text-sm">Discount Applied</p>
+        <p id="findPct" class="text-4xl font-extrabold text-emerald-400 mt-1">-</p>
+        <p id="findSaved" class="text-sm text-gray-400 mt-2">-</p>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-xl font-bold text-white mb-3">Shopping Tips</h2>
+      <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
+        <li><strong class="text-gray-300">Double discounts:</strong> If a store offers 20% + 10% off, the total discount is 28%, not 30%. The second discount applies to the already-reduced price.</li>
+        <li><strong class="text-gray-300">MRP vs selling price:</strong> Compare the final price, not the discount %. A 50% off on MRP ₹2000 (₹1000) is worse than 30% off on MRP ₹1200 (₹840).</li>
+        <li><strong class="text-gray-300">Bank offers:</strong> 10% instant discount on credit cards is real savings — use it when available.</li>
+        <li><strong class="text-gray-300">Price tracking:</strong> Check if the MRP was inflated before the sale. Use price history tools for Amazon/Flipkart.</li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    const f = id => document.getElementById(id);
+    const fmt = n => '\u20B9' + Math.round(n).toLocaleString('en-IN');
+
+    // Mode tabs
+    document.querySelectorAll('.mode-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.mode-tab').forEach(t => { t.classList.remove('bg-indigo-500', 'text-white'); t.classList.add('bg-white/[0.06]', 'text-gray-300'); });
+        tab.classList.add('bg-indigo-500', 'text-white'); tab.classList.remove('bg-white/[0.06]', 'text-gray-300');
+        document.querySelectorAll('[id^="mode-"]').forEach(m => m.classList.add('hidden'));
+        f('mode-' + tab.dataset.mode).classList.remove('hidden');
+      });
+    });
+
+    // Calculate discount
+    function calcDiscount() {
+      const price = parseFloat(f('origPrice').value) || 0;
+      const disc = parseFloat(f('discPct').value) || 0;
+      const coupon = parseFloat(f('coupon').value) || 0;
+      const discAmt = price * disc / 100;
+      const final = Math.max(0, price - discAmt - coupon);
+      const totalSaved = price - final;
+      const effPct = price > 0 ? (totalSaved / price * 100) : 0;
+      f('savings').textContent = fmt(totalSaved);
+      f('finalPrice').textContent = fmt(final);
+      f('effDisc').textContent = effPct.toFixed(1) + '%';
+      f('per100').textContent = fmt(final / price * 100);
+    }
+    f('origPrice').addEventListener('input', calcDiscount);
+    f('discPct').addEventListener('input', e => { f('discSlider').value = e.target.value; calcDiscount(); });
+    f('discSlider').addEventListener('input', e => { f('discPct').value = e.target.value; calcDiscount(); });
+    f('coupon').addEventListener('input', calcDiscount);
+    document.querySelectorAll('.quick-disc').forEach(btn => {
+      btn.addEventListener('click', () => { f('discPct').value = btn.dataset.disc; f('discSlider').value = btn.dataset.disc; calcDiscount(); });
+    });
+    calcDiscount();
+
+    // Compare deals
+    f('compareBtn').addEventListener('click', () => {
+      const a = (parseFloat(f('dealA_price').value) || 0) * (1 - (parseFloat(f('dealA_disc').value) || 0) / 100);
+      const b = (parseFloat(f('dealB_price').value) || 0) * (1 - (parseFloat(f('dealB_disc').value) || 0) / 100);
+      const diff = Math.abs(a - b);
+      if (a < b) {
+        f('compareText').textContent = `Deal A is cheaper by ${fmt(diff)}`;
+        f('compareSub').textContent = `Deal A: ${fmt(a)} vs Deal B: ${fmt(b)}`;
+      } else if (b < a) {
+        f('compareText').textContent = `Deal B is cheaper by ${fmt(diff)}`;
+        f('compareSub').textContent = `Deal A: ${fmt(a)} vs Deal B: ${fmt(b)}`;
+      } else {
+        f('compareText').textContent = 'Both deals cost the same!';
+        f('compareSub').textContent = `Both: ${fmt(a)}`;
+      }
+      f('compareResult').classList.remove('hidden');
+    });
+
+    // Find discount %
+    f('findBtn').addEventListener('click', () => {
+      const orig = parseFloat(f('findOrig').value) || 0;
+      const sale = parseFloat(f('findSale').value) || 0;
+      const pct = orig > 0 ? ((orig - sale) / orig * 100) : 0;
+      f('findPct').textContent = pct.toFixed(1) + '%';
+      f('findSaved').textContent = `You saved ${fmt(orig - sale)} on ${fmt(orig)}`;
+      f('findResult').classList.remove('hidden');
+    });
+  </script>
+</Layout>

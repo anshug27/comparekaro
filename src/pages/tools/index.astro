@@ -14,7 +14,7 @@ import AdUnit from '../../components/AdUnit.astro';
       <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">Free Tools</h1>
       <p class="text-lg text-gray-500 max-w-2xl mb-8">All calculations run in your browser. No sign-ups, no data collection.</p>
       <div class="flex flex-wrap gap-2">
-        {[['finance', '💰 Finance'], ['telecom', '📱 Telecom'], ['devices', '💻 Devices'], ['loans', '🏦 Loans'], ['lifestyle', '🏡 Lifestyle & Utilities']].map(([id, label]) => (
+        {[['finance', '💰 Finance'], ['telecom', '📱 Telecom'], ['devices', '💻 Devices'], ['loans', '🏦 Loans'], ['lifestyle', '🏡 Lifestyle'], ['utilities', '🛠️ Utilities']].map(([id, label]) => (
           <a href={`#${id}`} class="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-sm font-semibold text-gray-300 hover:border-blue-300 hover:text-indigo-400 hover:shadow-lg shadow-black/10 transition-all">{label}</a>
         ))}
       </div>
@@ -70,6 +70,20 @@ import AdUnit from '../../components/AdUnit.astro';
           href="/tools/savings-goal"
           icon="🎯"
           color="green"
+        />
+        <ToolCard
+          title="GST Calculator"
+          description="Add or remove GST at 5%, 12%, 18%, 28%. See CGST, SGST/IGST breakdown instantly."
+          href="/tools/gst-calculator"
+          icon="🧾"
+          color="blue"
+        />
+        <ToolCard
+          title="Currency Converter"
+          description="Convert INR to USD, EUR, GBP, AED, SGD and 15+ currencies with reference rates."
+          href="/tools/currency-converter"
+          icon="💱"
+          color="teal"
         />
       </div>
     </div>
@@ -195,9 +209,46 @@ import AdUnit from '../../components/AdUnit.astro';
           icon="🎂"
           color="purple"
         />
+        <ToolCard
+          title="BMI Calculator"
+          description="Check your body mass index, ideal weight, daily calorie needs. Uses Asian BMI standards."
+          href="/tools/bmi-calculator"
+          icon="🏋️"
+          color="green"
+        />
       </div>
     </div>
 
     <AdUnit />
+
+    <!-- Everyday Utilities -->
+    <div id="utilities" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-extrabold text-white mb-6 flex items-center gap-3 scroll-mt-24">
+        <span class="text-3xl">🛠️</span> Everyday Utilities
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ToolCard
+          title="Unit Converter"
+          description="Convert length, weight, temperature, area, speed, volume, and data storage units instantly."
+          href="/tools/unit-converter"
+          icon="📐"
+          color="blue"
+        />
+        <ToolCard
+          title="Discount Calculator"
+          description="Calculate sale price after discount, compare two deals, find the discount percentage."
+          href="/tools/discount-calculator"
+          icon="🏷️"
+          color="red"
+        />
+        <ToolCard
+          title="Password Generator"
+          description="Generate strong, random passwords. Check password strength. Everything runs locally."
+          href="/tools/password-generator"
+          icon="🔐"
+          color="purple"
+        />
+      </div>
+    </div>
   </section>
 </Layout>

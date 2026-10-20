@@ -1,0 +1,155 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Currency Converter',
+  url: 'https://comparekaro.download/tools/currency-converter',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+---
+
+<Layout
+  title="Currency Converter - INR to USD, EUR, GBP & More"
+  description="Free currency converter with reference exchange rates. Convert INR to USD, EUR, GBP, AED, SGD, JPY and 15+ currencies. Reference rates updated periodically."
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-indigo-400">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-white">Currency Converter</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Currency Converter</h1>
+      <p class="text-gray-400 text-lg">Convert between INR and 15+ world currencies with reference rates.</p>
+    </div>
+
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-5 gap-4 items-end mb-6">
+        <div class="sm:col-span-2">
+          <label class="block text-sm font-medium text-gray-300 mb-2">Amount</label>
+          <input type="number" id="amount" value="1000" min="0" step="1" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-xl text-gray-200 focus:ring-2 focus:ring-indigo-500 mb-2" />
+          <select id="fromCur" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200"></select>
+        </div>
+        <div class="flex justify-center py-2">
+          <button id="swapBtn" class="w-10 h-10 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.1] transition-all cursor-pointer">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          </button>
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-sm font-medium text-gray-300 mb-2">Converted</label>
+          <div id="result" class="w-full px-4 py-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xl font-bold text-emerald-400 mb-2 min-h-[52px] flex items-center">-</div>
+          <select id="toCur" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200"></select>
+        </div>
+      </div>
+
+      <div id="rateInfo" class="text-xs text-gray-500 text-center">1 USD = ₹84.50</div>
+    </div>
+
+    <!-- Quick amounts for INR -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      {[100, 500, 1000, 5000, 10000, 50000, 100000].map(a => (
+        <button class="quick-amt px-4 py-2 rounded-lg bg-white/[0.04] text-gray-400 text-sm font-medium hover:bg-indigo-500/20 hover:text-indigo-400 transition-all cursor-pointer" data-amt={a}>
+          {a >= 100000 ? `₹${a/100000}L` : a >= 1000 ? `₹${a/1000}K` : `₹${a}`}
+        </button>
+      ))}
+    </div>
+
+    <!-- All rates table -->
+    <div class="glass rounded-2xl p-6 mb-8">
+      <h2 class="text-lg font-bold text-white mb-4">Reference Rates (1 INR = ?)</h2>
+      <div id="rateTable" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 text-sm"></div>
+      <p class="text-[10px] text-gray-600 mt-4">Reference rates for indicative purposes only. Actual bank/forex rates may differ. Rates are approximate mid-market rates.</p>
+    </div>
+
+    <AdUnit />
+
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-xl font-bold text-white mb-3">Currency Tips for Indians</h2>
+      <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
+        <li><strong class="text-gray-300">Forex cards:</strong> Niyo, BookMyForex, Thomas Cook forex cards offer better rates than airport counters (1-3% cheaper).</li>
+        <li><strong class="text-gray-300">LRS Limit:</strong> Under RBI's Liberalized Remittance Scheme, you can remit up to $250,000 per financial year.</li>
+        <li><strong class="text-gray-300">TCS on forex:</strong> 20% TCS applies on foreign remittances above ₹7 lakh per year (can be claimed back when filing ITR).</li>
+        <li><strong class="text-gray-300">Best time to buy:</strong> Rates are usually better mid-week (Tue-Thu) and mid-month. Avoid buying forex at airports.</li>
+        <li><strong class="text-gray-300">UPI abroad:</strong> UPI now works in Singapore, UAE, Sri Lanka, Nepal, and Bhutan with near-market exchange rates.</li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    // Reference rates: 1 unit of currency = X INR
+    const rates = {
+      'INR': { name: 'Indian Rupee', symbol: '₹', rate: 1 },
+      'USD': { name: 'US Dollar', symbol: '$', rate: 84.50 },
+      'EUR': { name: 'Euro', symbol: '€', rate: 92.80 },
+      'GBP': { name: 'British Pound', symbol: '£', rate: 109.50 },
+      'AED': { name: 'UAE Dirham', symbol: 'د.إ', rate: 23.01 },
+      'SGD': { name: 'Singapore Dollar', symbol: 'S$', rate: 63.20 },
+      'AUD': { name: 'Australian Dollar', symbol: 'A$', rate: 54.80 },
+      'CAD': { name: 'Canadian Dollar', symbol: 'C$', rate: 61.50 },
+      'JPY': { name: 'Japanese Yen', symbol: '¥', rate: 0.565 },
+      'CNY': { name: 'Chinese Yuan', symbol: '¥', rate: 11.65 },
+      'CHF': { name: 'Swiss Franc', symbol: 'CHF', rate: 96.20 },
+      'SAR': { name: 'Saudi Riyal', symbol: 'ر.س', rate: 22.53 },
+      'THB': { name: 'Thai Baht', symbol: '฿', rate: 2.42 },
+      'MYR': { name: 'Malaysian Ringgit', symbol: 'RM', rate: 18.90 },
+      'KRW': { name: 'South Korean Won', symbol: '₩', rate: 0.0605 },
+      'NPR': { name: 'Nepalese Rupee', symbol: 'रू', rate: 0.625 },
+      'LKR': { name: 'Sri Lankan Rupee', symbol: 'Rs', rate: 0.284 },
+      'BDT': { name: 'Bangladeshi Taka', symbol: '৳', rate: 0.705 },
+    };
+
+    const f = id => document.getElementById(id);
+    const fromCur = f('fromCur');
+    const toCur = f('toCur');
+
+    // Populate selects
+    Object.entries(rates).forEach(([code, { name }]) => {
+      fromCur.innerHTML += `<option value="${code}" ${code === 'INR' ? 'selected' : ''}>${code} - ${name}</option>`;
+      toCur.innerHTML += `<option value="${code}" ${code === 'USD' ? 'selected' : ''}>${code} - ${name}</option>`;
+    });
+
+    function convert() {
+      const amt = parseFloat(f('amount').value) || 0;
+      const from = fromCur.value;
+      const to = toCur.value;
+      const inrAmt = amt * rates[from].rate;
+      const result = inrAmt / rates[to].rate;
+      const display = result < 1 ? result.toFixed(4) : result.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+      f('result').textContent = rates[to].symbol + ' ' + display;
+      const directRate = rates[from].rate / rates[to].rate;
+      f('rateInfo').textContent = `1 ${from} = ${directRate < 1 ? directRate.toFixed(4) : directRate.toFixed(2)} ${to}`;
+    }
+
+    function renderRateTable() {
+      const table = f('rateTable');
+      table.innerHTML = Object.entries(rates).filter(([c]) => c !== 'INR').map(([code, { name, rate }]) => {
+        const invRate = 1 / rate;
+        return `<div class="flex justify-between items-center p-2 bg-white/[0.03] rounded-lg">
+          <div><span class="text-white font-medium">${code}</span><span class="text-gray-600 text-xs ml-1">${name}</span></div>
+          <span class="text-indigo-400 font-mono text-xs">${invRate < 0.01 ? invRate.toExponential(2) : invRate.toFixed(4)}</span>
+        </div>`;
+      }).join('');
+    }
+
+    f('swapBtn').addEventListener('click', () => {
+      const tmp = fromCur.value; fromCur.value = toCur.value; toCur.value = tmp; convert();
+    });
+    f('amount').addEventListener('input', convert);
+    fromCur.addEventListener('change', convert);
+    toCur.addEventListener('change', convert);
+    document.querySelectorAll('.quick-amt').forEach(btn => {
+      btn.addEventListener('click', () => { f('amount').value = btn.dataset.amt; fromCur.value = 'INR'; convert(); });
+    });
+
+    convert();
+    renderRateTable();
+  </script>
+</Layout>

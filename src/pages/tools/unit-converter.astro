@@ -1,0 +1,198 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Unit Converter',
+  url: 'https://comparekaro.download/tools/unit-converter',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+---
+
+<Layout
+  title="Unit Converter - Length, Weight, Temperature, Area, Speed, Data"
+  description="Free unit converter. Convert length, weight, temperature, area, speed, volume, and data storage units instantly. Works offline."
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-indigo-400">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-white">Unit Converter</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Unit Converter</h1>
+      <p class="text-gray-400 text-lg">Convert between units instantly. Length, weight, temperature, area, speed, and data.</p>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="flex flex-wrap gap-2 mb-6">
+      <button class="cat-tab px-4 py-2 rounded-full text-sm font-medium bg-indigo-500 text-white" data-cat="length">Length</button>
+      <button class="cat-tab px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-cat="weight">Weight</button>
+      <button class="cat-tab px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-cat="temperature">Temp</button>
+      <button class="cat-tab px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-cat="area">Area</button>
+      <button class="cat-tab px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-cat="speed">Speed</button>
+      <button class="cat-tab px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-cat="data">Data</button>
+      <button class="cat-tab px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-cat="volume">Volume</button>
+    </div>
+
+    <!-- Converter -->
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-5 gap-4 items-end">
+        <div class="sm:col-span-2">
+          <label class="block text-sm font-medium text-gray-300 mb-2">From</label>
+          <input type="number" id="fromVal" value="1" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-xl text-gray-200 focus:ring-2 focus:ring-indigo-500 mb-2" />
+          <select id="fromUnit" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200"></select>
+        </div>
+        <div class="flex justify-center py-2">
+          <button id="swapBtn" class="w-10 h-10 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.1] transition-all cursor-pointer">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          </button>
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-sm font-medium text-gray-300 mb-2">To</label>
+          <div id="toVal" class="w-full px-4 py-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-xl font-bold text-indigo-400 mb-2 min-h-[52px] flex items-center">-</div>
+          <select id="toUnit" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200"></select>
+        </div>
+      </div>
+
+      <!-- Quick conversions -->
+      <div id="quickConversions" class="mt-6 glass rounded-xl p-4">
+        <p class="text-xs text-gray-500 mb-3">Quick Reference</p>
+        <div id="quickList" class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm"></div>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <!-- Common conversions -->
+    <div class="glass rounded-2xl p-6 mb-8">
+      <h2 class="text-xl font-bold text-white mb-4">Common Conversions (India)</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">1 inch</span><span class="text-white font-medium">2.54 cm</span></div>
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">1 foot</span><span class="text-white font-medium">30.48 cm</span></div>
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">1 mile</span><span class="text-white font-medium">1.609 km</span></div>
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">1 kg</span><span class="text-white font-medium">2.205 lbs</span></div>
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">1 acre</span><span class="text-white font-medium">4,046.86 sq m</span></div>
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">1 sq ft</span><span class="text-white font-medium">0.0929 sq m</span></div>
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">1 liter</span><span class="text-white font-medium">1,000 ml</span></div>
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">1 GB</span><span class="text-white font-medium">1,024 MB</span></div>
+      </div>
+    </div>
+
+    <AdUnit />
+  </section>
+
+  <script>
+    const units = {
+      length: { mm: 0.001, cm: 0.01, m: 1, km: 1000, inch: 0.0254, foot: 0.3048, yard: 0.9144, mile: 1609.34 },
+      weight: { mg: 0.001, g: 1, kg: 1000, quintal: 100000, tonne: 1000000, oz: 28.3495, lb: 453.592 },
+      area: { 'sq cm': 0.0001, 'sq m': 1, 'sq km': 1000000, 'sq ft': 0.0929, 'sq yard': 0.8361, acre: 4046.86, hectare: 10000, bigha: 2529.29 },
+      speed: { 'm/s': 1, 'km/h': 0.2778, 'mph': 0.4470, knot: 0.5144 },
+      data: { B: 1, KB: 1024, MB: 1048576, GB: 1073741824, TB: 1099511627776 },
+      volume: { ml: 0.001, liter: 1, 'US gallon': 3.78541, 'UK gallon': 4.54609, 'cup': 0.236588 },
+      temperature: { 'Celsius': 'C', 'Fahrenheit': 'F', 'Kelvin': 'K' },
+    };
+
+    const unitNames = {
+      length: ['mm', 'cm', 'm', 'km', 'inch', 'foot', 'yard', 'mile'],
+      weight: ['mg', 'g', 'kg', 'quintal', 'tonne', 'oz', 'lb'],
+      area: ['sq cm', 'sq m', 'sq km', 'sq ft', 'sq yard', 'acre', 'hectare', 'bigha'],
+      speed: ['m/s', 'km/h', 'mph', 'knot'],
+      data: ['B', 'KB', 'MB', 'GB', 'TB'],
+      volume: ['ml', 'liter', 'US gallon', 'UK gallon', 'cup'],
+      temperature: ['Celsius', 'Fahrenheit', 'Kelvin'],
+    };
+
+    let activeCat = 'length';
+    const fromUnit = document.getElementById('fromUnit');
+    const toUnit = document.getElementById('toUnit');
+    const fromVal = document.getElementById('fromVal');
+    const toVal = document.getElementById('toVal');
+
+    function populateUnits() {
+      const names = unitNames[activeCat];
+      fromUnit.innerHTML = names.map((u, i) => `<option value="${u}" ${i === (activeCat === 'length' ? 3 : 2) ? 'selected' : ''}>${u}</option>`).join('');
+      toUnit.innerHTML = names.map((u, i) => `<option value="${u}" ${i === (activeCat === 'length' ? 6 : 0) ? 'selected' : ''}>${u}</option>`).join('');
+      convert();
+    }
+
+    function convert() {
+      const val = parseFloat(fromVal.value) || 0;
+      const from = fromUnit.value;
+      const to = toUnit.value;
+
+      if (activeCat === 'temperature') {
+        let result;
+        if (from === to) result = val;
+        else if (from === 'Celsius' && to === 'Fahrenheit') result = val * 9/5 + 32;
+        else if (from === 'Celsius' && to === 'Kelvin') result = val + 273.15;
+        else if (from === 'Fahrenheit' && to === 'Celsius') result = (val - 32) * 5/9;
+        else if (from === 'Fahrenheit' && to === 'Kelvin') result = (val - 32) * 5/9 + 273.15;
+        else if (from === 'Kelvin' && to === 'Celsius') result = val - 273.15;
+        else if (from === 'Kelvin' && to === 'Fahrenheit') result = (val - 273.15) * 9/5 + 32;
+        toVal.textContent = result.toFixed(4).replace(/\.?0+$/, '');
+      } else {
+        const base = val * units[activeCat][from];
+        const result = base / units[activeCat][to];
+        toVal.textContent = result < 0.01 ? result.toExponential(4) : result.toLocaleString('en-IN', { maximumFractionDigits: 6 });
+      }
+      updateQuick();
+    }
+
+    function updateQuick() {
+      const names = unitNames[activeCat];
+      const from = fromUnit.value;
+      const val = parseFloat(fromVal.value) || 0;
+      const list = document.getElementById('quickList');
+      list.innerHTML = names.filter(u => u !== from).map(u => {
+        let result;
+        if (activeCat === 'temperature') {
+          if (from === 'Celsius' && u === 'Fahrenheit') result = val * 9/5 + 32;
+          else if (from === 'Celsius' && u === 'Kelvin') result = val + 273.15;
+          else if (from === 'Fahrenheit' && u === 'Celsius') result = (val - 32) * 5/9;
+          else if (from === 'Fahrenheit' && u === 'Kelvin') result = (val - 32) * 5/9 + 273.15;
+          else if (from === 'Kelvin' && u === 'Celsius') result = val - 273.15;
+          else if (from === 'Kelvin' && u === 'Fahrenheit') result = (val - 273.15) * 9/5 + 32;
+          else result = val;
+        } else {
+          result = (val * units[activeCat][from]) / units[activeCat][u];
+        }
+        const display = Math.abs(result) < 0.01 ? result.toExponential(2) : result.toLocaleString('en-IN', { maximumFractionDigits: 4 });
+        return `<div class="flex justify-between text-xs p-2 bg-white/[0.03] rounded"><span class="text-gray-500">${u}</span><span class="text-white font-medium">${display}</span></div>`;
+      }).join('');
+    }
+
+    // Tab switching
+    document.querySelectorAll('.cat-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.cat-tab').forEach(t => { t.classList.remove('bg-indigo-500', 'text-white'); t.classList.add('bg-white/[0.06]', 'text-gray-300'); });
+        tab.classList.add('bg-indigo-500', 'text-white');
+        tab.classList.remove('bg-white/[0.06]', 'text-gray-300');
+        activeCat = tab.dataset.cat;
+        fromVal.value = activeCat === 'temperature' ? 37 : 1;
+        populateUnits();
+      });
+    });
+
+    // Swap
+    document.getElementById('swapBtn').addEventListener('click', () => {
+      const tmpU = fromUnit.value;
+      fromUnit.value = toUnit.value;
+      toUnit.value = tmpU;
+      convert();
+    });
+
+    fromVal.addEventListener('input', convert);
+    fromUnit.addEventListener('change', convert);
+    toUnit.addEventListener('change', convert);
+
+    populateUnits();
+  </script>
+</Layout>

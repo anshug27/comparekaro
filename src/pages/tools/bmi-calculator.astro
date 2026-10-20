@@ -1,0 +1,201 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'BMI Calculator',
+  url: 'https://comparekaro.download/tools/bmi-calculator',
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
+---
+
+<Layout
+  title="BMI Calculator - Check Body Mass Index & Ideal Weight"
+  description="Free BMI calculator. Check your body mass index, ideal weight range, daily calorie needs, and health category. Includes Asian BMI standards."
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4">
+        <a href="/" class="hover:text-indigo-400">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
+        <span class="mx-2">/</span>
+        <span class="text-white">BMI Calculator</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">BMI Calculator</h1>
+      <p class="text-gray-400 text-lg">Check your Body Mass Index, ideal weight, and daily calorie needs.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-2 glass rounded-2xl p-6 md:p-8">
+        <div class="grid grid-cols-2 gap-4 mb-5">
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Age</label>
+            <input type="number" id="age" value="25" min="2" max="120" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200 focus:ring-2 focus:ring-indigo-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Gender</label>
+            <div class="flex gap-2">
+              <button id="male" class="flex-1 px-4 py-3 rounded-xl bg-indigo-500 text-white border border-indigo-500 font-bold text-sm cursor-pointer">Male</button>
+              <button id="female" class="flex-1 px-4 py-3 rounded-xl border border-white/10 text-gray-300 font-bold text-sm cursor-pointer hover:border-pink-400">Female</button>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-5">
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Height (cm)</label>
+            <input type="number" id="height" value="170" min="50" max="250" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200 focus:ring-2 focus:ring-indigo-500" />
+            <input type="range" id="heightSlider" min="100" max="220" value="170" class="w-full mt-2 accent-indigo-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Weight (kg)</label>
+            <input type="number" id="weight" value="70" min="10" max="300" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200 focus:ring-2 focus:ring-indigo-500" />
+            <input type="range" id="weightSlider" min="20" max="200" value="70" class="w-full mt-2 accent-indigo-500" />
+          </div>
+        </div>
+        <div class="mb-5">
+          <label class="block text-sm font-medium text-gray-300 mb-2">Activity Level</label>
+          <select id="activity" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200">
+            <option value="1.2">Sedentary (desk job, no exercise)</option>
+            <option value="1.375">Lightly Active (1-2 days/week)</option>
+            <option value="1.55" selected>Moderately Active (3-5 days/week)</option>
+            <option value="1.725">Very Active (6-7 days/week)</option>
+            <option value="1.9">Extremely Active (athlete, physical job)</option>
+          </select>
+        </div>
+        <button id="calcBtn" class="w-full px-8 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all cursor-pointer">
+          Calculate BMI
+        </button>
+
+        <!-- Results -->
+        <div id="results" class="hidden mt-6">
+          <div class="text-center glass rounded-xl p-6 mb-4">
+            <p class="text-gray-400 text-sm">Your BMI</p>
+            <p id="bmiValue" class="text-5xl font-extrabold mt-1">-</p>
+            <p id="bmiCategory" class="text-lg font-medium mt-2">-</p>
+          </div>
+
+          <!-- BMI Scale -->
+          <div class="glass rounded-xl p-4 mb-4">
+            <div class="relative h-4 rounded-full overflow-hidden bg-gradient-to-r from-blue-500 via-emerald-500 via-yellow-500 to-red-500">
+              <div id="bmiMarker" class="absolute top-0 w-1 h-4 bg-white rounded shadow-lg shadow-white/50 transition-all duration-500" style="left:50%"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-gray-500 mt-1 px-1">
+              <span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="glass rounded-xl p-3 text-center">
+              <p class="text-xs text-gray-500">Ideal Weight</p>
+              <p id="idealWeight" class="text-lg font-bold text-emerald-400 mt-1">-</p>
+            </div>
+            <div class="glass rounded-xl p-3 text-center">
+              <p class="text-xs text-gray-500">BMR</p>
+              <p id="bmr" class="text-lg font-bold text-indigo-400 mt-1">-</p>
+            </div>
+            <div class="glass rounded-xl p-3 text-center">
+              <p class="text-xs text-gray-500">Maintain Weight</p>
+              <p id="maintain" class="text-lg font-bold text-white mt-1">-</p>
+            </div>
+            <div class="glass rounded-xl p-3 text-center">
+              <p class="text-xs text-gray-500">To Lose 0.5kg/wk</p>
+              <p id="loseWeight" class="text-lg font-bold text-pink-400 mt-1">-</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-6">
+        <div class="glass rounded-xl p-5">
+          <h3 class="font-bold text-white mb-3">BMI Categories (Asian)</h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span class="text-blue-400">Underweight</span><span class="text-gray-400">&lt; 18.5</span></div>
+            <div class="flex justify-between"><span class="text-emerald-400">Normal</span><span class="text-gray-400">18.5 - 22.9</span></div>
+            <div class="flex justify-between"><span class="text-yellow-400">Overweight</span><span class="text-gray-400">23.0 - 24.9</span></div>
+            <div class="flex justify-between"><span class="text-orange-400">Obese I</span><span class="text-gray-400">25.0 - 29.9</span></div>
+            <div class="flex justify-between"><span class="text-red-400">Obese II</span><span class="text-gray-400">30.0+</span></div>
+          </div>
+          <p class="text-[10px] text-gray-600 mt-3">Asian BMI thresholds are lower than WHO standards due to higher body fat % at lower BMI in South Asians.</p>
+        </div>
+        <AdUnit format="rectangle" />
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="mt-12 glass rounded-2xl p-6 md:p-8">
+      <h2 class="text-xl font-bold text-white mb-3">About BMI</h2>
+      <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
+        <li><strong class="text-gray-300">BMI Formula:</strong> Weight (kg) / Height (m)². A BMI of 22 means you weigh 22 kg for every square meter of height.</li>
+        <li><strong class="text-gray-300">Asian Standards:</strong> Indians and South Asians are at higher risk of diabetes and heart disease at lower BMIs, so the overweight threshold starts at 23 (not 25).</li>
+        <li><strong class="text-gray-300">Limitations:</strong> BMI doesn't distinguish between muscle and fat. Athletes may have high BMI but low body fat.</li>
+        <li><strong class="text-gray-300">BMR:</strong> Basal Metabolic Rate — calories your body burns at rest. Combined with activity level, it gives your total daily calorie needs.</li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    const f = id => document.getElementById(id);
+    let gender = 'male';
+
+    // Gender toggle
+    f('male').addEventListener('click', () => { gender = 'male'; f('male').classList.add('bg-indigo-500','text-white','border-indigo-500'); f('male').classList.remove('border-white/10','text-gray-300'); f('female').classList.remove('bg-pink-500','text-white','border-pink-500'); f('female').classList.add('border-white/10','text-gray-300'); });
+    f('female').addEventListener('click', () => { gender = 'female'; f('female').classList.add('bg-pink-500','text-white','border-pink-500'); f('female').classList.remove('border-white/10','text-gray-300'); f('male').classList.remove('bg-indigo-500','text-white','border-indigo-500'); f('male').classList.add('border-white/10','text-gray-300'); });
+
+    // Slider sync
+    f('heightSlider').addEventListener('input', e => f('height').value = e.target.value);
+    f('height').addEventListener('input', e => f('heightSlider').value = e.target.value);
+    f('weightSlider').addEventListener('input', e => f('weight').value = e.target.value);
+    f('weight').addEventListener('input', e => f('weightSlider').value = e.target.value);
+
+    f('calcBtn').addEventListener('click', () => {
+      const age = parseInt(f('age').value);
+      const h = parseFloat(f('height').value) / 100;
+      const w = parseFloat(f('weight').value);
+      const activity = parseFloat(f('activity').value);
+      if (!h || !w) return;
+
+      const bmi = w / (h * h);
+      f('bmiValue').textContent = bmi.toFixed(1);
+
+      // Category (Asian standards)
+      let cat, color;
+      if (bmi < 18.5) { cat = 'Underweight'; color = 'text-blue-400'; }
+      else if (bmi < 23) { cat = 'Normal Weight'; color = 'text-emerald-400'; }
+      else if (bmi < 25) { cat = 'Overweight'; color = 'text-yellow-400'; }
+      else if (bmi < 30) { cat = 'Obese Class I'; color = 'text-orange-400'; }
+      else { cat = 'Obese Class II'; color = 'text-red-400'; }
+      f('bmiValue').className = `text-5xl font-extrabold mt-1 ${color}`;
+      f('bmiCategory').textContent = cat;
+      f('bmiCategory').className = `text-lg font-medium mt-2 ${color}`;
+
+      // Marker position (BMI 10-45 mapped to 0-100%)
+      const pos = Math.min(100, Math.max(0, ((bmi - 10) / 35) * 100));
+      f('bmiMarker').style.left = pos + '%';
+
+      // Ideal weight (BMI 21 for Asians)
+      const idealLow = (18.5 * h * h).toFixed(1);
+      const idealHigh = (22.9 * h * h).toFixed(1);
+      f('idealWeight').textContent = `${idealLow}-${idealHigh} kg`;
+
+      // BMR (Mifflin-St Jeor)
+      let bmr;
+      if (gender === 'male') bmr = 10 * w + 6.25 * (h * 100) - 5 * age + 5;
+      else bmr = 10 * w + 6.25 * (h * 100) - 5 * age - 161;
+      f('bmr').textContent = Math.round(bmr) + ' cal';
+
+      const tdee = bmr * activity;
+      f('maintain').textContent = Math.round(tdee) + ' cal';
+      f('loseWeight').textContent = Math.round(tdee - 500) + ' cal';
+
+      f('results').classList.remove('hidden');
+    });
+  </script>
+</Layout>
