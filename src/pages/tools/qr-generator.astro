@@ -90,57 +90,77 @@ const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', na
   </section>
 
   <!-- QR Code library -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
-  <script>
-    const f = id => document.getElementById(id);
-    let activeType = 'url';
+  <script is:inline src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+  <script is:inline>
+    var f = function(id) { return document.getElementById(id); };
+    var activeType = 'url';
 
-    document.querySelectorAll('.qr-type').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.qr-type').forEach(t => { t.classList.remove('bg-indigo-500','text-white'); t.classList.add('bg-white/[0.06]','text-gray-300'); });
+    document.querySelectorAll('.qr-type').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.qr-type').forEach(function(t) { t.classList.remove('bg-indigo-500','text-white'); t.classList.add('bg-white/[0.06]','text-gray-300'); });
         tab.classList.add('bg-indigo-500','text-white'); tab.classList.remove('bg-white/[0.06]','text-gray-300');
         activeType = tab.dataset.type;
-        document.querySelectorAll('[id^="form-"]').forEach(f => f.classList.add('hidden'));
+        document.querySelectorAll('[id^="form-"]').forEach(function(el) { el.classList.add('hidden'); });
         f('form-' + activeType).classList.remove('hidden');
       });
     });
 
-    f('genBtn').addEventListener('click', () => {
-      let data = '';
+    f('genBtn').addEventListener('click', function() {
+      var data = '';
       switch(activeType) {
         case 'url': data = f('urlInput').value; break;
         case 'text': data = f('textInput').value; break;
-        case 'wifi': data = `WIFI:T:${f('wifiSec').value};S:${f('wifiSsid').value};P:${f('wifiPass').value};;`; break;
-        case 'upi': {
-          const amt = f('upiAmt').value;
-          data = `upi://pay?pa=${f('upiId').value}&pn=${encodeURIComponent(f('upiName').value)}${amt ? '&am=' + amt : ''}`;
+        case 'wifi': data = 'WIFI:T:' + f('wifiSec').value + ';S:' + f('wifiSsid').value + ';P:' + f('wifiPass').value + ';;'; break;
+        case 'upi':
+          var amt = f('upiAmt').value;
+          data = 'upi://pay?pa=' + f('upiId').value + '&pn=' + encodeURIComponent(f('upiName').value) + (amt ? '&am=' + amt : '');
           break;
-        }
-        case 'phone': data = `tel:${f('phoneInput').value}`; break;
-        case 'email': data = `mailto:${f('emailTo').value}?subject=${encodeURIComponent(f('emailSubject').value || '')}`; break;
+        case 'phone': data = 'tel:' + f('phoneInput').value; break;
+        case 'email': data = 'mailto:' + f('emailTo').value + '?subject=' + encodeURIComponent(f('emailSubject').value || ''); break;
       }
       if (!data) { alert('Please enter some data'); return; }
 
-      const size = parseInt(f('qrSize').value);
-      const color = f('qrColor').value;
-      const canvas = f('qrCanvas');
+      var size = parseInt(f('qrSize').value);
+      var color = f('qrColor').value;
+      var canvas = f('qrCanvas');
 
-      QRCode.toCanvas(canvas, data, {
-        width: size,
-        margin: 2,
-        color: { dark: color, light: '#0a0a1a' },
-        errorCorrectionLevel: 'M',
-      }, (err) => {
-        if (err) { console.error(err); return; }
-        f('qrPlaceholder').classList.add('hidden');
-        canvas.classList.remove('hidden');
-        f('downloadBtn').classList.remove('hidden');
-      });
+      // Generate QR using qrcode-generator
+      var typeNumber = 0; // auto
+      var errorCorrectionLevel = 'M';
+      var qr = qrcode(typeNumber, errorCorrectionLevel);
+      qr.addData(data);
+      qr.make();
+
+      var moduleCount = qr.getModuleCount();
+      var cellSize = Math.floor(size / (moduleCount + 4)); // +4 for margin
+      var margin = Math.floor((size - cellSize * moduleCount) / 2);
+
+      canvas.width = size;
+      canvas.height = size;
+      var ctx = canvas.getContext('2d');
+
+      // Background
+      ctx.fillStyle = '#0a0a1a';
+      ctx.fillRect(0, 0, size, size);
+
+      // QR modules
+      ctx.fillStyle = color;
+      for (var row = 0; row < moduleCount; row++) {
+        for (var col = 0; col < moduleCount; col++) {
+          if (qr.isDark(row, col)) {
+            ctx.fillRect(margin + col * cellSize, margin + row * cellSize, cellSize, cellSize);
+          }
+        }
+      }
+
+      f('qrPlaceholder').classList.add('hidden');
+      canvas.classList.remove('hidden');
+      f('downloadBtn').classList.remove('hidden');
     });
 
-    f('downloadBtn').addEventListener('click', () => {
-      const canvas = f('qrCanvas');
-      const link = document.createElement('a');
+    f('downloadBtn').addEventListener('click', function() {
+      var canvas = f('qrCanvas');
+      var link = document.createElement('a');
       link.download = 'qr-code.png';
       link.href = canvas.toDataURL('image/png');
       link.click();
