@@ -129,16 +129,21 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
       </div>
 
       <!-- Brand pills -->
-      <div class="flex flex-wrap gap-2 mb-8">
-        <button class="brand-tab px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm transition-all" data-brand="all">
+      <div class="flex flex-wrap gap-2 mb-8" id="brandTabs">
+        <button class="brand-tab active px-4 py-2 rounded-full text-sm font-semibold transition-all" data-brand="all">
           All ({phones.length})
         </button>
         {sortedBrands.map(b => (
-          <button class="brand-tab px-4 py-2 rounded-full text-sm font-semibold bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 hover:border-blue-300 transition-all" data-brand={b}>
+          <button class="brand-tab px-4 py-2 rounded-full text-sm font-semibold transition-all" data-brand={b}>
             {b} ({phonesByBrand[b].length})
           </button>
         ))}
       </div>
+      <style>{`
+        .brand-tab { background: white; color: #374151; border: 1px solid #e5e7eb; }
+        .brand-tab:hover { border-color: #93c5fd; background: #f9fafb; }
+        .brand-tab.active { background: linear-gradient(to right, #2563eb, #4f46e5); color: white; border-color: transparent; box-shadow: 0 1px 3px rgba(37,99,235,0.3); }
+      `}</style>
 
       <!-- Phone Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="phoneGrid">
@@ -153,6 +158,10 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
                 </div>
                 <div class="text-right shrink-0 pl-3">
                   <span class="text-lg text-gray-900 font-extrabold">&#8377;{p.price.toLocaleString('en-IN')}</span>
+                  {(p.amazonPrice > 0 || p.flipkartPrice > 0) 
+                    ? <p class="text-[10px] text-green-600 font-medium">Verified price</p>
+                    : <p class="text-[10px] text-amber-600 font-medium">Expected price</p>
+                  }
                 </div>
               </div>
             </div>
@@ -284,14 +293,9 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
         card.style.display = match ? '' : 'none';
       });
       // Reset brand tabs
-      document.querySelectorAll('.brand-tab').forEach(t => {
-        t.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'shadow-sm');
-        t.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-200');
-      });
+      document.querySelectorAll('.brand-tab').forEach(t => t.classList.remove('active'));
       if (!query) {
-        const allTab = document.querySelector('.brand-tab[data-brand="all"]');
-        allTab.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'shadow-sm');
-        allTab.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-200');
+        document.querySelector('.brand-tab[data-brand="all"]')?.classList.add('active');
       }
       updateVisibleCount();
     });
@@ -299,20 +303,14 @@ const sortedBrands = [...brands].sort((a, b) => (phonesByBrand[b]?.length || 0) 
     // Brand tabs for phone grid
     document.querySelectorAll('.brand-tab').forEach(tab => {
       tab.addEventListener('click', () => {
-        // Clear search
         searchInput.value = '';
-        
-        // Update tab styles
-        document.querySelectorAll('.brand-tab').forEach(t => {
-          t.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'shadow-sm');
-          t.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-200');
-        });
-        tab.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'shadow-sm');
-        tab.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-200');
+        document.querySelectorAll('.brand-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
 
         const brand = tab.dataset.brand;
         document.querySelectorAll('.phone-card').forEach(card => {
-          card.style.display = (brand === 'all' || card.dataset.brand === brand) ? '' : 'none';
+          const show = (brand === 'all' || card.dataset.brand === brand);
+          card.style.display = show ? '' : 'none';
         });
         updateVisibleCount();
       });
