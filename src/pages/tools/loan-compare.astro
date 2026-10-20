@@ -38,31 +38,31 @@ const creditCards = [
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="mb-8">
       <nav class="text-sm text-gray-500 mb-4">
-        <a href="/" class="hover:text-blue-600">Home</a>
+        <a href="/" class="hover:text-indigo-400">Home</a>
         <span class="mx-2">/</span>
-        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
         <span class="mx-2">/</span>
-        <span class="text-gray-900">Loan & Card Comparison</span>
+        <span class="text-white">Loan & Card Comparison</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Loan & Credit Card Comparison</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Loan & Credit Card Comparison</h1>
       <p class="text-gray-500 text-lg">Compare interest rates, fees, and benefits across India's top banks.</p>
       <p class="text-xs text-gray-400 mt-2">Loan rates auto-updated from BankBazaar.com on {lastUpdated}</p>
     </div>
 
     <!-- Tab Navigation -->
-    <div class="flex gap-2 mb-8 border-b border-gray-200">
-      <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-blue-600 text-blue-600" data-tab="home-loan">Home Loans</button>
-      <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="personal-loan">Personal Loans</button>
-      <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="credit-cards">Credit Cards</button>
+    <div class="flex gap-2 mb-8 border-b border-white/10">
+      <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-blue-600 text-indigo-400" data-tab="home-loan">Home Loans</button>
+      <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-300" data-tab="personal-loan">Personal Loans</button>
+      <button class="tab-btn px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-300" data-tab="credit-cards">Credit Cards</button>
     </div>
 
     <!-- Home Loans Tab -->
     <div id="tab-home-loan" class="tab-content">
-      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div class="bg-white/[0.03] rounded-xl border border-white/10 overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full">
             <thead>
-              <tr class="text-left text-sm text-gray-500 bg-gray-50 border-b border-gray-200">
+              <tr class="text-left text-sm text-gray-500 bg-white/[0.02] border-b border-white/10">
                 <th class="p-4 font-medium">Bank</th>
                 <th class="p-4 font-medium">Starting Rate</th>
                 <th class="p-4 font-medium">Max Rate</th>
@@ -71,11 +71,11 @@ const creditCards = [
             </thead>
             <tbody>
               {homeLoans.sort((a, b) => a.minRate - b.minRate).map((loan, i) => (
-                <tr class:list={['border-b border-gray-50 hover:bg-gray-50', i === 0 && 'bg-green-50']}>
-                  <td class="p-4 text-sm font-medium text-gray-900">{loan.bank}</td>
-                  <td class:list={['p-4 text-sm font-bold', i === 0 ? 'text-green-600' : 'text-blue-600']}>{loan.minRate}% p.a.</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.maxRate}% p.a.</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.processingFee}</td>
+                <tr class:list={['border-b border-white/5 hover:bg-white/[0.06]', i === 0 && 'bg-emerald-500/10']}>
+                  <td class="p-4 text-sm font-medium text-white">{loan.bank}</td>
+                  <td class:list={['p-4 text-sm font-bold', i === 0 ? 'text-emerald-400' : 'text-indigo-400']}>{loan.minRate}% p.a.</td>
+                  <td class="p-4 text-sm text-gray-300">{loan.maxRate}% p.a.</td>
+                  <td class="p-4 text-sm text-gray-300">{loan.processingFee}</td>
                 </tr>
               ))}
             </tbody>
@@ -84,32 +84,32 @@ const creditCards = [
       </div>
 
       <!-- Quick EMI Calculator -->
-      <div class="mt-8 bg-white rounded-xl border border-gray-200 p-6">
-        <h3 class="text-lg font-bold text-gray-900 mb-4">Quick Home Loan EMI Calculator</h3>
+      <div class="mt-8 bg-white/[0.03] rounded-xl border border-white/10 p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Quick Home Loan EMI Calculator</h3>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <div>
-            <label class="block text-sm text-gray-600 mb-1">Loan Amount (₹)</label>
-            <input type="number" id="hlAmount" value="5000000" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+            <label class="block text-sm text-gray-400 mb-1">Loan Amount (₹)</label>
+            <input type="number" id="hlAmount" value="5000000" class="w-full px-3 py-2 border border-white/10 rounded-lg" />
           </div>
           <div>
-            <label class="block text-sm text-gray-600 mb-1">Interest Rate (%)</label>
-            <input type="number" id="hlRate" value="8.50" step="0.05" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+            <label class="block text-sm text-gray-400 mb-1">Interest Rate (%)</label>
+            <input type="number" id="hlRate" value="8.50" step="0.05" class="w-full px-3 py-2 border border-white/10 rounded-lg" />
           </div>
           <div>
-            <label class="block text-sm text-gray-600 mb-1">Tenure (years)</label>
-            <input type="number" id="hlTenure" value="20" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+            <label class="block text-sm text-gray-400 mb-1">Tenure (years)</label>
+            <input type="number" id="hlTenure" value="20" class="w-full px-3 py-2 border border-white/10 rounded-lg" />
           </div>
         </div>
         <div class="grid grid-cols-3 gap-4 text-center">
-          <div class="bg-blue-50 rounded-lg p-4">
-            <p class="text-xs text-blue-600">Monthly EMI</p>
-            <p id="hlEmi" class="text-xl font-bold text-blue-700">-</p>
+          <div class="bg-indigo-500/10 rounded-lg p-4">
+            <p class="text-xs text-indigo-400">Monthly EMI</p>
+            <p id="hlEmi" class="text-xl font-bold text-indigo-400">-</p>
           </div>
-          <div class="bg-green-50 rounded-lg p-4">
-            <p class="text-xs text-green-600">Total Interest</p>
-            <p id="hlInterest" class="text-xl font-bold text-green-700">-</p>
+          <div class="bg-emerald-500/10 rounded-lg p-4">
+            <p class="text-xs text-emerald-400">Total Interest</p>
+            <p id="hlInterest" class="text-xl font-bold text-emerald-400">-</p>
           </div>
-          <div class="bg-purple-50 rounded-lg p-4">
+          <div class="bg-purple-500/10 rounded-lg p-4">
             <p class="text-xs text-purple-600">Total Payment</p>
             <p id="hlTotal" class="text-xl font-bold text-purple-700">-</p>
           </div>
@@ -119,11 +119,11 @@ const creditCards = [
 
     <!-- Personal Loans Tab -->
     <div id="tab-personal-loan" class="tab-content hidden">
-      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div class="bg-white/[0.03] rounded-xl border border-white/10 overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full">
             <thead>
-              <tr class="text-left text-sm text-gray-500 bg-gray-50 border-b border-gray-200">
+              <tr class="text-left text-sm text-gray-500 bg-white/[0.02] border-b border-white/10">
                 <th class="p-4 font-medium">Bank</th>
                 <th class="p-4 font-medium">Starting Rate</th>
                 <th class="p-4 font-medium">Max Rate</th>
@@ -132,11 +132,11 @@ const creditCards = [
             </thead>
             <tbody>
               {personalLoans.sort((a, b) => a.minRate - b.minRate).map((loan, i) => (
-                <tr class:list={['border-b border-gray-50 hover:bg-gray-50', i === 0 && 'bg-green-50']}>
-                  <td class="p-4 text-sm font-medium text-gray-900">{loan.bank}</td>
-                  <td class:list={['p-4 text-sm font-bold', i === 0 ? 'text-green-600' : 'text-blue-600']}>{loan.minRate}% p.a.</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.maxRate}% p.a.</td>
-                  <td class="p-4 text-sm text-gray-700">{loan.processingFee}</td>
+                <tr class:list={['border-b border-white/5 hover:bg-white/[0.06]', i === 0 && 'bg-emerald-500/10']}>
+                  <td class="p-4 text-sm font-medium text-white">{loan.bank}</td>
+                  <td class:list={['p-4 text-sm font-bold', i === 0 ? 'text-emerald-400' : 'text-indigo-400']}>{loan.minRate}% p.a.</td>
+                  <td class="p-4 text-sm text-gray-300">{loan.maxRate}% p.a.</td>
+                  <td class="p-4 text-sm text-gray-300">{loan.processingFee}</td>
                 </tr>
               ))}
             </tbody>
@@ -149,36 +149,36 @@ const creditCards = [
     <div id="tab-credit-cards" class="tab-content hidden">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {creditCards.map(card => (
-          <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
+          <div class="bg-white/[0.03] rounded-xl border border-white/10 p-5 hover:shadow-md transition-shadow">
             <div class="flex items-start justify-between mb-3">
               <div>
-                <h3 class="font-bold text-gray-900">{card.name}</h3>
+                <h3 class="font-bold text-white">{card.name}</h3>
                 <p class="text-sm text-gray-500">{card.bank}</p>
               </div>
-              <span class:list={['px-2 py-1 rounded-full text-xs font-medium', card.fee === 0 ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600']}>
+              <span class:list={['px-2 py-1 rounded-full text-xs font-medium', card.fee === 0 ? 'bg-emerald-500/15 text-emerald-400' : 'bg-white/10 text-gray-400']}>
                 {card.fee === 0 ? 'FREE' : `₹${card.fee.toLocaleString('en-IN')}/yr`}
               </span>
             </div>
             <div class="space-y-2 text-sm">
               <div class="flex justify-between">
                 <span class="text-gray-500">Best for</span>
-                <span class="font-medium text-blue-600">{card.best}</span>
+                <span class="font-medium text-indigo-400">{card.best}</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-gray-500">Cashback</span>
-                <span class="text-gray-700">{card.cashback || '-'}</span>
+                <span class="text-gray-300">{card.cashback || '-'}</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-gray-500">Rewards</span>
-                <span class="text-gray-700">{card.reward}</span>
+                <span class="text-gray-300">{card.reward}</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-gray-500">Lounge Access</span>
-                <span class="text-gray-700">{card.lounge}</span>
+                <span class="text-gray-300">{card.lounge}</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-gray-500">Fuel Surcharge Waiver</span>
-                <span class="text-gray-700">{card.fuel}</span>
+                <span class="text-gray-300">{card.fuel}</span>
               </div>
             </div>
           </div>
@@ -188,7 +188,7 @@ const creditCards = [
 
     <AdUnit />
 
-    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+    <div class="mt-12 bg-white/[0.03] rounded-xl border border-white/10 p-6 md:p-8 prose prose-invert max-w-none">
       <h2>How to Choose the Right Financial Product</h2>
       <ul>
         <li><strong>Home Loan:</strong> Go for the lowest interest rate. Even 0.25% difference saves lakhs over 20 years. Government banks (SBI, BOB, PNB) usually offer the best rates.</li>
@@ -207,10 +207,10 @@ const creditCards = [
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => {
-          b.classList.remove('border-blue-600', 'text-blue-600');
+          b.classList.remove('border-blue-600', 'text-indigo-400');
           b.classList.add('border-transparent', 'text-gray-500');
         });
-        btn.classList.add('border-blue-600', 'text-blue-600');
+        btn.classList.add('border-blue-600', 'text-indigo-400');
         btn.classList.remove('border-transparent', 'text-gray-500');
 
         document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));

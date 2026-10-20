@@ -21,76 +21,76 @@ const schema = {
   <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="mb-8">
       <nav class="text-sm text-gray-500 mb-4">
-        <a href="/" class="hover:text-blue-600">Home</a>
+        <a href="/" class="hover:text-indigo-400">Home</a>
         <span class="mx-2">/</span>
-        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
         <span class="mx-2">/</span>
-        <span class="text-gray-900">Rent vs Buy</span>
+        <span class="text-white">Rent vs Buy</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Rent vs Buy Calculator</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Rent vs Buy Calculator</h1>
       <p class="text-gray-500 text-lg">Should you rent or buy? Compare the real cost over time.</p>
     </div>
 
-    <div class="bg-white rounded-xl border border-gray-200 p-6 md:p-8">
+    <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6 md:p-8">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Buy Side -->
         <div>
-          <h3 class="font-semibold text-lg text-blue-700 mb-4 flex items-center gap-2">🏠 Buying</h3>
+          <h3 class="font-semibold text-lg text-indigo-400 mb-4 flex items-center gap-2">🏠 Buying</h3>
           <div class="space-y-4">
             <div>
-              <label for="home-price" class="block text-sm font-medium text-gray-700 mb-1">Property Price (&#8377;)</label>
+              <label for="home-price" class="block text-sm font-medium text-gray-300 mb-1">Property Price (&#8377;)</label>
               <input type="number" id="home-price" value="5000000" min="500000" step="100000"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base" />
+                class="w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-indigo-500 text-base" />
             </div>
             <div>
-              <label for="down-payment" class="block text-sm font-medium text-gray-700 mb-1">Down Payment (%)</label>
+              <label for="down-payment" class="block text-sm font-medium text-gray-300 mb-1">Down Payment (%)</label>
               <input type="number" id="down-payment" value="20" min="5" max="100" step="5"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base" />
+                class="w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-indigo-500 text-base" />
             </div>
             <div>
-              <label for="loan-rate" class="block text-sm font-medium text-gray-700 mb-1">Loan Interest Rate (%)</label>
+              <label for="loan-rate" class="block text-sm font-medium text-gray-300 mb-1">Loan Interest Rate (%)</label>
               <input type="number" id="loan-rate" value="8.5" min="5" max="15" step="0.1"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base" />
+                class="w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-indigo-500 text-base" />
             </div>
             <div>
-              <label for="appreciation" class="block text-sm font-medium text-gray-700 mb-1">Property Appreciation (%/yr)</label>
+              <label for="appreciation" class="block text-sm font-medium text-gray-300 mb-1">Property Appreciation (%/yr)</label>
               <input type="number" id="appreciation" value="5" min="0" max="15" step="0.5"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base" />
+                class="w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-indigo-500 text-base" />
             </div>
             <div>
-              <label for="maintenance" class="block text-sm font-medium text-gray-700 mb-1">Maintenance (&#8377;/month)</label>
+              <label for="maintenance" class="block text-sm font-medium text-gray-300 mb-1">Maintenance (&#8377;/month)</label>
               <input type="number" id="maintenance" value="3000" min="0" step="500"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base" />
+                class="w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-indigo-500 text-base" />
             </div>
           </div>
         </div>
 
         <!-- Rent Side -->
         <div>
-          <h3 class="font-semibold text-lg text-green-700 mb-4 flex items-center gap-2">🏢 Renting</h3>
+          <h3 class="font-semibold text-lg text-emerald-400 mb-4 flex items-center gap-2">🏢 Renting</h3>
           <div class="space-y-4">
             <div>
-              <label for="monthly-rent" class="block text-sm font-medium text-gray-700 mb-1">Monthly Rent (&#8377;)</label>
+              <label for="monthly-rent" class="block text-sm font-medium text-gray-300 mb-1">Monthly Rent (&#8377;)</label>
               <input type="number" id="monthly-rent" value="20000" min="1000" step="1000"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-base" />
+                class="w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-green-500 text-base" />
             </div>
             <div>
-              <label for="rent-increase" class="block text-sm font-medium text-gray-700 mb-1">Annual Rent Increase (%)</label>
+              <label for="rent-increase" class="block text-sm font-medium text-gray-300 mb-1">Annual Rent Increase (%)</label>
               <input type="number" id="rent-increase" value="5" min="0" max="15" step="0.5"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-base" />
+                class="w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-green-500 text-base" />
             </div>
             <div>
-              <label for="invest-return" class="block text-sm font-medium text-gray-700 mb-1">Investment Return (% if renting)</label>
+              <label for="invest-return" class="block text-sm font-medium text-gray-300 mb-1">Investment Return (% if renting)</label>
               <input type="number" id="invest-return" value="12" min="5" max="20" step="0.5"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-base" />
+                class="w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-green-500 text-base" />
               <p class="text-xs text-gray-400 mt-1">Return on down payment if invested instead</p>
             </div>
             <div>
-              <label for="compare-years" class="block text-sm font-medium text-gray-700 mb-1">Compare Over (Years)</label>
+              <label for="compare-years" class="block text-sm font-medium text-gray-300 mb-1">Compare Over (Years)</label>
               <input type="range" id="compare-years-range" min="5" max="30" step="1" value="20"
-                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gray-600" />
+                class="w-full h-2 bg-white/[0.08] rounded-lg appearance-none cursor-pointer accent-gray-600" />
               <input type="number" id="compare-years" value="20" min="5" max="30" step="1"
-                class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 text-base" />
+                class="mt-2 w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-gray-500 text-base" />
             </div>
           </div>
         </div>
@@ -101,23 +101,23 @@ const schema = {
 
       <!-- Comparison Table -->
       <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="bg-blue-50 rounded-lg p-5">
-          <h4 class="font-semibold text-blue-800 mb-3">Buying Costs</h4>
+        <div class="bg-indigo-500/10 rounded-lg p-5">
+          <h4 class="font-semibold text-indigo-300 mb-3">Buying Costs</h4>
           <div class="space-y-2 text-sm">
-            <div class="flex justify-between"><span class="text-gray-600">Down Payment</span><span id="buy-down" class="font-medium">-</span></div>
-            <div class="flex justify-between"><span class="text-gray-600">Total EMI Paid</span><span id="buy-emi" class="font-medium">-</span></div>
-            <div class="flex justify-between"><span class="text-gray-600">Total Maintenance</span><span id="buy-maint" class="font-medium">-</span></div>
-            <div class="border-t border-blue-200 pt-2 flex justify-between"><span class="text-gray-700 font-medium">Total Cost</span><span id="buy-total" class="font-bold text-blue-800">-</span></div>
-            <div class="flex justify-between"><span class="text-gray-600">Property Value</span><span id="buy-value" class="font-medium text-green-700">-</span></div>
-            <div class="border-t border-blue-200 pt-2 flex justify-between"><span class="text-gray-700 font-medium">Net Cost</span><span id="buy-net" class="font-bold text-blue-800">-</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Down Payment</span><span id="buy-down" class="font-medium">-</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Total EMI Paid</span><span id="buy-emi" class="font-medium">-</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Total Maintenance</span><span id="buy-maint" class="font-medium">-</span></div>
+            <div class="border-t border-blue-200 pt-2 flex justify-between"><span class="text-gray-300 font-medium">Total Cost</span><span id="buy-total" class="font-bold text-indigo-300">-</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Property Value</span><span id="buy-value" class="font-medium text-emerald-400">-</span></div>
+            <div class="border-t border-blue-200 pt-2 flex justify-between"><span class="text-gray-300 font-medium">Net Cost</span><span id="buy-net" class="font-bold text-indigo-300">-</span></div>
           </div>
         </div>
-        <div class="bg-green-50 rounded-lg p-5">
+        <div class="bg-emerald-500/10 rounded-lg p-5">
           <h4 class="font-semibold text-green-800 mb-3">Renting Costs</h4>
           <div class="space-y-2 text-sm">
-            <div class="flex justify-between"><span class="text-gray-600">Total Rent Paid</span><span id="rent-total-paid" class="font-medium">-</span></div>
-            <div class="flex justify-between"><span class="text-gray-600">Investment Value</span><span id="rent-invest" class="font-medium text-green-700">-</span></div>
-            <div class="border-t border-green-200 pt-2 flex justify-between"><span class="text-gray-700 font-medium">Net Cost</span><span id="rent-net" class="font-bold text-green-800">-</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Total Rent Paid</span><span id="rent-total-paid" class="font-medium">-</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Investment Value</span><span id="rent-invest" class="font-medium text-emerald-400">-</span></div>
+            <div class="border-t border-green-200 pt-2 flex justify-between"><span class="text-gray-300 font-medium">Net Cost</span><span id="rent-net" class="font-bold text-green-800">-</span></div>
           </div>
         </div>
       </div>
@@ -125,7 +125,7 @@ const schema = {
 
     <AdUnit />
 
-    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+    <div class="mt-12 bg-white/[0.03] rounded-xl border border-white/10 p-6 md:p-8 prose prose-invert max-w-none">
       <h2>How Does This Calculator Work?</h2>
       <p>This calculator compares the total financial outcome of buying vs renting over a given period by considering:</p>
       <ul>
@@ -194,12 +194,12 @@ const schema = {
       const verdict = document.getElementById('verdict') as HTMLElement;
       if (buyNetCost < rentNetCost) {
         const savings = rentNetCost - buyNetCost;
-        verdict.className = 'mt-8 rounded-xl p-6 text-center bg-blue-50 border border-blue-200';
-        verdict.innerHTML = `<p class="text-2xl font-bold text-blue-800">🏠 Buying is better by ${formatINR(savings)}</p><p class="text-blue-600 mt-2">Over ${years} years, buying saves you money compared to renting.</p>`;
+        verdict.className = 'mt-8 rounded-xl p-6 text-center bg-indigo-500/10 border border-blue-200';
+        verdict.innerHTML = `<p class="text-2xl font-bold text-indigo-300">🏠 Buying is better by ${formatINR(savings)}</p><p class="text-indigo-400 mt-2">Over ${years} years, buying saves you money compared to renting.</p>`;
       } else {
         const savings = buyNetCost - rentNetCost;
-        verdict.className = 'mt-8 rounded-xl p-6 text-center bg-green-50 border border-green-200';
-        verdict.innerHTML = `<p class="text-2xl font-bold text-green-800">🏢 Renting is better by ${formatINR(savings)}</p><p class="text-green-600 mt-2">Over ${years} years, renting and investing the difference saves you money.</p>`;
+        verdict.className = 'mt-8 rounded-xl p-6 text-center bg-emerald-500/10 border border-green-200';
+        verdict.innerHTML = `<p class="text-2xl font-bold text-green-800">🏢 Renting is better by ${formatINR(savings)}</p><p class="text-emerald-400 mt-2">Over ${years} years, renting and investing the difference saves you money.</p>`;
       }
     }
 

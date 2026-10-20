@@ -22,45 +22,45 @@ const schema = {
   <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="mb-8">
       <nav class="text-sm text-gray-500 mb-4">
-        <a href="/" class="hover:text-blue-600">Home</a>
+        <a href="/" class="hover:text-indigo-400">Home</a>
         <span class="mx-2">/</span>
-        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
         <span class="mx-2">/</span>
-        <span class="text-gray-900">Salary & Tax Calculator</span>
+        <span class="text-white">Salary & Tax Calculator</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Salary & Tax Calculator</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Salary & Tax Calculator</h1>
       <p class="text-gray-500 text-lg">Calculate your take-home salary and compare old vs new tax regime for FY 2025-26.</p>
     </div>
 
     <!-- Input Section -->
-    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+    <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6 mb-8">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Annual CTC (₹)</label>
-          <input type="number" id="ctc" value="1200000" min="0" step="10000" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg" />
+          <label class="block text-sm font-medium text-gray-300 mb-2">Annual CTC (₹)</label>
+          <input type="number" id="ctc" value="1200000" min="0" step="10000" class="w-full px-4 py-3 border border-white/10 rounded-lg text-lg" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Basic Salary (% of CTC)</label>
-          <input type="number" id="basicPct" value="40" min="0" max="100" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg" />
+          <label class="block text-sm font-medium text-gray-300 mb-2">Basic Salary (% of CTC)</label>
+          <input type="number" id="basicPct" value="40" min="0" max="100" class="w-full px-4 py-3 border border-white/10 rounded-lg text-lg" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">HRA Received (annual ₹)</label>
-          <input type="number" id="hra" value="240000" min="0" step="1000" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg" />
+          <label class="block text-sm font-medium text-gray-300 mb-2">HRA Received (annual ₹)</label>
+          <input type="number" id="hra" value="240000" min="0" step="1000" class="w-full px-4 py-3 border border-white/10 rounded-lg text-lg" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Rent Paid (₹)</label>
-          <input type="number" id="rent" value="15000" min="0" step="1000" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg" />
+          <label class="block text-sm font-medium text-gray-300 mb-2">Monthly Rent Paid (₹)</label>
+          <input type="number" id="rent" value="15000" min="0" step="1000" class="w-full px-4 py-3 border border-white/10 rounded-lg text-lg" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Metro City?</label>
-          <select id="metro" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg">
+          <label class="block text-sm font-medium text-gray-300 mb-2">Metro City?</label>
+          <select id="metro" class="w-full px-4 py-3 border border-white/10 rounded-lg text-lg">
             <option value="yes">Yes (Delhi, Mumbai, Kolkata, Chennai)</option>
             <option value="no">No (Other cities)</option>
           </select>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Employer PF Contribution</label>
-          <select id="epf" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg">
+          <label class="block text-sm font-medium text-gray-300 mb-2">Employer PF Contribution</label>
+          <select id="epf" class="w-full px-4 py-3 border border-white/10 rounded-lg text-lg">
             <option value="yes">Yes (12% of Basic)</option>
             <option value="no">No</option>
           </select>
@@ -68,37 +68,37 @@ const schema = {
       </div>
 
       <!-- Deductions (Old Regime) -->
-      <div class="mt-6 pt-6 border-t border-gray-100">
-        <h3 class="font-semibold text-gray-700 mb-4">Deductions (for Old Regime)</h3>
+      <div class="mt-6 pt-6 border-t border-white/5">
+        <h3 class="font-semibold text-gray-300 mb-4">Deductions (for Old Regime)</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <div>
             <label class="block text-xs text-gray-500 mb-1">80C (PF, ELSS, LIC, PPF)</label>
-            <input type="number" id="d80c" value="150000" min="0" max="150000" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+            <input type="number" id="d80c" value="150000" min="0" max="150000" step="1000" class="w-full px-3 py-2 border border-white/10 rounded-lg text-sm" />
           </div>
           <div>
             <label class="block text-xs text-gray-500 mb-1">80D (Health Insurance)</label>
-            <input type="number" id="d80d" value="25000" min="0" max="100000" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+            <input type="number" id="d80d" value="25000" min="0" max="100000" step="1000" class="w-full px-3 py-2 border border-white/10 rounded-lg text-sm" />
           </div>
           <div>
             <label class="block text-xs text-gray-500 mb-1">Home Loan Interest (24b)</label>
-            <input type="number" id="d24b" value="0" min="0" max="200000" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+            <input type="number" id="d24b" value="0" min="0" max="200000" step="1000" class="w-full px-3 py-2 border border-white/10 rounded-lg text-sm" />
           </div>
           <div>
             <label class="block text-xs text-gray-500 mb-1">NPS 80CCD(1B)</label>
-            <input type="number" id="d80ccd" value="0" min="0" max="50000" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+            <input type="number" id="d80ccd" value="0" min="0" max="50000" step="1000" class="w-full px-3 py-2 border border-white/10 rounded-lg text-sm" />
           </div>
           <div>
             <label class="block text-xs text-gray-500 mb-1">Education Loan Interest (80E)</label>
-            <input type="number" id="d80e" value="0" min="0" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+            <input type="number" id="d80e" value="0" min="0" step="1000" class="w-full px-3 py-2 border border-white/10 rounded-lg text-sm" />
           </div>
           <div>
             <label class="block text-xs text-gray-500 mb-1">Other Deductions</label>
-            <input type="number" id="dOther" value="0" min="0" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+            <input type="number" id="dOther" value="0" min="0" step="1000" class="w-full px-3 py-2 border border-white/10 rounded-lg text-sm" />
           </div>
         </div>
       </div>
 
-      <button id="calcBtn" class="mt-6 px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors w-full sm:w-auto">
+      <button id="calcBtn" class="mt-6 px-8 py-3 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors w-full sm:w-auto">
         Calculate Take-Home Salary
       </button>
     </div>
@@ -109,12 +109,12 @@ const schema = {
     <div id="results" class="hidden mt-8">
       <!-- Regime Comparison -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div id="oldRegime" class="bg-white rounded-xl border-2 border-orange-200 p-6">
+        <div id="oldRegime" class="bg-white/[0.03] rounded-xl border-2 border-orange-200 p-6">
           <h3 class="text-lg font-bold text-orange-600 mb-4">Old Tax Regime</h3>
           <div class="space-y-3" id="oldDetails"></div>
         </div>
-        <div id="newRegime" class="bg-white rounded-xl border-2 border-blue-200 p-6">
-          <h3 class="text-lg font-bold text-blue-600 mb-4">New Tax Regime (Default)</h3>
+        <div id="newRegime" class="bg-white/[0.03] rounded-xl border-2 border-blue-200 p-6">
+          <h3 class="text-lg font-bold text-indigo-400 mb-4">New Tax Regime (Default)</h3>
           <div class="space-y-3" id="newDetails"></div>
         </div>
       </div>
@@ -124,26 +124,26 @@ const schema = {
 
       <!-- Tax Slab Breakdown -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div class="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 class="font-semibold text-gray-700 mb-4">Old Regime Tax Slabs</h3>
+        <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6">
+          <h3 class="font-semibold text-gray-300 mb-4">Old Regime Tax Slabs</h3>
           <div id="oldSlabs" class="space-y-2"></div>
         </div>
-        <div class="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 class="font-semibold text-gray-700 mb-4">New Regime Tax Slabs</h3>
+        <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6">
+          <h3 class="font-semibold text-gray-300 mb-4">New Regime Tax Slabs</h3>
           <div id="newSlabs" class="space-y-2"></div>
         </div>
       </div>
 
       <!-- Monthly Breakdown -->
-      <div class="bg-white rounded-xl border border-gray-200 p-6">
-        <h3 class="font-semibold text-gray-700 mb-4">Monthly Salary Breakdown (Best Regime)</h3>
+      <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6">
+        <h3 class="font-semibold text-gray-300 mb-4">Monthly Salary Breakdown (Best Regime)</h3>
         <div id="monthlyBreakdown" class="space-y-3"></div>
       </div>
     </div>
 
     <AdUnit />
 
-    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+    <div class="mt-12 bg-white/[0.03] rounded-xl border border-white/10 p-6 md:p-8 prose prose-invert max-w-none">
       <h2>Income Tax Slabs FY 2025-26</h2>
       <h3>New Regime (Default)</h3>
       <table>
@@ -272,8 +272,8 @@ const schema = {
       function renderDetails(el, data) {
         el.innerHTML = data.map(([label, val, highlight]) =>
           `<div class="flex justify-between text-sm ${highlight ? 'font-bold text-lg' : ''}">
-            <span class="text-gray-600">${label}</span>
-            <span class="${highlight ? 'text-green-600' : 'text-gray-900'}">${val}</span>
+            <span class="text-gray-400">${label}</span>
+            <span class="${highlight ? 'text-emerald-400' : 'text-white'}">${val}</span>
           </div>`
         ).join('');
       }
@@ -308,8 +308,8 @@ const schema = {
       const diff = Math.abs(oldTakeHome - newTakeHome);
       const better = oldTakeHome > newTakeHome ? 'Old' : 'New';
       f('recommendation').innerHTML = `
-        <h3 class="text-lg font-bold text-green-700 mb-2">Recommendation: ${better} Regime saves you ${inr(diff)}/year</h3>
-        <p class="text-sm text-gray-600">
+        <h3 class="text-lg font-bold text-emerald-400 mb-2">Recommendation: ${better} Regime saves you ${inr(diff)}/year</h3>
+        <p class="text-sm text-gray-400">
           ${better === 'Old'
             ? `The Old Regime is better for you because your deductions (₹${Math.round(oldTotalDeductions).toLocaleString('en-IN')}) bring down your taxable income significantly.`
             : `The New Regime is better for you. ${oldTotalDeductions < 375000 ? 'Your deductions are not high enough to make the Old Regime beneficial.' : 'The lower tax slabs in the new regime result in less tax despite fewer deductions.'}`
@@ -323,7 +323,7 @@ const schema = {
         el.innerHTML = breakdown.map(s => `
           <div class="flex justify-between text-xs">
             <span class="text-gray-500">${s.range} @ ${s.rate}</span>
-            <span class="text-gray-700">${inr(s.tax)}</span>
+            <span class="text-gray-300">${inr(s.tax)}</span>
           </div>
         `).join('');
       }
@@ -342,9 +342,9 @@ const schema = {
         ['Income Tax (TDS)', '- ' + inr(monthlyTax)],
         ['In-Hand Salary', inr(bestTakeHome / 12)],
       ].map(([l, v], i) => `
-        <div class="flex justify-between text-sm ${i === 3 ? 'font-bold text-lg pt-2 border-t border-gray-200' : ''}">
-          <span class="text-gray-600">${l}</span>
-          <span class="${i === 3 ? 'text-green-600' : 'text-gray-900'}">${v}</span>
+        <div class="flex justify-between text-sm ${i === 3 ? 'font-bold text-lg pt-2 border-t border-white/10' : ''}">
+          <span class="text-gray-400">${l}</span>
+          <span class="${i === 3 ? 'text-emerald-400' : 'text-white'}">${v}</span>
         </div>
       `).join('');
 

@@ -37,40 +37,40 @@ const states = [
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="mb-8">
       <nav class="text-sm text-gray-500 mb-4">
-        <a href="/" class="hover:text-blue-600">Home</a>
+        <a href="/" class="hover:text-indigo-400">Home</a>
         <span class="mx-2">/</span>
-        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
         <span class="mx-2">/</span>
-        <span class="text-gray-900">Electricity Bill Calculator</span>
+        <span class="text-white">Electricity Bill Calculator</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Electricity Bill Calculator</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Electricity Bill Calculator</h1>
       <p class="text-gray-500 text-lg">Calculate your monthly electricity bill and estimate solar savings.</p>
     </div>
 
     <!-- Calculator -->
-    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+    <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6 mb-8">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">State / City</label>
-          <select id="state" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base">
+          <label class="block text-sm font-medium text-gray-300 mb-2">State / City</label>
+          <select id="state" class="w-full px-4 py-3 border border-white/10 rounded-lg text-base">
             {states.map((s, i) => <option value={i}>{s.name}</option>)}
           </select>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Units (kWh)</label>
-          <input type="number" id="units" value="300" min="0" max="5000" step="10" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg" />
+          <label class="block text-sm font-medium text-gray-300 mb-2">Monthly Units (kWh)</label>
+          <input type="number" id="units" value="300" min="0" max="5000" step="10" class="w-full px-4 py-3 border border-white/10 rounded-lg text-lg" />
         </div>
       </div>
 
       <div class="mt-4">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Units: <span id="unitLabel" class="text-blue-600 font-bold">300</span> kWh/month</label>
-        <input type="range" id="unitSlider" min="0" max="2000" value="300" step="10" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+        <label class="block text-sm font-medium text-gray-300 mb-2">Units: <span id="unitLabel" class="text-indigo-400 font-bold">300</span> kWh/month</label>
+        <input type="range" id="unitSlider" min="0" max="2000" value="300" step="10" class="w-full h-2 bg-white/[0.08] rounded-lg appearance-none cursor-pointer accent-blue-600" />
         <div class="flex justify-between text-xs text-gray-400 mt-1">
           <span>0</span><span>500</span><span>1000</span><span>1500</span><span>2000</span>
         </div>
       </div>
 
-      <button id="calcBtn" class="mt-6 px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+      <button id="calcBtn" class="mt-6 px-8 py-3 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
         Calculate Bill
       </button>
     </div>
@@ -78,43 +78,43 @@ const states = [
     <!-- Results -->
     <div id="results" class="hidden">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <div class="bg-white rounded-xl border border-gray-200 p-5 text-center">
+        <div class="bg-white/[0.03] rounded-xl border border-white/10 p-5 text-center">
           <p class="text-sm text-gray-500">Energy Charges</p>
-          <p id="energyCharges" class="text-2xl font-bold text-blue-600 mt-1"></p>
+          <p id="energyCharges" class="text-2xl font-bold text-indigo-400 mt-1"></p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-200 p-5 text-center">
+        <div class="bg-white/[0.03] rounded-xl border border-white/10 p-5 text-center">
           <p class="text-sm text-gray-500">Fixed Charges</p>
-          <p id="fixedCharges" class="text-2xl font-bold text-gray-700 mt-1"></p>
+          <p id="fixedCharges" class="text-2xl font-bold text-gray-300 mt-1"></p>
         </div>
-        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border-2 border-blue-200 p-5 text-center">
+        <div class="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-xl border-2 border-indigo-500/20 p-5 text-center">
           <p class="text-sm text-gray-500">Total Monthly Bill</p>
-          <p id="totalBill" class="text-2xl font-bold text-blue-700 mt-1"></p>
+          <p id="totalBill" class="text-2xl font-bold text-indigo-400 mt-1"></p>
         </div>
       </div>
 
       <!-- Slab Breakdown -->
-      <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-        <h3 class="font-semibold text-gray-700 mb-4">Slab-wise Breakdown</h3>
+      <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6 mb-8">
+        <h3 class="font-semibold text-gray-300 mb-4">Slab-wise Breakdown</h3>
         <div id="slabBreakdown" class="space-y-2"></div>
-        <div class="mt-4 pt-3 border-t border-gray-100 flex justify-between font-semibold text-sm">
+        <div class="mt-4 pt-3 border-t border-white/5 flex justify-between font-semibold text-sm">
           <span>Average Rate</span>
-          <span id="avgRate" class="text-blue-600"></span>
+          <span id="avgRate" class="text-indigo-400"></span>
         </div>
       </div>
 
       <AdUnit />
 
       <!-- Solar Savings -->
-      <div class="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border border-yellow-200 p-6 mb-8">
+      <div class="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-xl border border-amber-500/20 p-6 mb-8">
         <h3 class="text-lg font-bold text-yellow-700 mb-4">Solar Panel Savings Estimate</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Rooftop Area (sq ft)</label>
-            <input type="number" id="rooftop" value="200" min="50" max="2000" step="10" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" />
+            <label class="block text-xs font-medium text-gray-400 mb-1">Rooftop Area (sq ft)</label>
+            <input type="number" id="rooftop" value="200" min="50" max="2000" step="10" class="w-full px-3 py-2 border border-white/10 rounded-lg text-sm" />
           </div>
           <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Avg Sunlight Hours/Day</label>
-            <select id="sunlight" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+            <label class="block text-xs font-medium text-gray-400 mb-1">Avg Sunlight Hours/Day</label>
+            <select id="sunlight" class="w-full px-3 py-2 border border-white/10 rounded-lg text-sm">
               <option value="4">4 hours (cloudy regions)</option>
               <option value="5" selected>5 hours (average)</option>
               <option value="6">6 hours (sunny regions)</option>
@@ -126,29 +126,29 @@ const states = [
           Estimate Solar Savings
         </button>
         <div id="solarResults" class="hidden mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div class="bg-white rounded-lg p-4 text-center">
+          <div class="bg-white/[0.03] rounded-lg p-4 text-center">
             <p class="text-xs text-gray-500">System Size</p>
             <p id="solarKW" class="text-lg font-bold text-yellow-700"></p>
           </div>
-          <div class="bg-white rounded-lg p-4 text-center">
+          <div class="bg-white/[0.03] rounded-lg p-4 text-center">
             <p class="text-xs text-gray-500">Monthly Generation</p>
-            <p id="solarUnits" class="text-lg font-bold text-green-600"></p>
+            <p id="solarUnits" class="text-lg font-bold text-emerald-400"></p>
           </div>
-          <div class="bg-white rounded-lg p-4 text-center">
+          <div class="bg-white/[0.03] rounded-lg p-4 text-center">
             <p class="text-xs text-gray-500">Annual Savings</p>
-            <p id="solarSavings" class="text-lg font-bold text-green-700"></p>
+            <p id="solarSavings" class="text-lg font-bold text-emerald-400"></p>
           </div>
         </div>
-        <div id="solarPayback" class="hidden mt-3 text-sm text-gray-600"></div>
+        <div id="solarPayback" class="hidden mt-3 text-sm text-gray-400"></div>
       </div>
 
       <!-- Compare All States -->
-      <div class="bg-white rounded-xl border border-gray-200 p-6">
-        <h3 class="font-semibold text-gray-700 mb-4">Compare Across States (for <span id="compareUnits">300</span> units)</h3>
+      <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6">
+        <h3 class="font-semibold text-gray-300 mb-4">Compare Across States (for <span id="compareUnits">300</span> units)</h3>
         <div class="overflow-x-auto">
           <table class="w-full text-sm">
             <thead>
-              <tr class="text-left text-gray-500 border-b border-gray-200">
+              <tr class="text-left text-gray-500 border-b border-white/10">
                 <th class="py-2 pr-4">State</th>
                 <th class="py-2 px-4">Energy</th>
                 <th class="py-2 px-4">Fixed</th>
@@ -164,7 +164,7 @@ const states = [
 
     <AdUnit />
 
-    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+    <div class="mt-12 bg-white/[0.03] rounded-xl border border-white/10 p-6 md:p-8 prose prose-invert max-w-none">
       <h2>Understanding Your Electricity Bill</h2>
       <ul>
         <li><strong>Energy Charges:</strong> Slab-based — the more you consume, the higher the per-unit rate</li>
@@ -225,7 +225,7 @@ const states = [
       f('slabBreakdown').innerHTML = bill.breakdown.map(s => `
         <div class="flex justify-between text-sm">
           <span class="text-gray-500">${s.range} @ ₹${s.rate}/unit</span>
-          <span class="text-gray-700">${s.units} units = ${inr(s.charge)}</span>
+          <span class="text-gray-300">${s.units} units = ${inr(s.charge)}</span>
         </div>
       `).join('');
 
@@ -233,11 +233,11 @@ const states = [
       f('compareUnits').textContent = units;
       f('compareBody').innerHTML = states.map((s, i) => {
         const b = calcBill(i, units);
-        return `<tr class="border-b border-gray-50 ${i === stateIdx ? 'bg-blue-50 font-semibold' : ''}">
+        return `<tr class="border-b border-white/5 ${i === stateIdx ? 'bg-indigo-500/10 font-semibold' : ''}">
           <td class="py-2 pr-4">${s.name}</td>
           <td class="py-2 px-4">${inr(b.energy)}</td>
           <td class="py-2 px-4">${inr(b.fixed)}</td>
-          <td class="py-2 px-4 font-bold text-blue-600">${inr(b.total)}</td>
+          <td class="py-2 px-4 font-bold text-indigo-400">${inr(b.total)}</td>
           <td class="py-2 px-4">₹${b.avgRate.toFixed(2)}</td>
         </tr>`;
       }).join('');

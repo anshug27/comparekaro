@@ -28,63 +28,63 @@ const lastUpdated = '19 Oct 2026';
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="mb-8">
       <nav class="text-sm text-gray-500 mb-4">
-        <a href="/" class="hover:text-blue-600">Home</a>
+        <a href="/" class="hover:text-indigo-400">Home</a>
         <span class="mx-2">/</span>
-        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
         <span class="mx-2">/</span>
-        <span class="text-gray-900">Gold & Silver Price</span>
+        <span class="text-white">Gold & Silver Price</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Gold & Silver Price India</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Gold & Silver Price India</h1>
       <p class="text-gray-500 text-lg">Reference prices, jewelry calculator, and investment comparison.</p>
       <p class="text-xs text-gray-400 mt-1">Reference prices as of {lastUpdated}. Actual prices vary by city and jeweler.</p>
     </div>
 
     <!-- Current Prices -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-      <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl border border-yellow-200 p-5 text-center">
+      <div class="bg-gradient-to-br from-amber-500/10 to-amber-500/5 rounded-xl border border-amber-500/20 p-5 text-center">
         <p class="text-xs text-yellow-700 font-medium">Gold 24K (1g)</p>
-        <p class="text-2xl font-bold text-yellow-800 mt-1">₹{gold24k.toLocaleString('en-IN')}</p>
+        <p class="text-2xl font-bold text-amber-300 mt-1">₹{gold24k.toLocaleString('en-IN')}</p>
       </div>
-      <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl border border-yellow-200 p-5 text-center">
+      <div class="bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-xl border border-amber-500/20 p-5 text-center">
         <p class="text-xs text-yellow-700 font-medium">Gold 22K (1g)</p>
-        <p class="text-2xl font-bold text-yellow-800 mt-1">₹{gold22k.toLocaleString('en-IN')}</p>
+        <p class="text-2xl font-bold text-amber-300 mt-1">₹{gold22k.toLocaleString('en-IN')}</p>
       </div>
-      <div class="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-xl border border-yellow-200 p-5 text-center">
+      <div class="bg-gradient-to-br from-amber-500/10 to-amber-500/10 rounded-xl border border-amber-500/20 p-5 text-center">
         <p class="text-xs text-yellow-700 font-medium">Gold 24K (10g)</p>
-        <p class="text-2xl font-bold text-yellow-800 mt-1">₹{(gold24k * 10).toLocaleString('en-IN')}</p>
+        <p class="text-2xl font-bold text-amber-300 mt-1">₹{(gold24k * 10).toLocaleString('en-IN')}</p>
       </div>
-      <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200 p-5 text-center">
-        <p class="text-xs text-gray-600 font-medium">Silver (1g)</p>
-        <p class="text-2xl font-bold text-gray-700 mt-1">₹{silver}</p>
+      <div class="bg-gradient-to-br from-white/5 to-white/[0.03] rounded-xl border border-white/10 p-5 text-center">
+        <p class="text-xs text-gray-400 font-medium">Silver (1g)</p>
+        <p class="text-2xl font-bold text-gray-300 mt-1">₹{silver}</p>
         <p class="text-xs text-gray-400 mt-0.5">₹{(silver * 1000).toLocaleString('en-IN')}/kg</p>
       </div>
     </div>
 
     <!-- Gold Jewelry Calculator -->
-    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-      <h2 class="text-xl font-bold text-gray-900 mb-4">Gold Jewelry Price Calculator</h2>
+    <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6 mb-8">
+      <h2 class="text-xl font-bold text-white mb-4">Gold Jewelry Price Calculator</h2>
       <p class="text-sm text-gray-500 mb-5">Calculate the total cost of gold jewelry including making charges and GST.</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
         <div>
-          <label class="block text-xs font-medium text-gray-600 mb-1">Purity</label>
-          <select id="jPurity" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm">
+          <label class="block text-xs font-medium text-gray-400 mb-1">Purity</label>
+          <select id="jPurity" class="w-full px-3 py-2.5 border border-white/10 rounded-lg text-sm">
             <option value={gold24k}>24K (999)</option>
             <option value={gold22k} selected>22K (916) - Most Jewelry</option>
             <option value={gold18k}>18K (750)</option>
           </select>
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-600 mb-1">Weight (grams)</label>
-          <input type="number" id="jWeight" value="10" min="0.1" max="1000" step="0.1" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm" />
+          <label class="block text-xs font-medium text-gray-400 mb-1">Weight (grams)</label>
+          <input type="number" id="jWeight" value="10" min="0.1" max="1000" step="0.1" class="w-full px-3 py-2.5 border border-white/10 rounded-lg text-sm" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-600 mb-1">Making Charges (%)</label>
-          <input type="number" id="jMaking" value="12" min="0" max="30" step="0.5" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm" />
+          <label class="block text-xs font-medium text-gray-400 mb-1">Making Charges (%)</label>
+          <input type="number" id="jMaking" value="12" min="0" max="30" step="0.5" class="w-full px-3 py-2.5 border border-white/10 rounded-lg text-sm" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-600 mb-1">GST (%)</label>
-          <input type="number" id="jGST" value="3" min="0" max="5" step="0.5" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm" />
+          <label class="block text-xs font-medium text-gray-400 mb-1">GST (%)</label>
+          <input type="number" id="jGST" value="3" min="0" max="5" step="0.5" class="w-full px-3 py-2.5 border border-white/10 rounded-lg text-sm" />
         </div>
       </div>
 
@@ -94,21 +94,21 @@ const lastUpdated = '19 Oct 2026';
 
       <div id="jResults" class="mt-5 hidden">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div class="bg-yellow-50 rounded-lg p-3 text-center">
+          <div class="bg-amber-500/10 rounded-lg p-3 text-center">
             <p class="text-xs text-gray-500">Gold Value</p>
             <p id="jGoldVal" class="text-lg font-bold text-yellow-700"></p>
           </div>
-          <div class="bg-gray-50 rounded-lg p-3 text-center">
+          <div class="bg-white/[0.02] rounded-lg p-3 text-center">
             <p class="text-xs text-gray-500">Making Charges</p>
-            <p id="jMakingVal" class="text-lg font-bold text-gray-600"></p>
+            <p id="jMakingVal" class="text-lg font-bold text-gray-400"></p>
           </div>
-          <div class="bg-gray-50 rounded-lg p-3 text-center">
+          <div class="bg-white/[0.02] rounded-lg p-3 text-center">
             <p class="text-xs text-gray-500">GST</p>
-            <p id="jGSTVal" class="text-lg font-bold text-gray-600"></p>
+            <p id="jGSTVal" class="text-lg font-bold text-gray-400"></p>
           </div>
-          <div class="bg-yellow-100 rounded-lg p-3 text-center">
+          <div class="bg-amber-500/15 rounded-lg p-3 text-center">
             <p class="text-xs text-gray-500">Total Cost</p>
-            <p id="jTotal" class="text-lg font-bold text-yellow-800"></p>
+            <p id="jTotal" class="text-lg font-bold text-amber-300"></p>
           </div>
         </div>
       </div>
@@ -117,22 +117,22 @@ const lastUpdated = '19 Oct 2026';
     <AdUnit />
 
     <!-- Gold vs Other Investments -->
-    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-      <h2 class="text-xl font-bold text-gray-900 mb-4">Investment Comparison: Gold vs FD vs SIP</h2>
+    <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6 mb-8">
+      <h2 class="text-xl font-bold text-white mb-4">Investment Comparison: Gold vs FD vs SIP</h2>
       <p class="text-sm text-gray-500 mb-5">Compare how ₹1 lakh invested in gold, FD, or mutual fund SIP would grow.</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
         <div>
-          <label class="block text-xs font-medium text-gray-600 mb-1">Investment Amount (₹)</label>
-          <input type="number" id="invAmt" value="100000" min="1000" step="1000" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm" />
+          <label class="block text-xs font-medium text-gray-400 mb-1">Investment Amount (₹)</label>
+          <input type="number" id="invAmt" value="100000" min="1000" step="1000" class="w-full px-3 py-2.5 border border-white/10 rounded-lg text-sm" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-600 mb-1">Time Period (Years)</label>
-          <input type="number" id="invYears" value="5" min="1" max="30" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm" />
+          <label class="block text-xs font-medium text-gray-400 mb-1">Time Period (Years)</label>
+          <input type="number" id="invYears" value="5" min="1" max="30" class="w-full px-3 py-2.5 border border-white/10 rounded-lg text-sm" />
         </div>
       </div>
 
-      <button id="invBtn" class="px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 text-sm">
+      <button id="invBtn" class="px-6 py-2.5 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-blue-700 text-sm">
         Compare Returns
       </button>
 
@@ -140,7 +140,7 @@ const lastUpdated = '19 Oct 2026';
         <div class="overflow-x-auto">
           <table class="w-full text-sm">
             <thead>
-              <tr class="text-left text-gray-500 border-b border-gray-200">
+              <tr class="text-left text-gray-500 border-b border-white/10">
                 <th class="py-3 pr-4">Investment</th>
                 <th class="py-3 px-4">Expected Return</th>
                 <th class="py-3 px-4">Maturity Value</th>
@@ -156,13 +156,13 @@ const lastUpdated = '19 Oct 2026';
     </div>
 
     <!-- City-wise Prices -->
-    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-      <h2 class="text-xl font-bold text-gray-900 mb-4">Gold Price Across Major Cities</h2>
+    <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6 mb-8">
+      <h2 class="text-xl font-bold text-white mb-4">Gold Price Across Major Cities</h2>
       <p class="text-xs text-gray-400 mb-4">Prices may vary ±₹50-200 per gram based on local demand and hallmarking.</p>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="text-left text-gray-500 border-b border-gray-200">
+            <tr class="text-left text-gray-500 border-b border-white/10">
               <th class="py-2 pr-4">City</th>
               <th class="py-2 px-4">22K (1g)</th>
               <th class="py-2 px-4">24K (1g)</th>
@@ -176,7 +176,7 @@ const lastUpdated = '19 Oct 2026';
 
     <AdUnit />
 
-    <div class="mt-8 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+    <div class="mt-8 bg-white/[0.03] rounded-xl border border-white/10 p-6 md:p-8 prose prose-invert max-w-none">
       <h2>Gold Buying Guide India</h2>
       <ul>
         <li><strong>24K (999):</strong> Purest form, used for coins and bars. Too soft for jewelry.</li>
@@ -222,21 +222,21 @@ const lastUpdated = '19 Oct 2026';
 
       const investments = [
         { name: 'Physical Gold', rate: 10, tax: years > 3 ? 'LTCG 20% with indexation' : 'STCG as per slab', color: 'text-yellow-700' },
-        { name: 'Gold ETF/SGB', rate: 10, tax: 'SGB: Tax-free on maturity', color: 'text-yellow-600' },
-        { name: 'Fixed Deposit', rate: 7, tax: 'Interest taxed as per slab', color: 'text-blue-600' },
-        { name: 'SIP (Equity MF)', rate: 13, tax: years > 1 ? 'LTCG 12.5% above ₹1.25L' : 'STCG 20%', color: 'text-green-600' },
+        { name: 'Gold ETF/SGB', rate: 10, tax: 'SGB: Tax-free on maturity', color: 'text-amber-400' },
+        { name: 'Fixed Deposit', rate: 7, tax: 'Interest taxed as per slab', color: 'text-indigo-400' },
+        { name: 'SIP (Equity MF)', rate: 13, tax: years > 1 ? 'LTCG 12.5% above ₹1.25L' : 'STCG 20%', color: 'text-emerald-400' },
         { name: 'PPF', rate: 7.1, tax: 'Fully tax-free (EEE)', color: 'text-purple-600' },
-        { name: 'Silver', rate: 8, tax: years > 3 ? 'LTCG 20% with indexation' : 'STCG as per slab', color: 'text-gray-600' },
+        { name: 'Silver', rate: 8, tax: years > 3 ? 'LTCG 20% with indexation' : 'STCG as per slab', color: 'text-gray-400' },
       ];
 
       f('invBody').innerHTML = investments.map(inv => {
         const maturity = amt * Math.pow(1 + inv.rate / 100, years);
         const profit = maturity - amt;
-        return `<tr class="border-b border-gray-50">
+        return `<tr class="border-b border-white/5">
           <td class="py-3 pr-4 font-medium ${inv.color}">${inv.name}</td>
           <td class="py-3 px-4">${inv.rate}% p.a.</td>
           <td class="py-3 px-4 font-bold">${inr(maturity)}</td>
-          <td class="py-3 px-4 text-green-600">+${inr(profit)}</td>
+          <td class="py-3 px-4 text-emerald-400">+${inr(profit)}</td>
           <td class="py-3 px-4 text-xs text-gray-500">${inv.tax}</td>
         </tr>`;
       }).join('');
@@ -263,8 +263,8 @@ const lastUpdated = '19 Oct 2026';
     f('cityPrices').innerHTML = cities.map(city => {
       const c22 = gold22k + city.diff;
       const c24 = gold24k + city.diff;
-      return `<tr class="border-b border-gray-50 hover:bg-gray-50">
-        <td class="py-2 pr-4 font-medium text-gray-900">${city.name}</td>
+      return `<tr class="border-b border-white/5 hover:bg-white/[0.02]">
+        <td class="py-2 pr-4 font-medium text-white">${city.name}</td>
         <td class="py-2 px-4">${inr(c22)}</td>
         <td class="py-2 px-4">${inr(c24)}</td>
         <td class="py-2 px-4 font-bold text-yellow-700">${inr(c22 * 10)}</td>

@@ -8,14 +8,14 @@ import AdUnit from '../../components/AdUnit.astro';
   title="Free Online Tools"
   description="Free calculators and comparison tools for India. EMI calculator, SIP calculator, FD calculator, mobile plan finder, rent vs buy calculator and more."
 >
-  <div class="page-header-bg bg-white border-b border-gray-200/60">
+  <div class="page-header-bg bg-white/[0.03] border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-      <span class="inline-block px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold ring-1 ring-inset ring-blue-700/10 mb-4">100% Free</span>
-      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">Free Tools</h1>
+      <span class="inline-block px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-semibold ring-1 ring-inset ring-blue-700/10 mb-4">100% Free</span>
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">Free Tools</h1>
       <p class="text-lg text-gray-500 max-w-2xl mb-8">All calculations run in your browser. No sign-ups, no data collection.</p>
       <div class="flex flex-wrap gap-2">
         {[['finance', '💰 Finance'], ['telecom', '📱 Telecom'], ['devices', '💻 Devices'], ['loans', '🏦 Loans'], ['lifestyle', '🏡 Lifestyle']].map(([id, label]) => (
-          <a href={`#${id}`} class="px-4 py-2 rounded-full bg-white border border-gray-200 text-sm font-semibold text-gray-700 hover:border-blue-300 hover:text-blue-600 hover:shadow-sm transition-all">{label}</a>
+          <a href={`#${id}`} class="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-sm font-semibold text-gray-300 hover:border-blue-300 hover:text-indigo-400 hover:shadow-lg shadow-black/10 transition-all">{label}</a>
         ))}
       </div>
     </div>
@@ -25,7 +25,7 @@ import AdUnit from '../../components/AdUnit.astro';
 
     <!-- Finance -->
     <div id="finance" class="mb-14 scroll-mt-24">
-      <h2 class="text-2xl font-extrabold text-gray-900 mb-6 flex items-center gap-3 scroll-mt-24">
+      <h2 class="text-2xl font-extrabold text-white mb-6 flex items-center gap-3 scroll-mt-24">
         <span class="text-3xl">💰</span> Financial Calculators
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -71,7 +71,7 @@ import AdUnit from '../../components/AdUnit.astro';
 
     <!-- Telecom & Subscriptions -->
     <div id="telecom" class="mb-14 scroll-mt-24">
-      <h2 class="text-2xl font-extrabold text-gray-900 mb-6 flex items-center gap-3 scroll-mt-24">
+      <h2 class="text-2xl font-extrabold text-white mb-6 flex items-center gap-3 scroll-mt-24">
         <span class="text-3xl">📱</span> Telecom & Subscriptions
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -103,7 +103,7 @@ import AdUnit from '../../components/AdUnit.astro';
 
     <!-- Compare Devices -->
     <div id="devices" class="mb-14 scroll-mt-24">
-      <h2 class="text-2xl font-extrabold text-gray-900 mb-6 flex items-center gap-3 scroll-mt-24">
+      <h2 class="text-2xl font-extrabold text-white mb-6 flex items-center gap-3 scroll-mt-24">
         <span class="text-3xl">💻</span> Compare Devices
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -126,7 +126,7 @@ import AdUnit from '../../components/AdUnit.astro';
 
     <!-- Loans & Cards -->
     <div id="loans" class="mb-14 scroll-mt-24">
-      <h2 class="text-2xl font-extrabold text-gray-900 mb-6 flex items-center gap-3 scroll-mt-24">
+      <h2 class="text-2xl font-extrabold text-white mb-6 flex items-center gap-3 scroll-mt-24">
         <span class="text-3xl">💳</span> Loans & Credit Cards
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -142,7 +142,7 @@ import AdUnit from '../../components/AdUnit.astro';
 
     <!-- Lifestyle & Utilities -->
     <div id="lifestyle" class="mb-14 scroll-mt-24">
-      <h2 class="text-2xl font-extrabold text-gray-900 mb-6 flex items-center gap-3 scroll-mt-24">
+      <h2 class="text-2xl font-extrabold text-white mb-6 flex items-center gap-3 scroll-mt-24">
         <span class="text-3xl">🏡</span> Lifestyle & Utilities
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

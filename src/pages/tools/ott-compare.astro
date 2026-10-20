@@ -84,22 +84,22 @@ const cheapest = [...allPlans].filter(p => !p.ads).sort((a, b) => a.price - b.pr
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="mb-8">
       <nav class="text-sm text-gray-500 mb-4">
-        <a href="/" class="hover:text-blue-600">Home</a>
+        <a href="/" class="hover:text-indigo-400">Home</a>
         <span class="mx-2">/</span>
-        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
         <span class="mx-2">/</span>
-        <span class="text-gray-900">OTT Comparison</span>
+        <span class="text-white">OTT Comparison</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">OTT Subscription Comparison</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">OTT Subscription Comparison</h1>
       <p class="text-gray-500 text-lg">Compare all major streaming platforms in India. Find the best plan for your budget and viewing needs.</p>
     </div>
 
     <!-- Quick Summary -->
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
       {platforms.map(p => (
-        <div class="bg-white rounded-xl border border-gray-200 p-4 text-center">
-          <h3 class="font-bold text-gray-900 text-sm mb-1">{p.name}</h3>
-          <p class="text-blue-600 font-bold text-lg">
+        <div class="bg-white/[0.03] rounded-xl border border-white/10 p-4 text-center">
+          <h3 class="font-bold text-white text-sm mb-1">{p.name}</h3>
+          <p class="text-indigo-400 font-bold text-lg">
             {p.plans[0].price === 0 ? 'Free' : `₹${p.plans[0].price}`}
           </p>
           <p class="text-gray-400 text-xs">starting price/mo</p>
@@ -108,21 +108,21 @@ const cheapest = [...allPlans].filter(p => !p.ads).sort((a, b) => a.price - b.pr
     </div>
 
     <!-- Filter -->
-    <div class="bg-white rounded-xl border border-gray-200 p-4 mb-8 flex flex-wrap gap-4 items-center">
-      <label class="text-sm font-medium text-gray-700">Budget:</label>
-      <select id="budget" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+    <div class="bg-white/[0.03] rounded-xl border border-white/10 p-4 mb-8 flex flex-wrap gap-4 items-center">
+      <label class="text-sm font-medium text-gray-300">Budget:</label>
+      <select id="budget" class="px-3 py-2 border border-white/10 rounded-lg text-sm">
         <option value="all">All Plans</option>
         <option value="200">Under ₹200/mo</option>
         <option value="500">Under ₹500/mo</option>
         <option value="1000">Under ₹1000/mo</option>
       </select>
-      <label class="text-sm font-medium text-gray-700 ml-4">Quality:</label>
-      <select id="quality" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+      <label class="text-sm font-medium text-gray-300 ml-4">Quality:</label>
+      <select id="quality" class="px-3 py-2 border border-white/10 rounded-lg text-sm">
         <option value="all">Any</option>
         <option value="4K">4K</option>
         <option value="1080p">1080p+</option>
       </select>
-      <label class="flex items-center gap-2 text-sm text-gray-700 ml-4">
+      <label class="flex items-center gap-2 text-sm text-gray-300 ml-4">
         <input type="checkbox" id="noAds" class="rounded" /> No Ads
       </label>
     </div>
@@ -130,13 +130,13 @@ const cheapest = [...allPlans].filter(p => !p.ads).sort((a, b) => a.price - b.pr
     <!-- Platform Cards -->
     <div id="platforms" class="space-y-8">
       {platforms.map(p => (
-        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden" data-platform={p.name}>
-          <div class="bg-gray-50 border-b border-gray-200 p-5">
+        <div class="bg-white/[0.03] rounded-xl border border-white/10 overflow-hidden" data-platform={p.name}>
+          <div class="bg-white/[0.02] border-b border-white/10 p-5">
             <div class="flex items-center justify-between">
-              <h2 class="text-xl font-bold text-gray-900">{p.name}</h2>
+              <h2 class="text-xl font-bold text-white">{p.name}</h2>
               <div class="flex flex-wrap gap-2">
                 {p.highlights.map(h => (
-                  <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full">{h}</span>
+                  <span class="px-2 py-1 bg-indigo-500/10 text-indigo-400 text-xs rounded-full">{h}</span>
                 ))}
               </div>
             </div>
@@ -144,7 +144,7 @@ const cheapest = [...allPlans].filter(p => !p.ads).sort((a, b) => a.price - b.pr
           <div class="overflow-x-auto">
             <table class="w-full">
               <thead>
-                <tr class="text-left text-sm text-gray-500 border-b border-gray-100">
+                <tr class="text-left text-sm text-gray-500 border-b border-white/5">
                   <th class="p-4 font-medium">Plan</th>
                   <th class="p-4 font-medium">Price/mo</th>
                   <th class="p-4 font-medium">Screens</th>
@@ -155,26 +155,26 @@ const cheapest = [...allPlans].filter(p => !p.ads).sort((a, b) => a.price - b.pr
               </thead>
               <tbody>
                 {p.plans.map(plan => (
-                  <tr class="border-b border-gray-50 hover:bg-gray-50 plan-row"
+                  <tr class="border-b border-white/5 hover:bg-white/[0.02] plan-row"
                     data-price={plan.price}
                     data-quality={plan.quality}
                     data-ads={plan.ads ? 'yes' : 'no'}>
-                    <td class="p-4 font-medium text-gray-900">{plan.name}</td>
-                    <td class="p-4 font-bold text-blue-600">
+                    <td class="p-4 font-medium text-white">{plan.name}</td>
+                    <td class="p-4 font-bold text-indigo-400">
                       {plan.price === 0 ? 'Free' : `₹${plan.price}`}
                     </td>
-                    <td class="p-4 text-gray-700">{plan.screens}</td>
-                    <td class="p-4 text-gray-700">{plan.quality}</td>
+                    <td class="p-4 text-gray-300">{plan.screens}</td>
+                    <td class="p-4 text-gray-300">{plan.quality}</td>
                     <td class="p-4">
                       {plan.downloads
-                        ? <span class="text-green-600">Yes</span>
+                        ? <span class="text-emerald-400">Yes</span>
                         : <span class="text-red-400">No</span>
                       }
                     </td>
                     <td class="p-4">
                       {plan.ads
                         ? <span class="text-red-400">Yes</span>
-                        : <span class="text-green-600">No</span>
+                        : <span class="text-emerald-400">No</span>
                       }
                     </td>
                   </tr>
@@ -189,27 +189,27 @@ const cheapest = [...allPlans].filter(p => !p.ads).sort((a, b) => a.price - b.pr
     <AdUnit />
 
     <!-- Cost Calculator -->
-    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">OTT Bundle Calculator</h2>
+    <div class="mt-12 bg-white/[0.03] rounded-xl border border-white/10 p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-white mb-4">OTT Bundle Calculator</h2>
       <p class="text-gray-500 mb-6">Select the platforms you subscribe to and see your total monthly cost.</p>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
         {platforms.map(p => (
-          <label class="flex items-center gap-2 bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-blue-50 transition-colors">
+          <label class="flex items-center gap-2 bg-white/[0.02] rounded-lg p-3 cursor-pointer hover:bg-indigo-500/10 transition-colors">
             <input type="checkbox" class="bundle-check rounded" data-cheapest={p.plans[0].price} />
-            <span class="text-sm font-medium text-gray-700">{p.name}</span>
+            <span class="text-sm font-medium text-gray-300">{p.name}</span>
           </label>
         ))}
       </div>
-      <div class="bg-blue-50 rounded-lg p-4 text-center">
-        <p class="text-sm text-blue-600">Monthly total (cheapest plans)</p>
-        <p id="bundleTotal" class="text-3xl font-bold text-blue-700 mt-1">₹0</p>
+      <div class="bg-indigo-500/10 rounded-lg p-4 text-center">
+        <p class="text-sm text-indigo-400">Monthly total (cheapest plans)</p>
+        <p id="bundleTotal" class="text-3xl font-bold text-indigo-400 mt-1">₹0</p>
         <p id="bundleYearly" class="text-sm text-blue-500 mt-1">₹0/year</p>
       </div>
     </div>
 
     <AdUnit />
 
-    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+    <div class="mt-12 bg-white/[0.03] rounded-xl border border-white/10 p-6 md:p-8 prose prose-invert max-w-none">
       <h2>Which OTT Platform is Best in India?</h2>
       <p>Choosing the right streaming platform depends on what you watch:</p>
       <ul>

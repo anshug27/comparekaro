@@ -22,30 +22,30 @@ const schema = {
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="mb-8">
       <nav class="text-sm text-gray-500 mb-4">
-        <a href="/" class="hover:text-blue-600">Home</a>
+        <a href="/" class="hover:text-indigo-400">Home</a>
         <span class="mx-2">/</span>
-        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
         <span class="mx-2">/</span>
-        <span class="text-gray-900">Plan Finder</span>
+        <span class="text-white">Plan Finder</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Mobile Plan Finder</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Mobile Plan Finder</h1>
       <p class="text-gray-500 text-lg">Find the best prepaid plan based on your actual needs.</p>
     </div>
 
     <!-- Filters -->
-    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-      <h2 class="font-semibold text-gray-900 mb-4">What do you need?</h2>
+    <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6 mb-8">
+      <h2 class="font-semibold text-white mb-4">What do you need?</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Operator</label>
-          <select id="filter-operator" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+          <label class="block text-sm font-medium text-gray-300 mb-1">Operator</label>
+          <select id="filter-operator" class="w-full px-3 py-2.5 border border-white/10 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
             <option value="all">All Operators</option>
             {operators.map(op => <option value={op}>{op}</option>)}
           </select>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Budget (max &#8377;)</label>
-          <select id="filter-budget" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+          <label class="block text-sm font-medium text-gray-300 mb-1">Budget (max &#8377;)</label>
+          <select id="filter-budget" class="w-full px-3 py-2.5 border border-white/10 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
             <option value="0">Any Budget</option>
             <option value="200">Under &#8377;200</option>
             <option value="350">Under &#8377;350</option>
@@ -55,8 +55,8 @@ const schema = {
           </select>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Daily Data</label>
-          <select id="filter-data" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+          <label class="block text-sm font-medium text-gray-300 mb-1">Daily Data</label>
+          <select id="filter-data" class="w-full px-3 py-2.5 border border-white/10 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
             <option value="0">Any</option>
             <option value="1">1+ GB/day</option>
             <option value="1.5">1.5+ GB/day</option>
@@ -65,8 +65,8 @@ const schema = {
           </select>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Validity</label>
-          <select id="filter-validity" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+          <label class="block text-sm font-medium text-gray-300 mb-1">Validity</label>
+          <select id="filter-validity" class="w-full px-3 py-2.5 border border-white/10 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
             <option value="0">Any</option>
             <option value="28">28 Days</option>
             <option value="84">84 Days (3 months)</option>
@@ -85,8 +85,8 @@ const schema = {
         </label>
       </div>
       <div class="mt-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
-        <select id="sort-by" class="px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+        <label class="block text-sm font-medium text-gray-300 mb-1">Sort By</label>
+        <select id="sort-by" class="px-3 py-2.5 border border-white/10 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
           <option value="pricePerDay">Price per Day (Low to High)</option>
           <option value="price">Price (Low to High)</option>
           <option value="data">Data (High to Low)</option>
@@ -99,7 +99,7 @@ const schema = {
     <!-- Results Count -->
     <div class="flex items-center justify-between mb-4">
       <p id="results-count" class="text-sm text-gray-500">Loading plans...</p>
-      <p id="best-pick" class="text-sm font-medium text-green-600"></p>
+      <p id="best-pick" class="text-sm font-medium text-emerald-400"></p>
     </div>
 
     <!-- Plan Cards -->
@@ -107,7 +107,7 @@ const schema = {
 
     <AdUnit />
 
-    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+    <div class="mt-12 bg-white/[0.03] rounded-xl border border-white/10 p-6 md:p-8 prose prose-invert max-w-none">
       <h2>How to Choose the Best Mobile Plan?</h2>
       <p>Choosing the right mobile plan depends on your usage pattern:</p>
       <ul>
@@ -187,12 +187,12 @@ const schema = {
         const isBest = idx === 0;
 
         const card = document.createElement('div');
-        card.className = `bg-white rounded-xl border ${isBest ? 'border-green-300 ring-2 ring-green-100' : 'border-gray-200'} p-5 hover:shadow-md transition-shadow`;
+        card.className = `bg-white/[0.03] rounded-xl border ${isBest ? 'border-emerald-500/30 ring-2 ring-emerald-500/20' : 'border-white/10'} p-5 hover:shadow-md transition-shadow`;
         card.innerHTML = `
           <div class="flex flex-col sm:flex-row sm:items-center gap-4">
             <div class="flex items-center gap-3 sm:w-36">
               <span class="${opColor} text-white text-xs font-bold px-3 py-1 rounded-full">${plan.operator}</span>
-              ${isBest ? '<span class="bg-green-100 text-green-700 text-xs font-medium px-2 py-0.5 rounded-full">Best Match</span>' : ''}
+              ${isBest ? '<span class="bg-emerald-500/15 text-emerald-400 text-xs font-medium px-2 py-0.5 rounded-full">Best Match</span>' : ''}
             </div>
             <div class="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
               <div>
@@ -209,12 +209,12 @@ const schema = {
               </div>
               <div>
                 <p class="text-gray-400 text-xs">Per Day</p>
-                <p class="font-semibold text-green-600">${formatINR(plan.pricePerDay)}</p>
+                <p class="font-semibold text-emerald-400">${formatINR(plan.pricePerDay)}</p>
               </div>
             </div>
             <div class="flex flex-wrap gap-1.5 sm:w-48 sm:justify-end">
-              ${plan.has5G ? '<span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full font-medium">5G</span>' : ''}
-              ${plan.ott.map(o => `<span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">${o}</span>`).join('')}
+              ${plan.has5G ? '<span class="bg-indigo-500/20 text-indigo-400 text-xs px-2 py-0.5 rounded-full font-medium">5G</span>' : ''}
+              ${plan.ott.map(o => `<span class="bg-white/10 text-gray-400 text-xs px-2 py-0.5 rounded-full">${o}</span>`).join('')}
             </div>
           </div>
         `;

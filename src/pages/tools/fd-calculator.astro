@@ -21,66 +21,66 @@ const schema = {
   <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="mb-8">
       <nav class="text-sm text-gray-500 mb-4">
-        <a href="/" class="hover:text-blue-600">Home</a>
+        <a href="/" class="hover:text-indigo-400">Home</a>
         <span class="mx-2">/</span>
-        <a href="/tools" class="hover:text-blue-600">Tools</a>
+        <a href="/tools" class="hover:text-indigo-400">Tools</a>
         <span class="mx-2">/</span>
-        <span class="text-gray-900">FD Calculator</span>
+        <span class="text-white">FD Calculator</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Fixed Deposit Calculator</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Fixed Deposit Calculator</h1>
       <p class="text-gray-500 text-lg">Calculate your FD maturity amount with quarterly compounding.</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6 md:p-8">
+      <div class="lg:col-span-2 bg-white/[0.03] rounded-xl border border-white/10 p-6 md:p-8">
         <div class="space-y-6">
           <div>
-            <label for="fd-amount" class="block text-sm font-medium text-gray-700 mb-2">Deposit Amount (&#8377;)</label>
+            <label for="fd-amount" class="block text-sm font-medium text-gray-300 mb-2">Deposit Amount (&#8377;)</label>
             <input type="range" id="fd-amount-range" min="10000" max="10000000" step="10000" value="500000"
               class="w-full h-2 bg-purple-100 rounded-lg appearance-none cursor-pointer accent-purple-600" />
             <input type="number" id="fd-amount" value="500000" min="10000" max="10000000" step="10000"
-              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg" />
+              class="mt-2 w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg" />
           </div>
 
           <div>
-            <label for="fd-rate" class="block text-sm font-medium text-gray-700 mb-2">Interest Rate (% per annum)</label>
+            <label for="fd-rate" class="block text-sm font-medium text-gray-300 mb-2">Interest Rate (% per annum)</label>
             <input type="range" id="fd-rate-range" min="3" max="10" step="0.05" value="7"
               class="w-full h-2 bg-purple-100 rounded-lg appearance-none cursor-pointer accent-purple-600" />
             <input type="number" id="fd-rate" value="7" min="3" max="10" step="0.05"
-              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg" />
+              class="mt-2 w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg" />
           </div>
 
           <div>
-            <label for="fd-years" class="block text-sm font-medium text-gray-700 mb-2">Tenure (Years)</label>
+            <label for="fd-years" class="block text-sm font-medium text-gray-300 mb-2">Tenure (Years)</label>
             <input type="range" id="fd-years-range" min="1" max="10" step="1" value="5"
               class="w-full h-2 bg-purple-100 rounded-lg appearance-none cursor-pointer accent-purple-600" />
             <input type="number" id="fd-years" value="5" min="1" max="10" step="1"
-              class="mt-2 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg" />
+              class="mt-2 w-full px-4 py-2.5 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg" />
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Compounding Frequency</label>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Compounding Frequency</label>
             <div class="flex flex-wrap gap-2">
-              <button data-freq="12" class="freq-btn px-4 py-2 rounded-lg border text-sm font-medium border-gray-300 hover:border-purple-400">Monthly</button>
+              <button data-freq="12" class="freq-btn px-4 py-2 rounded-lg border text-sm font-medium border-white/10 hover:border-purple-400">Monthly</button>
               <button data-freq="4" class="freq-btn px-4 py-2 rounded-lg border text-sm font-medium bg-purple-600 text-white border-purple-600">Quarterly</button>
-              <button data-freq="2" class="freq-btn px-4 py-2 rounded-lg border text-sm font-medium border-gray-300 hover:border-purple-400">Half-Yearly</button>
-              <button data-freq="1" class="freq-btn px-4 py-2 rounded-lg border text-sm font-medium border-gray-300 hover:border-purple-400">Yearly</button>
+              <button data-freq="2" class="freq-btn px-4 py-2 rounded-lg border text-sm font-medium border-white/10 hover:border-purple-400">Half-Yearly</button>
+              <button data-freq="1" class="freq-btn px-4 py-2 rounded-lg border text-sm font-medium border-white/10 hover:border-purple-400">Yearly</button>
             </div>
           </div>
         </div>
 
         <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div class="bg-purple-50 rounded-lg p-4 text-center">
+          <div class="bg-purple-500/10 rounded-lg p-4 text-center">
             <p class="text-sm text-purple-600 font-medium">Maturity Amount</p>
             <p id="fd-maturity" class="text-2xl font-bold text-purple-800 mt-1">&#8377;7,07,160</p>
           </div>
-          <div class="bg-green-50 rounded-lg p-4 text-center">
-            <p class="text-sm text-green-600 font-medium">Interest Earned</p>
+          <div class="bg-emerald-500/10 rounded-lg p-4 text-center">
+            <p class="text-sm text-emerald-400 font-medium">Interest Earned</p>
             <p id="fd-interest" class="text-2xl font-bold text-green-800 mt-1">&#8377;2,07,160</p>
           </div>
-          <div class="bg-blue-50 rounded-lg p-4 text-center">
-            <p class="text-sm text-blue-600 font-medium">Effective Yield</p>
-            <p id="fd-yield" class="text-2xl font-bold text-blue-800 mt-1">7.19%</p>
+          <div class="bg-indigo-500/10 rounded-lg p-4 text-center">
+            <p class="text-sm text-indigo-400 font-medium">Effective Yield</p>
+            <p id="fd-yield" class="text-2xl font-bold text-indigo-300 mt-1">7.19%</p>
           </div>
         </div>
       </div>
@@ -88,14 +88,14 @@ const schema = {
       <div class="space-y-6">
         <AdUnit format="rectangle" />
 
-        <div class="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 class="font-semibold text-gray-900 mb-4">FD Rates (Oct 2026)</h3>
+        <div class="bg-white/[0.03] rounded-xl border border-white/10 p-6">
+          <h3 class="font-semibold text-white mb-4">FD Rates (Oct 2026)</h3>
           <div class="space-y-3 text-sm">
-            <div class="flex justify-between"><span class="text-gray-600">SBI</span><span class="font-medium">6.50% - 7.25%</span></div>
-            <div class="flex justify-between"><span class="text-gray-600">HDFC Bank</span><span class="font-medium">6.60% - 7.40%</span></div>
-            <div class="flex justify-between"><span class="text-gray-600">ICICI Bank</span><span class="font-medium">6.60% - 7.25%</span></div>
-            <div class="flex justify-between"><span class="text-gray-600">Post Office</span><span class="font-medium">6.90% - 7.50%</span></div>
-            <div class="flex justify-between"><span class="text-gray-600">Bajaj Finance</span><span class="font-medium">7.40% - 8.25%</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">SBI</span><span class="font-medium">6.50% - 7.25%</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">HDFC Bank</span><span class="font-medium">6.60% - 7.40%</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">ICICI Bank</span><span class="font-medium">6.60% - 7.25%</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Post Office</span><span class="font-medium">6.90% - 7.50%</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Bajaj Finance</span><span class="font-medium">7.40% - 8.25%</span></div>
           </div>
           <p class="text-xs text-gray-400 mt-3">Senior citizens typically get 0.25-0.50% extra. Rates are indicative.</p>
         </div>
@@ -104,9 +104,9 @@ const schema = {
 
     <AdUnit />
 
-    <div class="mt-12 bg-white rounded-xl border border-gray-200 p-6 md:p-8 prose prose-gray max-w-none">
+    <div class="mt-12 bg-white/[0.03] rounded-xl border border-white/10 p-6 md:p-8 prose prose-invert max-w-none">
       <h2>FD Maturity Calculation Formula</h2>
-      <p class="bg-gray-50 p-4 rounded-lg font-mono text-sm">A = P × (1 + r/n)<sup>n×t</sup></p>
+      <p class="bg-white/[0.02] p-4 rounded-lg font-mono text-sm">A = P × (1 + r/n)<sup>n×t</sup></p>
       <p>Where <strong>A</strong> = Maturity amount, <strong>P</strong> = Principal, <strong>r</strong> = Annual interest rate, <strong>n</strong> = Compounding frequency per year, <strong>t</strong> = Tenure in years.</p>
 
       <h2>FD vs SIP - Which is Better?</h2>
@@ -154,10 +154,10 @@ const schema = {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.freq-btn').forEach(b => {
           b.classList.remove('bg-purple-600', 'text-white', 'border-purple-600');
-          b.classList.add('border-gray-300');
+          b.classList.add('border-white/10');
         });
         btn.classList.add('bg-purple-600', 'text-white', 'border-purple-600');
-        btn.classList.remove('border-gray-300');
+        btn.classList.remove('border-white/10');
         compoundFreq = parseInt(btn.dataset.freq!);
         calculateFD();
       });
