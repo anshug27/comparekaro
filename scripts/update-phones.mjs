@@ -75,19 +75,58 @@ function getPopularPhoneUrls(html) {
 function parsePhoneSpecs(html, url) {
   const $ = cheerio.load(html);
 
-  // 1. Extract from JSON-LD (name, price, brand, images)
-  let name = '', price = 0, brand = '', image = '';
+  // 1. Extract from JSON-LD (name, brand, images, and fallback prices)
+  let name = '', brand = '', image = '';
+  let jsonLowPrice = 0, jsonHighPrice = 0;
   $('script[type="application/ld+json"]').each((_, el) => {
     try {
       const data = JSON.parse($(el).html());
       if (data['@type'] === 'Product') {
         name = data.name || '';
         brand = data.brand?.name || '';
-        price = parseInt(data.offers?.lowPrice || data.offers?.price || '0', 10);
+        jsonLowPrice = parseInt(data.offers?.lowPrice || data.offers?.price || '0', 10);
+        jsonHighPrice = parseInt(data.offers?.highPrice || '0', 10);
         image = Array.isArray(data.image) ? data.image[0] : (data.image || '');
       }
     } catch (e) {}
   });
+
+  // 1b. Get the REAL price from TRUSTED retailers only
+  // 91mobiles lowPrice is often from grey market resellers (e.g. Indiaistore)
+  const TRUSTED = /amazon|flipkart|reliance|croma|vijay\s*sales|tata\s*cliq|samsung|apple|jio/i;
+  let trustedPrice = 0;
+  let amazonPrice91 = 0, flipkartPrice91 = 0;
+
+  // Go through each variant's stores — only accept prices from trusted retailers
+  $('.prc-section[data-instock="1"]').each((_, el) => {
+    const text = $(el).text().replace(/\s+/g, ' ').trim();
+    const storeText = $(el).find('.store-detail').text().replace(/\s+/g, ' ').trim();
+
+    // Check for Amazon or Flipkart specifically (for the retailer price fields)
+    const amazonMatch = text.match(/Amazon\s*₹([\d,]+)/i);
+    const flipkartMatch = text.match(/Flipkart\s*₹([\d,]+)/i);
+    if (amazonMatch && !amazonPrice91) amazonPrice91 = parseInt(amazonMatch[1].replace(/,/g, ''));
+    if (flipkartMatch && !flipkartPrice91) flipkartPrice91 = parseInt(flipkartMatch[1].replace(/,/g, ''));
+
+    // For the main price: use first trusted store price from base variant
+    if (!trustedPrice) {
+      if (TRUSTED.test(storeText) || TRUSTED.test(text)) {
+        const priceMatch = text.match(/₹([\d,]+)/);
+        if (priceMatch) trustedPrice = parseInt(priceMatch[1].replace(/,/g, ''));
+      } else {
+        // Store is untrusted — check if "Starting at" is from multiple stores
+        const startMatch = text.match(/Starting at\s*₹([\d,]+)/i);
+        if (startMatch) {
+          // "Starting at" typically means multi-store, more reliable
+          trustedPrice = parseInt(startMatch[1].replace(/,/g, ''));
+        }
+        // Skip single untrusted stores (grey market)
+      }
+    }
+  });
+
+  // Use trusted retailer price, then Amazon/Flipkart, then JSON-LD highPrice, lastly lowPrice
+  const price = trustedPrice || amazonPrice91 || flipkartPrice91 || jsonHighPrice || jsonLowPrice;
 
   // Check if price is "expected" / rumored (not actual selling price)
   // Look specifically in the price container area, not the whole page
@@ -185,33 +224,22 @@ function parsePhoneSpecs(html, url) {
     || general.join(' ').match(/(\d{2,3}(?:\.\d+)?\s*(?:grams?|g(?:ms?)?))\b/i);
   const weight = weightMatch ? weightMatch[1] : '';
 
-  // 4. Extract retailer prices (Amazon, Flipkart) from price sections
-  const retailers = {};
-  // Method 1: Parse prc-section text (e.g. "12 GB + 256 GB Amazon ₹64,999 Go To Store")
-  $('.prc-section').each((_, el) => {
-    const text = $(el).text().replace(/\s+/g, ' ').trim();
-    const priceMatch = text.match(/₹([\d,]+)/);
-    if (priceMatch) {
-      const p = parseInt(priceMatch[1].replace(/,/g, ''));
-      if (/amazon/i.test(text) && !retailers['amazon']) retailers['amazon'] = p;
-      if (/flipkart/i.test(text) && !retailers['flipkart']) retailers['flipkart'] = p;
-    }
-  });
-  // Method 2: Parse store-detail elements
-  $('.store-detail').each((_, el) => {
-    const storeText = $(el).text().trim();
-    const parent = $(el).parent();
-    const priceText = parent.text().replace(/\s+/g, ' ').trim();
-    const priceMatch = priceText.match(/₹([\d,]+)/);
-    if (priceMatch) {
-      const p = parseInt(priceMatch[1].replace(/,/g, ''));
-      if (/amazon/i.test(storeText) && !retailers['amazon']) retailers['amazon'] = p;
-      if (/flipkart/i.test(storeText) && !retailers['flipkart']) retailers['flipkart'] = p;
-    }
-  });
-
-  const amazonPrice = retailers['amazon'] || 0;
-  const flipkartPrice = retailers['flipkart'] || 0;
+  // 4. Retailer prices already extracted earlier (amazonPrice91, flipkartPrice91)
+  // Also do a fallback scan via store-detail elements
+  let amazonPrice = amazonPrice91, flipkartPrice = flipkartPrice91;
+  if (!amazonPrice || !flipkartPrice) {
+    $('.store-detail').each((_, el) => {
+      const storeText = $(el).text().trim();
+      const parent = $(el).parent();
+      const priceText = parent.text().replace(/\s+/g, ' ').trim();
+      const priceMatch = priceText.match(/₹([\d,]+)/);
+      if (priceMatch) {
+        const p = parseInt(priceMatch[1].replace(/,/g, ''));
+        if (/amazon/i.test(storeText) && !amazonPrice) amazonPrice = p;
+        if (/flipkart/i.test(storeText) && !flipkartPrice) flipkartPrice = p;
+      }
+    });
+  }
 
   // Generate ID from name
   const id = name
