@@ -1,0 +1,164 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Pomodoro Timer', url: 'https://comparekaro.download/tools/pomodoro', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="Pomodoro Timer - Focus Study Timer with Sessions" description="Free Pomodoro timer for studying and productivity. 25/5 minute intervals, session tracking, customizable durations, and focus tips." schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">Pomodoro Timer</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Pomodoro Timer</h1>
+      <p class="text-gray-400 text-lg">Focus better with the Pomodoro technique. 25 min work, 5 min break.</p>
+    </div>
+
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <!-- Mode tabs -->
+      <div class="flex gap-2 mb-6 justify-center">
+        <button class="mode-btn px-5 py-2 rounded-xl bg-red-500 text-white font-bold text-sm" data-mode="work" data-time="25">Focus</button>
+        <button class="mode-btn px-5 py-2 rounded-xl bg-white/[0.06] text-gray-300 font-bold text-sm" data-mode="short" data-time="5">Short Break</button>
+        <button class="mode-btn px-5 py-2 rounded-xl bg-white/[0.06] text-gray-300 font-bold text-sm" data-mode="long" data-time="15">Long Break</button>
+      </div>
+
+      <!-- Timer circle -->
+      <div class="relative w-64 h-64 mx-auto mb-6">
+        <svg viewBox="0 0 100 100" class="w-full h-full -rotate-90">
+          <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/>
+          <circle id="timerRing" cx="50" cy="50" r="44" fill="none" stroke="#ef4444" stroke-width="6" stroke-linecap="round" stroke-dasharray="276.46" stroke-dashoffset="0" style="transition: stroke-dashoffset 0.5s linear"/>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <span id="display" class="text-5xl font-mono font-bold text-white">25:00</span>
+          <span id="modeLabel" class="text-sm text-gray-500 mt-1">Focus Time</span>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex gap-3 justify-center mb-6">
+        <button id="startBtn" class="px-8 py-3 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-400 hover:to-pink-400 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer">Start</button>
+        <button id="resetBtn" class="px-6 py-3 bg-white/[0.06] text-gray-400 rounded-xl font-bold hover:text-white transition-all cursor-pointer">Reset</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-3 text-center">
+        <div class="glass rounded-xl p-3">
+          <p class="text-xs text-gray-500">Sessions</p>
+          <p id="sessions" class="text-xl font-bold text-white">0</p>
+        </div>
+        <div class="glass rounded-xl p-3">
+          <p class="text-xs text-gray-500">Focus Time</p>
+          <p id="focusTime" class="text-xl font-bold text-emerald-400">0m</p>
+        </div>
+        <div class="glass rounded-xl p-3">
+          <p class="text-xs text-gray-500">Streak</p>
+          <p id="streak" class="text-xl font-bold text-orange-400">0</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom duration -->
+    <div class="glass rounded-2xl p-6 mb-8">
+      <h3 class="text-white font-bold mb-3 text-sm">Customize Duration</h3>
+      <div class="grid grid-cols-3 gap-3">
+        <div><label class="text-xs text-gray-500">Focus (min)</label><input type="number" id="workMin" value="25" min="1" max="120" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" /></div>
+        <div><label class="text-xs text-gray-500">Short Break</label><input type="number" id="shortMin" value="5" min="1" max="30" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" /></div>
+        <div><label class="text-xs text-gray-500">Long Break</label><input type="number" id="longMin" value="15" min="1" max="60" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" /></div>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-lg font-bold text-white mb-3">How Pomodoro Works</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs text-gray-400">
+        <div class="p-3 bg-red-500/5 rounded-lg"><span class="text-red-400 font-bold">1. Focus</span><br>Work for 25 min without distractions</div>
+        <div class="p-3 bg-emerald-500/5 rounded-lg"><span class="text-emerald-400 font-bold">2. Short Break</span><br>Take 5 min to rest your mind</div>
+        <div class="p-3 bg-blue-500/5 rounded-lg"><span class="text-blue-400 font-bold">3. Repeat</span><br>Do 4 focus sessions</div>
+        <div class="p-3 bg-purple-500/5 rounded-lg"><span class="text-purple-400 font-bold">4. Long Break</span><br>After 4 sessions, take 15-30 min</div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    var f = function(id) { return document.getElementById(id); };
+    var totalSeconds = 25 * 60, remaining = totalSeconds, running = false, timer = null;
+    var mode = 'work', sessions = 0, totalFocus = 0;
+    var modeColors = { work: '#ef4444', short: '#10b981', long: '#8b5cf6' };
+    var modeLabels = { work: 'Focus Time', short: 'Short Break', long: 'Long Break' };
+
+    function updateDisplay() {
+      var m = Math.floor(remaining / 60);
+      var s = remaining % 60;
+      f('display').textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+      var offset = 276.46 * (1 - remaining / totalSeconds);
+      f('timerRing').setAttribute('stroke-dashoffset', offset);
+    }
+
+    function setMode(m, mins) {
+      mode = m;
+      totalSeconds = mins * 60;
+      remaining = totalSeconds;
+      running = false;
+      if (timer) clearInterval(timer);
+      f('startBtn').textContent = 'Start';
+      f('timerRing').setAttribute('stroke', modeColors[m]);
+      f('modeLabel').textContent = modeLabels[m];
+      updateDisplay();
+    }
+
+    document.querySelectorAll('.mode-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.mode-btn').forEach(function(b) { b.classList.remove('bg-red-500','bg-emerald-500','bg-purple-500','text-white'); b.classList.add('bg-white/[0.06]','text-gray-300'); });
+        var m = btn.dataset.mode;
+        var colorClass = m === 'work' ? 'bg-red-500' : m === 'short' ? 'bg-emerald-500' : 'bg-purple-500';
+        btn.classList.add(colorClass, 'text-white');
+        btn.classList.remove('bg-white/[0.06]', 'text-gray-300');
+        var mins = m === 'work' ? parseInt(f('workMin').value) : m === 'short' ? parseInt(f('shortMin').value) : parseInt(f('longMin').value);
+        setMode(m, mins);
+      });
+    });
+
+    f('startBtn').addEventListener('click', function() {
+      if (running) {
+        running = false;
+        clearInterval(timer);
+        f('startBtn').textContent = 'Resume';
+      } else {
+        running = true;
+        f('startBtn').textContent = 'Pause';
+        timer = setInterval(function() {
+          remaining--;
+          if (remaining <= 0) {
+            clearInterval(timer);
+            running = false;
+            f('startBtn').textContent = 'Start';
+            if (mode === 'work') {
+              sessions++;
+              totalFocus += parseInt(f('workMin').value);
+              f('sessions').textContent = sessions;
+              f('focusTime').textContent = totalFocus + 'm';
+              f('streak').textContent = sessions;
+            }
+            // Play sound
+            try {
+              var ac = new (window.AudioContext || window.webkitAudioContext)();
+              var osc = ac.createOscillator();
+              osc.type = 'sine'; osc.frequency.setValueAtTime(800, ac.currentTime);
+              osc.connect(ac.destination); osc.start(); osc.stop(ac.currentTime + 0.3);
+              setTimeout(function() { var o2 = ac.createOscillator(); o2.type = 'sine'; o2.frequency.setValueAtTime(1000, ac.currentTime); o2.connect(ac.destination); o2.start(); o2.stop(ac.currentTime + 0.5); }, 400);
+            } catch(e) {}
+            // Auto switch
+            if (mode === 'work') {
+              if (sessions % 4 === 0) { document.querySelectorAll('.mode-btn')[2].click(); }
+              else { document.querySelectorAll('.mode-btn')[1].click(); }
+            } else { document.querySelectorAll('.mode-btn')[0].click(); }
+          }
+          updateDisplay();
+        }, 1000);
+      }
+    });
+
+    f('resetBtn').addEventListener('click', function() {
+      var mins = mode === 'work' ? parseInt(f('workMin').value) : mode === 'short' ? parseInt(f('shortMin').value) : parseInt(f('longMin').value);
+      setMode(mode, mins);
+    });
+  </script>
+</Layout>

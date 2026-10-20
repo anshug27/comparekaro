@@ -1,0 +1,150 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Resume Builder', url: 'https://comparekaro.download/tools/resume-builder', applicationCategory: 'BusinessApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="Resume Builder - Create Professional Resume Free" description="Free resume builder. Fill in your details, generate a clean professional resume, and print or save as PDF. No signup required." schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">Resume Builder</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Resume Builder</h1>
+      <p class="text-gray-400 text-lg">Fill the form, get a professional resume. Print or save as PDF.</p>
+    </div>
+
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <!-- Personal -->
+      <h3 class="text-white font-bold mb-3">Personal Details</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+        <input type="text" id="fullName" placeholder="Full Name *" class="px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+        <input type="email" id="email" placeholder="Email *" class="px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+        <input type="tel" id="phone" placeholder="Phone *" class="px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+        <input type="text" id="location" placeholder="City, State" class="px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+        <input type="text" id="linkedin" placeholder="LinkedIn URL (optional)" class="px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+        <input type="text" id="portfolio" placeholder="Portfolio/GitHub (optional)" class="px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+      </div>
+
+      <!-- Summary -->
+      <h3 class="text-white font-bold mb-3">Professional Summary</h3>
+      <div class="flex gap-2 mb-1">
+        <textarea id="summary" rows="3" placeholder="Brief professional summary (2-3 lines)..." class="flex-1 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 resize-none"></textarea>
+      </div>
+      <button id="aiSummary" class="text-xs text-purple-400 hover:text-purple-300 cursor-pointer mb-6">🤖 Generate with AI (fill name & skills first)</button>
+
+      <!-- Experience -->
+      <h3 class="text-white font-bold mb-3">Experience</h3>
+      <div id="expList" class="space-y-3 mb-2">
+        <div class="exp-item grid grid-cols-1 sm:grid-cols-4 gap-2 p-3 bg-white/[0.03] rounded-lg">
+          <input type="text" placeholder="Job Title" class="exp-title px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" />
+          <input type="text" placeholder="Company" class="exp-company px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" />
+          <input type="text" placeholder="Duration (e.g. 2022-Present)" class="exp-duration px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" />
+          <input type="text" placeholder="Key achievement" class="exp-desc px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" />
+        </div>
+      </div>
+      <button id="addExp" class="text-xs text-indigo-400 hover:text-indigo-300 cursor-pointer mb-6">+ Add Experience</button>
+
+      <!-- Education -->
+      <h3 class="text-white font-bold mb-3">Education</h3>
+      <div id="eduList" class="space-y-3 mb-2">
+        <div class="edu-item grid grid-cols-1 sm:grid-cols-3 gap-2 p-3 bg-white/[0.03] rounded-lg">
+          <input type="text" placeholder="Degree (e.g. BTech CS)" class="edu-degree px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" />
+          <input type="text" placeholder="College/University" class="edu-college px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" />
+          <input type="text" placeholder="Year (e.g. 2020-2024)" class="edu-year px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" />
+        </div>
+      </div>
+      <button id="addEdu" class="text-xs text-indigo-400 hover:text-indigo-300 cursor-pointer mb-6">+ Add Education</button>
+
+      <!-- Skills -->
+      <h3 class="text-white font-bold mb-3">Skills</h3>
+      <input type="text" id="skills" placeholder="e.g. React, Node.js, Python, SQL, Figma, Excel..." class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 mb-6" />
+
+      <button id="genBtn" class="w-full px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-400 hover:to-purple-400 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all cursor-pointer text-lg">Generate Resume & Print</button>
+    </div>
+    <AdUnit />
+  </section>
+
+  <script is:inline>
+    var f = function(id) { return document.getElementById(id); };
+
+    f('addExp').addEventListener('click', function() {
+      var div = document.createElement('div');
+      div.className = 'exp-item grid grid-cols-1 sm:grid-cols-4 gap-2 p-3 bg-white/[0.03] rounded-lg';
+      div.innerHTML = '<input type="text" placeholder="Job Title" class="exp-title px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" /><input type="text" placeholder="Company" class="exp-company px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" /><input type="text" placeholder="Duration" class="exp-duration px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" /><input type="text" placeholder="Key achievement" class="exp-desc px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" />';
+      f('expList').appendChild(div);
+    });
+    f('addEdu').addEventListener('click', function() {
+      var div = document.createElement('div');
+      div.className = 'edu-item grid grid-cols-1 sm:grid-cols-3 gap-2 p-3 bg-white/[0.03] rounded-lg';
+      div.innerHTML = '<input type="text" placeholder="Degree" class="edu-degree px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" /><input type="text" placeholder="College" class="edu-college px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" /><input type="text" placeholder="Year" class="edu-year px-2 py-1.5 bg-white/[0.06] border border-white/10 rounded text-sm text-gray-200" />';
+      f('eduList').appendChild(div);
+    });
+
+    f('aiSummary').addEventListener('click', function() {
+      var name = f('fullName').value;
+      var skills = f('skills').value;
+      var title = document.querySelector('.exp-title') ? document.querySelector('.exp-title').value : '';
+      if (!name && !skills) { alert('Fill in your name and skills first'); return; }
+      f('aiSummary').textContent = '🤖 Generating...';
+      fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: 'Write a 2-3 sentence professional resume summary for ' + (name || 'a professional') + (title ? ' who works as ' + title : '') + '. Skills: ' + (skills || 'various') + '. Keep it concise, professional, impactful. No first person. Plain text only.' }),
+      }).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.text) f('summary').value = data.text;
+      }).catch(function() {}).finally(function() { f('aiSummary').textContent = '🤖 Generate with AI'; });
+    });
+
+    f('genBtn').addEventListener('click', function() {
+      var name = f('fullName').value || 'Your Name';
+      var email = f('email').value;
+      var phone = f('phone').value;
+      var location = f('location').value;
+      var linkedin = f('linkedin').value;
+      var portfolio = f('portfolio').value;
+      var summary = f('summary').value;
+      var skills = f('skills').value;
+
+      var exps = [];
+      document.querySelectorAll('.exp-item').forEach(function(item) {
+        var t = item.querySelector('.exp-title').value;
+        var c = item.querySelector('.exp-company').value;
+        var d = item.querySelector('.exp-duration').value;
+        var desc = item.querySelector('.exp-desc').value;
+        if (t || c) exps.push({ title: t, company: c, duration: d, desc: desc });
+      });
+      var edus = [];
+      document.querySelectorAll('.edu-item').forEach(function(item) {
+        var deg = item.querySelector('.edu-degree').value;
+        var col = item.querySelector('.edu-college').value;
+        var yr = item.querySelector('.edu-year').value;
+        if (deg || col) edus.push({ degree: deg, college: col, year: yr });
+      });
+
+      var contact = [email, phone, location, linkedin, portfolio].filter(function(c) { return c; }).join(' | ');
+      var w = window.open('', '_blank');
+      w.document.write('<!DOCTYPE html><html><head><title>Resume - ' + name + '</title><style>body{font-family:Georgia,serif;max-width:750px;margin:40px auto;padding:0 20px;color:#333;line-height:1.5}h1{margin:0;font-size:28px;color:#1a1a1a}h2{font-size:14px;text-transform:uppercase;letter-spacing:2px;border-bottom:2px solid #333;padding-bottom:4px;margin-top:24px;margin-bottom:12px;color:#444}h3{margin:0;font-size:15px;color:#222}.contact{font-size:12px;color:#666;margin-top:4px}.item{margin-bottom:14px}.meta{display:flex;justify-content:space-between;font-size:13px;color:#555}.skills{display:flex;flex-wrap:wrap;gap:6px}.skill{background:#f0f0f0;padding:3px 10px;border-radius:4px;font-size:12px}p{margin:4px 0;font-size:13px}@media print{body{margin:20px auto}}</style></head><body>');
+      w.document.write('<h1>' + name + '</h1>');
+      if (contact) w.document.write('<p class="contact">' + contact + '</p>');
+      if (summary) { w.document.write('<h2>Summary</h2><p>' + summary + '</p>'); }
+      if (exps.length) {
+        w.document.write('<h2>Experience</h2>');
+        exps.forEach(function(e) {
+          w.document.write('<div class="item"><div class="meta"><h3>' + e.title + (e.company ? ' — ' + e.company : '') + '</h3><span>' + e.duration + '</span></div>');
+          if (e.desc) w.document.write('<p>' + e.desc + '</p>');
+          w.document.write('</div>');
+        });
+      }
+      if (edus.length) {
+        w.document.write('<h2>Education</h2>');
+        edus.forEach(function(e) {
+          w.document.write('<div class="item"><div class="meta"><h3>' + e.degree + (e.college ? ' — ' + e.college : '') + '</h3><span>' + e.year + '</span></div></div>');
+        });
+      }
+      if (skills) {
+        w.document.write('<h2>Skills</h2><div class="skills">');
+        skills.split(',').forEach(function(s) { s = s.trim(); if (s) w.document.write('<span class="skill">' + s + '</span>'); });
+        w.document.write('</div>');
+      }
+      w.document.write('<script>window.print();<\/script></body></html>');
+    });
+  </script>
+</Layout>

@@ -1,0 +1,123 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Baby Name Finder', url: 'https://comparekaro.download/tools/baby-names', applicationCategory: 'LifestyleApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="Baby Name Finder - Indian Baby Names with Meanings" description="Find the perfect Indian baby name. AI-powered suggestions with meaning, origin, rashi, nakshatra. Hindu, Muslim, Sikh, Christian names." schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">Baby Name Finder</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Baby Name Finder</h1>
+      <p class="text-gray-400 text-lg">Find the perfect name for your baby. AI-powered suggestions with meanings.</p>
+    </div>
+
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Gender</label>
+          <select id="gender" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200">
+            <option value="boy">Boy</option>
+            <option value="girl">Girl</option>
+            <option value="unisex">Unisex</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Starting Letter</label>
+          <input type="text" id="letter" maxlength="2" placeholder="Any" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200 text-center uppercase" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Origin / Religion</label>
+          <select id="origin" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200">
+            <option value="any">Any</option>
+            <option value="Hindu/Sanskrit">Hindu / Sanskrit</option>
+            <option value="Muslim/Arabic">Muslim / Arabic</option>
+            <option value="Sikh/Punjabi">Sikh / Punjabi</option>
+            <option value="Christian">Christian</option>
+            <option value="Modern/Trendy">Modern / Trendy</option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-5">
+        <label class="block text-sm font-medium text-gray-300 mb-2">Preferences (optional)</label>
+        <input type="text" id="prefs" placeholder="e.g. short name, unique, traditional, nature-inspired..." class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200" />
+      </div>
+
+      <button id="findBtn" class="w-full px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white font-bold rounded-xl shadow-lg shadow-pink-500/25 transition-all cursor-pointer text-lg">Find Names</button>
+
+      <div id="loading" class="hidden text-center py-8"><span class="text-gray-500 text-sm animate-pulse">AI is finding perfect names...</span></div>
+      <div id="results" class="hidden mt-6 space-y-3"></div>
+    </div>
+
+    <!-- Quick searches -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      <p class="text-xs text-gray-500 w-full mb-1">Popular searches:</p>
+      {['Hindu boy names starting with A', 'Modern girl names', 'Unique unisex names', 'Muslim boy names starting with M', 'Short 4-letter girl names', 'Sanskrit names meaning sun', 'Sikh boy names', 'Nature-inspired girl names'].map(q => (
+        <button class="quick-search px-3 py-1.5 rounded-lg bg-white/[0.04] text-gray-500 text-xs hover:bg-pink-500/10 hover:text-pink-400 transition-all cursor-pointer" data-q={q}>{q}</button>
+      ))}
+    </div>
+
+    <AdUnit />
+  </section>
+
+  <script is:inline>
+    var f = function(id) { return document.getElementById(id); };
+
+    function findNames() {
+      var gender = f('gender').value;
+      var letter = f('letter').value.trim().toUpperCase();
+      var origin = f('origin').value;
+      var prefs = f('prefs').value.trim();
+
+      var prompt = 'You are an Indian baby name expert. Suggest 10 ' + gender + ' baby names';
+      if (letter) prompt += ' starting with the letter "' + letter + '"';
+      if (origin !== 'any') prompt += ' from ' + origin + ' origin';
+      if (prefs) prompt += '. Preferences: ' + prefs;
+      prompt += '.\n\nFor each name, provide in this exact format:\nName: [name]\nMeaning: [meaning in English]\nOrigin: [language/religion]\nNumerology: [lucky number 1-9]\n\nGive exactly 10 names. Plain text, no markdown.';
+
+      f('loading').classList.remove('hidden');
+      f('results').classList.add('hidden');
+
+      fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: prompt }),
+      }).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.error) throw new Error(data.error);
+        var html = data.text.split(/\n\n+/).filter(function(b) { return b.trim(); }).map(function(block) {
+          var lines = block.split('\n').map(function(l) { return l.trim(); }).filter(function(l) { return l; });
+          var name = '', meaning = '', origin = '', num = '';
+          lines.forEach(function(l) {
+            if (l.match(/^Name:/i)) name = l.replace(/^Name:\s*/i, '');
+            if (l.match(/^Meaning:/i)) meaning = l.replace(/^Meaning:\s*/i, '');
+            if (l.match(/^Origin:/i)) origin = l.replace(/^Origin:\s*/i, '');
+            if (l.match(/^Numerology:/i)) num = l.replace(/^Numerology:\s*/i, '');
+          });
+          if (!name) return '';
+          return '<div class="glass rounded-xl p-4 flex items-center gap-4">' +
+            '<div class="w-12 h-12 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-400 font-bold text-lg shrink-0">' + (name.charAt(0) || '?') + '</div>' +
+            '<div class="flex-1 min-w-0"><p class="text-white font-bold">' + name + '</p><p class="text-gray-400 text-xs">' + meaning + '</p><p class="text-gray-600 text-[10px]">' + origin + (num ? ' • Lucky #' + num : '') + '</p></div>' +
+            '</div>';
+        }).filter(function(h) { return h; }).join('');
+        f('results').innerHTML = html || '<p class="text-gray-500">No names found. Try different criteria.</p>';
+        f('results').classList.remove('hidden');
+      }).catch(function(e) {
+        f('results').innerHTML = '<p class="text-red-400">Error: ' + e.message + '</p>';
+        f('results').classList.remove('hidden');
+      }).finally(function() { f('loading').classList.add('hidden'); });
+    }
+
+    f('findBtn').addEventListener('click', findNames);
+    document.querySelectorAll('.quick-search').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var q = btn.dataset.q;
+        f('prefs').value = q;
+        if (q.match(/boy/i)) f('gender').value = 'boy';
+        else if (q.match(/girl/i)) f('gender').value = 'girl';
+        else if (q.match(/unisex/i)) f('gender').value = 'unisex';
+        var lm = q.match(/starting with (\w)/i);
+        if (lm) f('letter').value = lm[1];
+        findNames();
+      });
+    });
+  </script>
+</Layout>

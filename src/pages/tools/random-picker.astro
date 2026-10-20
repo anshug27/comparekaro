@@ -1,0 +1,169 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Random Picker', url: 'https://comparekaro.download/tools/random-picker', applicationCategory: 'EntertainmentApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="Random Picker - Coin Flip, Dice, Spin Wheel, Team Generator" description="Free random picker tools: flip a coin, roll dice, spin a wheel with custom options, generate random numbers, pick random names, and make teams." schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">Random Picker</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Random Picker</h1>
+      <p class="text-gray-400 text-lg">Can't decide? Let randomness help you out!</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <!-- Coin Flip -->
+      <div class="glass rounded-2xl p-6 text-center">
+        <h3 class="text-white font-bold mb-4">Flip a Coin</h3>
+        <div id="coinBox" class="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-4xl font-bold text-yellow-900 shadow-lg shadow-yellow-500/20 mb-4 cursor-pointer select-none" style="transition: transform 0.6s">?</div>
+        <button id="flipBtn" class="px-6 py-2 bg-yellow-500/20 text-yellow-400 rounded-lg font-bold text-sm hover:bg-yellow-500/30 transition-all cursor-pointer">Flip</button>
+        <p id="coinHistory" class="text-xs text-gray-600 mt-2"></p>
+      </div>
+
+      <!-- Dice Roller -->
+      <div class="glass rounded-2xl p-6 text-center">
+        <h3 class="text-white font-bold mb-4">Roll Dice</h3>
+        <div class="flex gap-3 justify-center mb-4">
+          <div id="dice1" class="w-20 h-20 rounded-xl bg-white flex items-center justify-center text-3xl font-bold text-gray-900 shadow-lg" style="transition: transform 0.4s">🎲</div>
+          <div id="dice2" class="w-20 h-20 rounded-xl bg-white flex items-center justify-center text-3xl font-bold text-gray-900 shadow-lg" style="transition: transform 0.4s">🎲</div>
+        </div>
+        <div class="flex gap-2 justify-center mb-2">
+          <button id="roll1" class="px-4 py-2 bg-indigo-500/20 text-indigo-400 rounded-lg font-bold text-sm cursor-pointer">Roll 1</button>
+          <button id="roll2" class="px-4 py-2 bg-indigo-500/20 text-indigo-400 rounded-lg font-bold text-sm cursor-pointer">Roll 2</button>
+        </div>
+        <p id="diceTotal" class="text-sm text-gray-400"></p>
+      </div>
+
+      <!-- Random Number -->
+      <div class="glass rounded-2xl p-6">
+        <h3 class="text-white font-bold mb-4 text-center">Random Number</h3>
+        <div class="flex gap-2 items-center mb-4">
+          <input type="number" id="numMin" value="1" class="flex-1 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" />
+          <span class="text-gray-500">to</span>
+          <input type="number" id="numMax" value="100" class="flex-1 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" />
+        </div>
+        <button id="genNum" class="w-full px-4 py-2 bg-emerald-500/20 text-emerald-400 rounded-lg font-bold text-sm cursor-pointer mb-3">Generate</button>
+        <p id="numResult" class="text-center text-4xl font-bold text-white">-</p>
+      </div>
+
+      <!-- Yes/No -->
+      <div class="glass rounded-2xl p-6 text-center">
+        <h3 class="text-white font-bold mb-4">Yes or No?</h3>
+        <div id="yesnoResult" class="text-5xl font-bold text-white mb-4 h-16 flex items-center justify-center">🤔</div>
+        <button id="yesnoBtn" class="px-8 py-3 bg-gradient-to-r from-emerald-500 to-blue-500 text-white rounded-xl font-bold cursor-pointer">Decide!</button>
+      </div>
+    </div>
+
+    <!-- Spin Wheel -->
+    <div class="glass rounded-2xl p-6 mb-8">
+      <h3 class="text-white font-bold mb-4">Custom Spinner</h3>
+      <textarea id="wheelItems" rows="3" placeholder="Enter options (one per line)&#10;e.g.&#10;Pizza&#10;Biryani&#10;Pasta&#10;Dosa" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200 mb-3 resize-none"></textarea>
+      <button id="spinBtn" class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer">Spin!</button>
+      <div id="spinResult" class="hidden mt-4 text-center">
+        <p class="text-sm text-gray-500 mb-1">The winner is...</p>
+        <p id="spinWinner" class="text-3xl font-bold text-white animate-pulse"></p>
+      </div>
+    </div>
+
+    <!-- Team Generator -->
+    <div class="glass rounded-2xl p-6 mb-8">
+      <h3 class="text-white font-bold mb-4">Team Generator</h3>
+      <textarea id="teamNames" rows="3" placeholder="Enter names (one per line)&#10;e.g.&#10;Rahul&#10;Priya&#10;Arjun&#10;Ananya" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200 mb-3 resize-none"></textarea>
+      <div class="flex gap-3 items-center mb-3">
+        <label class="text-sm text-gray-300">Number of teams:</label>
+        <input type="number" id="teamCount" value="2" min="2" max="10" class="w-20 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" />
+        <button id="teamBtn" class="px-6 py-2 bg-blue-500/20 text-blue-400 rounded-lg font-bold text-sm cursor-pointer">Generate Teams</button>
+      </div>
+      <div id="teamsResult" class="hidden grid grid-cols-2 gap-3"></div>
+    </div>
+
+    <AdUnit />
+  </section>
+
+  <script is:inline>
+    var f = function(id) { return document.getElementById(id); };
+    var diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+    var coinFlips = [];
+
+    // Coin
+    f('flipBtn').addEventListener('click', function() {
+      f('coinBox').style.transform = 'rotateY(720deg) scale(0.8)';
+      setTimeout(function() {
+        var result = Math.random() < 0.5 ? 'H' : 'T';
+        f('coinBox').textContent = result;
+        f('coinBox').style.transform = 'rotateY(0) scale(1)';
+        coinFlips.push(result);
+        if (coinFlips.length > 20) coinFlips.shift();
+        f('coinHistory').textContent = coinFlips.join(' ');
+      }, 400);
+    });
+    f('coinBox').addEventListener('click', function() { f('flipBtn').click(); });
+
+    // Dice
+    function rollDice(el) {
+      el.style.transform = 'rotate(360deg) scale(0.7)';
+      var val = Math.floor(Math.random() * 6);
+      setTimeout(function() { el.textContent = diceFaces[val]; el.style.transform = 'rotate(0) scale(1)'; }, 300);
+      return val + 1;
+    }
+    f('roll1').addEventListener('click', function() {
+      var v1 = rollDice(f('dice1'));
+      f('dice2').textContent = '🎲';
+      f('diceTotal').textContent = 'Total: ' + v1;
+    });
+    f('roll2').addEventListener('click', function() {
+      var v1 = rollDice(f('dice1'));
+      var v2 = rollDice(f('dice2'));
+      f('diceTotal').textContent = 'Total: ' + (v1 + v2);
+    });
+
+    // Random Number
+    f('genNum').addEventListener('click', function() {
+      var min = parseInt(f('numMin').value) || 0;
+      var max = parseInt(f('numMax').value) || 100;
+      f('numResult').textContent = Math.floor(Math.random() * (max - min + 1)) + min;
+      f('numResult').style.transform = 'scale(1.2)';
+      setTimeout(function() { f('numResult').style.transform = 'scale(1)'; }, 200);
+    });
+
+    // Yes/No
+    f('yesnoBtn').addEventListener('click', function() {
+      var answers = ['Yes! ✅', 'No! ❌', 'Maybe 🤷', 'Definitely! 💯', 'Nope 🙅', 'Go for it! 🚀', 'Not today 😬', 'Absolutely! 🎉'];
+      f('yesnoResult').textContent = answers[Math.floor(Math.random() * answers.length)];
+    });
+
+    // Spinner
+    f('spinBtn').addEventListener('click', function() {
+      var items = f('wheelItems').value.trim().split('\n').filter(function(l) { return l.trim(); });
+      if (items.length < 2) { alert('Enter at least 2 options'); return; }
+      f('spinResult').classList.remove('hidden');
+      var count = 0, total = 15 + Math.floor(Math.random() * 10);
+      var interval = setInterval(function() {
+        f('spinWinner').textContent = items[count % items.length];
+        count++;
+        if (count >= total) {
+          clearInterval(interval);
+          f('spinWinner').textContent = '🎉 ' + items[Math.floor(Math.random() * items.length)] + ' 🎉';
+        }
+      }, 100 + count * 15);
+    });
+
+    // Team Generator
+    f('teamBtn').addEventListener('click', function() {
+      var names = f('teamNames').value.trim().split('\n').filter(function(n) { return n.trim(); });
+      var numTeams = parseInt(f('teamCount').value) || 2;
+      if (names.length < numTeams) { alert('Need at least ' + numTeams + ' names'); return; }
+      // Shuffle
+      for (var i = names.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = names[i]; names[i] = names[j]; names[j] = t; }
+      var teams = [];
+      for (var k = 0; k < numTeams; k++) teams.push([]);
+      names.forEach(function(n, i) { teams[i % numTeams].push(n.trim()); });
+      var colors = ['indigo', 'pink', 'emerald', 'orange', 'blue', 'purple', 'red', 'teal', 'yellow', 'cyan'];
+      f('teamsResult').innerHTML = teams.map(function(team, idx) {
+        var c = colors[idx % colors.length];
+        return '<div class="glass rounded-xl p-3"><p class="text-' + c + '-400 font-bold text-sm mb-2">Team ' + (idx + 1) + '</p>' + team.map(function(n) { return '<p class="text-gray-300 text-xs">' + n + '</p>'; }).join('') + '</div>';
+      }).join('');
+      f('teamsResult').classList.remove('hidden');
+    });
+  </script>
+</Layout>

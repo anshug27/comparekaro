@@ -1,0 +1,100 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Daily Horoscope', url: 'https://comparekaro.download/tools/horoscope', applicationCategory: 'EntertainmentApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+const signs = [
+  { name: 'Aries', emoji: '♈', dates: 'Mar 21 - Apr 19', element: 'Fire' },
+  { name: 'Taurus', emoji: '♉', dates: 'Apr 20 - May 20', element: 'Earth' },
+  { name: 'Gemini', emoji: '♊', dates: 'May 21 - Jun 20', element: 'Air' },
+  { name: 'Cancer', emoji: '♋', dates: 'Jun 21 - Jul 22', element: 'Water' },
+  { name: 'Leo', emoji: '♌', dates: 'Jul 23 - Aug 22', element: 'Fire' },
+  { name: 'Virgo', emoji: '♍', dates: 'Aug 23 - Sep 22', element: 'Earth' },
+  { name: 'Libra', emoji: '♎', dates: 'Sep 23 - Oct 22', element: 'Air' },
+  { name: 'Scorpio', emoji: '♏', dates: 'Oct 23 - Nov 21', element: 'Water' },
+  { name: 'Sagittarius', emoji: '♐', dates: 'Nov 22 - Dec 21', element: 'Fire' },
+  { name: 'Capricorn', emoji: '♑', dates: 'Dec 22 - Jan 19', element: 'Earth' },
+  { name: 'Aquarius', emoji: '♒', dates: 'Jan 20 - Feb 18', element: 'Air' },
+  { name: 'Pisces', emoji: '♓', dates: 'Feb 19 - Mar 20', element: 'Water' },
+];
+---
+<Layout title="Daily Horoscope - AI-Powered Zodiac Predictions" description="Free daily horoscope for all 12 zodiac signs. Get AI-powered predictions for love, career, health, and finance. Lucky numbers and colors." schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">Daily Horoscope</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Daily Horoscope</h1>
+      <p class="text-gray-400 text-lg">Select your zodiac sign for today's AI-powered prediction.</p>
+    </div>
+
+    <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
+      {signs.map(s => (
+        <button class="sign-btn glass rounded-xl p-4 text-center hover:border-indigo-400 hover:bg-white/[0.04] transition-all cursor-pointer group" data-sign={s.name} data-dates={s.dates} data-element={s.element}>
+          <span class="text-3xl block mb-1 group-hover:scale-110 transition-transform">{s.emoji}</span>
+          <span class="text-white text-sm font-bold">{s.name}</span>
+          <span class="text-gray-600 text-[10px] block">{s.dates}</span>
+        </button>
+      ))}
+    </div>
+
+    <div id="prediction" class="hidden glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="flex items-center gap-3 mb-4">
+        <span id="signEmoji" class="text-4xl">♈</span>
+        <div>
+          <h2 id="signName" class="text-xl font-bold text-white">Aries</h2>
+          <p id="signDates" class="text-xs text-gray-500">Mar 21 - Apr 19</p>
+        </div>
+        <span id="signElement" class="ml-auto text-xs px-2 py-1 rounded-full bg-orange-500/20 text-orange-400">Fire</span>
+      </div>
+      <div id="predLoading" class="text-center py-8"><span class="text-gray-500 text-sm animate-pulse">Reading the stars...</span></div>
+      <div id="predContent" class="hidden space-y-4 text-sm text-gray-300 leading-relaxed"></div>
+    </div>
+
+    <AdUnit />
+
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-xl font-bold text-white mb-3">About Zodiac Signs</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
+        <div class="p-3 bg-red-500/5 rounded-lg"><p class="text-red-400 font-bold text-xs">Fire Signs</p><p class="text-gray-400 text-xs">Aries, Leo, Sagittarius — passionate & energetic</p></div>
+        <div class="p-3 bg-emerald-500/5 rounded-lg"><p class="text-emerald-400 font-bold text-xs">Earth Signs</p><p class="text-gray-400 text-xs">Taurus, Virgo, Capricorn — grounded & practical</p></div>
+        <div class="p-3 bg-blue-500/5 rounded-lg"><p class="text-blue-400 font-bold text-xs">Air Signs</p><p class="text-gray-400 text-xs">Gemini, Libra, Aquarius — intellectual & social</p></div>
+        <div class="p-3 bg-purple-500/5 rounded-lg"><p class="text-purple-400 font-bold text-xs">Water Signs</p><p class="text-gray-400 text-xs">Cancer, Scorpio, Pisces — emotional & intuitive</p></div>
+      </div>
+      <p class="text-[10px] text-gray-600 mt-3">For entertainment only. Not real astrological advice.</p>
+    </div>
+  </section>
+
+  <script is:inline>
+    var f = function(id) { return document.getElementById(id); };
+    var elementColors = { Fire: 'bg-orange-500/20 text-orange-400', Earth: 'bg-emerald-500/20 text-emerald-400', Air: 'bg-blue-500/20 text-blue-400', Water: 'bg-purple-500/20 text-purple-400' };
+
+    document.querySelectorAll('.sign-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.sign-btn').forEach(function(b) { b.classList.remove('border-indigo-400', 'bg-white/[0.04]'); });
+        btn.classList.add('border-indigo-400', 'bg-white/[0.04]');
+        var sign = btn.dataset.sign;
+        var element = btn.dataset.element;
+        f('signName').textContent = sign;
+        f('signDates').textContent = btn.dataset.dates;
+        f('signEmoji').textContent = btn.querySelector('span').textContent;
+        f('signElement').textContent = element;
+        f('signElement').className = 'ml-auto text-xs px-2 py-1 rounded-full ' + (elementColors[element] || '');
+        f('prediction').classList.remove('hidden');
+        f('predLoading').classList.remove('hidden');
+        f('predContent').classList.add('hidden');
+
+        var today = new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: 'You are a fun astrologer. Give a daily horoscope for ' + sign + ' for today (' + today + '). Include:\n\n1. Overall Prediction (3-4 sentences about their day)\n2. Love & Relationships (1-2 sentences)\n3. Career & Money (1-2 sentences)\n4. Health (1 sentence)\n5. Lucky Number: (a number 1-99)\n6. Lucky Color: (a color)\n7. Mood: (one word)\n8. Compatibility: (best zodiac match today)\n\nBe positive and encouraging. Max 200 words. Plain text format.' }),
+        }).then(function(r) { return r.json(); }).then(function(data) {
+          if (data.error) throw new Error(data.error);
+          f('predContent').innerHTML = data.text.replace(/\n/g, '<br>').replace(/(Overall Prediction|Love & Relationships|Career & Money|Health|Lucky Number|Lucky Color|Mood|Compatibility):/g, '<strong class="text-white">$1:</strong>');
+          f('predContent').classList.remove('hidden');
+        }).catch(function(e) {
+          f('predContent').innerHTML = '<p class="text-red-400">Error: ' + e.message + '</p>';
+          f('predContent').classList.remove('hidden');
+        }).finally(function() { f('predLoading').classList.add('hidden'); });
+      });
+    });
+  </script>
+</Layout>

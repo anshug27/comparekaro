@@ -1,0 +1,118 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Recipe Cost Calculator', url: 'https://comparekaro.download/tools/recipe-cost', applicationCategory: 'LifestyleApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="Recipe Cost Calculator - Per Plate Cost for Indian Dishes" description="Calculate the cost of any recipe per serving. Add ingredients, set servings, get per-plate cost. AI can suggest recipes. Great for homemakers and food businesses." schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">Recipe Cost Calculator</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Recipe Cost Calculator</h1>
+      <p class="text-gray-400 text-lg">Calculate per-plate cost for any dish. Perfect for home cooking and food business.</p>
+    </div>
+
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="flex flex-wrap gap-3 items-end mb-5">
+        <div class="flex-1 min-w-[200px]"><label class="block text-sm font-medium text-gray-300 mb-2">Recipe Name</label><input type="text" id="recipeName" placeholder="e.g. Paneer Butter Masala" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200" /></div>
+        <div class="w-24"><label class="block text-sm font-medium text-gray-300 mb-2">Servings</label><input type="number" id="servings" value="4" min="1" max="100" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200 text-center" /></div>
+      </div>
+
+      <!-- Ingredients -->
+      <h3 class="text-white font-bold text-sm mb-3">Ingredients</h3>
+      <div id="ingredients" class="space-y-2 mb-3">
+        <div class="ing-row grid grid-cols-12 gap-2 items-center">
+          <input type="text" placeholder="Ingredient" class="ing-name col-span-5 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" />
+          <input type="text" placeholder="Qty" class="ing-qty col-span-2 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" />
+          <input type="text" placeholder="Unit" class="ing-unit col-span-2 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" value="g" />
+          <input type="number" placeholder="₹" class="ing-cost col-span-2 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" />
+          <button class="del-ing col-span-1 text-red-400 hover:text-red-300 cursor-pointer text-sm">✕</button>
+        </div>
+      </div>
+      <button id="addIng" class="text-xs text-indigo-400 hover:text-indigo-300 cursor-pointer mb-5">+ Add Ingredient</button>
+
+      <button id="calcCost" class="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-400 hover:to-pink-400 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer">Calculate Cost</button>
+
+      <div id="costResult" class="hidden mt-6 grid grid-cols-3 gap-3">
+        <div class="glass rounded-xl p-4 text-center"><p class="text-xs text-gray-500">Total Cost</p><p id="totalCost" class="text-2xl font-bold text-white mt-1">₹0</p></div>
+        <div class="glass rounded-xl p-4 text-center border border-emerald-500/20"><p class="text-xs text-gray-500">Per Serving</p><p id="perServing" class="text-2xl font-bold text-emerald-400 mt-1">₹0</p></div>
+        <div class="glass rounded-xl p-4 text-center"><p class="text-xs text-gray-500">Ingredients</p><p id="ingCount" class="text-2xl font-bold text-indigo-400 mt-1">0</p></div>
+      </div>
+    </div>
+
+    <!-- AI Recipe -->
+    <div class="glass rounded-2xl p-6 mb-8 border border-orange-500/20">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-lg">🤖</span>
+        <h2 class="text-lg font-bold text-white">AI: Get Recipe with Costs</h2>
+        <span class="text-[10px] px-2 py-0.5 bg-orange-500/20 text-orange-400 rounded-full font-medium">Powered by Gemini</span>
+      </div>
+      <div class="flex gap-2 mb-3">
+        <input type="text" id="aiDish" placeholder="e.g. Chole Bhature, Chicken Biryani, Gulab Jamun..." class="flex-1 px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200" />
+        <button id="aiRecipe" class="px-6 py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer text-sm whitespace-nowrap">Get Recipe</button>
+      </div>
+      <div class="flex flex-wrap gap-2 mb-3">
+        {['Paneer Butter Masala', 'Chicken Biryani', 'Chole Bhature', 'Samosa', 'Gulab Jamun', 'Masala Dosa', 'Dal Makhani', 'Butter Chicken'].map(d => (
+          <button class="dish-preset px-3 py-1 rounded-lg bg-white/[0.04] text-gray-500 text-xs hover:bg-orange-500/10 hover:text-orange-400 transition-all cursor-pointer" data-dish={d}>{d}</button>
+        ))}
+      </div>
+      <div id="aiRecipeLoading" class="hidden text-center py-4"><span class="text-gray-500 text-sm animate-pulse">AI is preparing recipe...</span></div>
+      <div id="aiRecipeResult" class="hidden glass rounded-xl p-4 text-sm text-gray-300 leading-relaxed"></div>
+    </div>
+
+    <AdUnit />
+  </section>
+
+  <script is:inline>
+    var f = function(id) { return document.getElementById(id); };
+
+    function addRow() {
+      var div = document.createElement('div');
+      div.className = 'ing-row grid grid-cols-12 gap-2 items-center';
+      div.innerHTML = '<input type="text" placeholder="Ingredient" class="ing-name col-span-5 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" /><input type="text" placeholder="Qty" class="ing-qty col-span-2 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" /><input type="text" placeholder="Unit" class="ing-unit col-span-2 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" value="g" /><input type="number" placeholder="₹" class="ing-cost col-span-2 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center" /><button class="del-ing col-span-1 text-red-400 hover:text-red-300 cursor-pointer text-sm">✕</button>';
+      f('ingredients').appendChild(div);
+      div.querySelector('.del-ing').addEventListener('click', function() { div.remove(); });
+    }
+
+    f('addIng').addEventListener('click', addRow);
+    document.querySelectorAll('.del-ing').forEach(function(btn) {
+      btn.addEventListener('click', function() { btn.closest('.ing-row').remove(); });
+    });
+
+    f('calcCost').addEventListener('click', function() {
+      var total = 0, count = 0;
+      document.querySelectorAll('.ing-row').forEach(function(row) {
+        var cost = parseFloat(row.querySelector('.ing-cost').value) || 0;
+        if (cost > 0) { total += cost; count++; }
+      });
+      var servings = parseInt(f('servings').value) || 1;
+      f('totalCost').textContent = '\u20B9' + total.toFixed(0);
+      f('perServing').textContent = '\u20B9' + (total / servings).toFixed(0);
+      f('ingCount').textContent = count;
+      f('costResult').classList.remove('hidden');
+    });
+
+    function aiGetRecipe(dish) {
+      if (!dish.trim()) return;
+      f('aiRecipeLoading').classList.remove('hidden');
+      f('aiRecipeResult').classList.add('hidden');
+      fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: 'You are an Indian cooking expert. Give me the recipe and ingredient cost breakdown for "' + dish + '" serving 4 people. Use current Indian market prices (2024-2025).\n\nFormat:\nRecipe: [name]\nServings: 4\n\nIngredients & Cost:\n1. [Ingredient] - [Quantity] - ₹[Cost]\n2. ...\n\nTotal Cost: ₹[total]\nPer Plate: ₹[per serving]\n\nQuick Steps:\n1. ...\n2. ...\n\nKeep costs realistic for Indian markets. Max 250 words. Plain text.' }),
+      }).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.error) throw new Error(data.error);
+        f('aiRecipeResult').innerHTML = data.text.replace(/\n/g, '<br>').replace(/(Recipe:|Servings:|Ingredients & Cost:|Total Cost:|Per Plate:|Quick Steps:)/g, '<strong class="text-white">$1</strong>').replace(/(₹\d+)/g, '<span class="text-emerald-400 font-medium">$1</span>');
+        f('aiRecipeResult').classList.remove('hidden');
+      }).catch(function(e) {
+        f('aiRecipeResult').innerHTML = '<p class="text-red-400">Error: ' + e.message + '</p>';
+        f('aiRecipeResult').classList.remove('hidden');
+      }).finally(function() { f('aiRecipeLoading').classList.add('hidden'); });
+    }
+
+    f('aiRecipe').addEventListener('click', function() { aiGetRecipe(f('aiDish').value); });
+    f('aiDish').addEventListener('keydown', function(e) { if (e.key === 'Enter') aiGetRecipe(f('aiDish').value); });
+    document.querySelectorAll('.dish-preset').forEach(function(btn) {
+      btn.addEventListener('click', function() { f('aiDish').value = btn.dataset.dish; aiGetRecipe(btn.dataset.dish); });
+    });
+  </script>
+</Layout>

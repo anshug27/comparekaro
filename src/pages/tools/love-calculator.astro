@@ -1,0 +1,146 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Love Calculator', url: 'https://comparekaro.download/tools/love-calculator', applicationCategory: 'EntertainmentApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="Love Calculator - Check Your Compatibility" description="Fun love calculator! Enter two names and check your compatibility percentage. Get AI relationship advice. Just for fun!" schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">Love Calculator</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Love Calculator</h1>
+      <p class="text-gray-400 text-lg">Enter two names and see your compatibility. Just for fun!</p>
+    </div>
+
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label class="block text-sm font-medium text-pink-400 mb-2">Your Name</label>
+          <input type="text" id="name1" placeholder="Enter your name" class="w-full px-4 py-3 bg-white/[0.06] border border-pink-500/20 rounded-xl text-lg text-gray-200 focus:ring-2 focus:ring-pink-500" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-red-400 mb-2">Partner's Name</label>
+          <input type="text" id="name2" placeholder="Enter their name" class="w-full px-4 py-3 bg-white/[0.06] border border-red-500/20 rounded-xl text-lg text-gray-200 focus:ring-2 focus:ring-red-500" />
+        </div>
+      </div>
+      <button id="calcBtn" class="w-full px-8 py-4 bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-400 hover:to-red-400 text-white font-bold rounded-xl shadow-lg shadow-pink-500/25 transition-all cursor-pointer text-lg">Calculate Love</button>
+
+      <div id="result" class="hidden mt-8 text-center">
+        <div class="relative w-48 h-48 mx-auto mb-6">
+          <svg viewBox="0 0 100 100" class="w-full h-full -rotate-90">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8"/>
+            <circle id="ring" cx="50" cy="50" r="42" fill="none" stroke="url(#loveGrad)" stroke-width="8" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264" style="transition: stroke-dashoffset 1.5s ease-out"/>
+            <defs><linearGradient id="loveGrad"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#ef4444"/></linearGradient></defs>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span id="pct" class="text-4xl font-extrabold text-white">0%</span>
+            <span class="text-2xl">❤️</span>
+          </div>
+        </div>
+        <p id="names" class="text-lg font-bold text-white mb-2">-</p>
+        <p id="verdict" class="text-gray-400 mb-4">-</p>
+        <div id="traits" class="grid grid-cols-3 gap-3 mb-6"></div>
+        <button id="shareBtn" class="px-6 py-2 bg-white/[0.06] text-gray-400 rounded-lg text-sm hover:text-white transition-all cursor-pointer">Share Result</button>
+      </div>
+    </div>
+
+    <!-- AI Love Advice -->
+    <div class="glass rounded-2xl p-6 mb-8 border border-pink-500/20">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-lg">🤖</span>
+        <h2 class="text-lg font-bold text-white">AI Relationship Advice</h2>
+        <span class="text-[10px] px-2 py-0.5 bg-pink-500/20 text-pink-400 rounded-full font-medium">Powered by Gemini</span>
+      </div>
+      <p class="text-gray-500 text-xs mb-3">Calculate love first, then get fun AI advice for your pair.</p>
+      <button id="aiLove" class="w-full px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer text-sm">Get AI Love Advice</button>
+      <div id="aiLoveLoading" class="hidden text-center py-4"><span class="text-gray-500 text-sm animate-pulse">AI is thinking...</span></div>
+      <div id="aiLoveResult" class="hidden mt-4 glass rounded-xl p-4 text-sm text-gray-300 leading-relaxed"></div>
+    </div>
+
+    <AdUnit />
+    <p class="text-center text-xs text-gray-600 mt-4">This is just for fun and entertainment. No real compatibility is calculated.</p>
+  </section>
+
+  <script is:inline>
+    var f = function(id) { return document.getElementById(id); };
+    var verdicts = [
+      { min: 0, text: 'Hmm... maybe just friends? 😅', color: 'text-red-400' },
+      { min: 20, text: 'There\'s a spark, but it needs work! 🔥', color: 'text-orange-400' },
+      { min: 40, text: 'Not bad! Give it a chance! 💛', color: 'text-yellow-400' },
+      { min: 60, text: 'Looking good! You two have chemistry! 💚', color: 'text-emerald-400' },
+      { min: 75, text: 'Wow, you\'re a great match! 💜', color: 'text-purple-400' },
+      { min: 90, text: 'Soulmates! Made for each other! 💕', color: 'text-pink-400' },
+    ];
+
+    f('calcBtn').addEventListener('click', function() {
+      var n1 = f('name1').value.trim();
+      var n2 = f('name2').value.trim();
+      if (!n1 || !n2) { alert('Please enter both names'); return; }
+
+      // Generate a consistent score from names
+      var combined = (n1 + n2).toLowerCase().replace(/\s/g, '');
+      var hash = 0;
+      for (var i = 0; i < combined.length; i++) {
+        hash = ((hash << 5) - hash) + combined.charCodeAt(i);
+        hash = hash & hash;
+      }
+      var score = Math.abs(hash % 70) + 30; // 30-99
+
+      // Animate
+      var current = 0;
+      var interval = setInterval(function() {
+        current += 2;
+        if (current >= score) { current = score; clearInterval(interval); }
+        f('pct').textContent = current + '%';
+        var offset = 264 - (264 * current / 100);
+        f('ring').setAttribute('stroke-dashoffset', offset);
+      }, 20);
+
+      f('names').textContent = n1 + ' ❤️ ' + n2;
+      var v = verdicts[0];
+      for (var j = 0; j < verdicts.length; j++) { if (score >= verdicts[j].min) v = verdicts[j]; }
+      f('verdict').textContent = v.text;
+      f('verdict').className = 'text-lg mb-4 ' + v.color;
+
+      var traitNames = ['Trust', 'Romance', 'Humor', 'Communication', 'Adventure', 'Loyalty'];
+      f('traits').innerHTML = traitNames.map(function(t) {
+        var val = Math.abs((hash + t.charCodeAt(0) * 7) % 60) + 40;
+        var c = val >= 70 ? 'text-emerald-400' : val >= 50 ? 'text-yellow-400' : 'text-red-400';
+        return '<div class="glass rounded-lg p-3 text-center"><p class="text-[10px] text-gray-500">' + t + '</p><p class="text-lg font-bold ' + c + '">' + val + '%</p></div>';
+      }).join('');
+
+      f('result').classList.remove('hidden');
+    });
+
+    f('shareBtn').addEventListener('click', function() {
+      var text = f('names').textContent + ' - ' + f('pct').textContent + ' compatible! ' + f('verdict').textContent + ' Check yours at comparekaro.download/tools/love-calculator';
+      if (navigator.share) {
+        navigator.share({ title: 'Love Calculator', text: text, url: 'https://comparekaro.download/tools/love-calculator' });
+      } else {
+        navigator.clipboard.writeText(text);
+        f('shareBtn').textContent = 'Copied!';
+        setTimeout(function() { f('shareBtn').textContent = 'Share Result'; }, 2000);
+      }
+    });
+
+    f('aiLove').addEventListener('click', function() {
+      var n1 = f('name1').value.trim();
+      var n2 = f('name2').value.trim();
+      var pct = f('pct').textContent;
+      if (!n1 || !n2 || pct === '0%') { alert('Calculate love first!'); return; }
+      f('aiLoveLoading').classList.remove('hidden');
+      f('aiLoveResult').classList.add('hidden');
+      fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: 'You are a fun, lighthearted love advisor. ' + n1 + ' and ' + n2 + ' got ' + pct + ' compatibility. Give them:\n1. A fun celebrity couple they remind you of\n2. Their ideal date idea\n3. One strength of their relationship\n4. A funny piece of advice\n5. A Bollywood song that describes their love\n\nKeep it fun, positive, and playful. Max 150 words. Plain text.' }),
+      }).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.error) throw new Error(data.error);
+        f('aiLoveResult').innerHTML = data.text.replace(/\n/g, '<br>');
+        f('aiLoveResult').classList.remove('hidden');
+      }).catch(function(e) {
+        f('aiLoveResult').innerHTML = '<p class="text-red-400">Error: ' + e.message + '</p>';
+        f('aiLoveResult').classList.remove('hidden');
+      }).finally(function() { f('aiLoveLoading').classList.add('hidden'); });
+    });
+  </script>
+</Layout>

@@ -29,7 +29,7 @@ import AdUnit from '../../components/AdUnit.astro';
       <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">Free Tools</h1>
       <p class="text-lg text-gray-500 max-w-2xl mb-8">All calculations run in your browser. No sign-ups, no data collection.</p>
       <div class="flex flex-wrap gap-2">
-        {[['ai', '🤖 AI Tools'], ['finance', '💰 Finance'], ['telecom', '📱 Telecom'], ['devices', '💻 Devices'], ['loans', '🏦 Loans'], ['lifestyle', '🏡 Lifestyle'], ['utilities', '🛠️ Utilities']].map(([id, label]) => (
+        {[['ai', '🤖 AI Tools'], ['finance', '💰 Finance'], ['telecom', '📱 Telecom'], ['devices', '💻 Devices'], ['loans', '🏦 Loans'], ['lifestyle', '🏡 Lifestyle'], ['fun', '🎮 Fun & Social'], ['productivity', '📋 Productivity'], ['utilities', '🛠️ Utilities']].map(([id, label]) => (
           <a href={`#${id}`} class="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-sm font-semibold text-gray-300 hover:border-blue-300 hover:text-indigo-400 hover:shadow-lg shadow-black/10 transition-all">{label}</a>
         ))}
       </div>
@@ -290,10 +290,84 @@ import AdUnit from '../../components/AdUnit.astro';
           icon="🧾"
           color="teal"
         />
+        <ToolCard
+          title="Recipe Cost Calculator"
+          description="Calculate per-plate cost for any dish. Add ingredients or get AI recipe with costs."
+          href="/tools/recipe-cost"
+          icon="🍳"
+          color="orange"
+        />
+        <ToolCard
+          title="Baby Name Finder"
+          description="AI-powered Indian baby names with meanings, origin, rashi. Hindu, Muslim, Sikh, Christian."
+          href="/tools/baby-names"
+          icon="👶"
+          color="pink"
+        />
       </div>
     </div>
 
     <AdUnit />
+
+    <!-- Fun & Social -->
+    <div id="fun" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-extrabold text-white mb-6 flex items-center gap-3 scroll-mt-24">
+        <span class="text-3xl">🎮</span> Fun & Social
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ToolCard
+          title="Love Calculator"
+          description="Enter two names and check your compatibility! Get AI relationship advice. Just for fun!"
+          href="/tools/love-calculator"
+          icon="❤️"
+          color="pink"
+        />
+        <ToolCard
+          title="Daily Horoscope"
+          description="AI-powered daily predictions for all 12 zodiac signs. Love, career, health, lucky numbers."
+          href="/tools/horoscope"
+          icon="🔮"
+          color="purple"
+        />
+        <ToolCard
+          title="Meme Generator"
+          description="Upload image, add text, download meme. AI can suggest funny captions too!"
+          href="/tools/meme-generator"
+          icon="😂"
+          color="orange"
+        />
+        <ToolCard
+          title="Random Picker"
+          description="Flip coins, roll dice, spin a wheel, random numbers, Yes/No, team generator."
+          href="/tools/random-picker"
+          icon="🎲"
+          color="green"
+        />
+      </div>
+    </div>
+
+    <!-- Productivity -->
+    <div id="productivity" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-extrabold text-white mb-6 flex items-center gap-3 scroll-mt-24">
+        <span class="text-3xl">📋</span> Productivity
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ToolCard
+          title="Resume Builder"
+          description="Fill a form, get a clean professional resume. AI summary. Print or save as PDF."
+          href="/tools/resume-builder"
+          icon="📄"
+          color="blue"
+        />
+        <ToolCard
+          title="Pomodoro Timer"
+          description="25/5 focus timer for studying and work. Session tracking, custom durations, auto-switching."
+          href="/tools/pomodoro"
+          icon="🍅"
+          color="red"
+        />
+      </div>
+    </div>
 
     <!-- Everyday Utilities -->
     <div id="utilities" class="mb-14 scroll-mt-24">

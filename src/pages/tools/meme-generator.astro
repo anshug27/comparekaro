@@ -1,0 +1,181 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Meme Generator', url: 'https://comparekaro.download/tools/meme-generator', applicationCategory: 'EntertainmentApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="Meme Generator - Create Memes with AI Captions" description="Free online meme generator. Upload your image or use templates, add top and bottom text, customize fonts, and download. AI can suggest captions!" schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">Meme Generator</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Meme Generator</h1>
+      <p class="text-gray-400 text-lg">Upload an image, add text, download your meme. AI captions available!</p>
+    </div>
+
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Controls -->
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Upload Image</label>
+          <input type="file" id="imgUpload" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-indigo-500/20 file:text-indigo-400 file:cursor-pointer mb-4" />
+
+          <label class="block text-sm font-medium text-gray-300 mb-2">Or Use a Color</label>
+          <div class="flex gap-2 mb-4">
+            {['#000000', '#ffffff', '#1a1a2e', '#e74c3c', '#3498db', '#2ecc71'].map(c => (
+              <button class="bg-preset w-8 h-8 rounded-lg cursor-pointer border-2 border-transparent hover:border-white/30" data-color={c} style={`background:${c}`}></button>
+            ))}
+          </div>
+
+          <label class="block text-sm font-medium text-gray-300 mb-2">Top Text</label>
+          <input type="text" id="topText" placeholder="TOP TEXT" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 mb-3" />
+
+          <label class="block text-sm font-medium text-gray-300 mb-2">Bottom Text</label>
+          <input type="text" id="bottomText" placeholder="BOTTOM TEXT" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 mb-3" />
+
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div>
+              <label class="text-xs text-gray-500">Font Size</label>
+              <input type="range" id="fontSize" min="16" max="72" value="36" class="w-full" />
+            </div>
+            <div>
+              <label class="text-xs text-gray-500">Text Color</label>
+              <div class="flex gap-2 mt-1">
+                <button class="color-pick w-7 h-7 rounded bg-white border-2 border-indigo-400 cursor-pointer" data-color="white"></button>
+                <button class="color-pick w-7 h-7 rounded bg-black border-2 border-transparent cursor-pointer" data-color="black"></button>
+                <button class="color-pick w-7 h-7 rounded bg-yellow-400 border-2 border-transparent cursor-pointer" data-color="yellow"></button>
+                <button class="color-pick w-7 h-7 rounded bg-red-500 border-2 border-transparent cursor-pointer" data-color="red"></button>
+              </div>
+            </div>
+          </div>
+
+          <button id="downloadMeme" class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl shadow-lg cursor-pointer">Download Meme</button>
+
+          <!-- AI Caption -->
+          <div class="mt-4 p-3 bg-purple-500/5 rounded-lg">
+            <div class="flex gap-2 items-center mb-2">
+              <span class="text-sm">🤖</span>
+              <span class="text-xs text-gray-400">AI Caption Suggestions</span>
+            </div>
+            <div class="flex gap-2">
+              <input type="text" id="memeContext" placeholder="Describe the meme context..." class="flex-1 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-xs text-gray-200" />
+              <button id="aiCaption" class="px-4 py-2 bg-purple-500/20 text-purple-400 rounded-lg text-xs font-medium cursor-pointer">Suggest</button>
+            </div>
+            <div id="aiCaptionResult" class="hidden mt-2 text-xs text-gray-400 space-y-1"></div>
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div>
+          <div class="bg-black rounded-xl overflow-hidden relative" style="min-height: 300px">
+            <canvas id="memeCanvas" class="w-full"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <AdUnit />
+  </section>
+
+  <script is:inline>
+    var f = function(id) { return document.getElementById(id); };
+    var canvas = f('memeCanvas');
+    var ctx = canvas.getContext('2d');
+    var img = null;
+    var textColor = 'white';
+    canvas.width = 600; canvas.height = 400;
+
+    function drawMeme() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (img) {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.fillStyle = '#1a1a2e';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+      var size = parseInt(f('fontSize').value) || 36;
+      ctx.font = 'bold ' + size + 'px Impact, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = textColor;
+      ctx.strokeStyle = textColor === 'white' ? 'black' : 'white';
+      ctx.lineWidth = size / 12;
+
+      var top = f('topText').value.toUpperCase();
+      var bottom = f('bottomText').value.toUpperCase();
+      if (top) { ctx.strokeText(top, canvas.width / 2, size + 10); ctx.fillText(top, canvas.width / 2, size + 10); }
+      if (bottom) { ctx.strokeText(bottom, canvas.width / 2, canvas.height - 15); ctx.fillText(bottom, canvas.width / 2, canvas.height - 15); }
+    }
+
+    // Default
+    drawMeme();
+
+    f('imgUpload').addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        img = new Image();
+        img.onload = function() {
+          canvas.width = 600;
+          canvas.height = 600 * (img.height / img.width);
+          drawMeme();
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.querySelectorAll('.bg-preset').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        img = null;
+        ctx.fillStyle = btn.dataset.color;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        drawMeme();
+      });
+    });
+
+    f('topText').addEventListener('input', drawMeme);
+    f('bottomText').addEventListener('input', drawMeme);
+    f('fontSize').addEventListener('input', drawMeme);
+
+    document.querySelectorAll('.color-pick').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.color-pick').forEach(function(b) { b.classList.remove('border-indigo-400'); b.classList.add('border-transparent'); });
+        btn.classList.add('border-indigo-400'); btn.classList.remove('border-transparent');
+        textColor = btn.dataset.color;
+        drawMeme();
+      });
+    });
+
+    f('downloadMeme').addEventListener('click', function() {
+      drawMeme();
+      var link = document.createElement('a');
+      link.download = 'meme.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+
+    f('aiCaption').addEventListener('click', function() {
+      var context = f('memeContext').value.trim();
+      if (!context) { alert('Describe what the meme is about'); return; }
+      f('aiCaption').textContent = '...';
+      fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: 'Generate 5 funny meme captions (top text / bottom text format) for a meme about: "' + context + '". Make them funny, relatable, and suitable for Indian social media. Format:\n1. TOP: [text] | BOTTOM: [text]\n2. ...\nKeep each caption short (5-10 words per line). Plain text only.' }),
+      }).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.error) throw new Error(data.error);
+        f('aiCaptionResult').innerHTML = data.text.split('\n').filter(function(l) { return l.trim(); }).map(function(l) {
+          return '<p class="cursor-pointer hover:text-purple-400 transition-colors ai-cap">' + l + '</p>';
+        }).join('');
+        f('aiCaptionResult').classList.remove('hidden');
+        f('aiCaptionResult').querySelectorAll('.ai-cap').forEach(function(p) {
+          p.addEventListener('click', function() {
+            var match = p.textContent.match(/TOP:\s*(.+?)\s*\|\s*BOTTOM:\s*(.+)/i);
+            if (match) { f('topText').value = match[1]; f('bottomText').value = match[2]; drawMeme(); }
+          });
+        });
+      }).catch(function(e) {
+        f('aiCaptionResult').innerHTML = '<p class="text-red-400">' + e.message + '</p>';
+        f('aiCaptionResult').classList.remove('hidden');
+      }).finally(function() { f('aiCaption').textContent = 'Suggest'; });
+    });
+  </script>
+</Layout>
