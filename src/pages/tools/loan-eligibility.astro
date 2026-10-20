@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Loan Eligibility Calculator', url: 'https://comparekaro.download/tools/loan-eligibility', applicationCategory: 'FinanceApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="Loan Eligibility Calculator - Check Home, Car & Personal Loan Eligibility" description="Check how much home loan, car loan, or personal loan you're eligible for based on your salary, expenses, and existing EMIs. Free calculator for India." schema={schema} ogImage="/og/finance.png">
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">Loan Eligibility</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Loan Eligibility Calculator</h1>
+      <p class="text-gray-400 text-lg">Find out how much loan you can get based on your income.</p>
+    </div>
+
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Monthly Salary (Net, ₹)</label>
+          <input type="number" id="salary" value="50000" min="0" step="5000" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Monthly Expenses (₹)</label>
+          <input type="number" id="expenses" value="15000" min="0" step="1000" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200" />
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Existing EMIs (₹/month)</label>
+          <input type="number" id="existingEmi" value="0" min="0" step="500" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-lg text-gray-200" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Loan Type</label>
+          <select id="loanType" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200">
+            <option value="home">Home Loan (~8.5% for 20 years)</option>
+            <option value="car">Car Loan (~9% for 7 years)</option>
+            <option value="personal">Personal Loan (~12% for 5 years)</option>
+            <option value="education">Education Loan (~10% for 8 years)</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="calcBtn" class="w-full px-8 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer">Check Eligibility</button>
+
+      <div id="results" class="hidden mt-6 space-y-4">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="glass rounded-xl p-4 text-center">
+            <p class="text-xs text-gray-500">Available for EMI</p>
+            <p id="availEmi" class="text-xl font-bold text-white mt-1">-</p>
+          </div>
+          <div class="glass rounded-xl p-4 text-center border border-emerald-500/30">
+            <p class="text-xs text-gray-500">Max Loan Amount</p>
+            <p id="maxLoan" class="text-xl font-bold text-emerald-400 mt-1">-</p>
+          </div>
+          <div class="glass rounded-xl p-4 text-center">
+            <p class="text-xs text-gray-500">EMI/Income Ratio</p>
+            <p id="emiRatio" class="text-xl font-bold text-indigo-400 mt-1">-</p>
+          </div>
+          <div class="glass rounded-xl p-4 text-center">
+            <p class="text-xs text-gray-500">Total Repayment</p>
+            <p id="totalRepay" class="text-xl font-bold text-pink-400 mt-1">-</p>
+          </div>
+        </div>
+
+        <!-- FOIR bar -->
+        <div class="glass rounded-xl p-4">
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-gray-500">Fixed Obligation to Income Ratio (FOIR)</span>
+            <span id="foirLabel" class="font-medium">-</span>
+          </div>
+          <div class="h-3 bg-white/[0.06] rounded-full overflow-hidden">
+            <div id="foirBar" class="h-full rounded-full bg-emerald-500 transition-all duration-500" style="width:0%"></div>
+          </div>
+          <div class="flex justify-between text-[10px] text-gray-600 mt-1">
+            <span>0%</span><span>40% (safe)</span><span>50% (max)</span><span>100%</span>
+          </div>
+        </div>
+
+        <div id="tips" class="glass rounded-xl p-4 text-sm text-gray-400 space-y-1"></div>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-xl font-bold text-white mb-3">How Banks Decide Loan Eligibility</h2>
+      <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
+        <li><strong class="text-gray-300">FOIR (Fixed Obligation to Income Ratio):</strong> Banks allow max 40-50% of your income towards EMIs. Lower is better.</li>
+        <li><strong class="text-gray-300">Credit Score (CIBIL):</strong> 750+ score gets you the best rates. Below 650, most banks won't approve.</li>
+        <li><strong class="text-gray-300">Employment Stability:</strong> Salaried employees with 1+ year at current job get better approvals.</li>
+        <li><strong class="text-gray-300">Down Payment:</strong> For home loans, you need 10-20% down payment. For car loans, 10-15%.</li>
+        <li><strong class="text-gray-300">Age Factor:</strong> Loan tenure usually can't extend beyond retirement age (58-60 years).</li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    const f = id => document.getElementById(id);
+    const fmt = n => '\u20B9' + Math.round(n).toLocaleString('en-IN');
+
+    const loanParams = {
+      home: { rate: 8.5, years: 20 },
+      car: { rate: 9, years: 7 },
+      personal: { rate: 12, years: 5 },
+      education: { rate: 10, years: 8 },
+    };
+
+    function maxLoan(emi, rate, years) {
+      const r = rate / 100 / 12;
+      const n = years * 12;
+      return emi * ((Math.pow(1 + r, n) - 1) / (r * Math.pow(1 + r, n)));
+    }
+
+    f('calcBtn').addEventListener('click', () => {
+      const salary = parseFloat(f('salary').value) || 0;
+      const expenses = parseFloat(f('expenses').value) || 0;
+      const existingEmi = parseFloat(f('existingEmi').value) || 0;
+      const type = f('loanType').value;
+      const { rate, years } = loanParams[type];
+
+      // Banks allow max 50% FOIR, safe is 40%
+      const maxEmiAllowed = salary * 0.50 - existingEmi;
+      const safeEmi = salary * 0.40 - existingEmi;
+      const availEmi = Math.max(0, safeEmi);
+
+      const loan = maxLoan(availEmi, rate, years);
+      const totalEmiMonths = years * 12;
+      const totalRepayment = availEmi * totalEmiMonths;
+      const foirPct = salary > 0 ? ((existingEmi + availEmi) / salary * 100) : 0;
+
+      f('availEmi').textContent = fmt(availEmi) + '/mo';
+      f('maxLoan').textContent = loan >= 10000000 ? '\u20B9' + (loan / 10000000).toFixed(2) + ' Cr' : loan >= 100000 ? '\u20B9' + (loan / 100000).toFixed(2) + ' L' : fmt(loan);
+      f('emiRatio').textContent = foirPct.toFixed(0) + '%';
+      f('totalRepay').textContent = totalRepayment >= 10000000 ? '\u20B9' + (totalRepayment / 10000000).toFixed(2) + ' Cr' : totalRepayment >= 100000 ? '\u20B9' + (totalRepayment / 100000).toFixed(1) + ' L' : fmt(totalRepayment);
+
+      f('foirBar').style.width = Math.min(foirPct, 100) + '%';
+      f('foirBar').className = `h-full rounded-full transition-all duration-500 ${foirPct <= 40 ? 'bg-emerald-500' : foirPct <= 50 ? 'bg-yellow-500' : 'bg-red-500'}`;
+      f('foirLabel').textContent = foirPct.toFixed(0) + '%';
+      f('foirLabel').className = `font-medium ${foirPct <= 40 ? 'text-emerald-400' : foirPct <= 50 ? 'text-yellow-400' : 'text-red-400'}`;
+
+      const tips = [];
+      if (availEmi <= 0) tips.push('Your existing EMIs already exceed the safe limit. Pay off some loans first.');
+      if (foirPct > 50) tips.push('FOIR above 50% — most banks will reject. Reduce expenses or existing EMIs.');
+      else if (foirPct > 40) tips.push('FOIR between 40-50% — approval possible but you\'ll get higher interest rates.');
+      else tips.push('FOIR under 40% — you\'re in the safe zone. Banks will likely approve.');
+      if (type === 'home') tips.push(`For a home worth ${fmt(loan / 0.8)}, you\'d need ~${fmt(loan * 0.25)} as down payment (20%).`);
+      if (type === 'car') tips.push(`For a car worth ${fmt(loan / 0.85)}, you\'d need ~${fmt(loan * 0.176)} as down payment (15%).`);
+      tips.push(`Interest rate used: ${rate}% p.a. for ${years} years. Actual rates may vary by bank and CIBIL score.`);
+      f('tips').innerHTML = tips.map(t => `<p>&#8226; ${t}</p>`).join('');
+
+      f('results').classList.remove('hidden');
+    });
+  </script>
+</Layout>

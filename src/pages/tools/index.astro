@@ -15,7 +15,7 @@ import AdUnit from '../../components/AdUnit.astro';
       <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">Free Tools</h1>
       <p class="text-lg text-gray-500 max-w-2xl mb-8">All calculations run in your browser. No sign-ups, no data collection.</p>
       <div class="flex flex-wrap gap-2">
-        {[['finance', '💰 Finance'], ['telecom', '📱 Telecom'], ['devices', '💻 Devices'], ['loans', '🏦 Loans'], ['lifestyle', '🏡 Lifestyle'], ['utilities', '🛠️ Utilities']].map(([id, label]) => (
+        {[['finance', '💰 Finance'], ['telecom', '📱 Telecom'], ['devices', '💻 Devices'], ['loans', '🏦 Loans'], ['lifestyle', '🏡 Lifestyle & Health'], ['utilities', '🛠️ Utilities & Dev']].map(([id, label]) => (
           <a href={`#${id}`} class="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-sm font-semibold text-gray-300 hover:border-blue-300 hover:text-indigo-400 hover:shadow-lg shadow-black/10 transition-all">{label}</a>
         ))}
       </div>
@@ -85,6 +85,27 @@ import AdUnit from '../../components/AdUnit.astro';
           href="/tools/currency-converter"
           icon="💱"
           color="teal"
+        />
+        <ToolCard
+          title="Percentage Calculator"
+          description="Find % of a number, % change, marks percentage. All percentage calculations in one place."
+          href="/tools/percentage-calculator"
+          icon="📊"
+          color="red"
+        />
+        <ToolCard
+          title="Loan Eligibility"
+          description="Check how much home, car, or personal loan you're eligible for based on your salary."
+          href="/tools/loan-eligibility"
+          icon="🏠"
+          color="purple"
+        />
+        <ToolCard
+          title="Invoice Generator"
+          description="Create GST invoices instantly. Add items, apply GST rates, print or save as PDF."
+          href="/tools/invoice-generator"
+          icon="📄"
+          color="orange"
         />
       </div>
     </div>
@@ -217,6 +238,13 @@ import AdUnit from '../../components/AdUnit.astro';
           icon="🏋️"
           color="green"
         />
+        <ToolCard
+          title="Tip & Bill Splitter"
+          description="Calculate tip amount and split the bill between friends. India tipping guide included."
+          href="/tools/tip-calculator"
+          icon="🧾"
+          color="teal"
+        />
       </div>
     </div>
 
@@ -248,6 +276,34 @@ import AdUnit from '../../components/AdUnit.astro';
           href="/tools/password-generator"
           icon="🔐"
           color="purple"
+        />
+        <ToolCard
+          title="QR Code Generator"
+          description="Create QR codes for URLs, text, WiFi, UPI payments, phone numbers. Download as PNG."
+          href="/tools/qr-generator"
+          icon="📱"
+          color="green"
+        />
+        <ToolCard
+          title="Text Tools"
+          description="Word counter, character counter, case converter, sort lines, remove duplicates, find & replace."
+          href="/tools/text-tools"
+          icon="📝"
+          color="blue"
+        />
+        <ToolCard
+          title="Color Picker"
+          description="Pick colors, convert HEX/RGB/HSL, generate shades, check contrast ratios for accessibility."
+          href="/tools/color-picker"
+          icon="🎨"
+          color="red"
+        />
+        <ToolCard
+          title="Stopwatch & Timer"
+          description="Online stopwatch with lap times and countdown timer. Preset timers for quick use."
+          href="/tools/stopwatch"
+          icon="⏱️"
+          color="orange"
         />
       </div>
     </div>

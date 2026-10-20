@@ -1,0 +1,149 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'QR Code Generator', url: 'https://comparekaro.download/tools/qr-generator', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="QR Code Generator - Create QR Codes for Free" description="Free QR code generator. Create QR codes for URLs, text, WiFi passwords, UPI payments, phone numbers, and email. Download as PNG." schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">QR Code Generator</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">QR Code Generator</h1>
+      <p class="text-gray-400 text-lg">Create QR codes for URLs, text, WiFi, UPI, and more. Download as PNG.</p>
+    </div>
+
+    <!-- Type tabs -->
+    <div class="flex flex-wrap gap-2 mb-6">
+      <button class="qr-type px-4 py-2 rounded-full text-sm font-medium bg-indigo-500 text-white" data-type="url">URL</button>
+      <button class="qr-type px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-type="text">Text</button>
+      <button class="qr-type px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-type="wifi">WiFi</button>
+      <button class="qr-type px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-type="upi">UPI Payment</button>
+      <button class="qr-type px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-type="phone">Phone</button>
+      <button class="qr-type px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] text-gray-300" data-type="email">Email</button>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="glass rounded-2xl p-6">
+        <!-- URL -->
+        <div id="form-url">
+          <label class="block text-sm font-medium text-gray-300 mb-2">Website URL</label>
+          <input type="url" id="urlInput" value="https://comparekaro.download" placeholder="https://example.com" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-gray-200" />
+        </div>
+        <!-- Text -->
+        <div id="form-text" class="hidden">
+          <label class="block text-sm font-medium text-gray-300 mb-2">Text</label>
+          <textarea id="textInput" rows="4" placeholder="Enter any text..." class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-gray-200 resize-y"></textarea>
+        </div>
+        <!-- WiFi -->
+        <div id="form-wifi" class="hidden space-y-3">
+          <div><label class="block text-xs text-gray-500 mb-1">Network Name (SSID)</label><input type="text" id="wifiSsid" placeholder="MyWiFi" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-gray-200" /></div>
+          <div><label class="block text-xs text-gray-500 mb-1">Password</label><input type="text" id="wifiPass" placeholder="password123" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-gray-200" /></div>
+          <div><label class="block text-xs text-gray-500 mb-1">Security</label><select id="wifiSec" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-gray-200"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="">None</option></select></div>
+        </div>
+        <!-- UPI -->
+        <div id="form-upi" class="hidden space-y-3">
+          <div><label class="block text-xs text-gray-500 mb-1">UPI ID</label><input type="text" id="upiId" placeholder="name@upi" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-gray-200" /></div>
+          <div><label class="block text-xs text-gray-500 mb-1">Payee Name</label><input type="text" id="upiName" placeholder="Your Name" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-gray-200" /></div>
+          <div><label class="block text-xs text-gray-500 mb-1">Amount (₹, optional)</label><input type="number" id="upiAmt" placeholder="0" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-gray-200" /></div>
+        </div>
+        <!-- Phone -->
+        <div id="form-phone" class="hidden">
+          <label class="block text-sm font-medium text-gray-300 mb-2">Phone Number</label>
+          <input type="tel" id="phoneInput" placeholder="+919876543210" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-gray-200" />
+        </div>
+        <!-- Email -->
+        <div id="form-email" class="hidden space-y-3">
+          <div><label class="block text-xs text-gray-500 mb-1">Email</label><input type="email" id="emailTo" placeholder="name@example.com" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-gray-200" /></div>
+          <div><label class="block text-xs text-gray-500 mb-1">Subject (optional)</label><input type="text" id="emailSubject" placeholder="Subject" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-gray-200" /></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mt-5">
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">Size</label>
+            <select id="qrSize" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200">
+              <option value="200">200x200</option>
+              <option value="300" selected>300x300</option>
+              <option value="400">400x400</option>
+              <option value="500">500x500</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">Color</label>
+            <input type="color" id="qrColor" value="#ffffff" class="w-full h-[38px] rounded-lg cursor-pointer bg-transparent" />
+          </div>
+        </div>
+
+        <button id="genBtn" class="w-full mt-5 px-6 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer">Generate QR Code</button>
+      </div>
+
+      <!-- QR Preview -->
+      <div class="glass rounded-2xl p-6 flex flex-col items-center justify-center min-h-[350px]">
+        <div id="qrPlaceholder" class="text-center text-gray-500">
+          <svg class="w-16 h-16 mx-auto mb-3 opacity-30" fill="currentColor" viewBox="0 0 24 24"><path d="M3 11h2v2H3v-2zm0-4h2v2H3V7zm4 4h2v2H7v-2zm0-4h2v2H7V7zm0-4h2v2H7V3zm4 8h2v2h-2v-2zm0-4h2v2h-2V7zm0-4h2v2h-2V3zm4 8h2v2h-2v-2zm0-4h2v2h-2V7zm4 4h2v2h-2v-2zm0-4h2v2h-2V7zm-4-4h2v2h-2V3zm4 0h2v2h-2V3z"/></svg>
+          <p>Click "Generate" to create your QR code</p>
+        </div>
+        <canvas id="qrCanvas" class="hidden rounded-lg"></canvas>
+        <button id="downloadBtn" class="hidden mt-4 px-6 py-2 bg-emerald-500/20 text-emerald-400 rounded-lg text-sm font-medium hover:bg-emerald-500/30 transition-all cursor-pointer">Download PNG</button>
+      </div>
+    </div>
+
+    <AdUnit />
+  </section>
+
+  <!-- QR Code library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script>
+    const f = id => document.getElementById(id);
+    let activeType = 'url';
+
+    document.querySelectorAll('.qr-type').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.qr-type').forEach(t => { t.classList.remove('bg-indigo-500','text-white'); t.classList.add('bg-white/[0.06]','text-gray-300'); });
+        tab.classList.add('bg-indigo-500','text-white'); tab.classList.remove('bg-white/[0.06]','text-gray-300');
+        activeType = tab.dataset.type;
+        document.querySelectorAll('[id^="form-"]').forEach(f => f.classList.add('hidden'));
+        f('form-' + activeType).classList.remove('hidden');
+      });
+    });
+
+    f('genBtn').addEventListener('click', () => {
+      let data = '';
+      switch(activeType) {
+        case 'url': data = f('urlInput').value; break;
+        case 'text': data = f('textInput').value; break;
+        case 'wifi': data = `WIFI:T:${f('wifiSec').value};S:${f('wifiSsid').value};P:${f('wifiPass').value};;`; break;
+        case 'upi': {
+          const amt = f('upiAmt').value;
+          data = `upi://pay?pa=${f('upiId').value}&pn=${encodeURIComponent(f('upiName').value)}${amt ? '&am=' + amt : ''}`;
+          break;
+        }
+        case 'phone': data = `tel:${f('phoneInput').value}`; break;
+        case 'email': data = `mailto:${f('emailTo').value}?subject=${encodeURIComponent(f('emailSubject').value || '')}`; break;
+      }
+      if (!data) { alert('Please enter some data'); return; }
+
+      const size = parseInt(f('qrSize').value);
+      const color = f('qrColor').value;
+      const canvas = f('qrCanvas');
+
+      QRCode.toCanvas(canvas, data, {
+        width: size,
+        margin: 2,
+        color: { dark: color, light: '#0a0a1a' },
+        errorCorrectionLevel: 'M',
+      }, (err) => {
+        if (err) { console.error(err); return; }
+        f('qrPlaceholder').classList.add('hidden');
+        canvas.classList.remove('hidden');
+        f('downloadBtn').classList.remove('hidden');
+      });
+    });
+
+    f('downloadBtn').addEventListener('click', () => {
+      const canvas = f('qrCanvas');
+      const link = document.createElement('a');
+      link.download = 'qr-code.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  </script>
+</Layout>

@@ -1,0 +1,113 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Tip Calculator', url: 'https://comparekaro.download/tools/tip-calculator', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="Tip Calculator - Split Bill & Calculate Tip" description="Free tip calculator. Calculate tip amount, split bill between friends, and see per-person breakdown. Quick and easy." schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">Tip Calculator</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Tip & Bill Splitter</h1>
+      <p class="text-gray-400 text-lg">Calculate tip and split the bill evenly between friends.</p>
+    </div>
+
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Bill Amount (₹)</label>
+          <input type="number" id="bill" value="2500" min="0" class="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-xl text-gray-200" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Number of People</label>
+          <div class="flex items-center gap-3">
+            <button id="decPpl" class="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/10 text-xl text-gray-300 hover:bg-white/[0.1] cursor-pointer">-</button>
+            <span id="people" class="text-2xl font-bold text-white w-10 text-center">2</span>
+            <button id="incPpl" class="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/10 text-xl text-gray-300 hover:bg-white/[0.1] cursor-pointer">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-300 mb-3">Tip Percentage</label>
+        <div class="flex flex-wrap gap-2 mb-3">
+          {[0, 5, 10, 15, 20, 25].map(t => (
+            <button class={`tip-btn px-5 py-2.5 rounded-xl text-sm font-bold cursor-pointer transition-all ${t === 10 ? 'bg-indigo-500 text-white border border-indigo-500' : 'bg-white/[0.06] text-gray-300 border border-white/10 hover:border-indigo-400'}`} data-tip={t}>{t}%</button>
+          ))}
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-gray-500 text-sm">Custom:</span>
+          <input type="number" id="customTip" value="" placeholder="%" min="0" max="100" class="w-24 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-center text-gray-200 text-sm" />
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">Tip Amount</p>
+          <p id="tipAmt" class="text-xl font-bold text-indigo-400 mt-1">₹250</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center border border-emerald-500/30">
+          <p class="text-xs text-gray-500">Total</p>
+          <p id="totalAmt" class="text-xl font-bold text-emerald-400 mt-1">₹2,750</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <p class="text-xs text-gray-500">Tip / Person</p>
+          <p id="tipPerson" class="text-xl font-bold text-pink-400 mt-1">₹125</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-center border border-white/10">
+          <p class="text-xs text-gray-500">Total / Person</p>
+          <p id="totalPerson" class="text-2xl font-extrabold text-white mt-1">₹1,375</p>
+        </div>
+      </div>
+    </div>
+
+    <AdUnit />
+
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-xl font-bold text-white mb-3">Tipping Guide (India)</h2>
+      <div class="space-y-3 text-sm">
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">Restaurants (dine-in)</span><span class="text-white font-medium">10-15%</span></div>
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">Food delivery (Zomato/Swiggy)</span><span class="text-white font-medium">₹20-50</span></div>
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">Cab/Auto (Ola/Uber)</span><span class="text-white font-medium">₹10-30 or round up</span></div>
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">Salon / Spa</span><span class="text-white font-medium">10-15%</span></div>
+        <div class="flex justify-between p-3 bg-white/[0.03] rounded-lg"><span class="text-gray-400">Hotel housekeeping</span><span class="text-white font-medium">₹50-100/day</span></div>
+      </div>
+      <p class="text-xs text-gray-600 mt-3">Note: Many Indian restaurants add a "service charge" (5-10%) to the bill. This is different from a tip. Service charge is optional by law — you can ask to remove it.</p>
+    </div>
+  </section>
+
+  <script>
+    const f = id => document.getElementById(id);
+    const fmt = n => '\u20B9' + Math.round(n).toLocaleString('en-IN');
+    let tipPct = 10, pplCount = 2;
+
+    function calc() {
+      const bill = parseFloat(f('bill').value) || 0;
+      const tip = bill * tipPct / 100;
+      const total = bill + tip;
+      f('tipAmt').textContent = fmt(tip);
+      f('totalAmt').textContent = fmt(total);
+      f('tipPerson').textContent = fmt(tip / pplCount);
+      f('totalPerson').textContent = fmt(total / pplCount);
+    }
+
+    document.querySelectorAll('.tip-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tip-btn').forEach(b => { b.classList.remove('bg-indigo-500','text-white','border-indigo-500'); b.classList.add('bg-white/[0.06]','text-gray-300','border-white/10'); });
+        btn.classList.add('bg-indigo-500','text-white','border-indigo-500'); btn.classList.remove('bg-white/[0.06]','text-gray-300','border-white/10');
+        tipPct = parseInt(btn.dataset.tip); f('customTip').value = ''; calc();
+      });
+    });
+
+    f('customTip').addEventListener('input', () => {
+      tipPct = parseFloat(f('customTip').value) || 0;
+      document.querySelectorAll('.tip-btn').forEach(b => { b.classList.remove('bg-indigo-500','text-white','border-indigo-500'); b.classList.add('bg-white/[0.06]','text-gray-300','border-white/10'); });
+      calc();
+    });
+
+    f('incPpl').addEventListener('click', () => { pplCount = Math.min(50, pplCount + 1); f('people').textContent = pplCount; calc(); });
+    f('decPpl').addEventListener('click', () => { pplCount = Math.max(1, pplCount - 1); f('people').textContent = pplCount; calc(); });
+    f('bill').addEventListener('input', calc);
+    calc();
+  </script>
+</Layout>

@@ -1,0 +1,137 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Invoice Generator', url: 'https://comparekaro.download/tools/invoice-generator', applicationCategory: 'BusinessApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="Invoice Generator - Create GST Invoice Free" description="Free GST invoice generator for Indian businesses. Add items, apply GST, and print or download your invoice. No signup needed." schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">Invoice Generator</span></nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Invoice Generator</h1>
+      <p class="text-gray-400 text-lg">Create GST invoices instantly. Print or save as PDF. No signup.</p>
+    </div>
+
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <!-- Business Details -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div>
+          <h3 class="text-sm font-bold text-indigo-400 mb-3">From (Your Business)</h3>
+          <input type="text" id="fromName" placeholder="Business Name" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 mb-2" />
+          <input type="text" id="fromGstin" placeholder="GSTIN (optional)" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 mb-2" />
+          <textarea id="fromAddress" placeholder="Address" rows="2" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 resize-none"></textarea>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-pink-400 mb-3">To (Client)</h3>
+          <input type="text" id="toName" placeholder="Client Name" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 mb-2" />
+          <input type="text" id="toGstin" placeholder="Client GSTIN (optional)" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 mb-2" />
+          <textarea id="toAddress" placeholder="Client Address" rows="2" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 resize-none"></textarea>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div><label class="block text-xs text-gray-500 mb-1">Invoice #</label><input type="text" id="invNo" value="INV-001" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" /></div>
+        <div><label class="block text-xs text-gray-500 mb-1">Date</label><input type="date" id="invDate" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200" /></div>
+        <div><label class="block text-xs text-gray-500 mb-1">GST Rate (%)</label><select id="gstRate" class="w-full px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200"><option value="0">0% (Exempt)</option><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option></select></div>
+      </div>
+
+      <!-- Items -->
+      <h3 class="text-sm font-bold text-white mb-3">Items</h3>
+      <div id="items" class="space-y-2 mb-3">
+        <div class="item grid grid-cols-12 gap-2 items-center">
+          <input type="text" placeholder="Description" class="col-span-5 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 item-desc" />
+          <input type="number" placeholder="Qty" value="1" min="1" class="col-span-2 px-2 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center item-qty" />
+          <input type="number" placeholder="Rate" value="0" min="0" class="col-span-3 px-2 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center item-rate" />
+          <span class="col-span-1 text-sm text-gray-400 item-total text-right">₹0</span>
+          <button class="col-span-1 text-red-400 hover:text-red-300 cursor-pointer remove-item text-lg">×</button>
+        </div>
+      </div>
+      <button id="addItem" class="text-sm text-indigo-400 hover:text-indigo-300 cursor-pointer">+ Add Item</button>
+
+      <!-- Totals -->
+      <div class="mt-6 glass rounded-xl p-4">
+        <div class="flex justify-between text-sm mb-2"><span class="text-gray-400">Subtotal</span><span id="subtotal" class="text-white font-medium">₹0</span></div>
+        <div class="flex justify-between text-sm mb-2"><span class="text-gray-400">CGST (<span id="cgstRate">9</span>%)</span><span id="cgstAmt" class="text-indigo-400">₹0</span></div>
+        <div class="flex justify-between text-sm mb-2"><span class="text-gray-400">SGST (<span id="sgstRate">9</span>%)</span><span id="sgstAmt" class="text-indigo-400">₹0</span></div>
+        <div class="border-t border-white/10 my-2"></div>
+        <div class="flex justify-between text-lg"><span class="text-white font-bold">Total</span><span id="grandTotal" class="text-emerald-400 font-extrabold">₹0</span></div>
+      </div>
+
+      <button id="printBtn" class="w-full mt-6 px-8 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer">Print / Save as PDF</button>
+    </div>
+
+    <AdUnit />
+  </section>
+
+  <script>
+    const f = id => document.getElementById(id);
+    const fmt = n => '\u20B9' + n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    // Set today's date
+    f('invDate').value = new Date().toISOString().split('T')[0];
+
+    function calcTotals() {
+      let subtotal = 0;
+      document.querySelectorAll('.item').forEach(row => {
+        const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+        const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
+        const total = qty * rate;
+        row.querySelector('.item-total').textContent = fmt(total);
+        subtotal += total;
+      });
+      const gst = parseFloat(f('gstRate').value) || 0;
+      const halfGst = gst / 2;
+      const gstAmt = subtotal * gst / 100;
+      f('subtotal').textContent = fmt(subtotal);
+      f('cgstRate').textContent = halfGst;
+      f('sgstRate').textContent = halfGst;
+      f('cgstAmt').textContent = fmt(gstAmt / 2);
+      f('sgstAmt').textContent = fmt(gstAmt / 2);
+      f('grandTotal').textContent = fmt(subtotal + gstAmt);
+    }
+
+    function addItemRow() {
+      const row = document.createElement('div');
+      row.className = 'item grid grid-cols-12 gap-2 items-center';
+      row.innerHTML = `
+        <input type="text" placeholder="Description" class="col-span-5 px-3 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 item-desc" />
+        <input type="number" placeholder="Qty" value="1" min="1" class="col-span-2 px-2 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center item-qty" />
+        <input type="number" placeholder="Rate" value="0" min="0" class="col-span-3 px-2 py-2 bg-white/[0.06] border border-white/10 rounded-lg text-sm text-gray-200 text-center item-rate" />
+        <span class="col-span-1 text-sm text-gray-400 item-total text-right">\u20B90</span>
+        <button class="col-span-1 text-red-400 hover:text-red-300 cursor-pointer remove-item text-lg">×</button>
+      `;
+      f('items').appendChild(row);
+      row.querySelectorAll('input').forEach(i => i.addEventListener('input', calcTotals));
+      row.querySelector('.remove-item').addEventListener('click', () => { if (document.querySelectorAll('.item').length > 1) { row.remove(); calcTotals(); } });
+    }
+
+    f('addItem').addEventListener('click', addItemRow);
+    f('gstRate').addEventListener('change', calcTotals);
+    document.querySelectorAll('.item input').forEach(i => i.addEventListener('input', calcTotals));
+    document.querySelectorAll('.remove-item').forEach(btn => {
+      btn.addEventListener('click', () => { if (document.querySelectorAll('.item').length > 1) { btn.closest('.item').remove(); calcTotals(); } });
+    });
+
+    f('printBtn').addEventListener('click', () => {
+      const items = [];
+      document.querySelectorAll('.item').forEach(row => {
+        items.push({
+          desc: row.querySelector('.item-desc').value || 'Item',
+          qty: row.querySelector('.item-qty').value || '1',
+          rate: row.querySelector('.item-rate').value || '0',
+          total: row.querySelector('.item-total').textContent,
+        });
+      });
+      const gst = parseFloat(f('gstRate').value);
+      const w = window.open('', '_blank');
+      w.document.write(`<!DOCTYPE html><html><head><title>Invoice ${f('invNo').value}</title><style>body{font-family:sans-serif;padding:40px;color:#333;max-width:800px;margin:auto}table{width:100%;border-collapse:collapse;margin:20px 0}th,td{border:1px solid #ddd;padding:10px;text-align:left}th{background:#f5f5f5}.right{text-align:right}.header{display:flex;justify-content:space-between;margin-bottom:30px}.totals{width:300px;margin-left:auto}@media print{body{padding:20px}}</style></head><body>
+        <div class="header"><div><h1 style="margin:0;color:#333">${f('fromName').value || 'Your Business'}</h1>${f('fromGstin').value ? '<p>GSTIN: '+f('fromGstin').value+'</p>' : ''}<p>${(f('fromAddress').value || '').replace(/\n/g,'<br>')}</p></div><div style="text-align:right"><h2 style="color:#6366f1">INVOICE</h2><p><b>#${f('invNo').value}</b></p><p>Date: ${f('invDate').value}</p></div></div>
+        <div style="margin-bottom:20px"><b>Bill To:</b><br>${f('toName').value || 'Client'}${f('toGstin').value ? '<br>GSTIN: '+f('toGstin').value : ''}<br>${(f('toAddress').value || '').replace(/\n/g,'<br>')}</div>
+        <table><thead><tr><th>#</th><th>Description</th><th class="right">Qty</th><th class="right">Rate</th><th class="right">Amount</th></tr></thead><tbody>${items.map((it,i) => `<tr><td>${i+1}</td><td>${it.desc}</td><td class="right">${it.qty}</td><td class="right">\u20B9${parseFloat(it.rate).toLocaleString('en-IN')}</td><td class="right">${it.total}</td></tr>`).join('')}</tbody></table>
+        <div class="totals"><table><tr><td>Subtotal</td><td class="right">${f('subtotal').textContent}</td></tr><tr><td>CGST (${gst/2}%)</td><td class="right">${f('cgstAmt').textContent}</td></tr><tr><td>SGST (${gst/2}%)</td><td class="right">${f('sgstAmt').textContent}</td></tr><tr style="font-weight:bold;font-size:1.1em"><td>Total</td><td class="right">${f('grandTotal').textContent}</td></tr></table></div>
+        <p style="margin-top:40px;color:#999;font-size:12px">Generated on CompareKaro.download</p>
+        <script>window.print();<\/script></body></html>`);
+    });
+
+    calcTotals();
+  </script>
+</Layout>
