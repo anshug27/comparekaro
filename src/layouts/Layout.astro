@@ -232,13 +232,37 @@ const ogImageUrl = ogImage ? new URL(ogImage, siteUrl).href : new URL('/og/defau
       const menu = document.getElementById('mobile-menu');
       btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
 
-      // Scroll-triggered animations
+      // Scroll-triggered animations (fade-up, stagger, reveal variants)
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('.fade-up, .stagger').forEach(el => observer.observe(el));
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible', 'revealed');
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+      document.querySelectorAll('.fade-up, .stagger, .reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => observer.observe(el));
 
-      // Header scroll effect
+      // Animated counter for stat numbers
+      document.querySelectorAll('[data-count]').forEach(el => {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const target = parseInt(el.getAttribute('data-count') || '0');
+              let current = 0;
+              const step = Math.max(1, Math.floor(target / 40));
+              const timer = setInterval(() => {
+                current += step;
+                if (current >= target) { current = target; clearInterval(timer); }
+                el.textContent = current + '+';
+              }, 30);
+              obs.unobserve(el);
+            }
+          });
+        }, { threshold: 0.5 });
+        obs.observe(el);
+      });
+
+      // Header scroll effect with hide/show
       let lastScroll = 0;
       const header = document.getElementById('site-header');
       window.addEventListener('scroll', () => {
@@ -246,9 +270,43 @@ const ogImageUrl = ogImage ? new URL(ogImage, siteUrl).href : new URL('/og/defau
         if (header) {
           if (y > 50) header.classList.add('shadow-lg', 'shadow-black/20');
           else header.classList.remove('shadow-lg', 'shadow-black/20');
+          // Hide on scroll down, show on scroll up
+          if (y > lastScroll && y > 300) header.style.transform = 'translateY(-100%)';
+          else header.style.transform = 'translateY(0)';
+          header.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
         }
         lastScroll = y;
       }, { passive: true });
+
+      // Ripple click effect on buttons with class .ripple-container
+      document.querySelectorAll('.ripple-container').forEach(el => {
+        el.addEventListener('click', (e) => {
+          const rect = el.getBoundingClientRect();
+          const ripple = document.createElement('span');
+          const size = Math.max(rect.width, rect.height);
+          ripple.className = 'ripple';
+          ripple.style.width = ripple.style.height = size + 'px';
+          ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+          ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+          el.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+        });
+      });
+
+      // Parallax on blobs (subtle mouse move effect on hero)
+      const hero = document.querySelector('.hero-bg');
+      if (hero) {
+        const blobs = hero.querySelectorAll('.blob');
+        hero.addEventListener('mousemove', (e) => {
+          const rect = hero.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          blobs.forEach((blob, i) => {
+            const factor = (i + 1) * 15;
+            (blob as HTMLElement).style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+          });
+        });
+      }
     </script>
 
     <!-- Service Worker + PWA Install Prompt -->
