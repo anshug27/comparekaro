@@ -9,13 +9,27 @@ import AdUnit from '../../components/AdUnit.astro';
   description="Free calculators and comparison tools for India. EMI calculator, SIP calculator, FD calculator, mobile plan finder, rent vs buy calculator and more."
   ogImage="/og/tools.png"
 >
+  <!-- AI Assistant Banner -->
+  <div class="bg-gradient-to-r from-purple-500/10 to-indigo-500/10 border-b border-purple-500/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <a href="/tools/ai-assistant" class="flex items-center gap-3 group">
+        <span class="text-2xl">🤖</span>
+        <div>
+          <span class="text-white font-bold text-sm group-hover:text-purple-400 transition-colors">NEW: AI Assistant</span>
+          <span class="text-gray-500 text-xs ml-2">Ask anything — writing, coding, math, translations. Powered by Gemini AI</span>
+        </div>
+        <span class="ml-auto text-purple-400 text-sm font-medium">Try Now →</span>
+      </a>
+    </div>
+  </div>
+
   <div class="page-header-bg bg-white/[0.03] border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <span class="inline-block px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-semibold ring-1 ring-inset ring-blue-700/10 mb-4">100% Free</span>
       <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">Free Tools</h1>
       <p class="text-lg text-gray-500 max-w-2xl mb-8">All calculations run in your browser. No sign-ups, no data collection.</p>
       <div class="flex flex-wrap gap-2">
-        {[['finance', '💰 Finance'], ['telecom', '📱 Telecom'], ['devices', '💻 Devices'], ['loans', '🏦 Loans'], ['lifestyle', '🏡 Lifestyle & Health'], ['utilities', '🛠️ Utilities & Dev']].map(([id, label]) => (
+        {[['ai', '🤖 AI Tools'], ['finance', '💰 Finance'], ['telecom', '📱 Telecom'], ['devices', '💻 Devices'], ['loans', '🏦 Loans'], ['lifestyle', '🏡 Lifestyle'], ['utilities', '🛠️ Utilities']].map(([id, label]) => (
           <a href={`#${id}`} class="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-sm font-semibold text-gray-300 hover:border-blue-300 hover:text-indigo-400 hover:shadow-lg shadow-black/10 transition-all">{label}</a>
         ))}
       </div>
@@ -23,6 +37,37 @@ import AdUnit from '../../components/AdUnit.astro';
   </div>
 
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- AI Tools -->
+    <div id="ai" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-extrabold text-white mb-6 flex items-center gap-3 scroll-mt-24">
+        <span class="text-3xl">🤖</span> AI-Powered Tools
+        <span class="text-xs px-2 py-1 bg-purple-500/20 text-purple-400 rounded-full font-medium">Gemini AI</span>
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ToolCard
+          title="AI Assistant"
+          description="Ask anything — writing, coding, math, translations, business advice. Free AI chat powered by Gemini."
+          href="/tools/ai-assistant"
+          icon="🤖"
+          color="purple"
+        />
+        <ToolCard
+          title="AI Text Tools"
+          description="Rewrite, fix grammar, translate, summarize, convert to email — all powered by AI."
+          href="/tools/text-tools"
+          icon="✍️"
+          color="purple"
+        />
+        <ToolCard
+          title="AI GST Lookup"
+          description="Ask AI the GST rate for any product or service. Get HSN codes and explanations."
+          href="/tools/gst-calculator"
+          icon="🧾"
+          color="blue"
+        />
+      </div>
+    </div>
 
     <!-- Finance -->
     <div id="finance" class="mb-14 scroll-mt-24">

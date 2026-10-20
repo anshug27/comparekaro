@@ -133,6 +133,26 @@ const schema = {
       </div>
     </div>
 
+    <!-- AI GST Lookup -->
+    <div class="glass rounded-2xl p-6 mb-8 border border-indigo-500/20">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-lg">🤖</span>
+        <h2 class="text-lg font-bold text-white">AI: Find GST Rate for Any Product</h2>
+        <span class="text-[10px] px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-full font-medium">Powered by Gemini</span>
+      </div>
+      <div class="flex gap-2 mb-3">
+        <input type="text" id="aiProduct" placeholder="e.g. laptop, rice, restaurant bill, gold jewelry..." class="flex-1 px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200" />
+        <button id="aiLookup" class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-400 hover:to-purple-400 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer text-sm whitespace-nowrap">Ask AI</button>
+      </div>
+      <div class="flex flex-wrap gap-2 mb-3">
+        {['Laptop', 'Mobile Phone', 'Restaurant Bill', 'Gold Jewelry', 'Cement', 'Medicines', 'Clothes under ₹1000', 'Software Services'].map(q => (
+          <button class="ai-preset px-3 py-1 rounded-lg bg-white/[0.04] text-gray-500 text-xs hover:bg-indigo-500/10 hover:text-indigo-400 transition-all cursor-pointer" data-q={q}>{q}</button>
+        ))}
+      </div>
+      <div id="aiResult" class="hidden glass rounded-xl p-4 text-sm text-gray-300 space-y-2"></div>
+      <div id="aiLoading" class="hidden text-center py-4"><span class="text-gray-500 text-sm animate-pulse">AI is thinking...</span></div>
+    </div>
+
     <AdUnit />
 
     <div class="glass rounded-2xl p-6 md:p-8">
@@ -187,5 +207,42 @@ const schema = {
 
     f('addGst').addEventListener('click', () => calc('add'));
     f('removeGst').addEventListener('click', () => calc('remove'));
+
+    // AI GST Lookup
+    async function aiLookup(product) {
+      if (!product.trim()) return;
+      f('aiResult').classList.add('hidden');
+      f('aiLoading').classList.remove('hidden');
+      try {
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: `You are an Indian GST expert. For the product/service "${product}", tell me:
+1. The applicable GST rate (0%, 5%, 12%, 18%, or 28%)
+2. The HSN/SAC code if known
+3. A brief explanation
+
+Reply in this format (plain text, no markdown):
+GST Rate: X%
+HSN/SAC Code: XXXX (if applicable)
+Category: (exempt/goods/services)
+Explanation: Brief explanation of why this rate applies.
+Note: Any important exemptions or conditions.` }),
+        });
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        f('aiResult').innerHTML = data.text.replace(/\n/g, '<br>').replace(/(GST Rate:|HSN\/SAC Code:|Category:|Explanation:|Note:)/g, '<strong class="text-white">$1</strong>');
+        f('aiResult').classList.remove('hidden');
+      } catch (e) {
+        f('aiResult').innerHTML = `<p class="text-red-400">Error: ${e.message}</p>`;
+        f('aiResult').classList.remove('hidden');
+      }
+      f('aiLoading').classList.add('hidden');
+    }
+    f('aiLookup').addEventListener('click', () => aiLookup(f('aiProduct').value));
+    f('aiProduct').addEventListener('keydown', e => { if (e.key === 'Enter') aiLookup(f('aiProduct').value); });
+    document.querySelectorAll('.ai-preset').forEach(btn => {
+      btn.addEventListener('click', () => { f('aiProduct').value = btn.dataset.q; aiLookup(btn.dataset.q); });
+    });
   </script>
 </Layout>

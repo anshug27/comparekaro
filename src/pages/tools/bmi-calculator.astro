@@ -128,6 +128,19 @@ const schema = {
       </div>
     </div>
 
+    <!-- AI Health Tips -->
+    <div class="glass rounded-2xl p-6 mb-8 border border-emerald-500/20">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-lg">🤖</span>
+        <h2 class="text-lg font-bold text-white">AI: Personalized Health Tips</h2>
+        <span class="text-[10px] px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full font-medium">Powered by Gemini</span>
+      </div>
+      <p class="text-gray-500 text-xs mb-3">Calculate your BMI first, then click the button for personalized tips.</p>
+      <button id="aiHealth" class="w-full px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer text-sm">Get AI Health & Diet Tips</button>
+      <div id="aiHealthLoading" class="hidden text-center py-4"><span class="text-gray-500 text-sm animate-pulse">AI is thinking...</span></div>
+      <div id="aiHealthResult" class="hidden mt-4 glass rounded-xl p-4 text-sm text-gray-300 leading-relaxed"></div>
+    </div>
+
     <AdUnit />
 
     <div class="mt-12 glass rounded-2xl p-6 md:p-8">
@@ -196,6 +209,42 @@ const schema = {
       f('loseWeight').textContent = Math.round(tdee - 500) + ' cal';
 
       f('results').classList.remove('hidden');
+    });
+
+    // AI Health Tips
+    f('aiHealth').addEventListener('click', async () => {
+      const bmi = f('bmiValue').textContent;
+      const cat = f('bmiCategory').textContent;
+      const cal = f('maintain').textContent;
+      const w = f('weight').value;
+      const age = f('age').value;
+      if (!bmi || bmi === '-') { alert('Please calculate your BMI first'); return; }
+      f('aiHealthLoading').classList.remove('hidden');
+      f('aiHealthResult').classList.add('hidden');
+      try {
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: `You are a health & nutrition advisor for Indian users. A ${gender} user, age ${age}, weight ${w}kg, has BMI ${bmi} (${cat}), daily calorie need ~${cal}.
+
+Give personalized advice in this format (plain text):
+1. Health Assessment (2 lines about their BMI category)
+2. Indian Diet Plan (suggest breakfast, lunch, dinner, snacks using common Indian foods like dal, roti, rice, sabzi, dahi, fruits)
+3. Exercise Recommendation (specific exercises, duration, frequency)
+4. 3 Quick Tips specific to their BMI range
+5. Foods to Eat More / Avoid
+
+Keep it practical, use Indian food examples, and be encouraging. Max 300 words.` }),
+        });
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        f('aiHealthResult').innerHTML = data.text.replace(/\n/g, '<br>').replace(/(\d+\.\s+[A-Z][^:]+:)/g, '<strong class="text-white">$1</strong>');
+        f('aiHealthResult').classList.remove('hidden');
+      } catch (e) {
+        f('aiHealthResult').innerHTML = `<p class="text-red-400">Error: ${e.message}</p>`;
+        f('aiHealthResult').classList.remove('hidden');
+      }
+      f('aiHealthLoading').classList.add('hidden');
     });
   </script>
 </Layout>

@@ -1,0 +1,150 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdUnit from '../../components/AdUnit.astro';
+const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'AI Assistant', url: 'https://comparekaro.download/tools/ai-assistant', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' } };
+---
+<Layout title="AI Assistant - Free AI Chat Powered by Gemini" description="Free AI assistant powered by Google Gemini. Ask questions, get help with writing, coding, math, translations, and more. No signup needed." schema={schema}>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <nav class="text-sm text-gray-500 mb-4"><a href="/" class="hover:text-indigo-400">Home</a><span class="mx-2">/</span><a href="/tools" class="hover:text-indigo-400">Tools</a><span class="mx-2">/</span><span class="text-white">AI Assistant</span></nav>
+      <div class="flex items-center gap-3 mb-3">
+        <h1 class="text-3xl md:text-4xl font-bold text-white">AI Assistant</h1>
+        <span class="text-xs px-2 py-1 bg-purple-500/20 text-purple-400 rounded-full font-medium">Gemini</span>
+      </div>
+      <p class="text-gray-400 text-lg">Ask anything. Powered by Google Gemini AI. Free, no signup.</p>
+    </div>
+
+    <!-- Quick prompts -->
+    <div class="flex flex-wrap gap-2 mb-6">
+      {[
+        ['✍️ Write an email', 'Write a professional email to my manager requesting work from home for next week due to personal reasons. Keep it polite and brief.'],
+        ['📝 Blog post', 'Write a short blog post about the benefits of investing in SIP mutual funds for beginners in India. 300 words.'],
+        ['💻 Explain code', 'Explain what this JavaScript code does: const debounce = (fn, ms) => { let timer; return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), ms); }; };'],
+        ['🔢 Math help', 'Solve step by step: A train travels 60 km in 45 minutes. What is its speed in km/h? If it needs to travel 200 km, how long will it take?'],
+        ['🇮🇳 Hindi translate', 'Translate to Hindi: Good morning! How are you doing today? I hope you had a great weekend. Looking forward to our meeting tomorrow.'],
+        ['📋 Cover letter', 'Write a short cover letter for a fresher applying to a software developer position at an IT company in Bangalore. BTech CS graduate, knows React and Node.js.'],
+        ['🎯 Business idea', 'Give me 5 low-investment business ideas that can be started in India with less than ₹50,000. Include estimated monthly income for each.'],
+        ['📊 Excel formula', 'Write an Excel formula to calculate compound interest. Principal in A1, rate in B1 (as %), years in C1. Show the formula and explain it.'],
+      ].map(([label, prompt]) => (
+        <button class="quick-prompt px-3 py-1.5 rounded-lg bg-white/[0.04] text-gray-400 text-xs font-medium hover:bg-purple-500/10 hover:text-purple-400 transition-all cursor-pointer" data-prompt={prompt}>{label}</button>
+      ))}
+    </div>
+
+    <!-- Chat Area -->
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div id="chatHistory" class="space-y-4 mb-6 max-h-[500px] overflow-y-auto">
+        <div class="flex gap-3">
+          <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-sm shrink-0">🤖</div>
+          <div class="glass rounded-xl p-4 text-sm text-gray-300 max-w-[85%]">
+            Hi! I'm your AI assistant powered by Google Gemini. Ask me anything — writing, coding, math, translations, business advice, or just chat. How can I help you today?
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <textarea id="userInput" rows="2" placeholder="Type your message..." class="flex-1 px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-sm text-gray-200 resize-none focus:ring-2 focus:ring-purple-500"></textarea>
+        <button id="sendBtn" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-400 hover:to-indigo-400 text-white font-bold rounded-xl shadow-lg shadow-purple-500/20 transition-all cursor-pointer self-end">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+        </button>
+      </div>
+      <p class="text-[10px] text-gray-600 mt-2">AI can make mistakes. Verify important information. Your messages are not stored.</p>
+    </div>
+
+    <AdUnit />
+
+    <!-- What can you ask -->
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-xl font-bold text-white mb-4">What Can You Ask?</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {[
+          ['✍️ Writing', 'Emails, essays, cover letters, social media posts, blog articles'],
+          ['💻 Coding', 'Debug code, explain concepts, write functions, SQL queries'],
+          ['🔢 Math', 'Solve problems step by step, formulas, conversions'],
+          ['🌐 Translation', 'Hindi, English, Tamil, Telugu, and 100+ languages'],
+          ['📋 Business', 'Business plans, marketing ideas, financial advice'],
+          ['🎓 Study', 'Explain topics, create notes, quiz prep, homework help'],
+        ].map(([title, desc]) => (
+          <div class="p-3 bg-white/[0.03] rounded-lg">
+            <p class="text-white font-medium text-sm">{title}</p>
+            <p class="text-gray-500 text-xs mt-1">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const f = id => document.getElementById(id);
+    const chatHistory = f('chatHistory');
+    const userInput = f('userInput');
+
+    function addMessage(role, text) {
+      const div = document.createElement('div');
+      div.className = 'flex gap-3' + (role === 'user' ? ' flex-row-reverse' : '');
+      const avatar = role === 'user' ? '👤' : '🤖';
+      const bgClass = role === 'user' ? 'bg-indigo-500/20' : 'bg-purple-500/20';
+      const msgBg = role === 'user' ? 'bg-indigo-500/10 border border-indigo-500/20' : 'glass';
+      div.innerHTML = `
+        <div class="w-8 h-8 rounded-full ${bgClass} flex items-center justify-center text-sm shrink-0">${avatar}</div>
+        <div class="${msgBg} rounded-xl p-4 text-sm text-gray-300 max-w-[85%] whitespace-pre-wrap">${escapeHtml(text)}</div>
+      `;
+      chatHistory.appendChild(div);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+      return div;
+    }
+
+    function addLoadingMessage() {
+      const div = document.createElement('div');
+      div.className = 'flex gap-3';
+      div.id = 'loadingMsg';
+      div.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-sm shrink-0">🤖</div>
+        <div class="glass rounded-xl p-4 text-sm text-gray-500 animate-pulse">Thinking...</div>
+      `;
+      chatHistory.appendChild(div);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+      return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    async function sendMessage(text) {
+      if (!text.trim()) return;
+      addMessage('user', text);
+      userInput.value = '';
+      addLoadingMessage();
+      f('sendBtn').disabled = true;
+
+      try {
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: text }),
+        });
+        const data = await res.json();
+        const loading = f('loadingMsg');
+        if (loading) loading.remove();
+        if (data.error) {
+          addMessage('ai', 'Error: ' + data.error);
+        } else {
+          addMessage('ai', data.text || 'No response');
+        }
+      } catch (e) {
+        const loading = f('loadingMsg');
+        if (loading) loading.remove();
+        addMessage('ai', 'Network error: ' + e.message);
+      }
+      f('sendBtn').disabled = false;
+      userInput.focus();
+    }
+
+    f('sendBtn').addEventListener('click', () => sendMessage(userInput.value));
+    userInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(userInput.value); }
+    });
+    document.querySelectorAll('.quick-prompt').forEach(btn => {
+      btn.addEventListener('click', () => { userInput.value = btn.dataset.prompt; sendMessage(btn.dataset.prompt); });
+    });
+  </script>
+</Layout>

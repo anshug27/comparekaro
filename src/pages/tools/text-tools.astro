@@ -60,6 +60,35 @@ const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', na
       <div id="repeatResult" class="hidden mt-3 p-3 bg-white/[0.03] rounded-lg text-xs text-gray-400 max-h-32 overflow-y-auto break-all"></div>
     </div>
 
+    <!-- AI Text Tools -->
+    <div class="glass rounded-2xl p-6 mb-8 border border-purple-500/20">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-lg">🤖</span>
+        <h2 class="text-lg font-bold text-white">AI Text Tools</h2>
+        <span class="text-[10px] px-2 py-0.5 bg-purple-500/20 text-purple-400 rounded-full font-medium">Powered by Gemini</span>
+      </div>
+      <p class="text-gray-500 text-xs mb-3">Type or paste text above, then use these AI actions:</p>
+      <div class="flex flex-wrap gap-2">
+        <button class="ai-text-btn px-4 py-2 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-medium hover:bg-purple-500/20 transition-all cursor-pointer" data-action="rewrite">Rewrite Better</button>
+        <button class="ai-text-btn px-4 py-2 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-medium hover:bg-purple-500/20 transition-all cursor-pointer" data-action="grammar">Fix Grammar</button>
+        <button class="ai-text-btn px-4 py-2 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-medium hover:bg-purple-500/20 transition-all cursor-pointer" data-action="summarize">Summarize</button>
+        <button class="ai-text-btn px-4 py-2 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-medium hover:bg-purple-500/20 transition-all cursor-pointer" data-action="formal">Make Formal</button>
+        <button class="ai-text-btn px-4 py-2 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-medium hover:bg-purple-500/20 transition-all cursor-pointer" data-action="casual">Make Casual</button>
+        <button class="ai-text-btn px-4 py-2 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-medium hover:bg-purple-500/20 transition-all cursor-pointer" data-action="hindi">Translate to Hindi</button>
+        <button class="ai-text-btn px-4 py-2 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-medium hover:bg-purple-500/20 transition-all cursor-pointer" data-action="english">Translate to English</button>
+        <button class="ai-text-btn px-4 py-2 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-medium hover:bg-purple-500/20 transition-all cursor-pointer" data-action="bullets">Convert to Bullet Points</button>
+        <button class="ai-text-btn px-4 py-2 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-medium hover:bg-purple-500/20 transition-all cursor-pointer" data-action="email">Write as Email</button>
+      </div>
+      <div id="aiTextLoading" class="hidden text-center py-4"><span class="text-gray-500 text-sm animate-pulse">AI is processing...</span></div>
+      <div id="aiTextResult" class="hidden mt-4 glass rounded-xl p-4">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs text-gray-500">AI Result</span>
+          <button id="aiCopyBtn" class="text-xs px-3 py-1 bg-white/[0.06] rounded text-gray-400 hover:text-white cursor-pointer">Copy</button>
+        </div>
+        <div id="aiTextOutput" class="text-sm text-gray-300 leading-relaxed whitespace-pre-wrap"></div>
+      </div>
+    </div>
+
     <AdUnit />
   </section>
 
@@ -117,6 +146,47 @@ const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', na
         f('repeatResult').classList.remove('hidden');
         navigator.clipboard.writeText(result);
       }
+    });
+
+    // AI Text Tools
+    const aiPrompts = {
+      rewrite: t => `Rewrite the following text to be clearer and better written. Return only the rewritten text, nothing else:\n\n${t}`,
+      grammar: t => `Fix all grammar, spelling, and punctuation errors in the following text. Return only the corrected text:\n\n${t}`,
+      summarize: t => `Summarize the following text concisely in 2-4 sentences. Return only the summary:\n\n${t}`,
+      formal: t => `Rewrite the following text in a formal, professional tone. Return only the rewritten text:\n\n${t}`,
+      casual: t => `Rewrite the following text in a casual, friendly tone. Return only the rewritten text:\n\n${t}`,
+      hindi: t => `Translate the following text to Hindi (Devanagari script). Return only the translation:\n\n${t}`,
+      english: t => `Translate the following text to English. Return only the translation:\n\n${t}`,
+      bullets: t => `Convert the following text into a bullet point list. Return only the bullet points:\n\n${t}`,
+      email: t => `Write the following as a professional email with subject line, greeting, body, and sign-off. Return only the email:\n\n${t}`,
+    };
+    document.querySelectorAll('.ai-text-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const text = input.value.trim();
+        if (!text) { alert('Please enter some text first'); return; }
+        f('aiTextLoading').classList.remove('hidden');
+        f('aiTextResult').classList.add('hidden');
+        try {
+          const res = await fetch('/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: aiPrompts[btn.dataset.action](text.slice(0, 10000)) }),
+          });
+          const data = await res.json();
+          if (data.error) throw new Error(data.error);
+          f('aiTextOutput').textContent = data.text;
+          f('aiTextResult').classList.remove('hidden');
+        } catch (e) {
+          f('aiTextOutput').textContent = 'Error: ' + e.message;
+          f('aiTextResult').classList.remove('hidden');
+        }
+        f('aiTextLoading').classList.add('hidden');
+      });
+    });
+    f('aiCopyBtn').addEventListener('click', () => {
+      navigator.clipboard.writeText(f('aiTextOutput').textContent);
+      f('aiCopyBtn').textContent = 'Copied!';
+      setTimeout(() => f('aiCopyBtn').textContent = 'Copy', 1500);
     });
   </script>
 </Layout>

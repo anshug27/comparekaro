@@ -78,6 +78,19 @@ const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', na
       </div>
     </div>
 
+    <!-- AI Financial Advice -->
+    <div class="glass rounded-2xl p-6 mb-8 border border-indigo-500/20">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-lg">🤖</span>
+        <h2 class="text-lg font-bold text-white">AI: Personalized Loan Advice</h2>
+        <span class="text-[10px] px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-full font-medium">Powered by Gemini</span>
+      </div>
+      <p class="text-gray-500 text-xs mb-3">Check eligibility first, then get AI advice on the best loan strategy.</p>
+      <button id="aiLoan" class="w-full px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-400 hover:to-purple-400 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer text-sm">Get AI Financial Advice</button>
+      <div id="aiLoanLoading" class="hidden text-center py-4"><span class="text-gray-500 text-sm animate-pulse">AI is thinking...</span></div>
+      <div id="aiLoanResult" class="hidden mt-4 glass rounded-xl p-4 text-sm text-gray-300 leading-relaxed"></div>
+    </div>
+
     <AdUnit />
 
     <div class="glass rounded-2xl p-6">
@@ -147,6 +160,49 @@ const schema = { '@context': 'https://schema.org', '@type': 'WebApplication', na
       f('tips').innerHTML = tips.map(t => `<p>&#8226; ${t}</p>`).join('');
 
       f('results').classList.remove('hidden');
+    });
+
+    // AI Financial Advice
+    f('aiLoan').addEventListener('click', async () => {
+      const salary = f('salary').value;
+      const expenses = f('expenses').value;
+      const existingEmi = f('existingEmi').value;
+      const type = f('loanType').options[f('loanType').selectedIndex].text;
+      const maxLoanAmt = f('maxLoan').textContent;
+      const foir = f('foirLabel').textContent;
+      if (maxLoanAmt === '-') { alert('Check eligibility first'); return; }
+      f('aiLoanLoading').classList.remove('hidden');
+      f('aiLoanResult').classList.add('hidden');
+      try {
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: `You are an Indian personal finance advisor. A user has:
+- Monthly salary: ₹${salary}
+- Monthly expenses: ₹${expenses}
+- Existing EMIs: ₹${existingEmi}/month
+- Looking for: ${type}
+- Eligible for: ${maxLoanAmt}
+- FOIR: ${foir}
+
+Give practical advice:
+1. Should they take this loan now? (based on their finances)
+2. Which 3 banks offer the best rates for this loan type in India right now?
+3. How to improve eligibility (increase amount or get better rate)
+4. Tax benefits available for this loan type
+5. One key warning/tip
+
+Keep it specific to their numbers. Max 250 words. Plain text, no markdown.` }),
+        });
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        f('aiLoanResult').innerHTML = data.text.replace(/\n/g, '<br>').replace(/(\d+\.\s+[A-Z][^:]+:)/g, '<strong class="text-white">$1</strong>');
+        f('aiLoanResult').classList.remove('hidden');
+      } catch (e) {
+        f('aiLoanResult').innerHTML = `<p class="text-red-400">Error: ${e.message}</p>`;
+        f('aiLoanResult').classList.remove('hidden');
+      }
+      f('aiLoanLoading').classList.add('hidden');
     });
   </script>
 </Layout>
