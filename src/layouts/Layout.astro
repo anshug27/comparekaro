@@ -94,6 +94,10 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
             <a href="/compare" class="px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg font-medium transition-all">Phones</a>
             <a href="/tools/laptop-compare" class="px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg font-medium transition-all">Laptops</a>
             <a href="/tools/car-compare" class="px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg font-medium transition-all">Cars</a>
+            <a href="/study" class="px-4 py-2 text-sm text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 rounded-lg font-medium transition-all flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838l-3.14 1.346L9.606 11.92a1 1 0 00.788 0l7-3a1 1 0 000-1.84l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0z"/></svg>
+              Study
+            </a>
             <a href="/tools/plan-finder" class="ml-2 px-4 py-2 text-sm font-semibold bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white rounded-lg transition-all shadow-lg shadow-indigo-500/20">
               Find Plans
             </a>
@@ -111,6 +115,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
           <a href="/compare" class="block px-4 py-2.5 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg font-medium transition-all">Phones</a>
           <a href="/tools/laptop-compare" class="block px-4 py-2.5 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg font-medium transition-all">Laptops</a>
           <a href="/tools/car-compare" class="block px-4 py-2.5 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg font-medium transition-all">Cars</a>
+          <a href="/study" class="block px-4 py-2.5 text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 rounded-lg font-medium transition-all">Study (AI Tools)</a>
           <a href="/tools/plan-finder" class="block px-4 py-2.5 text-white bg-gradient-to-r from-indigo-500 to-pink-500 rounded-lg font-semibold mt-2">Find Plans</a>
         </div>
       </nav>
@@ -168,8 +173,9 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
             </ul>
           </div>
           <div>
-            <h4 class="text-white font-bold mb-5 tracking-wide text-xs uppercase">Company</h4>
+            <h4 class="text-white font-bold mb-5 tracking-wide text-xs uppercase">More</h4>
             <ul class="space-y-3 text-sm text-gray-500">
+              <li><a href="/study" class="hover:text-emerald-400 transition-colors">AI Study Tools</a></li>
               <li><a href="/about" class="hover:text-indigo-400 transition-colors">About Us</a></li>
               <li><a href="/privacy" class="hover:text-indigo-400 transition-colors">Privacy Policy</a></li>
               <li><a href="/contact" class="hover:text-indigo-400 transition-colors">Contact Us</a></li>
