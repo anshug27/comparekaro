@@ -32,6 +32,11 @@ const ogImageUrl = ogImage ? new URL(ogImage, siteUrl).href : new URL('/og/defau
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="CompareKaro" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#0a0a1a" />
     <meta name="author" content="CompareKaro" />
@@ -200,6 +205,27 @@ const ogImageUrl = ogImage ? new URL(ogImage, siteUrl).href : new URL('/og/defau
       </div>
     </footer>
 
+    <!-- PWA Install Banner -->
+    <div id="pwa-install" class="fixed bottom-0 left-0 right-0 z-[60] translate-y-full transition-transform duration-500">
+      <div class="max-w-lg mx-auto px-4 pb-4">
+        <div class="bg-[#12122a] border border-indigo-500/30 rounded-2xl p-4 shadow-2xl shadow-black/50 backdrop-blur-xl">
+          <div class="flex items-center gap-3">
+            <img src="/icons/icon-192.png" alt="CompareKaro" class="w-12 h-12 rounded-xl" />
+            <div class="flex-1 min-w-0">
+              <p class="text-white font-bold text-sm">Add CompareKaro to Home Screen</p>
+              <p class="text-gray-500 text-xs">Quick access to 40+ free tools</p>
+            </div>
+            <button id="pwa-close" class="text-gray-600 hover:text-white p-1 cursor-pointer" aria-label="Dismiss">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <button id="pwa-install-btn" class="mt-3 w-full px-4 py-2.5 bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold rounded-xl text-sm transition-all cursor-pointer shadow-lg shadow-indigo-500/20">
+            Install App
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script>
       // Mobile menu toggle
       const btn = document.getElementById('mobile-menu-btn');
@@ -223,6 +249,82 @@ const ogImageUrl = ogImage ? new URL(ogImage, siteUrl).href : new URL('/og/defau
         }
         lastScroll = y;
       }, { passive: true });
+    </script>
+
+    <!-- Service Worker + PWA Install Prompt -->
+    <script is:inline>
+      // Register service worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').catch(function() {});
+        });
+      }
+
+      // PWA install prompt
+      var deferredPrompt = null;
+      var installBanner = document.getElementById('pwa-install');
+      var installBtn = document.getElementById('pwa-install-btn');
+      var closeBtn = document.getElementById('pwa-close');
+
+      // Check if already dismissed recently (24 hours)
+      var dismissed = localStorage.getItem('pwa-dismissed');
+      var dismissTime = dismissed ? parseInt(dismissed) : 0;
+      var showBanner = Date.now() - dismissTime > 86400000; // 24 hours
+
+      // Check if already installed (standalone mode)
+      var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+      // Android/Chrome: beforeinstallprompt fires when installable
+      window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (showBanner && !isStandalone) {
+          setTimeout(function() {
+            installBanner.classList.remove('translate-y-full');
+          }, 3000); // Show after 3 seconds
+        }
+      });
+
+      // iOS Safari: no beforeinstallprompt, show manual instructions
+      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      if (isIOS && !isStandalone && showBanner) {
+        setTimeout(function() {
+          installBtn.textContent = 'Tap Share ⬆ then "Add to Home Screen"';
+          installBtn.addEventListener('click', function() {
+            alert('To install CompareKaro:\n\n1. Tap the Share button (⬆) at the bottom of Safari\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add"\n\nYou\'ll get a home screen icon for quick access!');
+          });
+          installBanner.classList.remove('translate-y-full');
+        }, 3000);
+      }
+
+      // Install button click (Android/Chrome)
+      if (installBtn) {
+        installBtn.addEventListener('click', function() {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function(choice) {
+              if (choice.outcome === 'accepted') {
+                installBanner.classList.add('translate-y-full');
+              }
+              deferredPrompt = null;
+            });
+          }
+        });
+      }
+
+      // Close/dismiss
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+          installBanner.classList.add('translate-y-full');
+          localStorage.setItem('pwa-dismissed', Date.now().toString());
+        });
+      }
+
+      // Hide if installed
+      window.addEventListener('appinstalled', function() {
+        installBanner.classList.add('translate-y-full');
+        deferredPrompt = null;
+      });
     </script>
   </body>
 </html>
