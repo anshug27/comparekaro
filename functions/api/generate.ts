@@ -5,7 +5,7 @@ interface Env {
   GEMINI_API_KEY: string;
 }
 
-const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent';
 
 const SYSTEM_PROMPT = `You are "CompareKaro AI" — the friendly, smart AI assistant built into CompareKaro (comparekaro.pages.dev), India's free comparison and calculator platform.
 
