@@ -57,18 +57,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       });
     }
 
-    // Read body as text first then parse to avoid Cloudflare stream issues
-    const rawBody = await context.request.text();
-    let body: { prompt?: string };
-    try {
-      body = JSON.parse(rawBody);
-    } catch {
-      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders },
-      });
-    }
-
+    const body = await context.request.json().catch(() => null) as { prompt?: string } | null;
     const prompt = body?.prompt;
     if (!prompt || typeof prompt !== 'string') {
       return new Response(JSON.stringify({ error: 'Missing prompt' }), {
@@ -116,7 +105,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   } catch (e: any) {
-    return new Response(JSON.stringify({ error: e.message || 'Server error' }), {
+    return new Response(JSON.stringify({ error: 'Server error: ' + (e.message || String(e)) }), {
       status: 500,
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
