@@ -1,13 +1,11 @@
-// Cloudflare Pages Function - server-side AI proxy
+// Astro API route - server-side AI proxy
 // CompareKaro branded AI assistant powered by Gemini
+export const prerender = false;
 
-interface Env {
-  GEMINI_API_KEY: string;
-}
+import type { APIRoute } from 'astro';
 
 const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
-// CompareKaro branded system prompt
 const SYSTEM_PROMPT = `You are "CompareKaro AI" — the friendly, smart AI assistant built into CompareKaro (comparekaro.pages.dev), India's free comparison and calculator platform.
 
 ## Your Identity
@@ -42,15 +40,17 @@ const SYSTEM_PROMPT = `You are "CompareKaro AI" — the friendly, smart AI assis
 ## Tools on CompareKaro (refer users to these when relevant)
 EMI Calculator (/tools/emi-calculator), SIP Calculator (/tools/sip-calculator), FD Calculator (/tools/fd-calculator), Salary & Tax Calculator (/tools/salary-calculator), GST Calculator (/tools/gst-calculator), Loan Eligibility (/tools/loan-eligibility), Savings Goal (/tools/savings-goal), Currency Converter (/tools/currency-converter), Mobile Plan Finder (/tools/plan-finder), Broadband Compare (/tools/broadband-compare), Phone Comparison (/compare), Laptop Compare (/tools/laptop-compare), Car Compare (/tools/car-compare), BMI Calculator (/tools/bmi-calculator), Age Calculator (/tools/age-calculator), Fuel Calculator (/tools/fuel-calculator), Gold & Silver (/tools/gold-silver-price), Resume Builder (/tools/resume-builder), QR Generator (/tools/qr-generator), AI Study Tools (/study → studygenie.pages.dev)`;
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-  };
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
 
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const apiKey = context.env.GEMINI_API_KEY;
+    const runtime = (locals as any).runtime;
+    const apiKey = runtime?.env?.GEMINI_API_KEY;
+
     if (!apiKey) {
       return new Response(JSON.stringify({ error: 'AI service not configured. Please add GEMINI_API_KEY in Cloudflare Pages settings.' }), {
         status: 500,
@@ -58,7 +58,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       });
     }
 
-    const body = await context.request.json() as { prompt?: string; skipSystem?: boolean };
+    const body = await request.json() as { prompt?: string };
     const prompt = body?.prompt;
 
     if (!prompt || typeof prompt !== 'string') {
@@ -75,11 +75,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       });
     }
 
-    // Build contents with system instruction
-    const contents = [
-      { role: 'user', parts: [{ text: prompt }] },
-    ];
-
     const res = await fetch(`${GEMINI_ENDPOINT}?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -87,7 +82,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         systemInstruction: {
           parts: [{ text: SYSTEM_PROMPT }],
         },
-        contents,
+        contents: [
+          { role: 'user', parts: [{ text: prompt }] },
+        ],
         generationConfig: {
           temperature: 0.7,
           maxOutputTokens: 4096,
@@ -117,12 +114,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
 };
 
-export const onRequestOptions: PagesFunction = async () => {
+export const OPTIONS: APIRoute = async () => {
   return new Response(null, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
+    headers: corsHeaders,
   });
 };
