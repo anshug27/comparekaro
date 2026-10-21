@@ -58,7 +58,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
       });
     }
 
-    const body = await request.json() as { prompt?: string };
+    // Read body as text first, then parse — avoids "did not match expected pattern" on Cloudflare
+    const rawBody = await request.text();
+    let body: { prompt?: string };
+    try {
+      body = JSON.parse(rawBody);
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+      });
+    }
     const prompt = body?.prompt;
 
     if (!prompt || typeof prompt !== 'string') {
