@@ -1,8 +1,9 @@
-// Astro API route - server-side AI proxy
-// CompareKaro branded AI assistant powered by Gemini
-export const prerender = false;
+// Cloudflare Pages Function - CompareKaro AI proxy
+// This runs as a serverless function on Cloudflare Pages
 
-import type { APIRoute } from 'astro';
+interface Env {
+  GEMINI_API_KEY: string;
+}
 
 const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
@@ -46,11 +47,9 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
-    const runtime = (locals as any).runtime;
-    const apiKey = runtime?.env?.GEMINI_API_KEY;
-
+    const apiKey = context.env.GEMINI_API_KEY;
     if (!apiKey) {
       return new Response(JSON.stringify({ error: 'AI service not configured. Please add GEMINI_API_KEY in Cloudflare Pages settings.' }), {
         status: 500,
@@ -58,19 +57,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
       });
     }
 
-    // Read body as text first, then parse — avoids "did not match expected pattern" on Cloudflare
-    const rawBody = await request.text();
+    // Read body as text first then parse to avoid Cloudflare stream issues
+    const rawBody = await context.request.text();
     let body: { prompt?: string };
     try {
       body = JSON.parse(rawBody);
     } catch {
-      return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json', ...corsHeaders },
       });
     }
-    const prompt = body?.prompt;
 
+    const prompt = body?.prompt;
     if (!prompt || typeof prompt !== 'string') {
       return new Response(JSON.stringify({ error: 'Missing prompt' }), {
         status: 400,
@@ -124,8 +123,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 };
 
-export const OPTIONS: APIRoute = async () => {
-  return new Response(null, {
-    headers: corsHeaders,
-  });
+export const onRequestOptions: PagesFunction = async () => {
+  return new Response(null, { headers: corsHeaders });
 };
